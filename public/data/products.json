@@ -1,0 +1,128 @@
+{
+    "categories": [
+      {
+        "id": 1,
+        "name": "Cat Foods",
+        "image": "/images/pet-foods.webp",
+        "items": [
+          {
+            "id": 101,
+            "name": "Premium Cat Food",
+            "description": "A high-quality cat food with essential nutrients for your feline.",
+            "price": 24.99,
+            "image": "cat_food_premium.jpg",
+            "stock": 50
+          },
+          {
+            "id": 102,
+            "name": "Organic Cat Food",
+            "description": "Nutritious and organic food for your pet rabbit.",
+            "price": 18.99,
+            "image": "rabbit_food_organic.jpg",
+            "stock": 30
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Dog Foods",
+        "image": "/images/dog-foods.jfif",
+        "items": [
+          {
+            "id": 201,
+            "name": "Grain-Free Dog Food",
+            "description": "A healthy and grain-free option for your dog.",
+            "price": 29.99,
+            "image": "dog_food_grain_free.jpg",
+            "stock": 45
+          },
+          {
+            "id": 202,
+            "name": "Puppy Growth Formula",
+            "description": "Special formula designed for growing puppies.",
+            "price": 22.99,
+            "image": "puppy_growth_formula.jpg",
+            "stock": 60
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Cat Medicines",
+        "image": "/images/cat-medicines.jfif",
+        "items": [
+          {
+            "id": 301,
+            "name": "General Vitamin Supplements",
+            "description": "Vitamins and minerals to keep your pet healthy.",
+            "price": 12.99,
+            "image": "vitamin_supplements.jpg",
+            "stock": 100
+          },
+          {
+            "id": 302,
+            "name": "Flea and Tick Prevention",
+            "description": "Prevent fleas and ticks with this effective treatment.",
+            "price": 19.99,
+            "image": "flea_tick_prevention.jpg",
+            "stock": 75
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Dog Medicines",
+        "image": "/images/dog-medicines.jfif",
+        "items": [
+          {
+            "id": 401,
+            "name": "Hip and Joint Supplements",
+            "description": "Support your dog's joint health with these supplements.",
+            "price": 15.99,
+            "image": "hip_joint_supplements.jpg",
+            "stock": 80
+          },
+          {
+            "id": 402,
+            "name": "Anti-Inflammatory Tablets",
+            "description": "Effective anti-inflammatory medication for dogs.",
+            "price": 25.99,
+            "image": "anti_inflammatory_tablets.jpg",
+            "stock": 40
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Pets Accessories",
+        "image": "/images/pet-accessories.webp",
+        "items": [
+          {
+            "id": 501,
+            "name": "Hip Chair",
+            "description": "Support your dog's joint health with these supplements.",
+            "price": 20.99,
+            "image": "hip_joint_supplements.jpg",
+            "stock": 80
+          },
+          {
+            "id": 502,
+            "name": "Travel Bag",
+            "description": "Effective anti-inflammatory medication for dogs.",
+            "price": 25.99,
+            "image": "anti_inflammatory_tablets.jpg",
+            "stock": 40
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Others",
+        "image": "/images/pet-accessories2.avif",
+        "items": [
+          
+        ]
+      }
+    ]
+  }
+  
