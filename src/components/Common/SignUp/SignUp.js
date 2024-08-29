@@ -2,6 +2,7 @@
 import { FaFacebookF, FaGoogle } from "react-icons/fa6";
 import { useState } from "react";
 import Link from "next/link";
+import Input from "../Input/Input";
 
 const SignUpPage = () => {
     const [user_type, set_user_type] = useState("petowner");
@@ -11,11 +12,11 @@ const SignUpPage = () => {
                 <>
                     <h2 className="text-3xl font-semibold mb-10">Create an account</h2>
                     <form action="#" className="flex flex-col gap-3">
-                        <input type="text" placeholder="Full name" className="border border-gray-400 p-3 rounded-md outline-[#58294E]" />
-                        <input type="email" placeholder="Email address" className="border border-gray-400 p-3 rounded-md outline-[#58294E]" />
-                        <input type="password" placeholder="Password" className="border border-gray-400 p-3 rounded-md outline-[#58294E]" />
+                        <Input type="text" placeholder="Your name" />
+                        <Input type="email" placeholder="Email address" />
+                        <Input type="password" placeholder="Password" />
                         <div className="flex items-center gap-2">
-                        <input type="checkbox" id="veterinarian" />
+                        <Input type="checkbox" id="veterinarian" />
                         <label for="veterinarian">Join as a veterinarian</label>
                         </div>
                         <input type="submit" value="Continue" className="bg-primary p-3 rounded-md cursor-pointer text-white mt-5" />

@@ -1,5 +1,6 @@
 import { FaFacebookF, FaGoogle } from "react-icons/fa6";
 import Link from "next/link";
+import Input from "../Input/Input";
 
 const SignInPage = () => {
     return (
@@ -8,8 +9,8 @@ const SignInPage = () => {
                 <>
                     <h2 className="text-3xl font-semibold mb-10">Welcome back</h2>
                     <form action="#" className="flex flex-col gap-3">
-                        <input type="email" placeholder="Email address" className="border border-gray-400 p-3 rounded-md outline-[#58294E]" />
-                        <input type="password" placeholder="Password" className="border border-gray-400 p-3 rounded-md outline-[#58294E]" />
+                        <Input type="email" placeholder="Email address" />
+                        <Input type="password" placeholder="Password" />
                         <div className="flex">
                         <Link className="text-primary" href="">Forgot password?</Link>
                         </div>
