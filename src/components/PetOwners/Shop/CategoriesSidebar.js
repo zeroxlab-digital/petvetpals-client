@@ -5,7 +5,6 @@ import { HiChevronRight, HiOutlineSquaresPlus, HiSquares2X2, HiSquaresPlus } fro
 
 const CategoriesSidebar = () => {
     const categories = GetCategories();
-    console.log(categories)
     return (
         <aside className="">
             <h3 className="font-semibold text-lg mb-3 flex items-center gap-2 text-primary"><HiSquares2X2 className="font-bold text-xl" /> Shop By Category</h3>

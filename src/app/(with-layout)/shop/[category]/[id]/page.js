@@ -1,12 +1,12 @@
+import ProductDetails from "@/pages/PetOwners/Shop/ProductDetails";
 
 
-const ProductDetails = ({params}) => {
-    console.log(params);
+const ProductDetailsPage = ({params}) => {
     return (
         <div>
-            Product details
+            <ProductDetails params={params} />
         </div>
     );
 };
 
-export default ProductDetails;
+export default ProductDetailsPage;
