@@ -1,12 +1,12 @@
-import ShopItemsPage from '@/pages/PetOwners/Shop/ShopItemsPage';
+import Products from '@/pages/PetOwners/Shop/Products';
 import React from 'react';
 
-const ShopItems = ({ params }) => {
+const ProductsPage = ({ params }) => {
     return (
         <div className=''>
-            <ShopItemsPage params={params} />
+            <Products params={params} />
         </div>
     );
 };
 
-export default ShopItems;
+export default ProductsPage;

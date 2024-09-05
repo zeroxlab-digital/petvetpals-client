@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const ShopItemsPage = ({ params }) => {
+const Products = ({ params }) => {
     const id = params.category;
     const [items, setItems] = useState([]);
     useEffect(() => {
@@ -38,4 +38,4 @@ const ShopItemsPage = ({ params }) => {
     );
 };
 
-export default ShopItemsPage;
+export default Products;
