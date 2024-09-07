@@ -1,16 +1,20 @@
-"use client";
-import { useEffect, useState } from 'react';
-const GetCategories = () => {
-    const [categories, setCategories] = useState([]);
-    useEffect(() => {
-        const fetchCategories = async () => {
-            const res = await fetch('/data/products.json');
-            const data = await res.json();
-            setCategories(data.categories);
-        };
 
-        fetchCategories();
-    }, []);
-    return categories;
+import useProducts from '../../hooks/useProducts';
+const GetCategories = () => {
+    const products = useProducts();
+
+    // Create a Map to filter out duplicate categories based on category_slug
+    const categoriesMap = new Map();
+    products?.forEach(product => {
+        const category = product.category;
+        // Only add category if the slug doesn't already exist in the Map
+        if (!categoriesMap.has(category.category_slug)) {
+            categoriesMap.set(category.category_slug, category);
+        }
+    });
+    // Convert the Map values to an array
+    const uniqueCategories = Array.from(categoriesMap.values());
+    
+    return uniqueCategories || [];
 }
 export default GetCategories;

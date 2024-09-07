@@ -3,7 +3,7 @@ import React from 'react';
 
 const ProductsPage = ({ params }) => {
     return (
-        <div className=''>
+        <div>
             <Products params={params} />
         </div>
     );

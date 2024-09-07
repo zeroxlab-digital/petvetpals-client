@@ -1,21 +1,21 @@
 "use client";
 import GetCategories from "@/utils/GetCategories";
 import Link from "next/link";
-import { HiChevronRight, HiOutlineSquaresPlus, HiSquares2X2, HiSquaresPlus } from "react-icons/hi2";
+import { HiChevronRight, HiSquares2X2 } from "react-icons/hi2";
 
 const CategoriesSidebar = () => {
     const categories = GetCategories();
     return (
-        <aside className="">
+        <aside className="sticky top-28 h-screen overflow-auto ">
             <h3 className="font-semibold text-lg mb-3 flex items-center gap-2 text-primary"><HiSquares2X2 className="font-bold text-xl" /> Shop By Category</h3>
             <ul>
-                {categories.map(({ id, name }, index) => (
+                {categories.map(({ category_slug, category_name, category_image }, index) => (
                     <Link
-                        key={id}
+                        key={category_slug}
                         href={{
-                            pathname: `/shop/${id}`,
+                            pathname: `/shop/${category_slug}`,
                             query: {
-                                title: `${name}`,
+                                // title: `${category_name}`,
                             },
                         }}
                     >
@@ -23,7 +23,7 @@ const CategoriesSidebar = () => {
                             className={` py-4 flex items-center justify-between border-b ${index === categories.length - 1 ? 'border-none' : ''
                                 }`}
                         >
-                            {name} <HiChevronRight />
+                            {category_name} <HiChevronRight />
                         </li>
                     </Link>
                 ))}

@@ -6,7 +6,7 @@ import Cart from "./Cart";
 
 const Header = () => {
     return (
-        <header className="shadow-md py-4">
+        <header className="shadow-md py-4 w-full sticky top-0 overflow-auto bg-white z-10">
             <div className="flex items-center justify-between container">
                 <div className="flex items-center gap-16">
                     <Link href="/"><Image src="/images/petsfet-logo.png" alt="PetsFet Logo" width={100} height={100} /></Link>
