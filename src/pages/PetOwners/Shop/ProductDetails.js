@@ -2,6 +2,7 @@
 import Quantity from "@/components/PetOwners/Shop/Quantity";
 import Image from "next/image";
 import useProducts from "../../../../hooks/useProducts";
+import ProductDetailsTabs from "@/components/PetOwners/Shop/ProductDetailsTabs";
 
 const ProductDetails = ({ params }) => {
     const products = useProducts();
@@ -10,9 +11,9 @@ const ProductDetails = ({ params }) => {
     return (
         <div>
             <h2 className="text-lg font-semibold text-primary">Product Details</h2>
-            <div className="grid grid-cols-[4fr_5fr] gap-5 mt-5">
+            <div className="grid grid-cols-2 gap-5 mt-5">
                 <div className="image-details bg-gray-200 p-5 rounded-md">
-                    <Image src="/images/pet-accessories2.avif" alt="product image" width={100} height={100} className="w-full h-full" />
+                    <Image src="/images/pet-accessories2.avif" alt="product image" width={500} height={100} className="" />
                 </div>
                 <div className="product-details">
                     <h2 className="font-bold text-3xl mb-3">{name}</h2>
@@ -25,6 +26,7 @@ const ProductDetails = ({ params }) => {
                     </div>
                 </div>
             </div>
+            <ProductDetailsTabs name={name} description={product_description} details={product_details} category={category} />
         </div>
     );
 };

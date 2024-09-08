@@ -1,128 +1,322 @@
-{
-    "categories": [
-      {
-        "id": 1,
-        "name": "Cat Foods",
-        "image": "/images/pet-foods.webp",
-        "items": [
-          {
-            "id": 101,
-            "name": "Premium Cat Food",
-            "description": "A high-quality cat food with essential nutrients for your feline.",
-            "price": 24.99,
-            "image": "cat_food_premium.jpg",
-            "stock": 50
-          },
-          {
-            "id": 102,
-            "name": "Organic Cat Food",
-            "description": "Nutritious and organic food for your pet rabbit.",
-            "price": 18.99,
-            "image": "rabbit_food_organic.jpg",
-            "stock": 30
-          }
-        ]
+[
+  {
+      "_id": 101,
+      "name": "Premium Cat Food",
+      "product_description": "A high-quality cat food with essential nutrients for your feline.",
+      "price": 24.99,
+      "product_image": "cat_food_premium.jpg",
+      "stock": 50,
+      "category": {
+          "category_name": "Cat Foods",
+          "category_slug": "cat-foods",
+          "category_image": "/images/pet-foods.webp"
       },
-      {
-        "id": 2,
-        "name": "Dog Foods",
-        "image": "/images/dog-foods.jfif",
-        "items": [
-          {
-            "id": 201,
-            "name": "Grain-Free Dog Food",
-            "description": "A healthy and grain-free option for your dog.",
-            "price": 29.99,
-            "image": "dog_food_grain_free.jpg",
-            "stock": 45
+      "product_details": {
+          "ingredients": ["Chicken", "Rice", "Fish Oil"],
+          "nutritional_info": {
+              "protein": "30%",
+              "fat": "15%",
+              "fiber": "3%"
           },
-          {
-            "id": 202,
-            "name": "Puppy Growth Formula",
-            "description": "Special formula designed for growing puppies.",
-            "price": 22.99,
-            "image": "puppy_growth_formula.jpg",
-            "stock": 60
-          }
-        ]
-      },
-      {
-        "id": 3,
-        "name": "Cat Medicines",
-        "image": "/images/cat-medicines.jfif",
-        "items": [
-          {
-            "id": 301,
-            "name": "General Vitamin Supplements",
-            "description": "Vitamins and minerals to keep your pet healthy.",
-            "price": 12.99,
-            "image": "vitamin_supplements.jpg",
-            "stock": 100
-          },
-          {
-            "id": 302,
-            "name": "Flea and Tick Prevention",
-            "description": "Prevent fleas and ticks with this effective treatment.",
-            "price": 19.99,
-            "image": "flea_tick_prevention.jpg",
-            "stock": 75
-          }
-        ]
-      },
-      {
-        "id": 4,
-        "name": "Dog Medicines",
-        "image": "/images/dog-medicines.jfif",
-        "items": [
-          {
-            "id": 401,
-            "name": "Hip and Joint Supplements",
-            "description": "Support your dog's joint health with these supplements.",
-            "price": 15.99,
-            "image": "hip_joint_supplements.jpg",
-            "stock": 80
-          },
-          {
-            "id": 402,
-            "name": "Anti-Inflammatory Tablets",
-            "description": "Effective anti-inflammatory medication for dogs.",
-            "price": 25.99,
-            "image": "anti_inflammatory_tablets.jpg",
-            "stock": 40
-          }
-        ]
-      },
-      {
-        "id": 5,
-        "name": "Pets Accessories",
-        "image": "/images/pet-accessories.webp",
-        "items": [
-          {
-            "id": 501,
-            "name": "Hip Chair",
-            "description": "Support your dog's joint health with these supplements.",
-            "price": 20.99,
-            "image": "hip_joint_supplements.jpg",
-            "stock": 80
-          },
-          {
-            "id": 502,
-            "name": "Travel Bag",
-            "description": "Effective anti-inflammatory medication for dogs.",
-            "price": 25.99,
-            "image": "anti_inflammatory_tablets.jpg",
-            "stock": 40
-          }
-        ]
-      },
-      {
-        "id": 6,
-        "name": "Others",
-        "image": "/images/pet-accessories2.avif",
-        "items": [
-          
-        ]
+          "brand": "Cat Premium"
       }
-    ]
+  },
+  {
+      "_id": 102,
+      "name": "Organic Cat Food",
+      "product_description": "Nutritious and organic food for your pet cat.",
+      "price": 18.99,
+      "product_image": "cat_food_organic.jpg",
+      "stock": 30,
+      "category": {
+          "category_name": "Cat Foods",
+          "category_slug": "cat-foods",
+          "category_image": "/images/pet-foods.webp"
+      },
+      "product_details": {
+          "ingredients": ["Organic Chicken", "Carrots", "Sweet Potatoes"],
+          "nutritional_info": {
+              "protein": "28%",
+              "fat": "12%",
+              "fiber": "4%"
+          },
+          "brand": "Organic Pet"
+      }
+  },
+  {
+      "_id": 103,
+      "name": "Natural Cat Food",
+      "product_description": "Nutritious and organic food for your pet cat.",
+      "price": 19.99,
+      "product_image": "cat_food_organic.jpg",
+      "stock": 40,
+      "category": {
+          "category_name": "Cat Foods",
+          "category_slug": "cat-foods",
+          "category_image": "/images/pet-foods.webp"
+      },
+      "product_details": {
+          "ingredients": ["Organic Chicken", "Carrots", "Sweet Potatoes"],
+          "nutritional_info": {
+              "protein": "28%",
+              "fat": "12%",
+              "fiber": "4%"
+          },
+          "brand": "Organic Pet"
+      }
+  },
+  {
+      "_id": 104,
+      "name": "Exported Cat Food",
+      "product_description": "Nutritious and organic food for your pet cat.",
+      "price": 10.99,
+      "product_image": "cat_food_organic.jpg",
+      "stock": 32,
+      "category": {
+          "category_name": "Cat Foods",
+          "category_slug": "cat-foods",
+          "category_image": "/images/pet-foods.webp"
+      },
+      "product_details": {
+          "ingredients": ["Organic Chicken", "Carrots", "Sweet Potatoes"],
+          "nutritional_info": {
+              "protein": "28%",
+              "fat": "12%",
+              "fiber": "4%"
+          },
+          "brand": "Organic Pet"
+      }
+  },
+  {
+      "_id": 201,
+      "name": "Grain-Free Dog Food",
+      "product_description": "A healthy and grain-free option for your dog.",
+      "price": 29.99,
+      "product_image": "dog_food_grain_free.jpg",
+      "stock": 45,
+      "category": {
+          "category_name": "Dog Foods",
+          "category_slug": "dog-foods",
+          "category_image": "/images/dog-foods.jfif"
+      },
+      "product_details": {
+          "ingredients": ["Beef", "Peas", "Carrots"],
+          "nutritional_info": {
+              "protein": "32%",
+              "fat": "14%",
+              "fiber": "3%"
+          },
+          "brand": "Dog Prime"
+      }
+  },
+  {
+      "_id": 202,
+      "name": "Puppy Growth Formula",
+      "product_description": "Special formula designed for growing puppies.",
+      "price": 22.99,
+      "product_image": "puppy_growth_formula.jpg",
+      "stock": 60,
+      "category": {
+          "category_name": "Dog Foods",
+          "category_slug": "dog-foods",
+          "category_image": "/images/dog-foods.jfif"
+      },
+      "product_details": {
+          "ingredients": ["Chicken", "Brown Rice", "Oatmeal"],
+          "nutritional_info": {
+              "protein": "26%",
+              "fat": "13%",
+              "fiber": "5%"
+          },
+          "brand": "Puppy Grow"
+      }
+  },
+  {
+      "_id": 203,
+      "name": "Small Dog Growth",
+      "product_description": "Special formula designed for growing puppies.",
+      "price": 12.50,
+      "product_image": "puppy_growth_formula.jpg",
+      "stock": 60,
+      "category": {
+          "category_name": "Dog Foods",
+          "category_slug": "dog-foods",
+          "category_image": "/images/dog-foods.jfif"
+      },
+      "product_details": {
+          "ingredients": ["Chicken", "Brown Rice", "Oatmeal"],
+          "nutritional_info": {
+              "protein": "26%",
+              "fat": "13%",
+              "fiber": "5%"
+          },
+          "brand": "Puppy Grow"
+      }
+  },
+  {
+      "_id": 204,
+      "name": "Big Dog Growth",
+      "product_description": "Special formula designed for growing puppies.",
+      "price": 12.50,
+      "product_image": "puppy_growth_formula.jpg",
+      "stock": 60,
+      "category": {
+          "category_name": "Dog Foods",
+          "category_slug": "dog-foods",
+          "category_image": "/images/dog-foods.jfif"
+      },
+      "product_details": {
+          "ingredients": ["Chicken", "Brown Rice", "Oatmeal"],
+          "nutritional_info": {
+              "protein": "26%",
+              "fat": "13%",
+              "fiber": "5%"
+          },
+          "brand": "Puppy Grow"
+      }
+  },
+  {
+      "_id": 301,
+      "name": "General Vitamin Supplements",
+      "product_description": "Vitamins and minerals to keep your pet healthy.",
+      "price": 12.99,
+      "product_image": "vitamin_supplements.jpg",
+      "stock": 100,
+      "category": {
+          "category_name": "Cat Medicines",
+          "category_slug": "cat-medicines",
+          "category_image": "/images/cat-medicines.jfif"
+      },
+      "product_details": {
+          "ingredients": ["Vitamin A", "Vitamin D", "Zinc"],
+          "recommended_dosage": "1 tablet daily",
+          "brand": "Healthy Cat"
+      }
+  },
+  {
+      "_id": 302,
+      "name": "Flea and Tick Prevention",
+      "product_description": "Prevent fleas and ticks with this effective treatment.",
+      "price": 19.99,
+      "product_image": "flea_tick_prevention.jpg",
+      "stock": 75,
+      "category": {
+          "category_name": "Cat Medicines",
+          "category_slug": "cat-medicines",
+          "category_image": "/images/cat-medicines.jfif"
+      },
+      "product_details": {
+          "ingredients": ["Fipronil", "Methoprene"],
+          "application": "Apply once a month",
+          "brand": "Protective Pet"
+      }
+  },
+  {
+      "_id": 303,
+      "name": "Fever and Cough",
+      "product_description": "Prevent fleas and ticks with this effective treatment.",
+      "price": 19.99,
+      "product_image": "flea_tick_prevention.jpg",
+      "stock": 75,
+      "category": {
+          "category_name": "Cat Medicines",
+          "category_slug": "cat-medicines",
+          "category_image": "/images/cat-medicines.jfif"
+      },
+      "product_details": {
+          "ingredients": ["Fipronil", "Methoprene"],
+          "application": "Apply once a month",
+          "brand": "Protective Pet"
+      }
+  },
+  {
+      "_id": 401,
+      "name": "Hip and Joint Supplements",
+      "product_description": "Support your dog's joint health with these supplements.",
+      "price": 15.99,
+      "product_image": "hip_joint_supplements.jpg",
+      "stock": 80,
+      "category": {
+          "category_name": "Dog Medicines",
+          "category_slug": "dog-medicines",
+          "category_image": "/images/dog-medicines.jfif"
+      },
+      "product_details": {
+          "ingredients": ["Glucosamine", "Chondroitin", "MSM"],
+          "recommended_dosage": "2 tablets daily",
+          "brand": "Joint Care"
+      }
+  },
+  {
+      "_id": 402,
+      "name": "Anti-Inflammatory Tablets",
+      "product_description": "Effective anti-inflammatory medication for dogs.",
+      "price": 25.99,
+      "product_image": "anti_inflammatory_tablets.jpg",
+      "stock": 40,
+      "category": {
+          "category_name": "Dog Medicines",
+          "category_slug": "dog-medicines",
+          "category_image": "/images/dog-medicines.jfif"
+      },
+      "product_details": {
+          "ingredients": ["Carprofen"],
+          "recommended_dosage": "1 tablet twice daily",
+          "brand": "Relief Med"
+      }
+  },
+  {
+      "_id": 403,
+      "name": "Anti-biotic Tablets",
+      "product_description": "Effective anti-inflammatory medication for dogs.",
+      "price": 22.25,
+      "product_image": "anti_inflammatory_tablets.jpg",
+      "stock": 40,
+      "category": {
+          "category_name": "Dog Medicines",
+          "category_slug": "dog-medicines",
+          "category_image": "/images/dog-medicines.jfif"
+      },
+      "product_details": {
+          "ingredients": ["Carprofen"],
+          "recommended_dosage": "1 tablet twice daily",
+          "brand": "Relief Med"
+      }
+  },
+  {
+      "_id": 501,
+      "name": "Hip Chair",
+      "product_description": "Support your dog's joint health with these supplements.",
+      "price": 20.99,
+      "product_image": "hip_joint_supplements.jpg",
+      "stock": 80,
+      "category": {
+          "category_name": "Pet Accessories",
+          "category_slug": "pet-accessories",
+          "category_image": "/images/pet-accessories.webp"
+      },
+      "product_details": {
+          "dimensions": "30x30x45 cm",
+          "material": "Wood and fabric",
+          "brand": "Comfort Pet"
+      }
+  },
+  {
+      "_id": 502,
+      "name": "Travel Bag",
+      "product_description": "A convenient travel bag for your pet.",
+      "price": 25.99,
+      "product_image": "travel_bag.jpg",
+      "stock": 40,
+      "category": {
+          "category_name": "Pet Accessories",
+          "category_slug": "pet-accessories",
+          "category_image": "/images/pet-accessories.webp"
+      },
+      "product_details": {
+          "dimensions": "50x30x25 cm",
+          "material": "Waterproof fabric",
+          "brand": "Travel Easy"
+      }
   }
-  
+]

@@ -1,0 +1,57 @@
+[
+    {
+        "_id": 1,
+        "avator": "",
+        "name": "Dr. Matthew Miller",
+        "title": "MBBS, FCPS, Diploma",
+        "works_at": "Owachita Medical College",
+        "years_of_experiences": 5,
+        "specialities": ["General Physician", "Cat Treatment", "Dogs Diseases"],
+        "visit_fee_usd": 20,
+        "visit_fee_bdt": 500
+    },
+    {
+        "_id": 2,
+        "avator": "",
+        "name": "Dr. Karim Benzema",
+        "title": "MBBS, FCPS, Diploma",
+        "works_at": "Owachita Medical College",
+        "years_of_experiences": 5,
+        "specialities": ["General Physician"],
+        "visit_fee_usd": 35,
+        "visit_fee_bdt": 500
+    },
+    {
+        "_id": 3,
+        "avator": "",
+        "name": "Dr. Uthman Dembele",
+        "title": "MBBS, FCPS, Diploma",
+        "works_at": "Owachita Medical College",
+        "years_of_experiences": 5,
+        "specialities": ["General Physician", "Dogs Diseases"],
+        "visit_fee_usd": 30,
+        "visit_fee_bdt": 500
+    },
+    {
+        "_id": 4,
+        "avator": "",
+        "name": "Dr. Malake Figore",
+        "title": "MBBS, FCPS, Diploma",
+        "works_at": "Owachita Medical College",
+        "years_of_experiences": 5,
+        "specialities": ["General Physician", "Dogs Diseases"],
+        "visit_fee_usd": 10,
+        "visit_fee_bdt": 500
+    },
+    {
+        "_id": 6,
+        "avator": "",
+        "name": "Dr. Aldi Mesut",
+        "title": "MBBS, FCPS, Diploma",
+        "works_at": "Owachita Medical College",
+        "years_of_experiences": 5,
+        "specialities": ["General Physician"],
+        "visit_fee_usd": 50,
+        "visit_fee_bdt": 500
+    }
+]

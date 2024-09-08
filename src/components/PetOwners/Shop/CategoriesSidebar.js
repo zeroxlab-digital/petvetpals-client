@@ -6,7 +6,7 @@ import { HiChevronRight, HiSquares2X2 } from "react-icons/hi2";
 const CategoriesSidebar = () => {
     const categories = GetCategories();
     return (
-        <aside className="sticky top-28 h-screen overflow-auto ">
+        <aside className="sticky top-28 h-fit overflow-auto ">
             <h3 className="font-semibold text-lg mb-3 flex items-center gap-2 text-primary"><HiSquares2X2 className="font-bold text-xl" /> Shop By Category</h3>
             <ul>
                 {categories.map(({ category_slug, category_name, category_image }, index) => (
