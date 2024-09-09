@@ -4,9 +4,9 @@ const Button = ({ children, variant, size, ...props }) => {
     const variantClass = () => {
         switch (variant) {
             case 'primary':
-                return 'bg-primary uppercase text-white font-semibold text-lg rounded-full'
+                return 'bg-primary text-white font-semibold rounded-full'
             case 'primaryOutline':
-                return 'bg-transparent uppercase text-white border hover:border-[#58294E] hover:text-primary duration-300 font-semibold text-lg rounded-full'
+                return 'bg-transparent text-white border hover:border-[#58294E] hover:text-primary duration-300 font-semibold  rounded-full'
             default:
                 return ''
         }
@@ -16,13 +16,14 @@ const Button = ({ children, variant, size, ...props }) => {
             case 'small':
                 return ''
             case 'large':
-                return 'w-60 h-14'
+                return 'w-60 h-14 text-lg'
             default:
-                return ''
+                return 'w-44 h-12 text-base'
         }
     }
+    
     return (
-        <button className={`${variantClass()} ${sizeClass()}`}>
+        <button className={`${variantClass()} ${sizeClass()} ${props.uppercase && 'uppercase'} flex justify-center items-center gap-2`}>
             {children}
         </button>
     );

@@ -18,10 +18,8 @@ const HeroSection = () => {
                     Meet with a top-rated online vet to get customized prescription treatment plans to solve your pets needs
                 </p>
                 <div className='mt-10 flex items-center gap-5 justify-center'>
-                    <Button variant="primary" size="large">Get Appointments</Button>
-                    <Button variant="primaryOutline" size="large">Buy Pets Products</Button>
-                    {/* <button className='primary-btn bg-primary text-white'>Get Appointments</button>
-                    <button className='primary-btn border hover:border-[#58294E]  hover:text-primary duration-200 text-white'>Buy Pets Products</button> */}
+                    <Button variant="primary" size="large" uppercase={true}>Get Appointments</Button>
+                    <Button variant="primaryOutline" size="large" uppercase={true}>Buy Pets Products</Button>
                 </div>
             </div>
         </div>
