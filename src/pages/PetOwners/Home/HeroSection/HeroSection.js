@@ -19,7 +19,7 @@ const HeroSection = () => {
                 </p>
                 <div className='mt-10 flex items-center gap-5 justify-center'>
                     <Button variant="primary" size="large" uppercase={true}>Get Appointments</Button>
-                    <Button variant="primaryOutline" size="large" uppercase={true}>Buy Pets Products</Button>
+                    <Button variant="primaryOutline" size="large" uppercase={true}>Buy Pet Products</Button>
                 </div>
             </div>
         </div>

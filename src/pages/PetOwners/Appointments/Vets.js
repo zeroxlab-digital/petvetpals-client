@@ -12,7 +12,7 @@ const Vets = ({ vets, currentPath }) => {
                         query: {
                             vet: `${name.toLowerCase()}`
                         }
-                    }} key={_id} className='border p-3 grid grid-cols-[5fr_3fr_2fr] items-center'>
+                    }} key={_id} className='border rounded-md hover:shadow-md duration-150 p-3 grid grid-cols-[5fr_3fr_2fr] items-center'>
                         <div className='flex items-center gap-5'>
                             <div><Image src="/images/vet.png" alt="" width={100} height={100} className='rounded' /></div>
                             <div>

@@ -14,13 +14,13 @@ const Header = () => {
                 </div>
                 <div className="flex items-center gap-7">
                     <form action="#">
-                        <div className="flex gap-1 border rounded-lg border-[#58294E] ">
-                            <label htmlFor="search" className="bg-primary rounded-l-lg flex items-center justify-center w-12 text-white"><HiMagnifyingGlass className="text-xl" /></label>
+                        <div className="flex gap-1 border rounded-md border-[#58294E] ">
+                            <label htmlFor="search" className="bg-primary rounded-l-md flex items-center justify-center w-12 text-white"><HiMagnifyingGlass className="text-xl" /></label>
                             <input type="text" placeholder="Search products" id="search" className="outline-none p-2 rounded-lg" />
                         </div>
                     </form>
                     <Cart />
-                    <Link href="/signin"><button className=" w-36 text-white bg-primary duration-200 h-11 rounded-full flex items-center gap-2 justify-center font-semibold"><HiOutlineUserCircle className="text-xl" />SIGN IN</button></Link>
+                    <Link href="/signin"><button className=" w-36 border border-[#58294E] text-primary hover:text-white hover:bg-primary duration-200 h-11 rounded-full flex items-center gap-2 justify-center font-semibold"><HiOutlineUserCircle className="text-xl" />Sign In</button></Link>
                 </div>
             </div>
         </header>
