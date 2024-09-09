@@ -1,7 +1,7 @@
 "use client";
 import Vets from "@/pages/PetOwners/Appointments/Vets";
-import useVets from "../../../../hooks/useVets";
 import { usePathname } from "next/navigation";
+import useVets from "../../../../../hooks/useVets";
 
 const AppointmentsPage = () => {
     const vets = useVets();
