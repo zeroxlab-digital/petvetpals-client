@@ -2,11 +2,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import GetCategories from '@/utils/GetCategories';
+import useCategories from '../../../../hooks/useCategories';
 
 const ShopCategories = () => {
-    const categories = GetCategories();
+    const categories = useCategories();
     return (
-        <div className='flex justify-between flex-wrap gap-5 text-center'>
+        <div className='grid grid-cols-5 items-center gap-8 text-center'>
             {categories.map((category) => <Link href={{
                 pathname: `shop/${category.category_slug}`,
                 query: {

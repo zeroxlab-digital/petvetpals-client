@@ -2,9 +2,11 @@
 import GetCategories from "@/utils/GetCategories";
 import Link from "next/link";
 import { HiChevronRight, HiSquares2X2 } from "react-icons/hi2";
+import useCategories from "../../../../hooks/useCategories";
 
 const CategoriesSidebar = () => {
-    const categories = GetCategories();
+    const categories = useCategories();
+    console.log(categories);
     return (
         <aside className="sticky top-28 h-fit overflow-auto ">
             <h3 className="font-semibold text-lg mb-3 flex items-center gap-2 text-primary"><HiSquares2X2 className="font-bold text-xl" /> Shop By Category</h3>
