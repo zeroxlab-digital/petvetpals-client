@@ -1,5 +1,4 @@
 import VetFilterSidebar from '@/components/PetOwners/Appointments/VetFilterSidebar';
-import React from 'react';
 
 const AppointmentsLayout = ({ children }) => {
     return (
