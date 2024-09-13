@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 
-const VetFilterSidebar = ({ onFilterChange }) => {
+const VetFilterSidebar = ({ setFilterChange }) => {
     const [filters, setFilters] = useState({
         specialities: [],
         sortBy: ''
@@ -14,18 +14,18 @@ const VetFilterSidebar = ({ onFilterChange }) => {
             : filters.specialities.filter(speciality => speciality !== value);
 
         setFilters({ ...filters, specialities: updatedSpecialities });
-        // onFilterChange({ ...filters, specialities: updatedSpecialities });
+        setFilterChange({ ...filters, specialities: updatedSpecialities });
     };
 
     const handleSortChange = (e) => {
         setFilters({ ...filters, sortBy: e.target.value });
-        // onFilterChange({ ...filters, sortBy: e.target.value });
+        setFilterChange({ ...filters, sortBy: e.target.value });
     };
 
     const resetFilters = () => {
         const resetValues = { specialities: [], sortBy: '' };
         setFilters(resetValues);
-        // onFilterChange(resetValues);
+        setFilterChange(resetValues);
     };
 
     return (
