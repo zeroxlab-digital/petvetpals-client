@@ -22,7 +22,7 @@ const VetDetails = ({ params }) => {
                     <p className=' text-gray-700 mb-1'>Specialities</p>
                     <div className='flex gap-1 mb-3'>{specialities?.map((speciality, index) => <p key={index} className='text-xs bg-primary p-1 text-white rounded'>{speciality}</p>)}</div>
                     <p className="text-gray-700 ">Works at</p>
-                    <h5 className="font-semibold">{works_at}</h5>
+                    <h5 className="font-semibold">{works_at} <span className="font-normal">(Monroe, LA, USA)</span></h5>
                 </div>
                 <div className="text-center ">
                     <h3 className="font-bold text-xl mb-1 text-gray-800">Consultation Fee</h3>
