@@ -15,10 +15,6 @@ const SignUpPage = () => {
                         <Input type="text" placeholder="Your name" />
                         <Input type="email" placeholder="Email address" />
                         <Input type="password" placeholder="Password" />
-                        <div className="flex items-center gap-2">
-                        <Input type="checkbox" id="veterinarian" />
-                        <label for="veterinarian">Join as a veterinarian</label>
-                        </div>
                         <input type="submit" value="Continue" className="bg-primary p-3 rounded-md cursor-pointer text-white mt-5" />
                     </form>
                     <div className="my-5">
