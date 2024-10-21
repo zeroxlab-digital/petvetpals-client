@@ -9,22 +9,40 @@ const AppointmentsPage = () => {
     const vets = useVets();
     const currentPath = usePathname();
     const [filterChange, setFilterChange] = useState({});
-    const [filteredVets, setFilteredVets] = useState(vets); // Initially show all vets
+    const [filteredVets, setFilteredVets] = useState([]);
 
     const { sortBy, specialities } = filterChange || {};
 
     useEffect(() => {
+        if (!vets || vets.length === 0) return; // Ensure vets are loaded before processing
+
+        let filteredVets = [...vets]; // Create a copy of the vets array to avoid mutating the original array
+
+        // Step 1: Apply filtering based on selected specialities
         if (specialities?.length > 0) {
-            // Filter only if there are selected specialities
-            const filteringVets = vets.filter(vet =>
+            filteredVets = filteredVets.filter(vet =>
                 vet.specialities.some(speciality => specialities.includes(speciality))
             );
-            setFilteredVets(filteringVets);
-        } else {
-            // If no filter, show all vets
-            setFilteredVets(vets);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+        // Step 2: Apply sorting based on the `sortBy` value
+        if (sortBy === 'Experience') {
+            filteredVets.sort((a, b) => {
+                const experienceA = Number(a.years_of_experiences) || 0;
+                const experienceB = Number(b.years_of_experiences) || 0;
+                return experienceB - experienceA; // Sort by experience (descending)
+            });
+        } else if (sortBy === 'Fee') {
+            filteredVets.sort((a, b) => {
+                const feeA = Number(a.visit_fee_usd) || 0;
+                const feeB = Number(b.visit_fee_usd) || 0;
+                return feeA - feeB; // Sort by fee (ascending)
+            });
+        }
+
+        // Set the filtered and/or sorted vets
+        setFilteredVets(filteredVets);
+
     }, [filterChange, vets]);
 
     return (

@@ -2,7 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const Vets = ({ vets, currentPath }) => {
-
+    if(vets.length < 1) {
+        return <div>No vets has been found!</div>
+    }
     return (
         <div className='flex flex-col gap-5'>
             {

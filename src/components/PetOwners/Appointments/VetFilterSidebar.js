@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 const VetFilterSidebar = ({ setFilterChange }) => {
     const [filters, setFilters] = useState({
         specialities: [],
-        sortBy: ''
+        sortBy: "Relevance"
     });
 
     const handleSpecialityChange = (e) => {
@@ -23,7 +23,7 @@ const VetFilterSidebar = ({ setFilterChange }) => {
     };
 
     const resetFilters = () => {
-        const resetValues = { specialities: [], sortBy: '' };
+        const resetValues = { specialities: [], sortBy: 'Relevance' };
         setFilters(resetValues);
         setFilterChange(resetValues);
     };
