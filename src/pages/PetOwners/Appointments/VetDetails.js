@@ -5,6 +5,8 @@ import useVets from "../../../../hooks/useVets";
 import Button from "@/components/Common/Button/Button";
 import { HiMiniVideoCamera } from "react-icons/hi2";
 import VetDetailsTabs from "@/components/PetOwners/Appointments/VetDetailsTabs";
+import BookingPopup from "@/components/PetOwners/Appointments/BookingPopup";
+import { useState } from "react";
 
 
 const VetDetails = ({ params }) => {
@@ -12,6 +14,7 @@ const VetDetails = ({ params }) => {
     const foundVet = vets.find(vet => vet._id === Number(params._id));
     console.log(foundVet);
     const { _id, avator, name, title, works_at, years_of_experiences, specialities, visit_fee_usd, visit_fee_bdt } = foundVet || {};
+    const [showBookingModal, setShowBookingModal] = useState(false);
     return (
         <div>
             <div className="grid grid-cols-[2fr_5fr_3fr] items-center p-5 rounded-md border">
@@ -27,9 +30,10 @@ const VetDetails = ({ params }) => {
                 <div className="text-center ">
                     <h3 className="font-bold text-xl mb-1 text-gray-800">Consultation Fee</h3>
                     <h1 className='mb-1 text-2xl font-bold text-primary  flex items-center justify-center gap-1'>${visit_fee_usd?.toFixed(2)} <span className='text-xs  font-semibold'>(incl. VAT)</span></h1>
-                    <div className="mt-5 flex  justify-center">
+                    <div className="mt-5 flex  justify-center" onClick={() => setShowBookingModal(true)}>
                         <Button variant={"primary"} ><HiMiniVideoCamera /> See Vet Now</Button>
                     </div>
+                    {showBookingModal && <BookingPopup setShowBookingModal={setShowBookingModal} />}
                 </div>
             </div>
             <div className="mt-10 grid grid-cols-[3fr_2fr] gap-5">

@@ -1,0 +1,97 @@
+
+.rdp-custom {
+    display: flex;
+    justify-content: center;
+}
+
+.rdp-custom .rdp {
+    border: none;
+}
+
+.rdp-custom .rdp-day {
+    padding: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #333;
+    border: 1px solid #f7f7f7;
+    transition: background-color 0.3s ease;
+}
+
+.rdp-custom .rdp-day:hover {
+    background-color: #e2e8f0;
+    cursor: pointer;
+}
+
+/* Target disabled buttons or inputs */
+.rdp-custom button:disabled{
+    cursor: not-allowed;
+    opacity: 0.4; /* Dim the disabled dates */
+}
+/* Selected date style */
+.rdp-custom .rdp-day.rdp-selected {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+}
+
+.rdp-custom .rdp-custom .rdp-nav-button {
+    color: #0fcfcf;
+}
+.rdp-nav {
+    display: flex;
+    justify-content: space-between;
+    
+}
+.rdp-nav button{
+    padding: 5px!important;
+    z-index: 10;
+}
+.rdp-nav button svg{
+    width: 15px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+.rdp-month{
+    position: relative;
+    top: -30px;
+}
+.rdp-month_caption {
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.rdp-weekdays{
+
+}
+.rdp-weekday{
+    font-weight: normal;
+    font-size: 13px;
+}
+
+/* Styling for the available times buttons */
+.rdp-months button {
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    padding: 16px;
+    border: none;
+}
+
+.rdp-months button:hover {
+    transform: translateY(-2px);
+}
+
+
+
+/* Hide scrollbar for a specific element */
+.hide-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    
+    /* For Webkit-based browsers (Chrome, Safari, Edge) */
+    overflow-y: scroll; /* Ensure the element is scrollable */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+}
