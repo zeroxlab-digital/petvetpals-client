@@ -3,7 +3,7 @@ import { HiCalendar, HiOutlineClock, HiXMark } from "react-icons/hi2";
 import { DayPicker } from 'react-day-picker';
 import { format, addDays } from 'date-fns';
 import './Booking.css'
-import Button from '@/components/Common/Button/Button';
+import BookingCalendar from './BookingCalendar';
 
 const BookingPopup = ({ setShowBookingModal }) => {
     const [selectedDate, setSelectedDate] = useState(undefined);
@@ -44,39 +44,7 @@ const BookingPopup = ({ setShowBookingModal }) => {
                 </div>
                 <div className='overflow-auto hide-scrollbar rounded-lg'>
                     <button className="absolute top-0 right-0 w-8 h-8 leading-8 flex items-center justify-center" onClick={() => setShowBookingModal(false)}><HiXMark /></button>
-                    <div className="calendar bg-white px-4 mt-4">
-                        <DayPicker
-                            mode="single"
-                            selected={selectedDate}
-                            onSelect={handleDateSelect}
-                            disabled={[
-                                { before: today },
-                                { after: twoDaysFromNow },
-                                { dayOfWeek: [0, 6] }
-                            ]}
-                            className="rdp-custom text-center" // center-aligns the calendar
-                        />
-                        {selectedDate && (
-                            <div className="">
-                                <div className="grid grid-cols-3 gap-4">
-                                    {availableTimes.map((time) => (
-                                        <button
-                                            key={time}
-                                            onClick={() => handleTimeSelect(time)}
-                                            className={`py-2 px-4 transition duration-300 text-sm font-medium ${selectedTime === time
-                                                ? 'bg-primary text-white shadow-lg transform scale-105'
-                                                : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-                                                }`}
-                                        >
-                                            {time}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-                        <Button variant={"primary"} classNames={`w-full mt-5 ${selectedTime ? '' : 'opacity-50 cursor-not-allowed'}`} disabled={!selectedTime}>Continue</Button>
-                        <button className=''></button>
-                    </div>
+                    <BookingCalendar selectedDate={selectedDate} handleDateSelect={handleDateSelect} today={today} twoDaysFromNow={twoDaysFromNow} availableTimes={availableTimes} handleTimeSelect={handleTimeSelect} selectedTime={selectedTime} />
                 </div>
 
             </div>
