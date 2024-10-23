@@ -1,6 +1,6 @@
 import { FaFacebookF, FaGoogle } from "react-icons/fa6";
 import Link from "next/link";
-import Input from "../Input/Input";
+import Input from "../Form/Input";
 
 const SignInPage = () => {
     return (
