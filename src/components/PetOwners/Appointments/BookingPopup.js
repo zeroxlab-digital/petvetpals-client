@@ -4,6 +4,8 @@ import { DayPicker } from 'react-day-picker';
 import { format, addDays } from 'date-fns';
 import './Booking.css'
 import BookingCalendar from './BookingCalendar';
+import BookingDetails from './BookingDetails';
+import BookingPayment from './BookingPayment';
 
 const BookingPopup = ({ setShowBookingModal }) => {
     const [selectedDate, setSelectedDate] = useState(undefined);
@@ -24,6 +26,8 @@ const BookingPopup = ({ setShowBookingModal }) => {
     const handleTimeSelect = (time) => {
         setSelectedTime(time);
     };
+
+    const [stage, setStage] = useState('calendar');
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="relative w-[50rem] h-[30rem] bg-white shadow-lg rounded-lg grid grid-cols-[2fr_5fr]">
@@ -44,7 +48,27 @@ const BookingPopup = ({ setShowBookingModal }) => {
                 </div>
                 <div className='overflow-auto hide-scrollbar rounded-lg'>
                     <button className="absolute top-0 right-0 w-8 h-8 leading-8 flex items-center justify-center" onClick={() => setShowBookingModal(false)}><HiXMark /></button>
-                    <BookingCalendar selectedDate={selectedDate} handleDateSelect={handleDateSelect} today={today} twoDaysFromNow={twoDaysFromNow} availableTimes={availableTimes} handleTimeSelect={handleTimeSelect} selectedTime={selectedTime} />
+                    <div className='px-4 py-4'>
+                        {stage === 'calendar' ? (
+                            <BookingCalendar
+                                selectedDate={selectedDate}
+                                handleDateSelect={handleDateSelect}
+                                today={today}
+                                twoDaysFromNow={twoDaysFromNow}
+                                availableTimes={availableTimes}
+                                handleTimeSelect={handleTimeSelect}
+                                selectedTime={selectedTime}
+                                setStage={setStage}
+                            />
+                        ) : stage === 'details' ? (
+                            <BookingDetails setStage={setStage} />
+                        ) : stage === 'payment' ? (
+                            <BookingPayment />
+                        ) : (
+                            ''
+                        )}
+
+                    </div>
                 </div>
 
             </div>

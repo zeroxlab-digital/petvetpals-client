@@ -3,10 +3,10 @@ import { DayPicker } from 'react-day-picker';
 import './Booking.css'
 import Button from '@/components/Common/Button/Button';
 
-const BookingCalendar = ({selectedDate, handleDateSelect, today, twoDaysFromNow, availableTimes, handleTimeSelect, selectedTime}) => {
+const BookingCalendar = ({selectedDate, handleDateSelect, today, twoDaysFromNow, availableTimes, handleTimeSelect, selectedTime, setStage}) => {
 
     return (
-        <div className="calendar bg-white px-4 mt-4">
+        <div className="calendar bg-white ">
                         <DayPicker
                             mode="single"
                             selected={selectedDate}
@@ -36,8 +36,9 @@ const BookingCalendar = ({selectedDate, handleDateSelect, today, twoDaysFromNow,
                                 </div>
                             </div>
                         )}
+                        <div onClick={() => setStage('details')}>
                         <Button variant={"primary"} classNames={`w-full mt-5 ${selectedTime ? '' : 'opacity-50 cursor-not-allowed'}`} disabled={!selectedTime}>Continue</Button>
-                        <button className=''></button>
+                        </div>
                     </div>
     );
 };
