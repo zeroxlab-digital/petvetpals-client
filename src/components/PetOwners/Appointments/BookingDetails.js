@@ -9,9 +9,9 @@ const BookingDetails = ({ setStage }) => {
     const options = ['Cat', 'Dog', 'Rabbit', 'Bird', 'Other']
     return (
         <div className='text-left'>
-            <h3 className='font-bold text-xl text-gray-800 '>Provide pet details</h3>
+            <h3 className='font-bold text-xl text-gray-800 '>Provide Pet Details</h3>
             <p className='text-gray-600 font-light'>Please fill the form below with your pet's details</p>
-            <form onSubmit={() => setStage('payment')} className='mt-5'>
+            <form onSubmit={() => setStage('payment')} className='mt-7'>
                 <div className='mb-5'>
                     <Label htmlFor="petsname">Pet's Name</Label>
                     <Input type="text" id="petsname" placeholder="Enter your pet's name" classNames="py-2 w-full" />
