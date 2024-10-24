@@ -1,13 +1,14 @@
 "use client";
-
+import { useState } from "react";
 import Image from "next/image";
 import useVets from "../../../../hooks/useVets";
 import Button from "@/components/Common/Button/Button";
 import { HiMiniVideoCamera } from "react-icons/hi2";
 import VetDetailsTabs from "@/components/PetOwners/Appointments/VetDetailsTabs";
 import BookingPopup from "@/components/PetOwners/Appointments/BookingPopup";
-import { useState } from "react";
-
+import { HiCalendar, HiOutlineClock, HiXMark } from "react-icons/hi2";
+import { DayPicker } from 'react-day-picker';
+import { format, addDays } from 'date-fns';
 
 const VetDetails = ({ params }) => {
     const vets = useVets();
@@ -15,6 +16,11 @@ const VetDetails = ({ params }) => {
     console.log(foundVet);
     const { _id, avator, name, title, works_at, years_of_experiences, specialities, visit_fee_usd, visit_fee_bdt } = foundVet || {};
     const [showBookingModal, setShowBookingModal] = useState(false);
+
+    // Availability Calendar
+    const today = new Date();
+    const twoDaysFromNow = addDays(today, 5);
+
     return (
         <div>
             <div className="grid grid-cols-[2fr_5fr_3fr] items-center p-5 rounded-md border">
@@ -36,11 +42,19 @@ const VetDetails = ({ params }) => {
                     {showBookingModal && <BookingPopup setShowBookingModal={setShowBookingModal} />}
                 </div>
             </div>
-            <div className="mt-10 grid grid-cols-[3fr_2fr] gap-5">
+            <div className="mt-7 grid grid-cols-[3fr_2fr] gap-7">
                 <VetDetailsTabs name={name} title={title} />
-                <div>
-                    <div className="p-5 rounded-md border mb-5 h-80">Availability Calendar</div>
-                    <div className="p-5 rounded-md border">Some Content</div>
+                <div className="p-5 rounded-md border h-fit">
+                    <h2 className="mb-8 font-semibold text-primary">Availability Calendar</h2>
+                    <DayPicker
+                        mode="single"
+                        disabled={[
+                            { before: today },
+                            { after: twoDaysFromNow },
+                            { dayOfWeek: [0, 6] }
+                        ]}
+                        className="rdp-custom text-center"
+                    />
                 </div>
             </div>
         </div>
