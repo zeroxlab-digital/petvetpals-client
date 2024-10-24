@@ -1,0 +1,23 @@
+
+.newsletter form .subs-input {
+    padding: 10px 7px;
+    outline: none;
+    border-radius: 7px 0 0 7px;
+}
+.newsletter form button {
+    color: #fff;
+    background: rgb(131, 84, 177);
+    height: 44px;
+    padding: 10px;
+    font-weight: 500;
+    border-radius: 0 7px 7px 0;
+    transition: .2s;
+}
+.newsletter form button:hover{
+    background: rgb(117, 81, 153);
+}
+.footer-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    gap: 20px;
+}

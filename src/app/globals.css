@@ -2,27 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
+html {
+    scroll-behavior: smooth;
+}
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
-.container{
+
+.container {
     width: 1368px;
     margin: 0 auto;
 }
 
-:root{
+:root {
     --primary-color: #58294E;
     --secondary-color: #ffb330;
     /* --primary-border-color: ; */
 }
-.primary-btn{
+
+.primary-btn {
     padding: 17px 40px;
     text-transform: uppercase;
     border-radius: 100px;
     font-weight: bold;
 }
-.secondary-btn{}
 
-
+.secondary-btn {}

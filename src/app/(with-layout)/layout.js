@@ -6,7 +6,7 @@ const WithLayout = ({ children }) => {
         <div className="">
             <Header />
             {children}
-            {/* <Footer /> */}
+            <Footer />
         </div>
     );
 };
