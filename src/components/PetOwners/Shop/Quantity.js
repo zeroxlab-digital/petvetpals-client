@@ -14,12 +14,12 @@ const Quantity = () => {
         }
     }
     return (
-        <div className="mt-10">
-            <h4 className="mb-2">Quantity</h4>
-            <div className="flex items-center justify-between gap-2 border border-[#58294e] rounded-md w-24 p-2">
-                <button onClick={handleQuantityDecrease}><HiMinus /></button>
-                <p>{quantity}</p>
-                <button onClick={handleQuantityIncrease}><HiPlus /></button>
+        <div className="mt-3">
+            <h4 className="mb-2 font-[500]">Quantity</h4>
+            <div className="flex items-center gap-1">
+                <button onClick={handleQuantityDecrease} className="border border-gray-500 w-10 h-9 flex items-center justify-center rounded"><HiMinus /></button>
+                <p className="border border-gray-500 w-16 h-9 flex items-center justify-center rounded">{quantity}</p>
+                <button onClick={handleQuantityIncrease} className="border border-gray-500 w-10 h-9 flex items-center justify-center rounded"><HiPlus /></button>
             </div>
         </div>
     );

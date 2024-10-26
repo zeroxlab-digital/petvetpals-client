@@ -5,7 +5,7 @@ import 'react-tabs/style/react-tabs.css';
 
 const ProductDetailsTabs = () => {
     return (
-        <div className='mt-20'>
+        <div className='mt-10'>
             <Tabs>
                 <TabList>
                     <Tab>Descriptions</Tab>

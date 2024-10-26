@@ -23,7 +23,7 @@ const Products = ({_id, name, price, currentPathname}) => {
                     </div>
                 </div>
             </Link>
-            <div className="mt-4 flex gap-2 z-10">
+            <div className="mt-4 flex gap-2">
                 <button onClick={(e) => e.stopPropagation()} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-10 w-full"><HiShoppingCart /> Add to Cart</button>
                 <button onClick={(e) => e.stopPropagation()} className="border border-[#161515a5] rounded w-[3.3rem] flex justify-center items-center"><HiOutlineHeart className="text-xl text-[#161515]" /></button>
             </div>
