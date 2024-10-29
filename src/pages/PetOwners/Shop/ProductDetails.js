@@ -13,7 +13,7 @@ const ProductDetails = ({ params }) => {
     return (
         <div>
             <h2 className="text-lg font-semibold ">Product Details</h2>
-            <div className="grid grid-cols-2 gap-5 mt-5 border-b border-gray-300 pb-10">
+            <div className="grid grid-cols-2 gap-5 mt-5 border-b border-gray-300 mb-10 pb-14">
                 <div className="image-details">
                     <div className="bg-gray-300 bg-opacity-20 p-5 rounded-md h-96">
 
