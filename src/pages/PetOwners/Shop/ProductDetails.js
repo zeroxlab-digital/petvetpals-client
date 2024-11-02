@@ -5,6 +5,8 @@ import ProductDetailsTabs from "@/components/PetOwners/Shop/ProductDetailsTabs";
 import { Rating } from "@mui/material";
 import { HiOutlineHeart, HiOutlineShare, HiShoppingCart } from "react-icons/hi2";
 import Button from "@/components/Common/Button/Button";
+import RelatedProducts from "@/components/PetOwners/Shop/RelatedProducts";
+import Reviews from "@/components/Common/Reviews/Reviews";
 
 const ProductDetails = ({ params }) => {
     const products = useProducts();
@@ -44,6 +46,11 @@ const ProductDetails = ({ params }) => {
                 </div>
             </div>
             <ProductDetailsTabs name={name} description={product_description} details={product_details} category={category} />
+            <div className="mt-10">
+                <h2 className="font-semibold text-primary text-lg mb-2">Related products</h2>
+                <Reviews />
+            </div>
+            <RelatedProducts />
         </div>
     );
 };

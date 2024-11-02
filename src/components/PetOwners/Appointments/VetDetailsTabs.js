@@ -1,3 +1,4 @@
+import Reviews from '@/components/Common/Reviews/Reviews';
 import { useState } from 'react';
 import { HiOutlineBriefcase } from 'react-icons/hi2';
 
@@ -44,9 +45,7 @@ const VetDetailsTabs = ({ name, title }) => {
                     </div>
                     : selectedTab === "Reviews"
                     ?
-                    <div className='reviews'>
-                        Reviews
-                    </div>
+                    <Reviews />
                     : ""
                 }
             </div>
