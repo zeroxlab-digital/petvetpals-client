@@ -7,13 +7,15 @@ import Link from "next/link";
 const RelatedProducts = () => {
     const products = useProducts();
     const currentPathname = usePathname();
+    const pathnameSlug = currentPathname.split('/').slice(0, -1).join('/');
+    const relatedProducts = products?.filter(item => item.category.category_slug === pathnameSlug.split('/').slice(2, 3).join(''));
     return (
         <div className="mt-10">
             <h2 className="font-semibold text-primary text-lg">Related products</h2>
             <div className="items mt-5 grid grid-cols-4 gap-5">
-                {products?.slice(0, 4).map(product => <div key={product._id} className="border rounded-md p-3">
+                {relatedProducts?.slice(0, 4).map(product => <div key={product._id} className="border rounded-md p-3">
                     <Link href={{
-                        pathname: `${currentPathname}/${product._id}`,
+                        pathname: `${pathnameSlug}/${product._id}`,
                         query: {
                             title: `${product.name.toLowerCase()}`
                         }
