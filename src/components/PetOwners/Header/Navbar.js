@@ -1,7 +1,7 @@
 "use client";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { HiBuildingOffice2, HiCalendar, HiDocumentText, HiHome, HiOutlineBuildingOffice2, HiOutlineCalendar, HiOutlineDocumentText, HiOutlineHome, HiOutlinePlus, HiOutlineShoppingCart, HiPlus, HiShoppingCart } from 'react-icons/hi2';
+import { HiCalendar, HiDocumentText, HiHome, HiOutlineBuildingOffice2, HiOutlineCalendar, HiOutlineDocumentText, HiOutlineHome, HiOutlinePlus, HiOutlineShoppingCart, HiPlus, HiShoppingCart } from 'react-icons/hi2';
 import { CgPill } from "react-icons/cg";
 import { LuPill } from "react-icons/lu";
 
