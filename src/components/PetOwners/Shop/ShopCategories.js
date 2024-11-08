@@ -1,13 +1,15 @@
 import Link from 'next/link';
 import useCategories from '../../../../hooks/useCategories';
 import { LuCat, LuDog, LuPill } from "react-icons/lu";
+import { usePathname } from 'next/navigation';
 
 const ShopCategories = () => {
     const categories = useCategories();
+    const pathname = usePathname();
     return (
         <div className='grid grid-cols-5 items-center gap-8 text-center'>
             {categories.map((category) => <Link href={{
-                pathname: `shop/${category.category_slug}`,
+                pathname: `${pathname.slice(1, pathname.length)}/${category.category_slug}`,
                 query: {
                     title: `${category.category_name.toLowerCase()}`
                 }

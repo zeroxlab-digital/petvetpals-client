@@ -12,15 +12,26 @@ import { usePathname } from "next/navigation";
 const ShopPage = () => {
     const products = useProducts();
     const currentPathname = usePathname();
+    const store_category = currentPathname.split('/').slice(1, 2).join('/');
+    console.log(store_category)
     return (
         <div className="">
             <ShopCategories />
             <div className="mt-10 flex flex-col gap-5">
-                <CatFoods products={products} currentPathname={currentPathname} />
-                <DogFoods products={products} currentPathname={currentPathname} />
-                <CatMedicines products={products} currentPathname={currentPathname} />
-                <DogMedicines products={products} currentPathname={currentPathname} />
-                <PetAccessories products={products} currentPathname={currentPathname} />
+                {store_category === 'shop' ?
+                    <>
+                        <CatFoods products={products} currentPathname={currentPathname} />
+                        <DogFoods products={products} currentPathname={currentPathname} />
+                        <PetAccessories products={products} currentPathname={currentPathname} />
+                    </>
+                    :
+                    <>
+                        <CatMedicines products={products} currentPathname={currentPathname} />
+                        <DogMedicines products={products} currentPathname={currentPathname} />
+                    </>
+                }
+
+
             </div>
         </div>
     );

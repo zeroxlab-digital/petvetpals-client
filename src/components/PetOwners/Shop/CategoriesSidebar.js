@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 const CategoriesSidebar = () => {
     const categories = useCategories();
     const pathname = usePathname();
+    const pathnameCategory = pathname.split('/').slice(0, 2).join('/');
     const pathnameSlug = pathname.split('/').slice(2, 3).join('/');
     return (
         <aside className="sticky top-28 h-fit overflow-auto ">
@@ -17,7 +18,7 @@ const CategoriesSidebar = () => {
                     <Link
                         key={category_slug}
                         href={{
-                            pathname: `/shop/${category_slug}`,
+                            pathname: `${pathnameCategory}/${category_slug}`,
                             query: {
                                 title: `${category_name.toLowerCase()}`,
                             },

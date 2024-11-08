@@ -1,0 +1,110 @@
+[
+    {
+        "_id": 301,
+        "name": "General Vitamin Supplements",
+        "product_description": "Vitamins and minerals to keep your pet healthy.",
+        "price": 12.99,
+        "product_image": "vitamin_supplements.jpg",
+        "stock": 100,
+        "category": {
+            "category_name": "Cat Medicines",
+            "category_slug": "cat-medicines",
+            "category_image": "/images/cat-medicines.jfif"
+        },
+        "product_details": {
+            "ingredients": ["Vitamin A", "Vitamin D", "Zinc"],
+            "recommended_dosage": "1 tablet daily",
+            "brand": "Healthy Cat"
+        }
+    },
+    {
+        "_id": 302,
+        "name": "Flea and Tick Prevention",
+        "product_description": "Prevent fleas and ticks with this effective treatment.",
+        "price": 19.99,
+        "product_image": "flea_tick_prevention.jpg",
+        "stock": 75,
+        "category": {
+            "category_name": "Cat Medicines",
+            "category_slug": "cat-medicines",
+            "category_image": "/images/cat-medicines.jfif"
+        },
+        "product_details": {
+            "ingredients": ["Fipronil", "Methoprene"],
+            "application": "Apply once a month",
+            "brand": "Protective Pet"
+        }
+    },
+    {
+        "_id": 303,
+        "name": "Fever and Cough",
+        "product_description": "Prevent fleas and ticks with this effective treatment.",
+        "price": 19.99,
+        "product_image": "flea_tick_prevention.jpg",
+        "stock": 75,
+        "category": {
+            "category_name": "Cat Medicines",
+            "category_slug": "cat-medicines",
+            "category_image": "/images/cat-medicines.jfif"
+        },
+        "product_details": {
+            "ingredients": ["Fipronil", "Methoprene"],
+            "application": "Apply once a month",
+            "brand": "Protective Pet"
+        }
+    },
+    {
+        "_id": 401,
+        "name": "Hip and Joint Supplements",
+        "product_description": "Support your dog's joint health with these supplements.",
+        "price": 15.99,
+        "product_image": "hip_joint_supplements.jpg",
+        "stock": 80,
+        "category": {
+            "category_name": "Dog Medicines",
+            "category_slug": "dog-medicines",
+            "category_image": "/images/dog-medicines.jfif"
+        },
+        "product_details": {
+            "ingredients": ["Glucosamine", "Chondroitin", "MSM"],
+            "recommended_dosage": "2 tablets daily",
+            "brand": "Joint Care"
+        }
+    },
+    {
+        "_id": 402,
+        "name": "Anti-Inflammatory Tablets",
+        "product_description": "Effective anti-inflammatory medication for dogs.",
+        "price": 25.99,
+        "product_image": "anti_inflammatory_tablets.jpg",
+        "stock": 40,
+        "category": {
+            "category_name": "Dog Medicines",
+            "category_slug": "dog-medicines",
+            "category_image": "/images/dog-medicines.jfif"
+        },
+        "product_details": {
+            "ingredients": ["Carprofen"],
+            "recommended_dosage": "1 tablet twice daily",
+            "brand": "Relief Med"
+        }
+    },
+    {
+        "_id": 403,
+        "name": "Anti-biotic Tablets",
+        "product_description": "Effective anti-inflammatory medication for dogs.",
+        "price": 22.25,
+        "product_image": "anti_inflammatory_tablets.jpg",
+        "stock": 40,
+        "category": {
+            "category_name": "Dog Medicines",
+            "category_slug": "dog-medicines",
+            "category_image": "/images/dog-medicines.jfif"
+        },
+        "product_details": {
+            "ingredients": ["Carprofen"],
+            "recommended_dosage": "1 tablet twice daily",
+            "brand": "Relief Med"
+        }
+    }
+]
