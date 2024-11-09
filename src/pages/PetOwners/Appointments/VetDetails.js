@@ -13,7 +13,6 @@ import { format, addDays } from 'date-fns';
 const VetDetails = ({ params }) => {
     const vets = useVets();
     const foundVet = vets.find(vet => vet._id === Number(params._id));
-    console.log(foundVet);
     const { _id, avator, name, title, works_at, years_of_experiences, specialities, visit_fee_usd, visit_fee_bdt } = foundVet || {};
     const [showBookingModal, setShowBookingModal] = useState(false);
 

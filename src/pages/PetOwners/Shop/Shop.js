@@ -15,7 +15,7 @@ const ShopPage = () => {
     return (
         <div>
             <ShopCategories />
-            <div className="mt-10 flex flex-col gap-5">
+            <div className="mt-10 flex flex-col gap-10">
                 {store_category === 'shop' ?
                     <>
                         <CatFoods products={products} currentPathname={currentPathname} />
