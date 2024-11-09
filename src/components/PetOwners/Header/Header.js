@@ -14,8 +14,8 @@ const Header = () => {
                 </div>
                 <div className="flex items-center gap-5">
                     <form action="#" className="">
-                        <div className="flex gap-1 border rounded-md border-[#58294E]">
-                            <input type="text" placeholder="Search products" id="search" className="w-72 outline-none p-2 rounded-lg " />
+                        <div className="flex gap-1 border rounded border-[#58294E]">
+                            <input type="text" placeholder="Search products" id="search" className="font-light w-72 outline-none p-2 rounded-lg " />
                             <label htmlFor="search" className=" cursor-pointer  flex items-center justify-center w-12 text-primary border-l border-[#58294E]"><HiMagnifyingGlass className="text-xl" /></label>
                         </div>
                     </form>

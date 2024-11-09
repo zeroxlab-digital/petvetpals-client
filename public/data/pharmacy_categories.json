@@ -1,0 +1,17 @@
+[
+    {
+        "category_name": "Cat Medicines",
+        "category_slug": "cat-medicines",
+        "category_image": "/images/cat-medicines.jfif"
+    },
+    {
+        "category_name": "Dog Medicines",
+        "category_slug": "dog-medicines",
+        "category_image": "/images/dog-medicines.jfif"
+    },
+    {
+        "category_name": "Rabbit Medicines",
+        "category_slug": "rabbit-medicines",
+        "category_image": "/images/dog-medicines.jfif"
+    }
+]
