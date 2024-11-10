@@ -3,13 +3,16 @@ import Navbar from "./Navbar";
 import { HiMagnifyingGlass, HiOutlineUser, HiOutlineUserPlus } from "react-icons/hi2";
 import Image from "next/image";
 import Cart from "./Cart";
+import PetsoliLogo1 from '../../../../public/images/petsoli-1.png'
+import PetsoliLogo22 from '../../../../public/images/petsoli-22.png'
+import PetsoliLogo33 from '../../../../public/images/petsoli-33.png'
 
 const Header = () => {
     return (
-        <header className="shadow-md py-4 w-full sticky top-0 overflow-auto bg-white z-10">
+        <header className="shadow-md py-5 w-full sticky top-0 overflow-auto bg-white z-10">
             <div className="flex items-center justify-between container mb-5">
                 <div className="flex items-center gap-20">
-                    <Link href="/"><Image src="/images/petsfet-logo.png" alt="PetsFet Logo" width={100} height={100} /></Link>
+                    <Link href="/"><Image src={PetsoliLogo22} alt="Petsoli Logo" width={170} height={170} /></Link>
                     <Navbar />
                 </div>
                 <div className="flex items-center gap-5">
