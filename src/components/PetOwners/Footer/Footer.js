@@ -1,13 +1,15 @@
 import React from 'react';
 import './Footer.css';
 import Link from 'next/link';
+import PetsoliLogo22 from '../../../../public/images/petsoli-22.png'
+import Image from 'next/image';
 
 const Footer = () => {
     return (
         <footer className='footer-section bg-primary pt-10 pb-5 '>
             <div className="footer-content container">
                 <div className="footer-top flex items-center justify-between pb-7 mb-7 ">
-                    <Link href="/"><img className='w-36' src="https://i.ibb.co/hf991LQ/0x0-logo-2.png" alt="" /></Link>
+                    <Link href="/"><Image src={PetsoliLogo22} alt="logo" width={200} height={200} /> </Link>
                     <div className="socials">
                         <ul className='flex items-center gap-4'>
                             <li className='border border-gray-400 hover:border-gray-200 duration-150  inline-block rounded-full'><Link href="" target='_blank'><img src="https://crypto.com/__assets/mkt-nav-footer/images/icons/socials/twitter.svg" alt="" /></Link></li>

@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { HiMinus, HiPlus } from "react-icons/hi2";
 
@@ -14,8 +13,8 @@ const Quantity = () => {
         }
     }
     return (
-        <div className="mt-3">
-            <h4 className="mb-2 font-[500]">Quantity</h4>
+        <div className="">
+            {/* <h4 className="mb-2 font-[500]">Quantity</h4> */}
             <div className="flex items-center gap-1">
                 <button onClick={handleQuantityDecrease} className="border border-gray-500 w-10 h-9 flex items-center justify-center rounded"><HiMinus /></button>
                 <p className="border border-gray-500 w-16 h-9 flex items-center justify-center rounded">{quantity}</p>

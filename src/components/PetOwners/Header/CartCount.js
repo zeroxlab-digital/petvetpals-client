@@ -1,6 +1,6 @@
 import { HiOutlineShoppingBag, HiOutlineShoppingCart } from "react-icons/hi2";
 
-const Cart = () => {
+const CartCount = () => {
     let cartItems = 10;
     return (
         <button className="text-primary relative"><HiOutlineShoppingBag className="text-xl" />
@@ -9,4 +9,4 @@ const Cart = () => {
     );
 };
 
-export default Cart;
+export default CartCount;
