@@ -9,9 +9,9 @@ const Navbar = () => {
     const pathname = usePathname();
     const navs = [
         { title: "Home", path: "/", icon: pathname == '/' ? <HiHome /> : <HiOutlineHome /> },
-        { title: "Shop", path: "/shop", icon: pathname == '/shop' ? <HiShoppingCart /> : <HiOutlineShoppingCart /> },
-        { title: "Pharmacy", path: "/pharmacy", icon: pathname == '/pharmacy' ? <CgPill /> : <LuPill /> },
-        { title: "Appointments", path: "/appointments", icon: pathname == '/appointments' ? <HiCalendar /> : <HiOutlineCalendar /> }
+        { title: "Shop", path: "/shop", icon: pathname.startsWith('/shop') ? <HiShoppingCart /> : <HiOutlineShoppingCart /> },
+        { title: "Pharmacy", path: "/pharmacy", icon: pathname.startsWith('/pharmacy') ? <CgPill /> : <LuPill /> },
+        { title: "Appointments", path: "/appointments", icon: pathname.startsWith('/appointments') ? <HiCalendar /> : <HiOutlineCalendar /> }
     ]
     return (
         <ul className='flex items-center gap-8 text-primary'>
