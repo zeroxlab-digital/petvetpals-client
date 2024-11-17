@@ -34,7 +34,7 @@ const ProductDetails = ({ params }) => {
                     </div>
                     <h4 className="font-bold text-2xl mb-3 mt-3">${price}</h4>
                     <h5 className={`font-semibld text-lg ${Number(stock).length < 20 ? 'text-red-600' : 'text-gray-900'}`}>{stock} items left</h5>
-                    <p className="text-gray-600 mt-3">Modern science proves that your dog shares the DNA of the wolf. Years of domestication and excellent care have turned your dog from a short-lived potential foe to a long-lived best friend...</p>
+                    <p className="text-gray-600 mt-3 mb-6">Modern science proves that your dog shares the DNA of the wolf. Years of domestication and excellent care have turned your dog from a short-lived potential foe to a long-lived best friend...</p>
                     <Quantity />
                     <div className="mt-5 flex gap-3">
                         <button className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-12 w-full"><HiShoppingCart /> Add to Cart</button>
