@@ -1,13 +1,10 @@
-"use client";
 import { FaFacebookF, FaGoogle } from "react-icons/fa6";
-import { useState } from "react";
 import Link from "next/link";
 import Input from "../Form/Input";
 
 const SignUpPage = () => {
-    const [user_type, set_user_type] = useState("petowner");
     return (
-        <div className="w-80 text-center flex justify-center mx-auto my-20">
+        <div className="max-w-96 text-center flex justify-center mx-auto my-20 p-3">
             <div className="w-full">
                 <>
                     <h2 className="text-3xl font-semibold mb-10">Create an account</h2>

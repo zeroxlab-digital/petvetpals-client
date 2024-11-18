@@ -4,7 +4,7 @@ import Input from "../Form/Input";
 
 const SignInPage = () => {
     return (
-        <div className="w-80 text-center flex justify-center mx-auto my-20">
+        <div className="max-w-96 text-center flex justify-center mx-auto my-20 p-3">
             <div className="w-full">
                 <>
                     <h2 className="text-3xl font-semibold mb-10">Welcome back</h2>
