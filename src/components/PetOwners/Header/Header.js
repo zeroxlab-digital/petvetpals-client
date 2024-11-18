@@ -9,7 +9,7 @@ import PetsoliLogo33 from '../../../../public/images/petsoli-33.png'
 
 const Header = () => {
     return (
-        <header className="shadow-md py-5 sticky top-0  bg-white z-10 mx-auto xl:px-20 ">
+        <header className="shadow-md py-5 sticky top-0  bg-white z-10 xl:px-20 max-lg:hidden">
             <div className="flex items-center justify-between container mx-auto">
                 <div className="flex items-center gap-16">
                     <Link href="/"><Image src={PetsoliLogo22} alt="Petsoli Logo" className="max-w-40" /></Link>
