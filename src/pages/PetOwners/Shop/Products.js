@@ -17,10 +17,10 @@ const Products = ({ params }) => {
     }
 
     return (
-        <div>
+        <>
             <h2 className="text-lg font-semibold text-primary">{filteredProducts[0]?.category?.category_name}</h2>
             {filteredProducts.length > 0 ?
-                <div className="items mt-5 grid grid-cols-4 gap-5">
+                <div className="items mt-5 grid grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-5">
                     {filteredProducts.map(product => <div key={product._id} className="border rounded-md p-3">
                         <Link href={{
                             pathname: `${currentPathname}/${product._id}`,
@@ -51,7 +51,7 @@ const Products = ({ params }) => {
                     <h2>No Products Were Found!</h2>
                 </div>
             }
-        </div>
+        </>
     );
 };
 
