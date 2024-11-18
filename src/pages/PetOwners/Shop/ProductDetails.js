@@ -13,12 +13,12 @@ const ProductDetails = ({ params }) => {
     const foundProduct = products?.find(product => product._id === Number(params.id));
     const { _id, name, product_image, price, stock, product_description, product_details, category, } = foundProduct || {};
     return (
-        <div>
+        <>
             <h2 className="text-lg font-semibold ">Product Details</h2>
-            <div className="grid grid-cols-2 gap-5 mt-5 border-b border-gray-300 mb-10 pb-14">
+            <div className="grid grid-cols-2 max-md:grid-cols-1 gap-5 mt-5 border-b border-gray-300 mb-10 pb-14">
                 <div className="image-details">
                     <div className="bg-gray-300 bg-opacity-20 p-5 rounded-md h-96">
-
+                        {/* Product image here */}
                     </div>
                     <div className="mt-4 flex  gap-2 items-center justify-items-start\">
                         <div className="bg-gray-300 bg-opacity-20 p-2 rounded w-16 h-14 border border-gray-300"></div>
@@ -51,7 +51,7 @@ const ProductDetails = ({ params }) => {
                 <Reviews />
             </div>
             <RelatedProducts />
-        </div>
+        </>
     );
 };
 

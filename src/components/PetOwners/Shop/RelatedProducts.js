@@ -12,7 +12,7 @@ const RelatedProducts = () => {
     return (
         <div className="mt-10">
             <h2 className="font-semibold text-primary text-lg">Related products</h2>
-            <div className="items mt-5 grid grid-cols-4 gap-5">
+            <div className="items mt-5 grid grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-5">
                 {relatedProducts?.slice(0, 4).map(product => <div key={product._id} className="border rounded-md p-3">
                     <Link href={{
                         pathname: `${pathnameSlug}/${product._id}`,
