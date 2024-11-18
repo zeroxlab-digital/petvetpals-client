@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 const Footer = () => {
     return (
-        <footer className='footer-section bg-primary pt-10 pb-5 '>
+        <footer className='footer-section bg-primary pt-10 pb-5 hidden'>
             <div className="footer-content container">
                 <div className="footer-top flex items-center justify-between pb-7 mb-7 ">
                     <Link href="/"><Image src={PetsoliLogo22} alt="logo" width={200} height={200} /> </Link>

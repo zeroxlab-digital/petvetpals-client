@@ -10,7 +10,7 @@ const PetAccessories = ({ products, currentPathname }) => {
                 <h2 className="text-lg font-semibold text-black">Pet Accessories</h2>
                 <Link href={`shop/pet-accessories`} className="text-primary flex items-center gap-2 font-[500]">View More <HiArrowRight /></Link>
             </div>
-            <div className="products mt-5 grid grid-cols-4 gap-5">
+            <div className="products mt-5 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
                 {
                     filteredProducts.map(({ _id, name, price }) => <div key={_id} className="border rounded-md p-3">
                         <Products _id={_id} name={name} price={price} currentPathname={currentPathname} />

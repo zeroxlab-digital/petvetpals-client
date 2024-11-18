@@ -12,10 +12,11 @@ html {
     scroll-behavior: smooth;
 }
 
-.container {
-    width: 1368px;
+/* .app-container {
+    padding-left: 100px;
+    padding-right: 100px;
     margin: 0 auto;
-}
+} */
 
 :root {
     --primary-color: #58294E;

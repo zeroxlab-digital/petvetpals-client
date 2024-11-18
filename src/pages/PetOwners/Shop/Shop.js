@@ -13,7 +13,7 @@ const ShopPage = () => {
     const currentPathname = usePathname();
     const store_category = currentPathname.split('/').slice(1, 2).join('/');
     return (
-        <div>
+        <div className="">
             <ShopCategories />
             <div className="mt-10 flex flex-col gap-10">
                 {store_category === 'shop' ?

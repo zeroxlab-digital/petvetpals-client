@@ -9,15 +9,15 @@ import PetsoliLogo33 from '../../../../public/images/petsoli-33.png'
 
 const Header = () => {
     return (
-        <header className="shadow-md py-5 w-full sticky top-0 overflow-auto bg-white z-10">
-            <div className="flex items-center justify-between container mb-5">
-                <div className="flex items-center gap-20">
-                    <Link href="/"><Image src={PetsoliLogo22} alt="Petsoli Logo" width={170} height={170} /></Link>
+        <header className="shadow-md py-5 sticky top-0  bg-white z-10 mx-auto xl:px-20 ">
+            <div className="flex items-center justify-between container mx-auto">
+                <div className="flex items-center gap-16">
+                    <Link href="/"><Image src={PetsoliLogo22} alt="Petsoli Logo" className="max-w-40" /></Link>
                     <Navbar />
                 </div>
                 <div className="flex items-center gap-5">
                     <form action="#" className="">
-                        <div className="flex gap-1 border rounded border-[#58294E]">
+                        <div className="flex gap-1 border rounded border-[#58294E] max-2xl:hidden">
                             <input type="text" placeholder="Search products" id="search" className="font-light w-72 outline-none p-2 rounded-lg " />
                             <label htmlFor="search" className=" cursor-pointer  flex items-center justify-center w-12 text-primary border-l border-[#58294E]"><HiMagnifyingGlass className="text-xl" /></label>
                         </div>

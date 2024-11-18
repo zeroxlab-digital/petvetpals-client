@@ -14,7 +14,7 @@ const Navbar = () => {
         { title: "Appointments", path: "/appointments", icon: pathname.startsWith('/appointments') ? <HiCalendar /> : <HiOutlineCalendar /> }
     ]
     return (
-        <ul className='flex items-center gap-8 text-primary'>
+        <ul className='flex items-center gap-7 text-primary'>
             {
                 navs.map((nav, index) => <li key={index}>
                     <Link href={nav.path} className='flex gap-1 items-center'>

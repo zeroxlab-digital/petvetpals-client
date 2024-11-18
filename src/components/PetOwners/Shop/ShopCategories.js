@@ -7,13 +7,13 @@ const ShopCategories = () => {
     const categories = useCategories();
     const pathname = usePathname();
     return (
-        <div className='grid grid-cols-5 items-center gap-8 text-center'>
+        <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 items-center gap-8 text-center'>
             {categories.map((category) => <Link href={{
                 pathname: `${pathname.slice(1, pathname.length)}/${category.category_slug}`,
                 query: {
                     title: `${category.category_name.toLowerCase()}`
                 }
-            }} key={category.category_slug} className='border rounded-md w-44 hover:shadow-lg duration-200'>
+            }} key={category.category_slug} className='border rounded-md hover:shadow-lg duration-200'>
                 <div className='bg-gray-300 bg-opacity-10 flex items-center justify-center py-7'>
                     <LuDog className='text-5xl text-gray-800' />
                 </div>
