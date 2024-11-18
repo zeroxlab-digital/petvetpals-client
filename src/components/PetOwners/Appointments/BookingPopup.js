@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HiCalendar, HiOutlineClock, HiXMark } from "react-icons/hi2";
-import { DayPicker } from 'react-day-picker';
 import { format, addDays } from 'date-fns';
-import './Booking.css'
 import BookingCalendar from './BookingCalendar';
 import BookingDetails from './BookingDetails';
 import BookingPayment from './BookingPayment';
@@ -28,27 +26,48 @@ const BookingPopup = ({ setShowBookingModal }) => {
     };
 
     const [stage, setStage] = useState('calendar');
+
+    useEffect(() => {
+        // Add scroll lock to the body
+        document.body.classList.add('overflow-hidden');
+
+        // Cleanup on unmount
+        return () => {
+            document.body.classList.remove('overflow-hidden');
+        };
+    }, []);
+
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="relative w-[50rem] h-[30rem] bg-white shadow-lg rounded-lg grid grid-cols-[2fr_5fr]">
-                <div className="text-left bg-primary p-4 rounded-s-lg">
-                    <h3 className="text-white font-bold text-2xl mb-4">Book Your Appointment</h3>
-                    <p className="text-gray-200 text-base mb-7">Select a date and time for your session.</p>
+            <div className="relative w-[90%] max-w-[50rem] h-[80%] lg:h-[30rem] bg-white shadow-lg rounded-lg grid grid-cols-1 lg:grid-cols-[2fr_5fr] overflow-hidden">
+                {/* Left Section */}
+                <div className="bg-primary p-4 lg:rounded-s-lg text-left">
+                    <h3 className="text-white font-bold text-xl lg:text-2xl mb-4">Book Your Appointment</h3>
+                    <p className="text-gray-200 text-sm lg:text-base mb-6">Select a date and time for your session.</p>
                     <ul>
-                        <li className="flex items-center gap-2 text-white mb-2">
+                        <li className="flex items-center gap-2 text-white mb-2 text-sm lg:text-base">
                             <HiCalendar />
                             {selectedDate ? format(selectedDate, 'MMMM d, yyyy') : 'Select a date'}
                         </li>
-                        <li className="flex items-center gap-2 text-white">
+                        <li className="flex items-center gap-2 text-white text-sm lg:text-base">
                             <HiOutlineClock />
                             {selectedTime || 'Select a time'}
                         </li>
                     </ul>
-                    <p className='text-gray-200 opacity-50 mt-48 text-sm'>All the times are according to your device's local time.</p>
+                    <p className="text-gray-200 opacity-50 mt-16 lg:mt-48 text-xs lg:text-sm">
+                        All the times are according to your device's local time.
+                    </p>
                 </div>
-                <div className='overflow-auto hide-scrollbar rounded-lg'>
-                    <button className="absolute top-0 right-0 w-8 h-8 leading-8 flex items-center justify-center" onClick={() => setShowBookingModal(false)}><HiXMark /></button>
-                    <div className='px-4 py-4'>
+
+                {/* Right Section */}
+                <div className="relative overflow-auto hide-scrollbar bg-white">
+                    <button
+                        className="absolute sm:top-2 right-2 max-sm:right-0 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700"
+                        onClick={() => setShowBookingModal(false)}
+                    >
+                        <HiXMark size={25} />
+                    </button>
+                    <div className="px-4 py-4 mt-5">
                         {stage === 'calendar' ? (
                             <BookingCalendar
                                 selectedDate={selectedDate}
@@ -67,14 +86,10 @@ const BookingPopup = ({ setShowBookingModal }) => {
                         ) : (
                             ''
                         )}
-
                     </div>
                 </div>
-
             </div>
         </div>
-
-
     );
 };
 

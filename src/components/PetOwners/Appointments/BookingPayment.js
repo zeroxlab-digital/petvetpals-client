@@ -23,8 +23,8 @@ const BookingPayment = () => {
         <div className='text-left'>
             <h3 className='font-bold text-xl text-gray-800 '>Payment Details</h3>
             <p className='text-gray-600 font-light'>Please provide your payment information and pay <span className='text-gray-800 font-[500]'>$35.00</span> to complete the booking</p>
-            <div className='grid grid-cols-4 gap-2 text-left mt-7'>
-                {paymentOptions.map((option, index) => <button key={index} onClick={() => setSelectedPaymentOption(option.title)} className={`${selectedPaymentOption === option.title && ' border-gray-400 bg-gray-100 bg-opacity-60'} border rounded text-left px-2 py-1`}>
+            <div className='grid grid-cols-4 max-sm:grid-cols-3 gap-2 text-left mt-7'>
+                {paymentOptions.map((option, index) => <button key={index} onClick={() => setSelectedPaymentOption(option.title)} className={`${selectedPaymentOption === option.title && ' border-gray-400 bg-gray-100 bg-opacity-60'} border rounded text-left px-2 py-1 max-sm:last:hidden`}>
                     <Image src={option.logo} alt="Logo" width={30} height={30} />
                     <p className='font-semibold text-sm text-gray-600 mt-1'>{option.title}</p>
                 </button>)}
@@ -40,11 +40,11 @@ const BookingPayment = () => {
                 </div>
                 <div className='grid grid-cols-3 gap-3'>
                     <div>
-                        <Label htmlFor="exmonth">Expiration Month</Label>
+                        <Label htmlFor="exmonth">Exp. Month</Label>
                         <SelectOptions options={expirationMonth} placeholder={"Month"} />
                     </div>
                     <div>
-                        <Label htmlFor="exyear">Expiration Year</Label>
+                        <Label htmlFor="exyear">Exp. Year</Label>
                         <SelectOptions options={expirationYear} placeholder={"Year"} />
                     </div>
                     <div>
