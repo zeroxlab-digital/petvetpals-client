@@ -12,12 +12,6 @@ html {
     scroll-behavior: smooth;
 }
 
-/* .app-container {
-    padding-left: 100px;
-    padding-right: 100px;
-    margin: 0 auto;
-} */
-
 :root {
     --primary-color: #58294E;
     --secondary-color: #ffb330;
