@@ -29,7 +29,7 @@ const VetFilterSidebar = ({ setFilterChange }) => {
     };
 
     return (
-        <aside className="sticky top-0 h-fit overflow-auto bg-white rounded-lg max-xl:hidden">
+        <aside className="sticky top-28 h-fit overflow-auto bg-white rounded-lg max-xl:hidden">
             <div className="flex justify-between items-center mb-6">
                 <h3 className="font-bold text-xl text-gray-800">Filter Vets</h3>
                 <button onClick={resetFilters} className="bg-gray-100 hover:bg-gray-200 duration-200 px-4 py-1 rounded-md text-gray-600 text-sm font-medium">
