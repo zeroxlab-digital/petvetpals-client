@@ -20,8 +20,18 @@
         "category_image": "/images/dog-foods.jfif"
     },
     {
+        "category_name": "Fish Foods",
+        "category_slug": "fish-foods",
+        "category_image": "/images/fish-foods.webp"
+    },
+    {
         "category_name": "Pet Accessories",
         "category_slug": "pet-accessories",
+        "category_image": "/images/pet-accessories.webp"
+    },
+    {
+        "category_name": "Pet Toys",
+        "category_slug": "pet-toys",
         "category_image": "/images/pet-accessories.webp"
     },
     {

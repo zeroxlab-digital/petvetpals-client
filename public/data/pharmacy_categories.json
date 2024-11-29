@@ -13,5 +13,10 @@
         "category_name": "Rabbit Medicines",
         "category_slug": "rabbit-medicines",
         "category_image": "/images/dog-medicines.jfif"
+    },
+    {
+        "category_name": "Others",
+        "category_slug": "others",
+        "category_image": "/images/pet-accessories.webp"
     }
 ]
