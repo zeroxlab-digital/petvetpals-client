@@ -5,7 +5,7 @@ import { HiCalendar, HiDocumentText, HiHome, HiOutlineBuildingOffice2, HiOutline
 import { CgPill } from "react-icons/cg";
 import { LuPill } from "react-icons/lu";
 
-const Navbar = () => {
+const Navbar = ({ setResponsiveMenu = () => { } }) => {
     const pathname = usePathname();
     const navs = [
         { title: "Home", path: "/", icon: pathname == '/' ? <HiHome /> : <HiOutlineHome /> },
@@ -14,12 +14,12 @@ const Navbar = () => {
         { title: "Appointments", path: "/appointments", icon: pathname.startsWith('/appointments') ? <HiCalendar /> : <HiOutlineCalendar /> }
     ]
     return (
-        <ul className='flex items-center gap-7 text-primary'>
+        <ul className='flex items-center lg:gap-7 max-lg:flex-col max-lg:items-start text-primary'>
             {
-                navs.map((nav, index) => <li key={index}>
-                    <Link href={nav.path} className='flex gap-1 items-center'>
-                        <span className='text-lg'>{nav.icon}</span>
-                        <span>{nav.title}</span>
+                navs.map((nav, index) => <li key={index} className='max-lg:w-full' onClick={() => setResponsiveMenu(false)}>
+                    <Link href={nav.path} className='flex gap-1 max-lg:gap-3 items-center max-lg:border-b  max-lg:py-6'>
+                        <span className='text-lg max-lg:text-xl'>{nav.icon}</span>
+                        <span className='max-lg:text-xl'>{nav.title}</span>
                     </Link>
                 </li>)
             }
