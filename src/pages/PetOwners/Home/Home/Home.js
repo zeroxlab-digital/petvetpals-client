@@ -1,12 +1,12 @@
 import HeroSection from "../HeroSection/HeroSection";
 
 
-const HomeSection = () => {
+const HomePage = () => {
     return (
-        <div className="">
+        <div>
         <HeroSection />
         </div>
     );
 };
 
-export default HomeSection;
+export default HomePage;

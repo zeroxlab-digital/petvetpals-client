@@ -1,10 +1,9 @@
-
-import HomeSection from "@/pages/PetOwners/Home/Home/Home";
+import HomePage from "@/pages/PetOwners/Home/Home/Home";
 
 const Home = () => {
   return (
     <main className="">
-      <HomeSection />
+      <HomePage />
     </main>
   );
 }
