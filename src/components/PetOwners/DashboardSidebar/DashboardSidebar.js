@@ -1,6 +1,7 @@
+"use client";
 import Link from 'next/link';
-import React from 'react';
-import { FaCalendar, FaCartShopping, FaHouse, FaPaw, FaPills, FaRegHeart, FaRegMessage, FaShield, FaTablet, FaUser, FaUserSlash, FaVideo } from 'react-icons/fa6';
+import { usePathname } from 'next/navigation';
+import { FaCalendar, FaCartShopping, FaHouse, FaPaw, FaPills, FaRegHeart, FaRegMessage, FaShield, FaUser } from 'react-icons/fa6';
 
 const DashboardSidebar = () => {
 
@@ -95,11 +96,12 @@ const DashboardSidebar = () => {
         { title: "Pet Insurance", link: "/dashboard/insurance", icon: <FaShield /> },
         { title: "User Profile", link: "/dashboard/account", icon: <FaUser /> }
     ];
+    const pathname = usePathname();
 
     return (
-        <div className='col-span-2 bg-white p-3 rounded-md'>
+        <div className='col-span-2 bg-white p-3 rounded-md '>
             <ul className='flex flex-col gap-1'>
-                {links.map((link, index) => <Link href={link.link} key={index}><li className='hover:bg-[#8a417ad5] hover:text-white duration-150 px-3 py-3 rounded-md flex items-center gap-3'>
+                {links.map((link, index) => <Link href={link.link} key={index}><li className={`${link.link === pathname && 'bg-primary text-white'} hover:bg-[#8a417ad5] hover:text-white duration-150 px-3 py-3 rounded-md flex items-center gap-3`}>
                     <span>{link.icon}</span>{link.title}
                 </li></Link>)}
             </ul>
