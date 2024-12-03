@@ -1,5 +1,5 @@
 import { Rating } from '@mui/material';
-import React from 'react';
+
 
 const Reviews = () => {
     const reviews = [

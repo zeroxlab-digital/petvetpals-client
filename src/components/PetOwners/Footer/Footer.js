@@ -1,4 +1,3 @@
-import React from 'react';
 import './Footer.css';
 import Link from 'next/link';
 import PetsoliLogo22 from '../../../../public/images/petsoli-22.png'

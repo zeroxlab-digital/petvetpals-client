@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Navbar from "./Navbar";
-import { HiBars3CenterLeft, HiMagnifyingGlass, HiOutlineUser, HiOutlineUserPlus, HiXMark } from "react-icons/hi2";
+import { HiBars3CenterLeft, HiMagnifyingGlass, HiOutlineHeart, HiOutlineUser, HiOutlineUserCircle, HiOutlineUserPlus, HiUserCircle, HiXMark } from "react-icons/hi2";
 import Image from "next/image";
 import CartCount from "./CartCount";
 import PetsoliLogo1 from '../../../../public/images/petsoli-1.png'
@@ -18,8 +18,11 @@ const Header = () => {
         } else {
             document.body.classList.remove("overflow-hidden");
         }
-        return () => document.body.classList.remove("overflow-hidden"); // Cleanup on unmount
+        return () => document.body.classList.remove("overflow-hidden");
     }, [responsiveMenu]);
+
+    const [searchClick, setSearchClick] = useState(true);
+    const authenticated = true;
     return (
         <header className="shadow-md py-5 sticky top-0  bg-white z-10 xl:px-20 px-3">
             <div className="flex items-center justify-between container mx-auto">
@@ -64,21 +67,32 @@ const Header = () => {
                         <Navbar />
                     </div>
                 </div>
-                <div className="flex items-center gap-5">
+                <div className="flex items-center gap-7 max-sm:gap-6">
                     <form action="#" className="">
-                        <div className="flex gap-1 border rounded border-[#58294E] max-2xl:hidden">
+                        <div className={`flex gap-1 ${searchClick && 'border'} rounded border-[#58294E] max-2xl:hidden`}>
                             <input type="text" placeholder="Search products" id="search" className="font-light w-72 outline-none p-2 rounded-lg " />
-                            <label htmlFor="search" className=" cursor-pointer  flex items-center justify-center w-12 text-primary border-l border-[#58294E]"><HiMagnifyingGlass className="text-xl" /></label>
+                            <label htmlFor="search" className={`cursor-pointer  flex items-center justify-center w-12 text-primary ${searchClick && 'border-l'} border-[#58294E]`}><HiMagnifyingGlass className="text-xl" /></label>
                         </div>
                         <div className="2xl:hidden">
                             <HiMagnifyingGlass className="text-xl text-primary" />
                         </div>
                     </form>
                     <CartCount />
-                    <div className="flex items-center ">
-                        <Link href="/signin"><button className="max-sm:hidden w-28 text-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]"><HiOutlineUser className="text-xl" />Sign In</button></Link>
-                        <Link href="/signup"><button className="max-sm:hidden w-32 border border-[#58294E] text-white bg-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]"><HiOutlineUserPlus className="text-xl" />Sign Up</button></Link>
-                        <Link href="/signup"><button className="sm:hidden"><HiOutlineUser className="text-xl text-primary" /></button></Link>
+                    <div>
+                        <div className="">
+                            {authenticated ?
+                                <Link href="/dashboard">
+                                    <button className="flex items-center gap-1 max-sm:hidden"><HiOutlineUserCircle className="text-[21px] text-primary" />My account</button>
+                                    <button className="flex items-center gap-1 sm:hidden"><HiOutlineUserCircle className="text-[24px] text-primary" /></button>
+                                </Link>
+                                :
+                                <div className="flex items-center max-sm:hidden">
+                                    <Link href="/signin"><button className=" w-28 text-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]"><HiOutlineUser className="text-xl" />Sign In</button></Link>
+                                    <Link href="/signup"><button className=" w-32 border border-[#58294E] text-white bg-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]"><HiOutlineUserPlus className="text-xl" />Sign Up</button></Link>
+                                </div>
+                            }
+                        </div>
+                        <Link href="/signup"><button className={`sm:hidden ${authenticated && 'hidden'}`}><HiOutlineUser className="text-xl relative top-[3px] text-primary" /></button></Link>
                     </div>
                 </div>
             </div>

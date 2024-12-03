@@ -1,5 +1,4 @@
 import { Rating } from '@mui/material';
-import React from 'react';
 import Quantity from '../Shop/Quantity';
 import { HiOutlineTrash } from 'react-icons/hi2';
 import Button from '@/components/Common/Button/Button';

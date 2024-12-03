@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { HiOutlineShoppingBag, HiOutlineShoppingCart } from "react-icons/hi2";
 
 const CartCount = () => {
-    let cartItems = 3;
+    let cartItems = 4;
     const router = useRouter()
     return (
         <button type="button" onClick={() => router.push("/cart")} className="text-primary relative"><HiOutlineShoppingBag className="text-xl" />

@@ -1,5 +1,5 @@
 import CategoriesSidebar from '@/components/PetOwners/Shop/CategoriesSidebar';
-import React from 'react';
+
 
 const PharmacyLayout = ({ children }) => {
     return (
