@@ -1,8 +1,7 @@
 
-
 const HeroSection = () => {
     return (
-        <div>
+        <div className="h-screen">
 
         </div>
     );

@@ -5,11 +5,11 @@ import Image from 'next/image';
 
 const Footer = () => {
     return (
-        <footer className='footer-section bg-primary pt-10 pb-5 hidden'>
-            <div className="footer-content container">
+        <footer className='footer-section bg-primary pb-5 hidden'>
+            <div className=" mx-auto px-20 pt-20">
                 <div className="footer-top flex items-center justify-between pb-7 mb-7 ">
                     <Link href="/"><Image src={PetsoliLogo22} alt="logo" width={200} height={200} /> </Link>
-                    <div className="socials">
+                    {/* <div className="socials">
                         <ul className='flex items-center gap-4'>
                             <li className='border border-gray-400 hover:border-gray-200 duration-150  inline-block rounded-full'><Link href="" target='_blank'><img src="https://crypto.com/__assets/mkt-nav-footer/images/icons/socials/twitter.svg" alt="" /></Link></li>
                             <li className='border border-gray-400 hover:border-gray-200 duration-150  inline-block rounded-full'><Link href="" target='_blank'><img src="https://crypto.com/__assets/mkt-nav-footer/images/icons/socials/facebook.svg" alt="" /></Link></li>
@@ -17,22 +17,15 @@ const Footer = () => {
                             <li className='border border-gray-400 hover:border-gray-200 duration-150  inline-block rounded-full'><Link href="" target='_blank'><img src="https://crypto.com/__assets/mkt-nav-footer/images/icons/socials/discord.svg" alt="" /></Link></li>
                             <li className='border border-gray-400 hover:border-gray-200 duration-150  inline-block rounded-full'><Link href="" target='_blank'><img src="https://crypto.com/__assets/mkt-nav-footer/images/icons/socials/telegram.svg" alt="" /></Link></li>
                         </ul>
-                    </div>
+                    </div> */}
                 </div>
 
-                <div className="footer-main ">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
                     <ul className='flex flex-col gap-1 '>
                         <h2 className='text-zinc-200 font-bold text-xl mb-3'>What we do</h2>
                         <li className='text-zinc-300 inline-block hover:tracking-wider hover:underline duration-200'><Link href="">Trade Alert Subscription</Link></li>
                         <li className='text-zinc-300 inline-block hover:tracking-wider hover:underline duration-200'><Link href="">AI Trade Alerts</Link></li>
                         <li className='text-zinc-300 inline-block hover:tracking-wider hover:underline duration-200'><Link href="">0x0 Staking</Link></li>
-                        <li className='text-zinc-300 inline-block hover:tracking-wider hover:underline duration-200'><Link href="">High Flyers NFTs</Link></li>
-                    </ul>
-                    <ul className='flex flex-col gap-1'>
-                        <h2 className='text-zinc-200 font-bold text-xl mb-3'>Who do we support</h2>
-                        <li className='text-zinc-300 inline-block hover:tracking-wider hover:underline duration-200'><Link href="">0x0 Blockchain</Link></li>
-                        <li className='text-zinc-300 inline-block hover:tracking-wider hover:underline duration-200'><Link href="">0x0 Wallet</Link></li>
-                        <li className='text-zinc-300 inline-block hover:tracking-wider hover:underline duration-200'><Link href="">0x0 NFTs</Link></li>
                         <li className='text-zinc-300 inline-block hover:tracking-wider hover:underline duration-200'><Link href="">High Flyers NFTs</Link></li>
                     </ul>
                     <ul className='flex flex-col gap-1 '>
@@ -49,7 +42,7 @@ const Footer = () => {
                         <li className='text-zinc-300 inline-block hover:tracking-wider hover:underline duration-200'><Link href="">Careers</Link></li>
                         <li className='text-zinc-300 inline-block hover:tracking-wider hover:underline duration-200'><Link href="">Partnership</Link></li>
                     </ul>
-                    <ul className='flex flex-col gap-1 '>
+                    <ul className='flex flex-col gap-1 col-span-1'>
                         <h2 className='text-zinc-200 font-bold text-xl mb-3'>News Letter</h2>
                         <p className='text-zinc-200 mb-3 font-semibold '>Subscribe to our news letter</p>
                         <div className="newsletter">

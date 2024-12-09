@@ -55,7 +55,7 @@ const BookingPopup = ({ setShowBookingModal }) => {
                         </li>
                     </ul>
                     <p className="text-gray-200 opacity-50 mt-16 lg:mt-48 text-xs lg:text-sm">
-                        All the times are according to your device's local time.
+                        All the times are according to your devices local time.
                     </p>
                 </div>
 

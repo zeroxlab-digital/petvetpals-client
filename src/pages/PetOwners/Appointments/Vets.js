@@ -2,13 +2,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const Vets = ({ vets, currentPath }) => {
-    if(vets.length < 1) {
+    if(vets?.length < 1) {
         return <div>No vets has been found!</div>
     }
     return (
         <div className='flex flex-col gap-5'>
             {
-                vets.map(({ _id, avator, name, title, works_at, years_of_experiences, specialities, visit_fee_usd, visit_fee_bdt }) => (
+                vets?.map(({ _id, avator, name, title, works_at, years_of_experiences, specialities, visit_fee_usd, visit_fee_bdt }) => (
                     <Link href={{
                         pathname: `${currentPath}/${_id}`,
                         query: {
