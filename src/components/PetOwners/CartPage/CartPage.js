@@ -14,8 +14,8 @@ const CartPage = () => {
     return (
         <div className='grid grid-cols-[4fr_2fr] max-lg:grid-cols-1 gap-7 items-start'>
             <div className="cart-items rounded-md border px-5 flex flex-col">
-                {cartItems.map((item, index) => <div key={index} className='grid grid-cols-[4fr_1fr] max-sm:grid-cols-1 gap-5 items-center py-5 border-b last:border-none'>
-                    <div className='flex sm:items-center gap-5'>
+                {cartItems.map((item, index) => <div key={index} className='grid grid-cols-[4fr_1fr] max-sm:grid-cols-1 gap-5 max-sm:gap-8 items-center py-5 border-b last:border-none'>
+                    <div className='flex items-center gap-5'>
                         <div className='product-img min-w-24 h-24 rounded-md bg-gray-200'></div>
                         <div className='product-details'>
                             <h4 className='font-semibold text-xl mb-1'>{item.title}</h4>
@@ -23,10 +23,10 @@ const CartPage = () => {
                             <div className='flex items-center gap-2'><Rating name="half-rating-read" size="small" defaultValue={4} precision={0.5} readOnly /> <h4 className='text-gray-600 text-sm'>4.5</h4></div>
                         </div>
                     </div>
-                    <div className='flex flex-col sm:items-end sm:text-right'>
-                        <h2 className='font-semibold text-xl mb-2'>${item.price}</h2>
+                    <div className='flex max-sm:justify-between sm:flex-col items-center sm:items-end sm:text-right'>
+                        <h2 className='font-semibold text-xl sm:mb-2'>${item.price}</h2>
                         <Quantity />
-                        <button className='flex items-center gap-2 text-red-500 mt-3'><HiOutlineTrash /> Remove</button>
+                        <button className='flex items-center gap-2 text-red-500 sm:mt-3'><HiOutlineTrash /> Remove</button>
                     </div>
                 </div>)}
             </div>
