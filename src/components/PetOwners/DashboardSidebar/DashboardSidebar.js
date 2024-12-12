@@ -1,7 +1,7 @@
 "use client";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaCalendar, FaCartShopping, FaHouse, FaPaw, FaPills, FaRegHeart, FaRegMessage, FaShield, FaUser } from 'react-icons/fa6';
+import { FaCalendar, FaCartShopping, FaHouse, FaPaw, FaPills, FaRegHeart, FaRegMessage, FaUser } from 'react-icons/fa6';
 
 const DashboardSidebar = () => {
 
@@ -93,7 +93,6 @@ const DashboardSidebar = () => {
         { title: "Treatments", link: "/dashboard/treatments", icon: <FaPills /> },
         { title: "Wishlist", link: "/dashboard/wishlist", icon: <FaRegHeart /> },
         { title: "Order History", link: "/dashboard/orders", icon: <FaCartShopping /> },
-        { title: "Pet Insurance", link: "/dashboard/insurance", icon: <FaShield /> },
         { title: "User Profile", link: "/dashboard/account", icon: <FaUser /> }
     ];
     const pathname = usePathname();
