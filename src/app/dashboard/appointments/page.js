@@ -1,9 +1,10 @@
+import Appointments from '@/components/Common/Appointments/Appointments';
 import React from 'react';
 
 const page = () => {
     return (
         <div>
-            Appointments
+            <Appointments />
         </div>
     );
 };

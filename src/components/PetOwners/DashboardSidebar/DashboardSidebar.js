@@ -98,9 +98,9 @@ const DashboardSidebar = () => {
     const pathname = usePathname();
 
     return (
-        <div className='col-span-2 bg-white p-3 rounded-md '>
+        <div className='col-span-2 bg-white p-3 rounded-md sticky top-20 h-[calc(100vh-8rem)] overflow-auto '>
             <ul className='flex flex-col gap-1'>
-                {links.map((link, index) => <Link href={link.link} key={index}><li className={`${link.link === pathname && 'bg-primary text-white'} hover:bg-[#8a417ad5] hover:text-white duration-150 px-3 py-3 rounded-md flex items-center gap-3`}>
+                {links.map((link, index) => <Link href={link.link} key={index}><li className={`${link.link === pathname && 'bg-primary text-white'} hover:bg-[#7b376ce0] hover:text-white duration-150 px-3 py-3 rounded-md flex items-center gap-3`}>
                     <span>{link.icon}</span>{link.title}
                 </li></Link>)}
             </ul>

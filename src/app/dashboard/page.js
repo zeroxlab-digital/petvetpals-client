@@ -2,7 +2,7 @@ import React from 'react';
 
 const Dashboard = () => {
     return (
-        <div className='col-span-8'>
+        <div className=''>
             Dashboard Page
         </div>
     );
