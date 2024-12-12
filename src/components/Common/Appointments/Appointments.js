@@ -182,8 +182,8 @@ const Appointments = () => {
                 <h2 className='font-bold text-2xl mb-1'>Appointments</h2>
                 <p className='text-gray-500 '>See your scheduled and all other appointments</p>
             </div>
-            <ul className='bg-white p-2 rounded-md flex items-center gap-2 mb-10'>
-                {status_tabs.map((tab, index) => <li key={index} onClick={() => set_active_status_tab(tab)} className={`${active_status_tab === tab ? 'bg-gray-600 text-gray-100' : 'text-gray-800'}  text-sm py-2 w-32 text-center rounded-md cursor-pointer capitalize`}>{tab}</li>)}
+            <ul className='bg-gray-100 bg-opacity-50 p-2 rounded-md flex items-center gap-2 mb-10'>
+                {status_tabs.map((tab, index) => <li key={index} onClick={() => set_active_status_tab(tab)} className={`${active_status_tab === tab ? 'bg-gray-700 text-gray-100' : 'text-gray-800'}  text-sm py-2 w-32 text-center rounded-md cursor-pointer capitalize`}>{tab}</li>)}
             </ul>
             <div>
                 {filtered_appointments.map((appointment, index) => (

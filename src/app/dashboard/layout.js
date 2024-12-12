@@ -8,7 +8,7 @@ const DashboardLayout = ({ children }) => {
             <Header />
             <div className='grid grid-cols-10 items-start gap-5 px-20 py-7 bg-gray-100 bg-opacity-50 '>
                 <DashboardSidebar />
-                <div className='col-span-8 p-3'>
+                <div className='col-span-8 p-5 bg-white border rounded-md'>
                     {children}
                 </div>
             </div>
