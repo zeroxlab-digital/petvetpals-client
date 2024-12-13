@@ -61,7 +61,7 @@ const Header = () => {
                     }
                     <Link href="/">
                         {/* <Image src={PetsoliLogo22} alt="Petsoli Logo" className="max-w-32" /> */}
-                        <h2 className="text-primary font-bold text-2xl">Petsoli</h2>
+                        <h2 className="text-primary font-bold text-2xl">PetVetPals</h2>
                     </Link>
                     <div className="max-lg:hidden">
                         <Navbar />

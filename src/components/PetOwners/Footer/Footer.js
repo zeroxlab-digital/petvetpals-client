@@ -5,11 +5,11 @@ import Image from 'next/image';
 
 const Footer = () => {
     return (
-        <footer className='footer-section bg-primary pb-5 hidden'>
+        <footer className='footer-section bg-primary pb-5'>
             <div className=" mx-auto px-20 pt-20">
                 <div className="footer-top flex items-center justify-between pb-7 mb-7 ">
                     <Link href="/"><Image src={PetsoliLogo22} alt="logo" width={200} height={200} /> </Link>
-                    {/* <div className="socials">
+                    <div className="socials">
                         <ul className='flex items-center gap-4'>
                             <li className='border border-gray-400 hover:border-gray-200 duration-150  inline-block rounded-full'><Link href="" target='_blank'><img src="https://crypto.com/__assets/mkt-nav-footer/images/icons/socials/twitter.svg" alt="" /></Link></li>
                             <li className='border border-gray-400 hover:border-gray-200 duration-150  inline-block rounded-full'><Link href="" target='_blank'><img src="https://crypto.com/__assets/mkt-nav-footer/images/icons/socials/facebook.svg" alt="" /></Link></li>
@@ -17,7 +17,7 @@ const Footer = () => {
                             <li className='border border-gray-400 hover:border-gray-200 duration-150  inline-block rounded-full'><Link href="" target='_blank'><img src="https://crypto.com/__assets/mkt-nav-footer/images/icons/socials/discord.svg" alt="" /></Link></li>
                             <li className='border border-gray-400 hover:border-gray-200 duration-150  inline-block rounded-full'><Link href="" target='_blank'><img src="https://crypto.com/__assets/mkt-nav-footer/images/icons/socials/telegram.svg" alt="" /></Link></li>
                         </ul>
-                    </div> */}
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
