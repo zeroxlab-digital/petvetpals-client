@@ -1,8 +1,9 @@
 import { Rating } from "@mui/material";
+import Image from "next/image";
 import Link from "next/link";
 import { HiOutlineHeart, HiShoppingCart } from "react-icons/hi2";
 
-const Products = ({_id, name, price, currentPathname}) => {
+const Products = ({ _id, name, price, currentPathname }) => {
     return (
         <>
             <Link href={{
@@ -12,7 +13,7 @@ const Products = ({_id, name, price, currentPathname}) => {
                 }
             }}>
                 <div className="bg-gray-300 bg-opacity-10 rounded w-auto h-52 mb-3">
-                    {/* Product Image Here */}
+                    <Image src="/images/med1.webp" alt="product-img" width={100} height={100} className="w-full h-auto object-cover" />
                 </div>
                 <h2 className="text-gray-900 hover:underline cursor-pointer mb-2">{name}</h2>
                 <div className="flex items-center justify-between">

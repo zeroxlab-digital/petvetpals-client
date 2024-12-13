@@ -47,7 +47,7 @@ const ProductDetails = ({ params }) => {
             </div>
             <ProductDetailsTabs name={name} description={product_description} details={product_details} category={category} />
             <div className="mt-10">
-                <h2 className="font-semibold text-primary text-lg mb-2">Related products</h2>
+                <h2 className="font-semibold text-primary text-lg mb-2">Product reviews</h2>
                 <Reviews />
             </div>
             <RelatedProducts />

@@ -4,7 +4,7 @@
         "name": "General Vitamin Supplements",
         "product_description": "Vitamins and minerals to keep your pet healthy.",
         "price": 12.99,
-        "product_image": "vitamin_supplements.jpg",
+        "product_image": "/images/med1.webp",
         "stock": 100,
         "category": {
             "category_name": "Cat Medicines",
@@ -22,7 +22,7 @@
         "name": "Flea and Tick Prevention",
         "product_description": "Prevent fleas and ticks with this effective treatment.",
         "price": 19.99,
-        "product_image": "flea_tick_prevention.jpg",
+        "product_image": "/images/med2.webp",
         "stock": 75,
         "category": {
             "category_name": "Cat Medicines",
@@ -40,7 +40,25 @@
         "name": "Fever and Cough",
         "product_description": "Prevent fleas and ticks with this effective treatment.",
         "price": 19.99,
-        "product_image": "flea_tick_prevention.jpg",
+        "product_image": "/images/med3.webp",
+        "stock": 75,
+        "category": {
+            "category_name": "Cat Medicines",
+            "category_slug": "cat-medicines",
+            "category_image": "/images/cat-medicines.jfif"
+        },
+        "product_details": {
+            "ingredients": ["Fipronil", "Methoprene"],
+            "application": "Apply once a month",
+            "brand": "Protective Pet"
+        }
+    },
+    {
+        "_id": 304,
+        "name": "Fever and Cough",
+        "product_description": "Prevent fleas and ticks with this effective treatment.",
+        "price": 19.99,
+        "product_image": "/images/med3.webp",
         "stock": 75,
         "category": {
             "category_name": "Cat Medicines",
@@ -58,7 +76,7 @@
         "name": "Hip and Joint Supplements",
         "product_description": "Support your dog's joint health with these supplements.",
         "price": 15.99,
-        "product_image": "hip_joint_supplements.jpg",
+        "product_image": "/images/med4.webp",
         "stock": 80,
         "category": {
             "category_name": "Dog Medicines",
@@ -76,7 +94,7 @@
         "name": "Anti-Inflammatory Tablets",
         "product_description": "Effective anti-inflammatory medication for dogs.",
         "price": 25.99,
-        "product_image": "anti_inflammatory_tablets.jpg",
+        "product_image": "/images/med1.webp",
         "stock": 40,
         "category": {
             "category_name": "Dog Medicines",
@@ -94,7 +112,25 @@
         "name": "Anti-biotic Tablets",
         "product_description": "Effective anti-inflammatory medication for dogs.",
         "price": 22.25,
-        "product_image": "anti_inflammatory_tablets.jpg",
+        "product_image": "/images/med2.webp",
+        "stock": 40,
+        "category": {
+            "category_name": "Dog Medicines",
+            "category_slug": "dog-medicines",
+            "category_image": "/images/dog-medicines.jfif"
+        },
+        "product_details": {
+            "ingredients": ["Carprofen"],
+            "recommended_dosage": "1 tablet twice daily",
+            "brand": "Relief Med"
+        }
+    },
+    {
+        "_id": 404,
+        "name": "Anti-biotic Tablets",
+        "product_description": "Effective anti-inflammatory medication for dogs.",
+        "price": 22.25,
+        "product_image": "/images/med2.webp",
         "stock": 40,
         "category": {
             "category_name": "Dog Medicines",
