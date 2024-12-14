@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import useProducts from "../../../../hooks/useProducts";
 import { HiOutlineHeart, HiShoppingCart } from "react-icons/hi2";
 import { Rating } from "@mui/material";
+import Image from "next/image";
 
 
 const Products = ({ params }) => {
@@ -29,7 +30,7 @@ const Products = ({ params }) => {
                             }
                         }}>
                             <div className="bg-gray-300 bg-opacity-10 rounded w-auto h-52 mb-3">
-                                {/* Product Image Here */}
+                                <Image src="/images/med1.webp" alt="product-img" width={100} height={100} className="w-full h-full object-cover rounded-md" />
                             </div>
                             <h2 className="text-gray-900 hover:underline cursor-pointer mb-2">{product.name}</h2>
                             <div className="flex items-center justify-between">

@@ -13,7 +13,7 @@ const Products = ({ _id, name, price, currentPathname }) => {
                 }
             }}>
                 <div className="bg-gray-300 bg-opacity-10 rounded w-auto h-52 mb-3">
-                    <Image src="/images/med1.webp" alt="product-img" width={100} height={100} className="w-full h-auto object-cover" />
+                    <Image src="/images/med1.webp" alt="product-img" width={100} height={100} className="w-full h-full object-cover rounded" />
                 </div>
                 <h2 className="text-gray-900 hover:underline cursor-pointer mb-2">{name}</h2>
                 <div className="flex items-center justify-between">

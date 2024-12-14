@@ -22,7 +22,7 @@ const Header = () => {
     }, [responsiveMenu]);
 
     const [searchClick, setSearchClick] = useState(true);
-    const authenticated = true;
+    const authenticated = false;
     return (
         <header className="shadow-md py-5 sticky top-0  bg-white z-10 xl:px-20 px-3">
             <div className="flex items-center justify-between container mx-auto">
@@ -33,7 +33,7 @@ const Header = () => {
                             className={`lg:hidden bg-white absolute top-0 left-0 z-10 w-full h-screen px-3 py-4 flex flex-col`}
                         >
                             <div className="flex items-center justify-between mb-5 border-b pb-5">
-                                <h2 className="text-primary font-bold text-2xl">Petsoli</h2>
+                                <h2 className="text-primary font-bold text-2xl">PetVetPals</h2>
                                 <button
                                     onClick={() => setResponsiveMenu(false)}
                                     className="lg:hidden"
@@ -42,7 +42,7 @@ const Header = () => {
                                 </button>
                             </div>
                             <Navbar setResponsiveMenu={setResponsiveMenu} />
-                            <div className="flex items-center gap-5 justify-center mt-auto">
+                            <div className="flex items-center gap-5 justify-center mt-auto mb-24">
                                 <Link href="/signin">
                                     <button className="w-40 border border-[#58294E] text-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]">
                                         <HiOutlineUser className="text-xl" />
@@ -86,7 +86,7 @@ const Header = () => {
                                     <button className="flex items-center gap-1 sm:hidden"><HiOutlineUserCircle className="text-[24px] text-primary" /></button>
                                 </Link>
                                 :
-                                <div className="flex items-center max-sm:hidden">
+                                <div className="flex items-center max-sm:hidden ">
                                     <Link href="/signin"><button className=" w-28 text-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]"><HiOutlineUser className="text-xl" />Sign In</button></Link>
                                     <Link href="/signup"><button className=" w-32 border border-[#58294E] text-white bg-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]"><HiOutlineUserPlus className="text-xl" />Sign Up</button></Link>
                                 </div>
