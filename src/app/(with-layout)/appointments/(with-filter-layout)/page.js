@@ -46,7 +46,7 @@ const AppointmentsPage = () => {
     }, [filterChange, vets]);
 
     return (
-        <div className="container mx-auto max-md:px-3 2xl:px-20 py-10 grid xl:grid-cols-[2fr_7fr] gap-14">
+        <div className="container mx-auto max-md:px-3 2xl:px-20 py-10 grid xl:grid-cols-[2fr_7fr] gap-14 max-md:bg-gray-100">
             <VetFilterSidebar setFilterChange={setFilterChange} />
             <Vets vets={filteredVets} currentPath={currentPath} />
         </div>

@@ -40,7 +40,7 @@ const VetFilterSidebar = ({ setFilterChange }) => {
             <form action="#">
                 {/* Vet Specialties Filter */}
                 <div className="mb-6">
-                    <h4 className="font-semibold text-gray-700 mb-3 text-lg">Select Vet Specialties</h4>
+                    <h4 className="font-semibold text-gray-700 mb-3 text-base">Select Vet Specialties</h4>
                     <div className="flex items-center gap-2 mb-2 ">
                         <input type="checkbox" id="general" value="General Veterinary" onChange={handleSpecialityChange} className="w-4 h-4 text-primary cursor-pointer" />
                         <label htmlFor="general" className="text-gray-600 cursor-pointer">General Veterinary</label>
@@ -61,7 +61,7 @@ const VetFilterSidebar = ({ setFilterChange }) => {
 
                 {/* Sorting Options */}
                 <div className="mb-6">
-                    <h4 className="font-semibold text-gray-700 mb-3 text-lg">Sort By</h4>
+                    <h4 className="font-semibold text-gray-700 mb-3 text-base">Sort By</h4>
                     <div className="flex items-center gap-2 mb-2 ">
                         <input type="radio" id="relevance" name="sortBy" value="Relevance" onChange={handleSortChange} checked={filters.sortBy === 'Relevance'} className="w-4 h-4 text-primary cursor-pointer" />
                         <label htmlFor="relevance" className="text-gray-600 cursor-pointer">Relevance</label>
@@ -82,7 +82,7 @@ const VetFilterSidebar = ({ setFilterChange }) => {
 
                 {/* Consultation Fee Range */}
                 <div className="mb-6">
-                    <h4 className="font-semibold text-gray-700 mb-3 text-lg">Consultation Fee (USD)</h4>
+                    <h4 className="font-semibold text-gray-700 mb-3 text-base">Consultation Fee (USD)</h4>
                     <input type="range" min="10" max="500" step="10" className="w-full cursor-pointer" />
                     <div className="flex justify-between text-sm text-gray-500 mt-2">
                         <span>$10</span>
@@ -92,7 +92,7 @@ const VetFilterSidebar = ({ setFilterChange }) => {
 
                 {/* Availability Filter */}
                 <div>
-                    <h4 className="font-semibold text-gray-700 mb-3 text-lg">Availability</h4>
+                    <h4 className="font-semibold text-gray-700 mb-3 text-base">Availability</h4>
                     <div className="flex items-center gap-2 mb-2">
                         <input type="checkbox" id="available-now" value="Available Now" onChange={handleSpecialityChange} className="w-4 h-4 text-primary" />
                         <label htmlFor="available-now" className="text-gray-600">Available Now</label>
