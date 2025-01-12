@@ -1,13 +1,10 @@
 "use client";
 import Link from "next/link";
 import Navbar from "./Navbar";
-import { HiBars3CenterLeft, HiMagnifyingGlass, HiOutlineHeart, HiOutlineUser, HiOutlineUserCircle, HiOutlineUserPlus, HiUserCircle, HiXMark } from "react-icons/hi2";
-import Image from "next/image";
+import { HiBars3CenterLeft, HiMagnifyingGlass, HiOutlineUser, HiOutlineUserCircle, HiOutlineUserPlus, HiXMark } from "react-icons/hi2";
 import CartCount from "./CartCount";
-import PetsoliLogo1 from '../../../../public/images/petsoli-1.png'
-import PetsoliLogo22 from '../../../../public/images/petsoli-22.png'
-import PetsoliLogo33 from '../../../../public/images/petsoli-33.png'
 import { useEffect, useState } from "react";
+import Search from "./Search";
 
 const Header = () => {
     const [responsiveMenu, setResponsiveMenu] = useState(false)
@@ -21,8 +18,7 @@ const Header = () => {
         return () => document.body.classList.remove("overflow-hidden");
     }, [responsiveMenu]);
 
-    const [searchClick, setSearchClick] = useState(true);
-    const authenticated = false;
+    const authenticated = true;
     return (
         <header className="shadow-md py-5 sticky top-0  bg-white z-10 xl:px-20 px-3">
             <div className="flex items-center justify-between container mx-auto">
@@ -68,15 +64,7 @@ const Header = () => {
                     </div>
                 </div>
                 <div className="flex items-center gap-7 max-sm:gap-6">
-                    <form action="#" className="">
-                        <div className={`flex gap-1 ${searchClick && 'border'} rounded border-[#58294E] max-2xl:hidden`}>
-                            <input type="text" placeholder="Search products" id="search" className="font-light w-72 outline-none p-2 rounded-lg " />
-                            <label htmlFor="search" className={`cursor-pointer  flex items-center justify-center w-12 text-primary ${searchClick && 'border-l'} border-[#58294E]`}><HiMagnifyingGlass className="text-xl" /></label>
-                        </div>
-                        <div className="2xl:hidden">
-                            <HiMagnifyingGlass className="text-xl text-primary" />
-                        </div>
-                    </form>
+                    <Search />
                     <CartCount />
                     <div>
                         <div className="">
