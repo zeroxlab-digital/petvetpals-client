@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { HiChevronDown, HiMagnifyingGlass } from 'react-icons/hi2';
+import { HiChevronDown, HiMagnifyingGlass, HiOutlineShoppingCart } from 'react-icons/hi2';
 import { LuPill } from 'react-icons/lu';
 
 const Search = () => {
-    const types = ["Pharmacy", "Foods", "Accessories"];
-    const [selected, set_selected] = useState(types[0]);
+    const searchTypes = [
+        { type: "Pharmacy", icon: <LuPill /> },
+        { type: "Foods", icon: <HiOutlineShoppingCart /> },
+        { type: "Accessories", icon: <HiOutlineShoppingCart /> }
+    ];
+    const [selected, set_selected] = useState(searchTypes[0].type);
     const [clicked, set_clicked] = useState(false);
-    const handleItemClick = (type, index) => {
-        set_selected(types[index])
+    const handleItemClick = (index) => {
+        set_selected(searchTypes[index].type)
         set_clicked(false);
     }
     return (
@@ -16,10 +20,10 @@ const Search = () => {
                 <label htmlFor="search" className={`cursor-pointer  flex items-center justify-center  text-primary `}><HiMagnifyingGlass className="text-lg" /></label>
                 <input type="text" placeholder="Search" id="search" className="font-light text-black w-52 outline-none p-2 rounded-full " />
                 <div className='relative'>
-                    <p onClick={() => set_clicked(!clicked)} className='text-sm flex items-center justify-end gap-[2px] cursor-pointer pr-2 rounded-full w-[6.5rem] text-right'>{selected} <HiChevronDown /></p>
+                    <p onClick={() => set_clicked(!clicked)} className={`  py-[6px] text-sm flex items-center justify-end gap-[2px] cursor-pointer pr-2 rounded-full w-[6.5rem] text-right font-normal`}>{selected} <HiChevronDown className='text-[12px]' /></p>
                     {clicked &&
-                        <ul className='absolute top-full bg-white border rounded-md w-60  flex flex-col '>
-                            {types.map((type, index) => <li key={index} onClick={() => handleItemClick(type, index)} className='hover:bg-gray-200 bg-opacity-50 p-3 cursor-pointer flex items-center gap-2'><LuPill /> {type}</li>)}
+                        <ul className='absolute top-full bg-white shadow-xl border border-gray-200 rounded-md w-60  flex flex-col '>
+                            {searchTypes.map((item, index) => <li key={index} onClick={() => handleItemClick(index)} className='hover:bg-[#58294E] hover:text-white duration-150 p-3 cursor-pointer flex items-center gap-2 first:rounded-t-md last:rounded-b-md'>{item.icon} {item.type}</li>)}
                         </ul>
                     }
                 </div>
