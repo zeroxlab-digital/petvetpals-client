@@ -22,31 +22,36 @@ const VetDetails = ({ params }) => {
 
     return (
         <div>
-            <div className="grid grid-cols-3 max-lg:grid-cols-1 items-center p-5 max-lg:gap-y-10 rounded-md border">
-                <div className="flex max-md:flex-col md:items-center gap-5 col-span-2">
-                    <div className=""><Image src="/images/vet.png" alt="vet logo" width={200} height={200} className="rounded-md " /></div>
-                    <div>
-                        <h2 className="mb-2 font-bold text-lg">{name}</h2>
-                        <p className='mb-2'>{title}</p>
-                        <p className=' text-gray-700 mb-1'>Specialities</p>
-                        <div className='flex gap-1 mb-3'>{specialities?.map((speciality, index) => <p key={index} className='text-xs bg-primary p-1 text-white rounded'>{speciality}</p>)}</div>
-                        <p className="text-gray-700 ">Works at</p>
-                        <h5 className="font-semibold">{works_at} <span className="font-normal">(Monroe, LA, USA)</span></h5>
-                    </div>
+            <div className="bg-white">
+                <div>
+                    <Image src="/images/cute-dog.jpg" alt="" width={100} height={100} className="w-full h-96 max-sm:h-56 object-cover rounded-md" />
                 </div>
-                <div className="md:text-center">
-                    <h3 className="font-bold text-xl mb-1 text-gray-800">Consultation Fee</h3>
-                    <h1 className='mb-1 text-2xl font-bold text-primary  flex items-center md:justify-center gap-1'>${visit_fee_usd?.toFixed(2)} <span className='text-xs  font-semibold'>(incl. VAT)</span></h1>
-                    <div className="mt-5 flex  md:justify-center" onClick={() => setShowBookingModal(true)}>
-                        <Button variant={"primary"} classNames={"max-lg:w-full"} ><HiMiniVideoCamera /> See Vet Now</Button>
+                <div className="relative -top-10 grid grid-cols-3 max-lg:grid-cols-1 items-end px-5 pb-0 max-lg:gap-y-10 rounded-md ">
+                    <div className="flex max-md:flex-col md:items-end gap-5 col-span-2 ">
+                        <div className=""><Image src="/images/vet.png" alt="vet logo" width={200} height={200} className="rounded-full max-md:rounded-md border-2 border-gray-300 max-sm:w-40" /></div>
+                        <div className="md:pb-3">
+                            <h2 className="mb-2 font-bold text-lg">{name}</h2>
+                            <p className='mb-2'>{title}</p>
+                            <p className=' text-gray-700 mb-1'>Specialities</p>
+                            <div className='flex flex-wrap gap-1'>{specialities?.map((speciality, index) => <p key={index} className='text-xs bg-primary p-1 text-white rounded'>{speciality}</p>)}</div>
+                        </div>
                     </div>
-                    {showBookingModal && <BookingPopup setShowBookingModal={setShowBookingModal} />}
+                    <div className="text-center ">
+                        <h1 className='mb-3 text-xl font-bold text-primary text-center flex items-center md:justify-center gap-1'>${visit_fee_usd?.toFixed(2)} USD <span className='text-xs  font-semibold'>/ Appt. fee</span></h1>
+                        <div className="flex md:justify-center" onClick={() => setShowBookingModal(true)}>
+                            <Button variant={"primary"} classNames={"max-lg:w-full"} ><HiMiniVideoCamera /> See Vet Now</Button>
+                        </div>
+                        {showBookingModal && <BookingPopup setShowBookingModal={setShowBookingModal} />}
+                    </div>
                 </div>
             </div>
-            <div className="mt-7 grid grid-cols-[3fr_2fr] max-lg:grid-cols-1 gap-7">
-                <VetDetailsTabs name={name} title={title} />
-                <div className="p-5 rounded-md border h-fit">
-                    <h2 className="mb-8 font-semibold text-primary">Availability Calendar</h2>
+            <VetDetailsTabs name={name} title={title} />
+            <div className="mt-5 grid xl:grid-cols-5 gap-5">
+                <div className="p-5 rounded-md bg-white xl:col-span-3">
+                    <h2 className="font-semibold text-gray-900">Other Content</h2>
+                </div>
+                <div className="p-5 rounded-md bg-white overflow-hidden xl:col-span-2">
+                    <h2 className="mb-8 font-semibold text-gray-900">Availability Calendar</h2>
                     <DayPicker
                         mode="single"
                         disabled={[

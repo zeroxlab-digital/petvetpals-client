@@ -13,9 +13,9 @@ const VetDetailsTabs = ({ name, title }) => {
         {title: "Senior Veterinarian", work_place: "PetCare Plus Clinic", start_date: "July 2018", end_date: "February 2019", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet"}
     ]
     return (
-        <div className='p-5 rounded-md border h-fit'>
-            <ul className='flex gap-2 items-center mb-6'>
-                {tabList.map((list, index) => <li key={index} onClick={() => setSelectedTab(list)} className={`font-bold w-24 h-10 text-primary text-center leading-10 cursor-pointer ${selectedTab == list && 'border-b-2 border-[#58294E]'}`}>
+        <div className='p-5 mt-5 rounded-md bg-white h-fit '>
+            <ul className='flex gap-2 items-center mb-7 border-b '>
+                {tabList.map((list, index) => <li key={index} onClick={() => setSelectedTab(list)} className={`font-bold w-24 h-10 text-primary text-center leading-10 cursor-pointer ${selectedTab == list && 'border-b-[3px] border-[#58294E]'}`}>
                     {list}
                 </li>)}
             </ul>
