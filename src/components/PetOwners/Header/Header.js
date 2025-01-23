@@ -5,8 +5,13 @@ import { HiBars3CenterLeft, HiMagnifyingGlass, HiOutlineUser, HiOutlineUserCircl
 import CartCount from "./CartCount";
 import { useEffect, useState } from "react";
 import Search from "./Search";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+
+    const { authUser } = useSelector((state) => state.userRedu);
+    console.log(authUser)
+
     const [responsiveMenu, setResponsiveMenu] = useState(false)
     // Disable scroll on body when the menu is open
     useEffect(() => {
@@ -18,7 +23,6 @@ const Header = () => {
         return () => document.body.classList.remove("overflow-hidden");
     }, [responsiveMenu]);
 
-    const authenticated = false;
     return (
         <header className="shadow-md py-5 sticky top-0  bg-white z-10 xl:px-20 px-3">
             <div className="flex items-center justify-between container mx-auto">
@@ -68,7 +72,7 @@ const Header = () => {
                     <CartCount />
                     <div>
                         <div className="">
-                            {authenticated ?
+                            {authUser ?
                                 <Link href="/dashboard">
                                     <button className="flex items-center gap-1 max-sm:hidden"><HiOutlineUserCircle className="text-[21px] text-primary" />My account</button>
                                     <button className="flex items-center gap-1 sm:hidden"><HiOutlineUserCircle className="text-[24px] text-primary" /></button>
@@ -80,7 +84,7 @@ const Header = () => {
                                 </div>
                             }
                         </div>
-                        <Link href="/signup"><button className={`sm:hidden ${authenticated && 'hidden'}`}><HiOutlineUser className="text-xl relative top-[3px] text-primary" /></button></Link>
+                        <Link href="/signup"><button className={`sm:hidden ${authUser && 'hidden'}`}><HiOutlineUser className="text-xl relative top-[3px] text-primary" /></button></Link>
                     </div>
                 </div>
             </div>
