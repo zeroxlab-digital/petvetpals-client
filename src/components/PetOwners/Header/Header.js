@@ -18,7 +18,7 @@ const Header = () => {
         return () => document.body.classList.remove("overflow-hidden");
     }, [responsiveMenu]);
 
-    const authenticated = true;
+    const authenticated = false;
     return (
         <header className="shadow-md py-5 sticky top-0  bg-white z-10 xl:px-20 px-3">
             <div className="flex items-center justify-between container mx-auto">
