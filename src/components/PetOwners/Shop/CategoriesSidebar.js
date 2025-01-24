@@ -10,7 +10,6 @@ const CategoriesSidebar = () => {
     const pathname = usePathname();
     const pathnameCategory = pathname.split('/').slice(0, 2).join('/');
     const pathnameSlug = pathname.split('/').slice(2, 3).join('/');
-    console.log(pathnameCategory)
     return (
         <aside className="sticky top-28 h-fit overflow-auto max-xl:hidden">
             <h3 className="font-semibold text-lg mb-3 flex items-center gap-2 text-primary"><HiSquares2X2 className="font-bold text-xl" /> {pathnameCategory === '/shop' ? 'Shop by category' : 'Online pet pharmacy'}</h3>

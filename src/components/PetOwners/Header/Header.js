@@ -6,7 +6,6 @@ import CartCount from "./CartCount";
 import { useEffect, useState } from "react";
 import Search from "./Search";
 import { useSelector } from "react-redux";
-import { getUserToken } from "@/utils/getTokens";
 
 const Header = () => {
 
