@@ -1,12 +1,15 @@
 "use client";
 import React from 'react';
-import store from '@/redux/store/store';
+import store, { persistor } from '@/redux/store/store';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const StoreProvider = ({ children }) => {
     return (
         <Provider store={store}>
-            { children }
+            <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+                {children}
+            </PersistGate>
         </Provider>
     );
 };

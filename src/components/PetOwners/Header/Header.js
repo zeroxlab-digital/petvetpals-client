@@ -9,8 +9,7 @@ import { useSelector } from "react-redux";
 
 const Header = () => {
 
-    const { authUser } = useSelector((state) => state.userRedu);
-    console.log(authUser)
+    const { authUser } = useSelector((state) => state.user);
 
     const [responsiveMenu, setResponsiveMenu] = useState(false)
     // Disable scroll on body when the menu is open
