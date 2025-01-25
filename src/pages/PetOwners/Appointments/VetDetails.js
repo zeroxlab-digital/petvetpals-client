@@ -20,6 +20,8 @@ const VetDetails = ({ params }) => {
     const today = new Date();
     const twoDaysFromNow = addDays(today, 5);
 
+    const [appointmentStatus, setAppointmentStatus] = useState(null);
+
     return (
         <div>
             <div className="bg-white">
@@ -36,12 +38,19 @@ const VetDetails = ({ params }) => {
                             <div className='flex flex-wrap gap-1'>{specialities?.map((speciality, index) => <p key={index} className='text-xs bg-primary p-1 text-white rounded'>{speciality}</p>)}</div>
                         </div>
                     </div>
-                    <div className="text-center ">
+                    <div className="text-center">
                         <h1 className='mb-3 text-xl font-bold text-primary text-center flex items-center md:justify-center gap-1'>${visit_fee_usd?.toFixed(2)} USD <span className='text-xs  font-semibold'>/ Appt. fee</span></h1>
-                        <div className="flex md:justify-center" onClick={() => setShowBookingModal(true)}>
-                            <Button variant={"primary"} classNames={"max-lg:w-full"} ><HiMiniVideoCamera /> See Vet Now</Button>
+                        <div className="flex md:justify-center" >
+                            {appointmentStatus === "pending" ?
+                                <p>You have a pending appointment, pay to confirm it</p>
+                                :
+                                appointmentStatus === "confirmed" ?
+                                    <p>You have a upcoming appointment at 7:30 PM</p>
+                                    :
+                                    <Button variant={"primary"} classNames={"max-lg:w-full"} onClick={() => setShowBookingModal(true)} ><HiMiniVideoCamera /> See Vet Now</Button>
+                            }
                         </div>
-                        {showBookingModal && <BookingPopup setShowBookingModal={setShowBookingModal} />}
+                        {showBookingModal && <BookingPopup setShowBookingModal={setShowBookingModal} setAppointmentStatus={setAppointmentStatus} />}
                     </div>
                 </div>
             </div>

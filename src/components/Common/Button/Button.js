@@ -1,6 +1,6 @@
 
 
-const Button = ({ children, variant, size, classNames, ...props }) => {
+const Button = ({ children, variant, size, classNames, onClick, ...props }) => {
     const variantClass = () => {
         switch (variant) {
             case 'primary':
@@ -23,7 +23,7 @@ const Button = ({ children, variant, size, classNames, ...props }) => {
     }
     
     return (
-        <button className={`${variantClass()} ${sizeClass()} ${props.uppercase && 'uppercase'} ${classNames} flex justify-center items-center gap-2`}>
+        <button onClick={onClick} className={`${variantClass()} ${sizeClass()} ${props.uppercase && 'uppercase'} ${classNames} flex justify-center items-center gap-2`}>
             {children}
         </button>
     );

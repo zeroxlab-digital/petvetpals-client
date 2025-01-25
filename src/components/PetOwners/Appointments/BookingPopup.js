@@ -5,15 +5,15 @@ import BookingCalendar from './BookingCalendar';
 import BookingDetails from './BookingDetails';
 import BookingPayment from './BookingPayment';
 
-const BookingPopup = ({ setShowBookingModal }) => {
-    const [selectedDate, setSelectedDate] = useState(undefined);
+const BookingPopup = ({ setShowBookingModal, setAppointmentStatus }) => {
+    const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
 
     const today = new Date();
     const twoDaysFromNow = addDays(today, 5);
 
     const availableTimes = [
-        '06:00', '07:00', '08:30', '09:00', '09:30', '10:00', '11:00', '11:30', '12:00'
+        '4:30 PM', '5:00 PM', '5:30 PM', '6:00 PM', '7:00 PM', '8:30 PM', '9:00 PM', '9:30 PM', '10:00 PM'
     ];
 
     const handleDateSelect = (date) => {
@@ -25,7 +25,7 @@ const BookingPopup = ({ setShowBookingModal }) => {
         setSelectedTime(time);
     };
 
-    const [stage, setStage] = useState('calendar');
+    // const [stage, setStage] = useState('calendar');
 
     useEffect(() => {
         // Add scroll lock to the body
@@ -68,7 +68,18 @@ const BookingPopup = ({ setShowBookingModal }) => {
                         <HiXMark size={25} />
                     </button>
                     <div className="px-4 py-4 mt-5">
-                        {stage === 'calendar' ? (
+                        <BookingCalendar
+                            selectedDate={selectedDate}
+                            handleDateSelect={handleDateSelect}
+                            today={today}
+                            twoDaysFromNow={twoDaysFromNow}
+                            availableTimes={availableTimes}
+                            handleTimeSelect={handleTimeSelect}
+                            selectedTime={selectedTime}
+                            setShowBookingModal={setShowBookingModal}
+                            setAppointmentStatus={setAppointmentStatus}
+                        />
+                        {/* {stage === 'calendar' ? (
                             <BookingCalendar
                                 selectedDate={selectedDate}
                                 handleDateSelect={handleDateSelect}
@@ -85,7 +96,7 @@ const BookingPopup = ({ setShowBookingModal }) => {
                             <BookingPayment />
                         ) : (
                             ''
-                        )}
+                        )} */}
                     </div>
                 </div>
             </div>
