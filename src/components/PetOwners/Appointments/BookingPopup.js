@@ -2,18 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { HiCalendar, HiOutlineClock, HiXMark } from "react-icons/hi2";
 import { format, addDays } from 'date-fns';
 import BookingCalendar from './BookingCalendar';
-import BookingDetails from './BookingDetails';
-import BookingPayment from './BookingPayment';
+import Button from '@/components/Common/Button/Button';
+import { useDispatch } from 'react-redux';
+import { setAppointments } from '@/redux/features/userSlice';
 
-const BookingPopup = ({ setShowBookingModal, setAppointmentStatus }) => {
+const BookingPopup = ({ setShowBookingModal, setAppointmentStatus, foundVet }) => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
+    console.log("Selected date and time:", selectedDate);
 
     const today = new Date();
     const twoDaysFromNow = addDays(today, 5);
 
     const availableTimes = [
-        '4:30 PM', '5:00 PM', '5:30 PM', '6:00 PM', '7:00 PM', '8:30 PM', '9:00 PM', '9:30 PM', '10:00 PM'
+        '4:30 AM', '5:00 PM', '5:30 PM', '6:00 PM', '7:00 PM', '8:30 PM', '9:00 PM', '9:30 PM', '10:00 PM'
     ];
 
     const handleDateSelect = (date) => {
@@ -22,10 +24,35 @@ const BookingPopup = ({ setShowBookingModal, setAppointmentStatus }) => {
     };
 
     const handleTimeSelect = (time) => {
+        const [hours, minutesPart] = time.split(':');
+        const minutes = parseInt(minutesPart.slice(0, 2));
+        const period = minutesPart.slice(-2);
+
+        let hours24 = parseInt(hours);
+        if (period === 'PM' && hours24 !== 12) {
+            hours24 += 12;
+        } else if (period === 'AM' && hours24 === 12) {
+            hours24 = 0;
+        }
+
+        const newDateWithTime = new Date(selectedDate);
+        newDateWithTime.setHours(hours24, minutes, 0);
+
+        setSelectedDate(newDateWithTime);
         setSelectedTime(time);
     };
 
-    // const [stage, setStage] = useState('calendar');
+    const dispatch = useDispatch();
+    const handleBookingConfirm = async () => {
+        try {
+            dispatch(setAppointments({ selectedDate }))
+            setShowBookingModal(false);
+            setAppointmentStatus("pending");
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     useEffect(() => {
         // Add scroll lock to the body
@@ -40,7 +67,7 @@ const BookingPopup = ({ setShowBookingModal, setAppointmentStatus }) => {
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="relative w-[90%] max-w-[50rem] h-[80%] lg:h-[30rem] bg-white shadow-lg rounded-lg grid grid-cols-1 lg:grid-cols-[2fr_5fr] overflow-hidden">
-                {/* Left Section */}
+
                 <div className="bg-primary p-4 lg:rounded-s-lg text-left">
                     <h3 className="text-white font-bold text-xl lg:text-2xl mb-4">Book Your Appointment</h3>
                     <p className="text-gray-200 text-sm lg:text-base mb-6">Select a date and time for your session.</p>
@@ -59,7 +86,6 @@ const BookingPopup = ({ setShowBookingModal, setAppointmentStatus }) => {
                     </p>
                 </div>
 
-                {/* Right Section */}
                 <div className="relative overflow-auto hide-scrollbar bg-white">
                     <button
                         className="absolute sm:top-2 right-2 max-sm:right-0 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700"
@@ -67,7 +93,7 @@ const BookingPopup = ({ setShowBookingModal, setAppointmentStatus }) => {
                     >
                         <HiXMark size={25} />
                     </button>
-                    <div className="px-4 py-4 mt-5">
+                    <div className="px-4 py-4 mt-5">+
                         <BookingCalendar
                             selectedDate={selectedDate}
                             handleDateSelect={handleDateSelect}
@@ -79,24 +105,9 @@ const BookingPopup = ({ setShowBookingModal, setAppointmentStatus }) => {
                             setShowBookingModal={setShowBookingModal}
                             setAppointmentStatus={setAppointmentStatus}
                         />
-                        {/* {stage === 'calendar' ? (
-                            <BookingCalendar
-                                selectedDate={selectedDate}
-                                handleDateSelect={handleDateSelect}
-                                today={today}
-                                twoDaysFromNow={twoDaysFromNow}
-                                availableTimes={availableTimes}
-                                handleTimeSelect={handleTimeSelect}
-                                selectedTime={selectedTime}
-                                setStage={setStage}
-                            />
-                        ) : stage === 'details' ? (
-                            <BookingDetails setStage={setStage} />
-                        ) : stage === 'payment' ? (
-                            <BookingPayment />
-                        ) : (
-                            ''
-                        )} */}
+                        <div >
+                            <Button onClick={handleBookingConfirm} variant={"primary"} classNames={`w-full mt-5 ${selectedTime ? '' : 'opacity-50 cursor-not-allowed'}`} disabled={!selectedTime}>Continue</Button>
+                        </div>
                     </div>
                 </div>
             </div>

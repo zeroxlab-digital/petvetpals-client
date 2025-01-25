@@ -22,6 +22,8 @@ const VetDetails = ({ params }) => {
 
     const [appointmentStatus, setAppointmentStatus] = useState(null);
 
+    
+
     return (
         <div>
             <div className="bg-white">
@@ -50,7 +52,7 @@ const VetDetails = ({ params }) => {
                                     <Button variant={"primary"} classNames={"max-lg:w-full"} onClick={() => setShowBookingModal(true)} ><HiMiniVideoCamera /> See Vet Now</Button>
                             }
                         </div>
-                        {showBookingModal && <BookingPopup setShowBookingModal={setShowBookingModal} setAppointmentStatus={setAppointmentStatus} />}
+                        {showBookingModal && <BookingPopup setShowBookingModal={setShowBookingModal} setAppointmentStatus={setAppointmentStatus} foundVet={foundVet} />}
                     </div>
                 </div>
             </div>
