@@ -3,13 +3,12 @@ import { HiCalendar, HiOutlineClock, HiXMark } from "react-icons/hi2";
 import { format, addDays } from 'date-fns';
 import BookingCalendar from './BookingCalendar';
 import Button from '@/components/Common/Button/Button';
-import { useDispatch } from 'react-redux';
-import { setAppointments } from '@/redux/features/userSlice';
+import axios from 'axios';
 
 const BookingPopup = ({ setShowBookingModal, setAppointmentStatus, foundVet }) => {
+
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
-    console.log("Selected date and time:", selectedDate);
 
     const today = new Date();
     const twoDaysFromNow = addDays(today, 5);
@@ -42,14 +41,25 @@ const BookingPopup = ({ setShowBookingModal, setAppointmentStatus, foundVet }) =
         setSelectedTime(time);
     };
 
-    const dispatch = useDispatch();
     const handleBookingConfirm = async () => {
         try {
-            dispatch(setAppointments({ selectedDate }))
-            setShowBookingModal(false);
-            setAppointmentStatus("pending");
+            const res = await axios.post(`http://localhost:8000/api/appointment/book-appointment/${foundVet._id}`, { date: selectedDate.toISOString() }, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true
+            })
+            console.log("res:", res);
+            if (res.status === 200) {
+                alert(res.data?.message)
+                setShowBookingModal(false);
+                setAppointmentStatus("pending");
+            } else {
+                console.log(res)
+            }
         } catch (error) {
-            console.log(error)
+            console.log(error);
+            alert(error.response?.data?.message)
         }
     }
 

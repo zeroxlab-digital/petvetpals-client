@@ -16,7 +16,7 @@ const VetDetails = ({ params }) => {
 
     const vets = useFetchVets();
     const foundVet = vets.find(vet => vet._id === params._id);
-    console.log("foundVet:", foundVet);
+    // console.log("foundVet:", foundVet);
     const { _id, image, fullName, title, works_at, experience_years, specialities, fees } = foundVet || {};
     const [showBookingModal, setShowBookingModal] = useState(false);
 
