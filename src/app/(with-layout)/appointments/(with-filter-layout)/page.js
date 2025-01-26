@@ -4,8 +4,11 @@ import { usePathname } from "next/navigation";
 import useVets from "../../../../../hooks/useVets";
 import VetFilterSidebar from "@/components/PetOwners/Appointments/VetFilterSidebar";
 import { useEffect, useState } from "react";
+import useFetchVets from "../../../../../hooks/useFetchVets";
 
 const AppointmentsPage = () => {
+    const fetchedVets = useFetchVets();
+    console.log("Vets:", fetchedVets);
     const vets = useVets();
     const currentPath = usePathname();
     const [filterChange, setFilterChange] = useState({});
