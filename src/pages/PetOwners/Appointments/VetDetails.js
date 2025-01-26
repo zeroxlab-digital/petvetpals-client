@@ -9,8 +9,11 @@ import BookingPopup from "@/components/PetOwners/Appointments/BookingPopup";
 import { HiCalendar, HiOutlineClock, HiXMark } from "react-icons/hi2";
 import { DayPicker } from 'react-day-picker';
 import { format, addDays } from 'date-fns';
+import { useSelector } from "react-redux";
 
 const VetDetails = ({ params }) => {
+    const { authUser } = useSelector((state) => state.user);
+    console.log(authUser)
     const vets = useVets();
     const foundVet = vets.find(vet => vet._id === Number(params._id));
     const { _id, avator, name, title, works_at, years_of_experiences, specialities, visit_fee_usd, visit_fee_bdt } = foundVet || {};
@@ -22,7 +25,7 @@ const VetDetails = ({ params }) => {
 
     const [appointmentStatus, setAppointmentStatus] = useState(null);
 
-    
+
 
     return (
         <div>
@@ -49,7 +52,7 @@ const VetDetails = ({ params }) => {
                                 appointmentStatus === "confirmed" ?
                                     <p>You have a upcoming appointment at 7:30 PM</p>
                                     :
-                                    <Button variant={"primary"} classNames={"max-lg:w-full"} onClick={() => setShowBookingModal(true)} ><HiMiniVideoCamera /> See Vet Now</Button>
+                                    <Button variant={"primary"} classNames={"max-lg:w-full"} onClick={authUser ? () => setShowBookingModal(true) : () => alert("User must be logged in to perform this action!")} ><HiMiniVideoCamera /> See Vet Now</Button>
                             }
                         </div>
                         {showBookingModal && <BookingPopup setShowBookingModal={setShowBookingModal} setAppointmentStatus={setAppointmentStatus} foundVet={foundVet} />}
@@ -74,7 +77,7 @@ const VetDetails = ({ params }) => {
                     />
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
