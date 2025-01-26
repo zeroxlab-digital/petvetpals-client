@@ -7,9 +7,7 @@ import { useEffect, useState } from "react";
 import useFetchVets from "../../../../../hooks/useFetchVets";
 
 const AppointmentsPage = () => {
-    const fetchedVets = useFetchVets();
-    console.log("Vets:", fetchedVets);
-    const vets = useVets();
+    const vets = useFetchVets();
     const currentPath = usePathname();
     const [filterChange, setFilterChange] = useState({});
     const [filteredVets, setFilteredVets] = useState([]);
@@ -31,14 +29,14 @@ const AppointmentsPage = () => {
         // Step 2: Apply sorting based on the `sortBy` value
         if (sortBy === 'Experience') {
             filteredVets.sort((a, b) => {
-                const experienceA = Number(a.years_of_experiences) || 0;
-                const experienceB = Number(b.years_of_experiences) || 0;
+                const experienceA = Number(a.experience_years) || 0;
+                const experienceB = Number(b.experience_years) || 0;
                 return experienceB - experienceA; // Sort by experience (descending)
             });
         } else if (sortBy === 'Fee') {
             filteredVets.sort((a, b) => {
-                const feeA = Number(a.visit_fee_usd) || 0;
-                const feeB = Number(b.visit_fee_usd) || 0;
+                const feeA = Number(a.fees) || 0;
+                const feeB = Number(b.fees) || 0;
                 return feeA - feeB; // Sort by fee (ascending)
             });
         }

@@ -2,7 +2,7 @@ import Reviews from '@/components/Common/Reviews/Reviews';
 import { useState } from 'react';
 import { HiOutlineBriefcase } from 'react-icons/hi2';
 
-const VetDetailsTabs = ({ name, title }) => {
+const VetDetailsTabs = ({ fullName, title }) => {
     const tabList = ["About Vet", "Experiences", "Reviews"];
     const [selectedTab, setSelectedTab] = useState("About Vet");
 
@@ -24,7 +24,7 @@ const VetDetailsTabs = ({ name, title }) => {
                     selectedTab === "About Vet"
                     ?
                     <div className='about-vet '>
-                        <h2 className='font-bold text-lg text-gray-900 mb-2'>{name} - {title}</h2>
+                        <h2 className='font-bold text-lg text-gray-900 mb-2'>{fullName} - {title}</h2>
                         <p className='text-gray-700 text-justify'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam.</p>
                     </div>
                     : selectedTab === "Experiences"

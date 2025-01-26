@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import useVets from "../../../../hooks/useVets";
 import Button from "@/components/Common/Button/Button";
 import { HiMiniVideoCamera } from "react-icons/hi2";
 import VetDetailsTabs from "@/components/PetOwners/Appointments/VetDetailsTabs";
@@ -10,13 +9,15 @@ import { HiCalendar, HiOutlineClock, HiXMark } from "react-icons/hi2";
 import { DayPicker } from 'react-day-picker';
 import { format, addDays } from 'date-fns';
 import { useSelector } from "react-redux";
+import useFetchVets from "../../../../hooks/useFetchVets";
 
 const VetDetails = ({ params }) => {
     const { authUser } = useSelector((state) => state.user);
-    console.log(authUser)
-    const vets = useVets();
-    const foundVet = vets.find(vet => vet._id === Number(params._id));
-    const { _id, avator, name, title, works_at, years_of_experiences, specialities, visit_fee_usd, visit_fee_bdt } = foundVet || {};
+
+    const vets = useFetchVets();
+    const foundVet = vets.find(vet => vet._id === params._id);
+    console.log("foundVet:", foundVet);
+    const { _id, image, fullName, title, works_at, experience_years, specialities, fees } = foundVet || {};
     const [showBookingModal, setShowBookingModal] = useState(false);
 
     // Availability Calendar
@@ -24,8 +25,6 @@ const VetDetails = ({ params }) => {
     const twoDaysFromNow = addDays(today, 5);
 
     const [appointmentStatus, setAppointmentStatus] = useState(null);
-
-
 
     return (
         <div>
@@ -37,14 +36,14 @@ const VetDetails = ({ params }) => {
                     <div className="flex max-md:flex-col md:items-end gap-5 col-span-2 ">
                         <div className=""><Image src="/images/vet.png" alt="vet logo" width={200} height={200} className="rounded-full max-md:rounded-md border-2 border-gray-300 max-sm:w-40" /></div>
                         <div className="md:pb-3">
-                            <h2 className="mb-2 font-bold text-lg">{name}</h2>
-                            <p className='mb-2'>{title}</p>
+                            <h2 className="mb-2 font-bold text-lg">{fullName}</h2>
+                            <p className='mb-2'>{title || "Title goes here"}</p>
                             <p className=' text-gray-700 mb-1'>Specialities</p>
                             <div className='flex flex-wrap gap-1'>{specialities?.map((speciality, index) => <p key={index} className='text-xs bg-primary p-1 text-white rounded'>{speciality}</p>)}</div>
                         </div>
                     </div>
                     <div className="text-center">
-                        <h1 className='mb-3 text-xl font-bold text-primary text-center flex items-center md:justify-center gap-1'>${visit_fee_usd?.toFixed(2)} USD <span className='text-xs  font-semibold'>/ Appt. fee</span></h1>
+                        <h1 className='mb-3 text-xl font-bold text-primary text-center flex items-center md:justify-center gap-1'>${fees?.toFixed(2)} USD <span className='text-xs  font-semibold'>/ Appt. fee</span></h1>
                         <div className="flex md:justify-center" >
                             {appointmentStatus === "pending" ?
                                 <p>You have a pending appointment, pay to confirm it</p>
@@ -59,7 +58,7 @@ const VetDetails = ({ params }) => {
                     </div>
                 </div>
             </div>
-            <VetDetailsTabs name={name} title={title} />
+            <VetDetailsTabs fullName={fullName} title={title || "Title goes here"} />
             <div className="mt-5 grid xl:grid-cols-5 gap-5">
                 <div className="p-5 rounded-md bg-white xl:col-span-3">
                     <h2 className="font-semibold text-gray-900">Other Content</h2>
