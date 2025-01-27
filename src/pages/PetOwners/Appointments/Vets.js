@@ -19,7 +19,7 @@ const Vets = ({ vets, currentPath }) => {
                             <div><Image src="/images/vet.png" alt="" width={100} height={100} className='rounded max-w-32' /></div>
                             <div>
                                 <h4 className='font-bold'>{fullName}</h4>
-                                <p className='text-sm mb-2'>Titles goes</p>
+                                <p className='text-sm mb-2'>{title || "Title goes here"}</p>
                                 <p className='text-sm text-gray-700 mb-1'>Specialities</p>
                                 <div className='flex gap-1 flex-wrap lg:hidden'>{specialities.slice(0, 2).map((speciality, index) => <p key={index} className='text-xs bg-primary p-1 text-white rounded'>{speciality}</p>)}</div>
                                 <div className='flex gap-1 flex-wrap max-lg:hidden'>{specialities.map((speciality, index) => <p key={index} className='text-xs bg-primary p-1 text-white rounded'>{speciality}</p>)}</div>
@@ -28,7 +28,7 @@ const Vets = ({ vets, currentPath }) => {
                         <div className='max-sm:flex gap-5 p-3'>
                             <div className='mb-2'>
                                 <p className='text-sm text-gray-700'>Works at</p>
-                                <p className='font-semibold text-sm'>Works at here</p>
+                                <p className='font-semibold text-sm'>{works_at || "Works at goes here"}</p>
                             </div>
                             <div>
                                 <p className='text-sm text-gray-700'>Years of experience</p>
