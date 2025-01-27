@@ -10,6 +10,8 @@ import { DayPicker } from 'react-day-picker';
 import { format, addDays } from 'date-fns';
 import { useSelector } from "react-redux";
 import useFetchVets from "../../../../hooks/useFetchVets";
+import useGetAppts from "../../../../hooks/useGetAppts";
+import Link from "next/link";
 
 const VetDetails = ({ params }) => {
     const { authUser } = useSelector((state) => state.user);
@@ -24,7 +26,8 @@ const VetDetails = ({ params }) => {
     const today = new Date();
     const twoDaysFromNow = addDays(today, 5);
 
-    const [appointmentStatus, setAppointmentStatus] = useState(null);
+    const appointments = useGetAppts();
+    const pendingAppts = appointments.filter(appt => appt.status === "pending");
 
     return (
         <div>
@@ -44,17 +47,13 @@ const VetDetails = ({ params }) => {
                     </div>
                     <div className="text-center">
                         <h1 className='mb-3 text-xl font-bold text-primary text-center flex items-center md:justify-center gap-1'>${fees?.toFixed(2)} USD <span className='text-xs  font-semibold'>/ Appt. fee</span></h1>
-                        <div className="flex md:justify-center" >
-                            {appointmentStatus === "pending" ?
-                                <p>You have a pending appointment, pay to confirm it</p>
-                                :
-                                appointmentStatus === "confirmed" ?
-                                    <p>You have a upcoming appointment at 7:30 PM</p>
-                                    :
-                                    <Button variant={"primary"} classNames={"max-lg:w-full"} onClick={authUser ? () => setShowBookingModal(true) : () => alert("User must be logged in to perform this action!")} ><HiMiniVideoCamera /> See Vet Now</Button>
-                            }
+                        {pendingAppts && pendingAppts.length > 0 && <div className="mb-2">
+                            <h4 className="text-sm text-gray-700">You have {pendingAppts.length} pending appointment, to pay and confirm <Link href="/dashboard/appointments" className="underline text-primary ">click here</Link></h4>
+                        </div>}
+                        <div className="flex md:justify-center">
+                            <Button variant={"primary"} classNames={"max-lg:w-full lg:w-52"} onClick={authUser ? () => setShowBookingModal(true) : () => alert("User must be logged in to perform this action!")} ><HiMiniVideoCamera /> Get appointment</Button>
                         </div>
-                        {showBookingModal && <BookingPopup setShowBookingModal={setShowBookingModal} setAppointmentStatus={setAppointmentStatus} foundVet={foundVet} />}
+                        {showBookingModal && <BookingPopup setShowBookingModal={setShowBookingModal} foundVet={foundVet} />}
                     </div>
                 </div>
             </div>

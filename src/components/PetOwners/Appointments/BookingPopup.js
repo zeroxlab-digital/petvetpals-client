@@ -5,7 +5,7 @@ import BookingCalendar from './BookingCalendar';
 import Button from '@/components/Common/Button/Button';
 import axios from 'axios';
 
-const BookingPopup = ({ setShowBookingModal, setAppointmentStatus, foundVet }) => {
+const BookingPopup = ({ setShowBookingModal, foundVet }) => {
 
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
@@ -53,7 +53,6 @@ const BookingPopup = ({ setShowBookingModal, setAppointmentStatus, foundVet }) =
             if (res.status === 200) {
                 alert(res.data?.message)
                 setShowBookingModal(false);
-                setAppointmentStatus("pending");
             } else {
                 console.log(res)
             }
@@ -113,7 +112,6 @@ const BookingPopup = ({ setShowBookingModal, setAppointmentStatus, foundVet }) =
                             handleTimeSelect={handleTimeSelect}
                             selectedTime={selectedTime}
                             setShowBookingModal={setShowBookingModal}
-                            setAppointmentStatus={setAppointmentStatus}
                         />
                         <div >
                             <Button onClick={handleBookingConfirm} variant={"primary"} classNames={`w-full mt-5 ${selectedTime ? '' : 'opacity-50 cursor-not-allowed'}`} disabled={!selectedTime}>Continue</Button>
