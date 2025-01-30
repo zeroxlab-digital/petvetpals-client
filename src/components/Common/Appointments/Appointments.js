@@ -5,16 +5,30 @@ import NoPhoto from '/public/images/vet.png'
 import { HiArrowRight, HiChevronDown, HiClock, HiCurrencyDollar, HiMapPin, HiOutlineClock, HiOutlineCurrencyDollar, HiOutlineMapPin, HiOutlineStar, HiOutlineTrash, HiVideoCamera } from 'react-icons/hi2';
 import { LuCat, LuDog, LuRat } from 'react-icons/lu';
 import useGetAppts from '../../../../hooks/useGetAppts';
+import axios from 'axios';
 
 const Appointments = () => {
 
     const appointments = useGetAppts();
-    console.log(appointments);
 
     const status_tabs = ["approved", "pending", "cancelled", "past"];
     const [active_status_tab, set_active_status_tab] = useState(status_tabs[0]);
 
     const filtered_appointments = appointments.filter(appointment => appointment.status === active_status_tab);
+
+    const handleAppointmentDlt = async (id) => {
+        try {
+            const res = await axios.delete(`http://localhost:8000/api/appointment/delete-appointment/${id}`, {
+                withCredentials: true,
+            })
+            console.log(res);
+            if(res.status === 200) {
+                console.log("Appointment deleted successfull!");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <div>
@@ -82,7 +96,7 @@ const Appointments = () => {
                                 active_status_tab === 'pending' ?
                                     <>
                                         <button className='flex items-center gap-2 bg-primary px-5 py-3 rounded-lg text-white text-sm'>Click to confirm <HiArrowRight /></button>
-                                        <button className='flex items-center gap-2 bg-white px-3 py-3 rounded-lg text-red-400 border  text-sm'> <HiOutlineTrash /></button>
+                                        <button onClick={() => handleAppointmentDlt(appointment._id)} className='flex items-center gap-2 bg-white px-3 py-3 rounded-lg text-red-400 border  text-sm'> <HiOutlineTrash /></button>
                                     </>
                                     :
                                     active_status_tab === 'cancelled' ?
