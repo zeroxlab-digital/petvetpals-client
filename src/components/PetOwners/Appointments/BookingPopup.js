@@ -5,7 +5,7 @@ import BookingCalendar from './BookingCalendar';
 import Button from '@/components/Common/Button/Button';
 import axios from 'axios';
 
-const BookingPopup = ({ setShowBookingModal, foundVet }) => {
+const BookingPopup = ({ setShowModal, foundVet }) => {
 
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
@@ -52,7 +52,7 @@ const BookingPopup = ({ setShowBookingModal, foundVet }) => {
             console.log("res:", res);
             if (res.status === 200) {
                 alert(res.data?.message)
-                setShowBookingModal(false);
+                setShowModal(false);
             } else {
                 console.log(res)
             }
@@ -75,7 +75,7 @@ const BookingPopup = ({ setShowBookingModal, foundVet }) => {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="relative w-[90%] max-w-[50rem] h-[80%] lg:h-[30rem] bg-white shadow-lg rounded-lg grid grid-cols-1 lg:grid-cols-[2fr_5fr] overflow-hidden">
+            <div className="relative w-[90%] max-w-[50rem] h-[80%] lg:h-[30rem] bg-white shadow-lg rounded-lg overflow-hidden grid grid-cols-1 lg:grid-cols-[2fr_5fr] ">
 
                 <div className="bg-primary p-4 lg:rounded-s-lg text-left">
                     <h3 className="text-white font-bold text-xl lg:text-2xl mb-4">Book Your Appointment</h3>
@@ -105,7 +105,6 @@ const BookingPopup = ({ setShowBookingModal, foundVet }) => {
                             availableTimes={availableTimes}
                             handleTimeSelect={handleTimeSelect}
                             selectedTime={selectedTime}
-                            setShowBookingModal={setShowBookingModal}
                         />
                         <div >
                             <Button onClick={handleBookingConfirm} variant={"primary"} classNames={`w-full mt-5 ${selectedTime ? '' : 'opacity-50 cursor-not-allowed'}`} disabled={!selectedTime}>Continue</Button>
@@ -115,7 +114,7 @@ const BookingPopup = ({ setShowBookingModal, foundVet }) => {
 
                 <button
                     className="absolute sm:top-2 right-2 max-sm:right-0 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700"
-                    onClick={() => setShowBookingModal(false)}
+                    onClick={() => setShowModal(false)}
                 >
                     <HiXMark size={25} />
                 </button>

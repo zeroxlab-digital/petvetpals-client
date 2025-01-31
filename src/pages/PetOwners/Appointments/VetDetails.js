@@ -20,7 +20,7 @@ const VetDetails = ({ params }) => {
     const foundVet = vets.find(vet => vet._id === params._id);
 
     const { _id, image, fullName, title, works_at, experience_years, specialities, fees } = foundVet || {};
-    const [showBookingModal, setShowBookingModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     // Availability Calendar
     const today = new Date();
@@ -51,9 +51,9 @@ const VetDetails = ({ params }) => {
                             <h4 className="text-sm text-gray-700">You have {pendingAppts.length} pending appointment, to pay and confirm <Link href="/dashboard/appointments" className="underline text-primary ">click here</Link></h4>
                         </div>}
                         <div className="flex md:justify-center">
-                            <Button variant={"primary"} classNames={"max-lg:w-full lg:w-52"} onClick={authUser ? () => setShowBookingModal(true) : () => alert("User must be logged in to perform this action!")} ><HiMiniVideoCamera /> Get appointment</Button>
+                            <Button variant={"primary"} classNames={"max-lg:w-full lg:w-52"} onClick={authUser ? () => setShowModal(true) : () => alert("User must be logged in to perform this action!")} ><HiMiniVideoCamera /> Get appointment</Button>
                         </div>
-                        {showBookingModal && <BookingPopup setShowBookingModal={setShowBookingModal} foundVet={foundVet} />}
+                        {showModal && <BookingPopup setShowModal={setShowModal} foundVet={foundVet} />}
                     </div>
                 </div>
             </div>
