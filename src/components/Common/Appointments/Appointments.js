@@ -1,11 +1,13 @@
 "use client";
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NoPhoto from '/public/images/vet.png'
 import { HiArrowRight, HiChevronDown, HiClock, HiCurrencyDollar, HiMapPin, HiOutlineClock, HiOutlineCurrencyDollar, HiOutlineMapPin, HiOutlineStar, HiOutlineTrash, HiVideoCamera } from 'react-icons/hi2';
 import { LuCat, LuDog, LuRat } from 'react-icons/lu';
 import useGetAppts from '../../../../hooks/useGetAppts';
 import axios from 'axios';
+import ConfirmBookingModal from './ConfirmBookingModal';
+
 
 const Appointments = () => {
 
@@ -30,6 +32,12 @@ const Appointments = () => {
         }
     }
 
+    const [showModal, setShowModal] = useState(false);
+    const handleConfirmBooking = (appointment) => {
+        setShowModal(true);
+        console.log(appointment);
+    }
+
     return (
         <div>
             <div className='mb-5'>
@@ -46,9 +54,9 @@ const Appointments = () => {
                             {(() => {
                                 const dateISO = appointment.date;
                                 const date = new Date(dateISO);
-                                const optionsDay = { weekday: 'long' }; // For "Day"
-                                const optionsDate = { day: '2-digit' }; // For "Date"
-                                const optionsMonthYear = { month: 'short', year: 'numeric' }; // For "Month Year"
+                                const optionsDay = { weekday: 'long' };
+                                const optionsDate = { day: '2-digit' };
+                                const optionsMonthYear = { month: 'short', year: 'numeric' };
 
                                 return (
                                     <>
@@ -95,8 +103,9 @@ const Appointments = () => {
                                 :
                                 active_status_tab === 'pending' ?
                                     <>
-                                        <button className='flex items-center gap-2 bg-primary px-5 py-3 rounded-lg text-white text-sm'>Click to confirm <HiArrowRight /></button>
+                                        <button onClick={() => handleConfirmBooking(appointment)} className='flex items-center gap-2 bg-primary px-5 py-3 rounded-lg text-white text-sm'>Click to confirm <HiArrowRight /></button>
                                         <button onClick={() => handleAppointmentDlt(appointment._id)} className='flex items-center gap-2 bg-white px-3 py-3 rounded-lg text-red-400 border  text-sm'> <HiOutlineTrash /></button>
+                                        {showModal && <ConfirmBookingModal setShowModal={setShowModal} />}
                                     </>
                                     :
                                     active_status_tab === 'cancelled' ?

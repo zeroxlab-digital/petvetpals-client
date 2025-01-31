@@ -1,0 +1,41 @@
+import React, { useEffect, useState } from 'react';
+import { HiXMark } from 'react-icons/hi2';
+import BookingDetails from './BookingDetails';
+import BookingPayment from './BookingPayment';
+
+const ConfirmBookingModal = ({ setShowModal }) => {
+    const [bookingStage, setBookingState] = useState("pet-details")
+    useEffect(() => {
+        document.body.classList.add("overflow-hidden");
+        return () => {
+            document.body.classList.remove("overflow-hidden");
+        }
+    }, [])
+    return (
+        <div className="fixed inset-0 bg-black bg-opacity-20 flex items-center justify-center z-50">
+            <div className="relative w-[90%] max-w-[50rem] bg-white shadow-lg rounded-lg overflow-hidden hide-scrollbar">
+
+                <div className='overflow-auto hide-scrollbar h-[80%] lg:h-[30rem] p-4'>
+                    {
+                    bookingStage == "pet-details" ?
+                    <BookingDetails setBookingState={setBookingState} />
+                    :
+                    bookingStage == "payment-details" ?
+                    <BookingPayment setBookingState={setBookingState} />
+                    :
+                    null
+                    }
+                </div>
+
+                <button
+                    className="absolute sm:top-2 right-2 max-sm:right-0 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700"
+                    onClick={() => setShowModal(false)}
+                >
+                    <HiXMark size={25} />
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default ConfirmBookingModal;

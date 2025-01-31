@@ -83,15 +83,3 @@
 
 
 
-/* Hide scrollbar for a specific element */
-.hide-scrollbar {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    
-    /* For Webkit-based browsers (Chrome, Safari, Edge) */
-    overflow-y: scroll; /* Ensure the element is scrollable */
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
-}

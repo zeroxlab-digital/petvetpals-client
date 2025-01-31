@@ -4,14 +4,14 @@ import Input from '@/components/Common/Form/Input';
 import Textarea from '@/components/Common/Form/Textarea';
 import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
 
-const BookingDetails = ({ setStage }) => {
+const BookingDetails = ({  setBookingState }) => {
     let inputFilled = true;
     const options = ['Cat', 'Dog', 'Rabbit', 'Bird', 'Other']
     return (
         <div className='text-left'>
             <h3 className='font-bold text-xl text-gray-800 '>Provide Pet Details</h3>
             <p className='text-gray-600 font-light'>Please fill the form below with your pets details</p>
-            <form onSubmit={() => setStage('payment')} className='mt-7'>
+            <form onSubmit={() => setBookingState('payment-details')} className='mt-7'>
                 <div className='mb-5'>
                     <Label htmlFor="petsname">Pets Name</Label>
                     <Input type="text" id="petsname" placeholder="Enter your pet's name" classNames="py-2 w-full" />
