@@ -96,13 +96,7 @@ const BookingPopup = ({ setShowBookingModal, foundVet }) => {
                 </div>
 
                 <div className="relative overflow-auto hide-scrollbar bg-white">
-                    <button
-                        className="absolute sm:top-2 right-2 max-sm:right-0 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700"
-                        onClick={() => setShowBookingModal(false)}
-                    >
-                        <HiXMark size={25} />
-                    </button>
-                    <div className="px-4 py-4 mt-5">+
+                    <div className="px-4 py-4 mt-5">
                         <BookingCalendar
                             selectedDate={selectedDate}
                             handleDateSelect={handleDateSelect}
@@ -118,6 +112,13 @@ const BookingPopup = ({ setShowBookingModal, foundVet }) => {
                         </div>
                     </div>
                 </div>
+
+                <button
+                    className="absolute sm:top-2 right-2 max-sm:right-0 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700"
+                    onClick={() => setShowBookingModal(false)}
+                >
+                    <HiXMark size={25} />
+                </button>
             </div>
         </div>
     );
