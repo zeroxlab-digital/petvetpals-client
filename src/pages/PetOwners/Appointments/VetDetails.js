@@ -18,7 +18,7 @@ const VetDetails = ({ params }) => {
 
     const vets = useFetchVets();
     const foundVet = vets.find(vet => vet._id === params._id);
-    // console.log("foundVet:", foundVet);
+
     const { _id, image, fullName, title, works_at, experience_years, specialities, fees } = foundVet || {};
     const [showBookingModal, setShowBookingModal] = useState(false);
 
@@ -59,9 +59,6 @@ const VetDetails = ({ params }) => {
             </div>
             <VetDetailsTabs fullName={fullName} title={title || "Title goes here"} />
             <div className="mt-5 grid xl:grid-cols-5 gap-5">
-                <div className="p-5 rounded-md bg-white xl:col-span-3">
-                    <h2 className="font-semibold text-gray-900">Other Content</h2>
-                </div>
                 <div className="p-5 rounded-md bg-white overflow-hidden xl:col-span-2">
                     <h2 className="mb-8 font-semibold text-gray-900">Availability Calendar</h2>
                     <DayPicker
@@ -73,6 +70,9 @@ const VetDetails = ({ params }) => {
                         ]}
                         className="rdp-custom text-center"
                     />
+                </div>
+                <div className="p-5 rounded-md bg-white xl:col-span-3">
+                    <h2 className="font-semibold text-gray-900">FAQs</h2>
                 </div>
             </div>
         </div >
