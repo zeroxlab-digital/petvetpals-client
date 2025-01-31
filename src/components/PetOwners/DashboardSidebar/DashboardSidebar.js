@@ -1,7 +1,9 @@
 "use client";
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { HiLogout } from "react-icons/hi";
 import { FaCalendar, FaCartShopping, FaHouse, FaPaw, FaPills, FaRegHeart, FaRegMessage, FaUser } from 'react-icons/fa6';
+import axios from 'axios';
 
 const DashboardSidebar = () => {
 
@@ -97,14 +99,30 @@ const DashboardSidebar = () => {
         { title: "User Profile", link: "/dashboard/account", icon: <FaUser /> }
     ];
     const pathname = usePathname();
+    const router = useRouter();
+
+    const handleUserLogout = async () => {
+        try {
+            const res = await axios.post(`http://localhost:8000/api/user/logout`, { },  {
+                withCredentials: true,
+            })
+            if(res.status === 200){
+                localStorage.clear();
+                router.push("/signin");
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
-        <div className='col-span-2 border bg-white p-3 rounded-md sticky top-20 h-[calc(100vh-8rem)] overflow-auto '>
+        <div className='flex flex-col col-span-2 border bg-white p-3 rounded-md sticky top-20 h-[calc(100vh-8rem)] overflow-auto '>
             <ul className='flex flex-col gap-1'>
                 {links.map((link, index) => <Link href={link.link} key={index}><li className={`${link.link === pathname && 'bg-primary text-white'} hover:bg-[#7b376ce0] hover:text-white duration-150 px-3 py-3 rounded-md flex items-center gap-3`}>
                     <span>{link.icon}</span>{link.title}
                 </li></Link>)}
             </ul>
+            <button onClick={handleUserLogout} className="mt-auto w-full rounded-md border border-red-500 text-left  h-12 px-3 text-red-500 flex items-center gap-2 hover:text-white hover:bg-red-500 duration-150">Log out <HiLogout className='' /></button>
         </div>
     );
 };
