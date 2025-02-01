@@ -92,7 +92,7 @@ const DashboardSidebar = () => {
         { title: "Pet Profiles", link: "/dashboard/pets", icon: <FaPaw /> },
         { title: "Appointments", link: "/dashboard/appointments", icon: <FaCalendar /> },
         { title: "Messages", link: "/dashboard/messages", icon: <FaRegMessage /> },
-        { title: "Treatments", link: "/dashboard/treatments", icon: <FaPills /> },
+        // { title: "Treatments", link: "/dashboard/treatments", icon: <FaPills /> },
         { title: "Symptom Checker", link: "/dashboard/symptom-checker", icon: <FaPills /> },
         { title: "Wishlist", link: "/dashboard/wishlist", icon: <FaRegHeart /> },
         { title: "Order History", link: "/dashboard/orders", icon: <FaCartShopping /> },
