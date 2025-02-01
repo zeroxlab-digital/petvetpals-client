@@ -18,6 +18,10 @@ const PetProfileModal = ({ modalType, setModalType }) => {
     const handleAddPet = () => {
         setModalType(null);
     }
+    
+    const handleUpdatePet = () => {
+        setModalType(null);
+    }
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -27,7 +31,7 @@ const PetProfileModal = ({ modalType, setModalType }) => {
                         <div className='text-left'>
                             <h3 className='font-bold text-xl text-gray-800 '>Update Pet Details</h3>
                             <p className='text-gray-600 font-light'>Please udpate the form below with your pets details</p>
-                            <form onSubmit={handleAddPet} className='mt-7'>
+                            <form onSubmit={handleUpdatePet} className='mt-7'>
                                 <div className='mb-5'>
                                     <Label htmlFor="petsname">Pets Name</Label>
                                     <Input type="text" id="petsname" placeholder="Enter your pet's name" classNames="py-2 w-full" />
