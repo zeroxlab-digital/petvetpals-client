@@ -24,7 +24,7 @@ const Appointments = () => {
                 withCredentials: true,
             })
             console.log(res);
-            if(res.status === 200) {
+            if (res.status === 200) {
                 console.log("Appointment deleted successfull!");
             }
         } catch (error) {
@@ -45,7 +45,19 @@ const Appointments = () => {
                 <p className='text-gray-500 '>See your scheduled and all other appointments</p>
             </div>
             <ul className='bg-gray-100 bg-opacity-50 p-2 rounded-md flex items-center gap-2 mb-10'>
-                {status_tabs.map((tab, index) => <li key={index} onClick={() => set_active_status_tab(tab)} className={`${active_status_tab === tab ? 'bg-gray-700 text-gray-100' : 'text-gray-800'}  text-sm py-2 w-32 text-center rounded-md cursor-pointer capitalize`}>{tab}</li>)}
+                {status_tabs.map((tab, index) => {
+                    const count = appointments.filter(appointment => appointment.status === tab).length;
+
+                    return (
+                        <li
+                            key={index}
+                            onClick={() => set_active_status_tab(tab)}
+                            className={`${active_status_tab === tab ? 'bg-gray-700 text-gray-100' : 'text-gray-800'} text-sm py-2 w-32 text-center rounded-md cursor-pointer capitalize flex items-center justify-center gap-2`}
+                        >
+                            {tab} <p className='text-xs relative -top-1 text-gray-400'>{count > 0 && count}</p>
+                        </li>
+                    );
+                })}
             </ul>
             <div>
                 {filtered_appointments.map((appointment, index) => (
