@@ -104,7 +104,7 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
                                     </div>
                                     <div className=''>
                                         <Label htmlFor="type">Gender</Label>
-                                        <SelectOptions options={["Male", "Female"]}
+                                        <SelectOptions options={["male", "female"]}
                                             name="gender"
                                             default={updatePetProfile.gender}
                                             onChange={(e) => setUpdatePetProfile({ ...updatePetProfile, gender: e.target.value })}
@@ -164,7 +164,7 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
                                     </div>
                                     <div className=''>
                                         <Label htmlFor="type">Gender</Label>
-                                        <SelectOptions options={["Male", "Female"]}
+                                        <SelectOptions options={["male", "female"]}
                                             name="gender"
                                             default={petProfile.gender}
                                             onChange={(e) => setPetProfile({ ...petProfile, gender: e.target.value })}
