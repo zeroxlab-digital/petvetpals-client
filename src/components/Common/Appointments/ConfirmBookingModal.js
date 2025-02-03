@@ -3,7 +3,7 @@ import { HiXMark } from 'react-icons/hi2';
 import BookingDetails from './BookingDetails';
 import BookingPayment from './BookingPayment';
 
-const ConfirmBookingModal = ({ setShowModal }) => {
+const ConfirmBookingModal = ({ setShowModal, apptId }) => {
     const [bookingStage, setBookingState] = useState("pet-details")
     useEffect(() => {
         document.body.classList.add("overflow-hidden");
@@ -18,7 +18,7 @@ const ConfirmBookingModal = ({ setShowModal }) => {
                 <div className='overflow-auto hide-scrollbar h-[80%] lg:h-[30rem] p-4'>
                     {
                     bookingStage == "pet-details" ?
-                    <BookingDetails setBookingState={setBookingState} />
+                    <BookingDetails apptId={apptId} setBookingState={setBookingState} />
                     :
                     bookingStage == "payment-details" ?
                     <BookingPayment setBookingState={setBookingState} />

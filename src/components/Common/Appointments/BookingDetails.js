@@ -1,17 +1,49 @@
-import Button from '@/components/Common/Button/Button';
 import Label from '@/components/Common/Form/Label';
 import Input from '@/components/Common/Form/Input';
 import Textarea from '@/components/Common/Form/Textarea';
 import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useFetchPets from '../../../../hooks/useFetchPets';
 import Image from 'next/image';
+import axios from 'axios';
 
-const BookingDetails = ({ setBookingState }) => {
+const BookingDetails = ({ apptId, setBookingState }) => {
+    console.log("appointment id from details:", apptId);
     const [petDetailsOption, setPetDetailsOption] = useState("selector");
     const pets = useFetchPets();
-    const [selectedPet, setSelectedPet] = useState(pets[0]);
-    console.log(selectedPet);
+    const [selectedPet, setSelectedPet] = useState(null);
+
+    const [consultation_purpose, set_consultation_purpose] = useState({
+        pet: selectedPet,
+        purpose: ""
+    });
+    useEffect(() => {
+        set_consultation_purpose({
+            pet: selectedPet,
+            purpose: consultation_purpose.purpose || null
+        })
+    }, [consultation_purpose.purpose, selectedPet])
+
+    const handleContinue = async () => {
+        if (!selectedPet) {
+            return alert("To continue, you must select a pet or add manually!")
+        }
+        try {
+            const res = await axios.patch(`http://localhost:8000/api/appointment/update-appointment/${apptId}`, consultation_purpose, {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                withCredentials: true
+            })
+            console.log(res);
+            if (res.status === 200) {
+                setBookingState('payment-details')
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className=''>
             <div className='w-3/4 mx-auto'>
@@ -37,9 +69,13 @@ const BookingDetails = ({ setBookingState }) => {
                                 </li>
                             ))}
                         </ul>
+                        <div className='mt-10'>
+                            <Label htmlFor="purpose">Purpose of consultation</Label>
+                            <Textarea classNames="w-full" id="purpose" name="purpose" onChange={(e) => set_consultation_purpose({ ...consultation_purpose, purpose: e.target.value })} placeholder="Type the symptoms or reason for visit..." />
+                        </div>
                         <button
-                            onClick={() => setBookingState('payment-details')}
-                            className="mt-20 bg-primary rounded-full text-white cursor-pointer py-3 w-full"
+                            onClick={handleContinue}
+                            className="mt-5 bg-primary rounded-full text-white cursor-pointer py-3 w-full"
                         >
                             Continue to pay
                         </button>

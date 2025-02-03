@@ -18,6 +18,7 @@ const Appointments = () => {
 
     const filtered_appointments = appointments.filter(appointment => appointment.status === active_status_tab);
     console.log(filtered_appointments);
+
     const handleAppointmentDlt = async (id) => {
         try {
             const res = await axios.delete(`http://localhost:8000/api/appointment/delete-appointment/${id}`, {
@@ -33,9 +34,10 @@ const Appointments = () => {
     }
 
     const [showModal, setShowModal] = useState(false);
+    const [clickedAppointment, setClickedAppointment] = useState(null);
     const handleConfirmBooking = (appointment) => {
+        setClickedAppointment(appointment)
         setShowModal(true);
-        console.log(appointment);
     }
 
     return (
@@ -103,7 +105,7 @@ const Appointments = () => {
                                     <p className='text-gray-600 flex items-center gap-2'><HiOutlineMapPin className='text-lg' /> Online</p>
                                 </div>
                                 <div className='col-span-2'>
-                                    <div className='text-gray-600 flex items-center gap-2 mb-2'><LuDog className='text-lg' /> <p className='flex items-center gap-1'>Mittens <span className='text-sm'>(dog)</span></p></div>
+                                    <div className='text-gray-600 flex items-center gap-2 mb-2'><LuDog className='text-lg' /> <p className='flex items-center gap-1'>{appointment?.pet?.name || 'N/A'} <span className='text-xs'>({appointment?.pet?.type || 'N/A'})</span></p></div>
                                     <p className='text-gray-600 flex items-center gap-2'><HiOutlineCurrencyDollar className='text-lg' /> {appointment.payment_status ? 'Paid' : 'Unpaid'}</p>
                                 </div>
                                 <div className='appointments-actions flex items-center gap-4 col-span-3 justify-end'>
@@ -118,7 +120,7 @@ const Appointments = () => {
                                             <>
                                                 <button onClick={() => handleConfirmBooking(appointment)} className='flex items-center gap-2 bg-primary px-5 py-3 rounded-lg text-white text-sm'>Click to confirm <HiArrowRight /></button>
                                                 <button onClick={() => handleAppointmentDlt(appointment._id)} className='flex items-center gap-2 bg-white px-3 py-3 rounded-lg text-red-400 border  text-sm'> <HiOutlineTrash /></button>
-                                                {showModal && <ConfirmBookingModal setShowModal={setShowModal} />}
+                                                {showModal && <ConfirmBookingModal apptId={clickedAppointment._id} setShowModal={setShowModal}  />}
                                             </>
                                             :
                                             active_status_tab === 'cancelled' ?
