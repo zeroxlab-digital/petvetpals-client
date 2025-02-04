@@ -1,5 +1,5 @@
 
-import VetDetails from "@/pages/PetOwners/Appointments/VetDetails";
+import VetDetails from "@/components/PetOwners/Appointment/VetDetails";
 
 const VetDetailsPage = ({ params }) => {
     return (

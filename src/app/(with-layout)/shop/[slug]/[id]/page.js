@@ -1,4 +1,4 @@
-import ProductDetails from '@/pages/PetOwners/Shop/ProductDetails';
+import ProductDetails from '@/components/ECommerce/Shop/ProductDetails';
 
 
 const ProductDetailsPage = ({ params }) => {

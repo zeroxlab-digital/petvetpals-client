@@ -1,8 +1,8 @@
 "use client";
-import Vets from "@/pages/PetOwners/Appointments/Vets";
+import Vets from "@/components/PetOwners/Appointment/Vets";
 import { usePathname } from "next/navigation";
 import useVets from "../../../../../hooks/useVets";
-import VetFilterSidebar from "@/components/PetOwners/Appointments/VetFilterSidebar";
+import VetFilterSidebar from "@/components/PetOwners/Appointment/VetFilterSidebar";
 import { useEffect, useState } from "react";
 import useFetchVets from "../../../../../hooks/useFetchVets";
 

@@ -1,6 +1,6 @@
-import DashboardSidebar from '@/components/PetOwners/DashboardSidebar/DashboardSidebar';
 import Header from '@/components/PetOwners/Header/Header';
 import React from 'react';
+import DashboardSidebar from '../../components/PetOwners/Dashboard/Sidebar/Sidebar';
 
 const DashboardLayout = ({ children }) => {
     return (

@@ -4,9 +4,10 @@ import React, { useEffect, useState } from 'react';
 import NoPhoto from '/public/images/vet.png'
 import { HiArrowRight, HiChevronDown, HiClock, HiCurrencyDollar, HiMapPin, HiOutlineClock, HiOutlineCurrencyDollar, HiOutlineMapPin, HiOutlineStar, HiOutlineTrash, HiVideoCamera } from 'react-icons/hi2';
 import { LuCat, LuDog, LuRat } from 'react-icons/lu';
-import useGetAppts from '../../../../hooks/useGetAppts';
 import axios from 'axios';
+import useGetAppts from '../../../../../hooks/useGetAppts';
 import ConfirmBookingModal from './ConfirmBookingModal';
+
 
 
 const Appointments = () => {

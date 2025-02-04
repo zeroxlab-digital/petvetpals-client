@@ -1,4 +1,4 @@
-import Appointments from '@/components/Common/Appointments/Appointments';
+import Appointments from '@/components/PetOwners/Dashboard/Appointments/Appointments';
 import React from 'react';
 
 const page = () => {

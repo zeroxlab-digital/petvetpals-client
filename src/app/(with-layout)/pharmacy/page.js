@@ -1,4 +1,4 @@
-import ShopPage from '@/pages/PetOwners/Shop/Shop';
+import ShopPage from '@/components/ECommerce/Shop/Shop';
 
 const Pharmacy = () => {
     return (

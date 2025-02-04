@@ -3,7 +3,7 @@ import Button from '@/components/Common/Button/Button';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import PetProfileModal from './PetProfileModal';
-import useFetchPets from '../../../../hooks/useFetchPets';
+import useFetchPets from '../../../../../hooks/useFetchPets';
 
 const PetProfiles = () => {
     const pets = useFetchPets();

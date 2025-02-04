@@ -3,10 +3,10 @@ import Label from '@/components/Common/Form/Label';
 import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
 import React, { useState } from 'react';
 import { HiOutlineLockClosed } from 'react-icons/hi2';
-import CreditCard from '../../../../public/images/cr2.png';
-import Paypal from '../../../../public/images/paypal.png';
-import ApplePay from '../../../../public/images/applepay.png';
-import Gpay from '../../../../public/images/gpay.png';
+import CreditCard from '/public/images/cr.png';
+import Paypal from '/public/images/paypal.png';
+import ApplePay from '/public/images/applepay.png';
+import Gpay from '/public/images/gpay.png';
 import Image from 'next/image';
 import axios from 'axios';
 

@@ -1,4 +1,4 @@
-import Products from '@/pages/PetOwners/Shop/Products';
+import Products from '@/components/ECommerce/Shop/Products';
 
 const MedicinePage = ({ params }) => {
     return (
