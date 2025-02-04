@@ -126,7 +126,7 @@ const Appointments = () => {
                                             active_status_tab === 'cancelled' ?
                                                 <>
                                                     <button className='flex items-center gap-2 bg-primary px-5 py-3 rounded-lg text-white text-sm'>View reason <HiArrowRight /></button>
-                                                    <button className='flex items-center gap-2 bg-white px-3 py-3 rounded-lg text-red-400 border  text-sm'> <HiOutlineTrash /></button>
+                                                    <button onClick={() => handleAppointmentDlt(appointment._id)} className='flex items-center gap-2 bg-white px-3 py-3 rounded-lg text-red-400 border  text-sm'> <HiOutlineTrash /></button>
                                                 </>
                                                 :
                                                 <>
