@@ -13,7 +13,7 @@ const Appointments = () => {
 
     const appointments = useGetAppts();
 
-    const status_tabs = ["approved", "pending", "cancelled", "past"];
+    const status_tabs = ["confirmed", "pending", "cancelled", "past"];
     const [active_status_tab, set_active_status_tab] = useState(status_tabs[0]);
 
     const filtered_appointments = appointments.filter(appointment => appointment.status === active_status_tab);
@@ -110,7 +110,7 @@ const Appointments = () => {
                                 </div>
                                 <div className='appointments-actions flex items-center gap-4 col-span-3 justify-end'>
 
-                                    {active_status_tab === 'approved' ?
+                                    {active_status_tab === 'confirmed' ?
                                         <>
                                             <button className='flex items-center gap-2 bg-white px-5 py-3 rounded-lg text-gray-900 border text-sm'>Edit <HiChevronDown /></button>
                                             <button className='flex items-center gap-2 bg-primary px-5 py-3 rounded-lg text-white text-sm'>Join Now <HiVideoCamera /></button>

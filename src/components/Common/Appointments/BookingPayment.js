@@ -8,17 +8,36 @@ import Paypal from '../../../../public/images/paypal.png';
 import ApplePay from '../../../../public/images/applepay.png';
 import Gpay from '../../../../public/images/gpay.png';
 import Image from 'next/image';
+import axios from 'axios';
 
-const BookingPayment = () => {
+const BookingPayment = ({ apptId, setShowModal }) => {
     const expirationMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const expirationYear = ['2024', '2025', '2026', '2027', '2028', '2029']
     const paymentOptions = [
-        {logo: CreditCard, title: 'Card'},
-        {logo: Paypal, title: 'PayPal'},
-        {logo: ApplePay, title: 'Apple Pay'},
-        {logo: Gpay, title: 'Google Pay'}
+        { logo: CreditCard, title: 'Card' },
+        { logo: Paypal, title: 'PayPal' },
+        { logo: ApplePay, title: 'Apple Pay' },
+        { logo: Gpay, title: 'Google Pay' }
     ]
     const [selectedPaymentOption, setSelectedPaymentOption] = useState('Card');
+    
+    const handleCompleteBooking = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await axios.patch(`http://localhost:8000/api/appointment/update-appointment/${apptId}`, { payment_status: true, status: "confirmed" }, {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                withCredentials: true
+            })
+            if (res.status === 200) {
+                alert("Booking completed!")
+                setShowModal(false);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return (
         <div className='text-left'>
             <h3 className='font-bold text-xl text-gray-800 '>Payment Details</h3>
@@ -29,7 +48,7 @@ const BookingPayment = () => {
                     <p className='font-semibold text-sm text-gray-600 mt-1'>{option.title}</p>
                 </button>)}
             </div>
-            <form className='mt-7'>
+            <form onClick={handleCompleteBooking} className='mt-7'>
                 <div className='mb-7'>
                     <Label htmlFor="nameoncard">Name on Card</Label>
                     <Input type="text" id="nameoncard" placeholder="Enter the name on your card" classNames="py-2 w-full" />

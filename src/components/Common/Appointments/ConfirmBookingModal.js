@@ -21,7 +21,7 @@ const ConfirmBookingModal = ({ setShowModal, apptId }) => {
                     <BookingDetails apptId={apptId} setBookingState={setBookingState} />
                     :
                     bookingStage == "payment-details" ?
-                    <BookingPayment setBookingState={setBookingState} />
+                    <BookingPayment apptId={apptId} setShowModal={setShowModal} />
                     :
                     null
                     }
