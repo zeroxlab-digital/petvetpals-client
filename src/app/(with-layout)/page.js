@@ -1,9 +1,10 @@
-import HomePage from "@/landing/Home";
+import HeroSection from "@/landing/HeroSection/HeroSection";
+
 
 const Home = () => {
   return (
     <main className="">
-      <HomePage />
+      <HeroSection />
     </main>
   );
 }
