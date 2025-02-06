@@ -23,7 +23,7 @@ const Header = () => {
     }, [responsiveMenu]);
 
     return (
-        <header className="shadow-md py-5 sticky top-0  bg-white z-10 xl:px-20 px-3">
+        <header className="py-6 shadow-md sticky top-0  bg-white z-10 xl:px-20 px-3">
             <div className="flex items-center justify-between container mx-auto">
                 <div className="flex items-center gap-16 max-lg:gap-3">
                     {responsiveMenu ? <button onClick={() => setResponsiveMenu(false)} className="lg:hidden"><HiXMark className="text-2xl text-primary" /></button> : <button onClick={() => setResponsiveMenu(true)} className="lg:hidden"><HiBars3CenterLeft className="text-2xl text-primary" /></button>}
