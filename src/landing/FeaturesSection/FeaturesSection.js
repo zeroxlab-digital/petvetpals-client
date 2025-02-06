@@ -14,7 +14,7 @@ const FeaturesSection = () => {
                     features.map((feature, index) => (
                         <Link key={index} href={feature.link}>
                             <div
-                                className='w-full h-52 border rounded-md flex items-center justify-center cursor-pointer overflow-hidden transform transition-transform duration-500 ease-in-out hover:scale-105'
+                                className='w-full h-52 border rounded-md flex items-center justify-center cursor-pointer overflow-hidden relative'
                                 style={{
                                     backgroundImage: `url(${feature.background})`,
                                     backgroundSize: 'cover',
@@ -22,7 +22,16 @@ const FeaturesSection = () => {
                                     backgroundRepeat: 'no-repeat'
                                 }}
                             >
-                                <p className='font-semibold text-lg text-white'>{feature.title}</p>
+                                <div
+                                    className='absolute inset-0 bg-cover bg-center transition-transform duration-500 ease-in-out hover:scale-110'
+                                    style={{
+                                        backgroundImage: `url(${feature.background})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center center',
+                                        backgroundRepeat: 'no-repeat'
+                                    }}
+                                ></div>
+                                <p className='font-semibold text-lg text-white relative z-10'>{feature.title}</p>
                             </div>
                         </Link>
                     ))
