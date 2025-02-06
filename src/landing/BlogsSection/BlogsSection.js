@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import Link from 'next/link';
-import SImg from '/public/images/vet.png'
+import SImg from '/public/images/cat-cute.jpg'
 import Image from 'next/image';
 
 const BlogsSection = () => {
@@ -67,7 +67,7 @@ const BlogsSection = () => {
                             swiperRef.current = swiper;
                         }}
                         // modules={[Autoplay, Navigation]}
-                        spaceBetween={30}
+                        spaceBetween={40}
                         slidesPerView={2}
                         loop={true}
                         autoplay={{
@@ -77,7 +77,7 @@ const BlogsSection = () => {
                         breakpoints={{
                             768: {
                                 slidesPerView: 2,
-                                spaceBetween: 20,
+                                spaceBetween: 30,
                             },
                             0: {
                                 slidesPerView: 1,
@@ -88,7 +88,7 @@ const BlogsSection = () => {
                         {blogs.map((blog, index) => (
                             <SwiperSlide key={index}>
                                 <div className="cursor-pointer">
-                                    <Image src={SImg} alt="banner" width={400} height={200} className='mb-5  rounded-md min-w-full h-60 bg-cover' />
+                                    <Image src={SImg} alt="banner" width={400} height={200} className='mb-5  rounded-md min-w-full h-64 bg-cover' />
                                     <p className='font-light text-sm text-gray-700 ml-4 mb-2 relative'><span className='w-2 h-2 bg-primary rounded-full absolute top-[6px] -left-3'></span>{blog.read_time} min read</p>
                                     <h2 className="text-xl font-semibold mb-2">{blog.title}</h2>
                                     <p className="text-base text-gray-800">{blog.description}</p>
