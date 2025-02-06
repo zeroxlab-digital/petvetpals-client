@@ -45,45 +45,45 @@ const slides = [
 const HeroSection = () => {
     return (
         <section className="app-container my-7">
-                <div className="">
-                    <Swiper
-                        spaceBetween={10}
-                        slidesPerView={1}
-                        loop={true}
-                        autoplay={{ delay: 1000 }}
-                    >
-                        {slides.map((slide, index) => (
-                            <SwiperSlide
-                                key={index}
-                                className=" rounded-md p-5 "
-                                style={{
-                                    backgroundImage: `url(${slide.image})`,
-                                    backgroundRepeat: 'no-repeat',
-                                    backgroundSize: "cover",
-                                    backgroundPosition: "center center",
-                                    height: "350px",
-                                }}
-                            >
-                                <div className="text-left flex flex-col justify-between h-full">
-                                    <div>
-                                        <h2 className="text-3xl font-semibold text-primary">{slide.title}</h2>
-                                        <p className="mt-2 mb-5 text-gray-900">{slide.description}</p>
-                                        <ul>
-                                            {
-                                                slide.services.map((service, index) => (
-                                                    <li key={index} className="text-gray-800 text-sm flex items-center gap-2 mb-2  last:mb-0"><HiOutlineCheckBadge className="text-lg" /> {service}</li>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                    <button className="mt-auto w-44 h-11  bg-transparent border border-[#58294E] text-primary hover:bg-primary hover:text-white duration-150 rounded flex items-center gap-2 justify-center">
-                                        {slide.buttonText} <HiArrowSmallRight />
-                                    </button>
+            <div className="w-full">
+                <Swiper
+                    spaceBetween={10}
+                    slidesPerView={1}
+                    loop={true}
+                    autoplay={{ delay: 3000 }} // Adjusted autoplay delay for better UX
+                >
+                    {slides.map((slide, index) => (
+                        <SwiperSlide
+                            key={index}
+                            className="rounded-md p-5"
+                            style={{
+                                backgroundImage: `url(${slide.image})`,
+                                backgroundRepeat: 'no-repeat',
+                                backgroundSize: "cover",
+                                backgroundPosition: "center center",
+                                height: "350px", // Fixed height for consistency
+                            }}
+                        >
+                            <div className="text-left flex flex-col justify-between h-full">
+                                <div>
+                                    <h2 className="text-2xl md:text-3xl font-semibold text-primary">{slide.title}</h2>
+                                    <p className="mt-2 mb-5 text-gray-900 text-sm md:text-base">{slide.description}</p>
+                                    <ul>
+                                        {slide.services.map((service, index) => (
+                                            <li key={index} className="text-gray-800 text-xs md:text-sm flex items-center gap-2 mb-2 last:mb-0">
+                                                <HiOutlineCheckBadge className="text-lg" /> {service}
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                </div>
+                                <button className="mt-auto w-44 h-11 bg-transparent border border-[#58294E] text-primary hover:bg-primary hover:text-white duration-150 rounded flex items-center gap-2 justify-center text-sm md:text-base">
+                                    {slide.buttonText} <HiArrowSmallRight />
+                                </button>
+                            </div>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
         </section>
     );
 };
