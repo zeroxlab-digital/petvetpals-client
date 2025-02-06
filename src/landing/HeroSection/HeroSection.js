@@ -1,7 +1,7 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { HiShieldCheck } from "react-icons/hi2";
+import { HiCheck, HiCheckCircle, HiShieldCheck } from "react-icons/hi2";
 
 const slides = [
     {
@@ -71,12 +71,12 @@ const HeroSection = () => {
                                         <ul>
                                             {
                                                 slide.services.map((service, index) => (
-                                                    <li key={index} className="text-gray-200 text-sm flex items-center gap-2 mb-2  last:mb-0"><HiShieldCheck className="text-lg" /> {service}</li>
+                                                    <li key={index} className="text-gray-200 text-sm flex items-center gap-2 mb-2  last:mb-0"><HiCheckCircle className="text-lg text-yellow-300" /> {service}</li>
                                                 ))
                                             }
                                         </ul>
                                     </div>
-                                    <button className="mt-auto w-40 h-10  bg-white text-primary font-semibold rounded">
+                                    <button className="mt-auto w-44 h-11  bg-white text-primary font-semibold rounded">
                                         {slide.buttonText}
                                     </button>
                                 </div>
