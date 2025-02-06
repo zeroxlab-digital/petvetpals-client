@@ -31,7 +31,7 @@ const FeaturesSection = () => {
                                         backgroundRepeat: 'no-repeat'
                                     }}
                                 ></div>
-                                <p className='font-semibold text-lg text-white relative z-10'>{feature.title}</p>
+                                <p className='font-semibold text-lg text-gray-100 relative z-10'>{feature.title}</p>
                             </div>
                         </Link>
                     ))
