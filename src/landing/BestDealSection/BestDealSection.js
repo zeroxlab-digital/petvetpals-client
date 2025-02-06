@@ -4,7 +4,7 @@ import React from 'react';
 
 const BestDealSection = () => {
     return (
-        <section className='bg-primary '>
+        <section className='bg-primary'>
             <div className='grid grid-cols-3 gap-5 items-center'>
                 <div
                     className="relative"

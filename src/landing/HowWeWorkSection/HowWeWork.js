@@ -5,7 +5,7 @@ import React from 'react';
 const HowWeWork = () => {
 
     return (
-        <section className='py-32'>
+        <section className='pb-32'>
             <div className='app-container '>
                 <div className='text-center mb-20'>
                     <h3 className='text-2xl text-gray-900'>Care that puts your pet at the center</h3>
