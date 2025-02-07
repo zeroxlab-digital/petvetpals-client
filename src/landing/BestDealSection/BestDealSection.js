@@ -4,7 +4,7 @@ import React from 'react';
 
 const BestDealSection = () => {
     return (
-        <section className='bg-primary py-10 md:py-20'>
+        <section className='bg-primary max-md:py-10'>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-5 items-center px-5 md:px-0'>
                 {/* Left Image */}
                 <div className="relative order-1 md:order-1 flex justify-center">
@@ -54,7 +54,7 @@ const BestDealSection = () => {
                         alt="pet"
                         height={400}
                         width={400}
-                        className="relative w-64 md:w-96"
+                        className="relative w-64 md:w-[24.35rem]"
                     />
                 </div>
             </div>

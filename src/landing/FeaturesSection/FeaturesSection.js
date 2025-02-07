@@ -14,7 +14,7 @@ const FeaturesSection = () => {
                 {features.map((feature, index) => (
                     <Link key={index} href={feature.link}>
                         <div
-                            className='w-full h-52 border rounded-md flex items-center justify-center cursor-pointer overflow-hidden relative'
+                            className='w-full h-52 max-lg:h-40 border rounded-md flex items-center justify-center cursor-pointer overflow-hidden relative'
                             style={{
                                 backgroundImage: `url(${feature.background})`,
                                 backgroundSize: 'cover',

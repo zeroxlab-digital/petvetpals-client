@@ -33,27 +33,27 @@ const BlogsSection = () => {
 
     return (
         <section className='py-16 md:py-32'>
-            <div className="grid lg:grid-cols-3 max-lg:grid-cols-1 max-lg:gap-10 px-5 md:px-0">
+            <div className="grid lg:grid-cols-3 max-lg:grid-cols-1 max-lg:gap-10 ">
                 {/* Left Content */}
-                <div className="lg:col-span-1 flex lg:flex-col justify-between xl:pl-20 lg:px-10 max-lg:px-5">
+                <div className="lg:col-span-1 flex max-sm:items-end lg:flex-col justify-between xl:pl-20 lg:px-10 max-lg:px-5">
                     <div>
                         <h3 className='text-lg text-primary mb-5'>Blogs</h3>
-                        <h1 className='text-2xl md:text-3xl text-gray-800 mb-1'>The latest from ZeroxLab</h1>
-                        <p className='font-light text-gray-600 mb-5 text-sm md:text-base'>Some of our recently published blogs</p>
+                        <h1 className='text-2xl md:text-3xl max-sm:hidden text-gray-800 mb-1'>Latest from PetVetPals</h1>
+                        <p className='font-light text-gray-600 max-sm:hidden mb-5 text-sm md:text-base'>Some of our recently published blogs</p>
                         <Link href="/blogs" className='text-primary font-semibold text-sm flex items-center gap-1 group'>
                             Explore More <HiArrowRight className='group-hover:ml-1 duration-200' />
                         </Link>
                     </div>
                     <div className="flex gap-5 mt-8 md:mt-auto">
                         <button
-                            className="bg-white text-primary hover:bg-primary hover:text-white duration-150 border border-[#2e114d] rounded-full w-10 h-10 flex items-center justify-center"
+                            className="bg-white text-primary hover:bg-primary hover:text-white duration-150 border border-[#2e114d] rounded-full w-10 max-sm:w-7 h-10 max-sm:h-7  flex items-center justify-center"
                             onClick={() => swiperRef.current?.slidePrev()}
                             aria-label="Previous"
                         >
                             <HiArrowLeft />
                         </button>
                         <button
-                            className="bg-white text-primary hover:bg-primary hover:text-white duration-150 border border-[#2e114d] rounded-full w-10 h-10 flex items-center justify-center"
+                            className="bg-white text-primary hover:bg-primary hover:text-white duration-150 border border-[#2e114d] rounded-full w-10 max-sm:w-7  h-10 max-sm:h-7  flex items-center justify-center"
                             onClick={() => swiperRef.current?.slideNext()}
                             aria-label="Next"
                         >

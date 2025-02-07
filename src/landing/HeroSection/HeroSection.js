@@ -55,7 +55,7 @@ const HeroSection = () => {
                     {slides.map((slide, index) => (
                         <SwiperSlide
                             key={index}
-                            className="rounded-md p-5"
+                            className="rounded-md p-5 bg-primary"
                             style={{
                                 backgroundImage: `url(${slide.image})`,
                                 backgroundRepeat: 'no-repeat',

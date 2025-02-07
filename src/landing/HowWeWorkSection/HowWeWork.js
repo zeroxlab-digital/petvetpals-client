@@ -7,12 +7,12 @@ const HowWeWork = () => {
         <section className='pb-16 md:pb-32'>
             <div className='app-container'>
                 <div className='text-center mb-10 md:mb-20'>
-                    <h3 className='text-xl md:text-2xl text-gray-900'>Care that puts your pet at the center</h3>
+                    <h3 className='text-xl md:text-2xl text-gray-900'>Care That Puts Your Pet at the Center</h3>
                     <p className='text-gray-800 mt-3 text-sm md:text-base'>
                         PetVetPals focuses on providing pets with continuous care for longer, healthier lives
                     </p>
                 </div>
-                <div className='flex flex-col md:flex-row gap-5 md:gap-16 justify-center items-center'>
+                <div className='flex flex-col md:flex-row gap-5 md:gap-16 justify-center '>
                     <Image
                         src="/images/vet-chat.png"
                         alt="vet"
@@ -36,7 +36,7 @@ const HowWeWork = () => {
                     />
                 </div>
             </div>
-            <button className='bg-primary p-3 w-full text-white text-sm md:text-base underline mt-10 md:mt-16'>
+            <button className='bg-primary p-3 w-full text-white text-sm md:text-base underline '>
                 <Link href="">Learn More About How It Works</Link>
             </button>
         </section>
