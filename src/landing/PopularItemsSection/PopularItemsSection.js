@@ -1,8 +1,10 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
-import { HiArrowLeft, HiArrowLongRight, HiArrowRight, HiArrowSmallRight } from 'react-icons/hi2';
+import { HiArrowSmallRight } from 'react-icons/hi2';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import "swiper/css/navigation";
+import { Navigation, Autoplay } from "swiper/modules";
 import Image from 'next/image';
 import Link from 'next/link';
 import { Rating } from '@mui/material';
@@ -27,22 +29,6 @@ const PopularItemsSection = () => {
                     <div>
                         <h3 className='text-base font-semibold text-primary '>Top Pet Foods</h3>
                     </div>
-                    {/* <div className="flex gap-3 md:gap-5">
-                        <button
-                            onClick={() => swiperRef.current?.slidePrev()}
-                            className="bg-white text-primary hover:bg-primary hover:text-white duration-150 border border-[#2e114d] rounded-full w-7 h-7 md:w-10 md:h-10 flex items-center justify-center"
-                            aria-label="Previous"
-                        >
-                            <HiArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
-                        </button>
-                        <button
-                            onClick={() => swiperRef.current?.slideNext()}
-                            className="bg-white text-primary hover:bg-primary hover:text-white duration-150 border border-[#2e114d] rounded-full w-7 h-7 md:w-10 md:h-10 flex items-center justify-center"
-                            aria-label="Next"
-                        >
-                            <HiArrowRight className="w-4 h-4 md:w-5 md:h-5" />
-                        </button>
-                    </div> */}
                     <div>
                         <Link href={`shop/cat-foods`} className="text-primary flex items-center gap-1 font-semibold  text-base">View More <HiArrowSmallRight className='text-sm' /></Link>
                     </div>
@@ -55,10 +41,8 @@ const PopularItemsSection = () => {
                         spaceBetween={10}
                         slidesPerView={2}
                         loop={true}
-                        autoplay={{
-                            delay: 3000,
-                            disableOnInteraction: true,
-                        }}
+                        autoplay={{ delay: 5000 }}
+                        modules={[Navigation, Autoplay]}
                         breakpoints={{
                             640: {
                                 slidesPerView: 3,
@@ -127,22 +111,6 @@ const PopularItemsSection = () => {
                     <div>
                         <h3 className='text-base font-semibold text-primary '>Top Toys & Accessories</h3>
                     </div>
-                    {/* <div className="flex gap-3 md:gap-5">
-                        <button
-                            onClick={() => swiperRef.current?.slidePrev()}
-                            className="bg-white text-primary hover:bg-primary hover:text-white duration-150 border border-[#2e114d] rounded-full w-7 h-7 md:w-10 md:h-10 flex items-center justify-center"
-                            aria-label="Previous"
-                        >
-                            <HiArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
-                        </button>
-                        <button
-                            onClick={() => swiperRef.current?.slideNext()}
-                            className="bg-white text-primary hover:bg-primary hover:text-white duration-150 border border-[#2e114d] rounded-full w-7 h-7 md:w-10 md:h-10 flex items-center justify-center"
-                            aria-label="Next"
-                        >
-                            <HiArrowRight className="w-4 h-4 md:w-5 md:h-5" />
-                        </button>
-                    </div> */}
                     <div>
                         <Link href={`shop/cat-foods`} className="text-primary flex items-center gap-1 font-semibold  text-base">View More <HiArrowSmallRight className='text-sm' /></Link>
                     </div>
@@ -155,10 +123,8 @@ const PopularItemsSection = () => {
                         spaceBetween={10}
                         slidesPerView={2}
                         loop={true}
-                        autoplay={{
-                            delay: 3000,
-                            disableOnInteraction: true,
-                        }}
+                        autoplay={{ delay: 5000 }}
+                        modules={[Navigation, Autoplay]}
                         breakpoints={{
                             640: {
                                 slidesPerView: 3,
@@ -227,22 +193,6 @@ const PopularItemsSection = () => {
                     <div>
                         <h3 className='text-base font-semibold text-primary '>Top Pharmacy Products</h3>
                     </div>
-                    {/* <div className="flex gap-3 md:gap-5">
-                        <button
-                            onClick={() => swiperRef.current?.slidePrev()}
-                            className="bg-white text-primary hover:bg-primary hover:text-white duration-150 border border-[#2e114d] rounded-full w-7 h-7 md:w-10 md:h-10 flex items-center justify-center"
-                            aria-label="Previous"
-                        >
-                            <HiArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
-                        </button>
-                        <button
-                            onClick={() => swiperRef.current?.slideNext()}
-                            className="bg-white text-primary hover:bg-primary hover:text-white duration-150 border border-[#2e114d] rounded-full w-7 h-7 md:w-10 md:h-10 flex items-center justify-center"
-                            aria-label="Next"
-                        >
-                            <HiArrowRight className="w-4 h-4 md:w-5 md:h-5" />
-                        </button>
-                    </div> */}
                     <div>
                         <Link href={`shop/cat-foods`} className="text-primary flex items-center gap-1 font-semibold  text-base">View More <HiArrowSmallRight className='text-sm' /></Link>
                     </div>
@@ -255,10 +205,8 @@ const PopularItemsSection = () => {
                         spaceBetween={10}
                         slidesPerView={2}
                         loop={true}
-                        autoplay={{
-                            delay: 3000,
-                            disableOnInteraction: true,
-                        }}
+                        autoplay={{ delay: 5000 }}
+                        modules={[Navigation, Autoplay]}
                         breakpoints={{
                             640: {
                                 slidesPerView: 3,
@@ -323,6 +271,7 @@ const PopularItemsSection = () => {
                 </div>
             </section>
         </>
+
     );
 };
 

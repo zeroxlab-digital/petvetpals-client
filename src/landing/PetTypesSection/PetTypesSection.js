@@ -4,6 +4,8 @@ import Link from 'next/link';
 import React, { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import "swiper/css/navigation";
+import { Navigation, Autoplay } from "swiper/modules";
 
 const PetTypesSection = () => {
     const types = [
@@ -34,10 +36,8 @@ const PetTypesSection = () => {
                     spaceBetween={10}
                     slidesPerView={3}
                     loop={true}
-                    autoplay={{
-                        delay: 3000,
-                        disableOnInteraction: true,
-                    }}
+                    autoplay={{ delay: 3000 }}
+                    modules={[Navigation, Autoplay]}
                     breakpoints={{
                         640: {
                             slidesPerView: 3,
