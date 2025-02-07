@@ -41,15 +41,15 @@ const Header = () => {
                                 </button>
                             </div>
                             <Navbar setResponsiveMenu={setResponsiveMenu} />
-                            <div className="flex items-center gap-5 justify-center mt-auto mb-24">
-                                <Link href="/signin">
-                                    <button className="w-40 border border-[#58294E] text-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]">
+                            <div className="flex items-center gap-3 justify-center mt-auto mb-20">
+                                <Link href="/signin" className="w-full">
+                                    <button className="w-full border border-[#58294E] text-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]">
                                         <HiOutlineUser className="text-xl" />
                                         Sign In
                                     </button>
                                 </Link>
-                                <Link href="/signup">
-                                    <button className="w-40 border border-[#58294E] text-white bg-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]">
+                                <Link href="/signup" className="w-full">
+                                    <button className="w-full border border-[#58294E] text-white bg-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]">
                                         <HiOutlineUserPlus className="text-xl" />
                                         Sign Up
                                     </button>
@@ -66,7 +66,7 @@ const Header = () => {
                         <Navbar />
                     </div>
                 </div>
-                <div className="flex items-center gap-7 max-sm:gap-6">
+                <div className="flex items-center gap-5">
                     <Search />
                     <CartCount />
                     <div>
@@ -83,7 +83,12 @@ const Header = () => {
                                 </div>
                             }
                         </div>
-                        <Link href="/signup"><button className={`sm:hidden ${authUser && 'hidden'}`}><HiOutlineUser className="text-xl relative top-[3px] text-primary" /></button></Link>
+                        <Link href="/signup">
+                            <button className={`sm:hidden ${authUser && 'hidden'} bg-primary text-white rounded-lg px-5 py-[6px]`}>
+                                {/* <HiOutlineUser className="text-xl relative top-[3px] text-primary" /> */}
+                                Sign Up
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>

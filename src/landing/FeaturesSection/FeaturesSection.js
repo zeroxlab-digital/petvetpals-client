@@ -32,7 +32,7 @@ const FeaturesSection = () => {
                                     backgroundRepeat: 'no-repeat'
                                 }}
                             ></div>
-                            <div className='z-10 relative'>
+                            <div className='z-[1] relative'>
                                 <p className='text-base font-semibold text-gray-100 mb-1'>{feature.title}</p>
                                 <p className='text-gray-200 text-sm group-hover:underline duration-200'>{feature.link_title}</p>
                             </div>
