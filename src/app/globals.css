@@ -5,6 +5,7 @@
 html {
     scroll-behavior: smooth;
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -24,15 +25,44 @@ html {
     font-weight: bold;
 }
 
+.app-container {
+    padding-right: 80px;
+    padding-left: 80px;
+}
+
+@media (max-width: 1024px) {
+    .app-container {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+}
+@media (max-width: 768px) {
+    .app-container {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+}
+@media (max-width: 480px) {
+    .app-container {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+}
+
+
 /* Hide scrollbar for a specific element */
 .hide-scrollbar {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+
     /* For Webkit-based browsers (Chrome, Safari, Edge) */
-    overflow-y: scroll; /* Ensure the element is scrollable */
+    overflow-y: scroll;
+    /* Ensure the element is scrollable */
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
+    display: none;
+    /* Chrome, Safari, Edge */
 }

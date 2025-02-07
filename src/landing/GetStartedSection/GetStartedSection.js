@@ -1,0 +1,32 @@
+import Button from '@/components/Common/Button/Button';
+import React from 'react';
+import { HiArrowSmRight } from 'react-icons/hi';
+import { HiCheckCircle } from 'react-icons/hi2';
+
+const GetStartedSection = () => {
+    return (
+        <section className='app-container md:w-3/4 mx-auto py-28'>
+            <div className=' text-center bg-opacity-20 rounded-xl w-full h-auto flex flex-col items-center p-5 '
+                style={{
+                    backgroundImage: 'url(/images/doggies-banner.jpg)',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: "cover",
+                    backgroundPosition: "center center",
+                }}>
+                <h4 className='uppercase font-semibold text-sm text-white'>Get started with PetVetPals Today!</h4>
+                <h1 className='text-primary font-bold text-3xl my-5'>Give Your Animal the Best Care</h1>
+                <p className='text-primary mb-10'>
+                    Sign up now to start chatting with our virtual assistants and get personalized advice for your animals health and wellness.
+                </p>
+                <Button variant={"primary"} size={"large"} classNames={" text-sm rounded-lg text-white w-[14rem] !h-12"}>Get Vet Appointment <HiArrowSmRight /></Button>
+                <ul className='flex items-center gap-7 mt-10'>
+                    <li className='flex items-center gap-1 text-gray-600 text-sm'><HiCheckCircle className='text-green-300' /> Fast & convenient</li>
+                    <li className='flex items-center gap-1 text-gray-600 text-sm'><HiCheckCircle className='text-green-300' /> Cheap</li>
+                    <li className='flex items-center gap-1 text-gray-600 text-sm'><HiCheckCircle className='text-green-300' /> 24/7</li>
+                </ul>
+            </div>
+        </section>
+    );
+};
+
+export default GetStartedSection;

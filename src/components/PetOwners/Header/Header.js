@@ -23,7 +23,7 @@ const Header = () => {
     }, [responsiveMenu]);
 
     return (
-        <header className="shadow-md py-5 sticky top-0  bg-white z-10 xl:px-20 px-3">
+        <header className="py-6 shadow-md sticky top-0  bg-white z-10 xl:px-20 px-3">
             <div className="flex items-center justify-between container mx-auto">
                 <div className="flex items-center gap-16 max-lg:gap-3">
                     {responsiveMenu ? <button onClick={() => setResponsiveMenu(false)} className="lg:hidden"><HiXMark className="text-2xl text-primary" /></button> : <button onClick={() => setResponsiveMenu(true)} className="lg:hidden"><HiBars3CenterLeft className="text-2xl text-primary" /></button>}
@@ -41,15 +41,15 @@ const Header = () => {
                                 </button>
                             </div>
                             <Navbar setResponsiveMenu={setResponsiveMenu} />
-                            <div className="flex items-center gap-5 justify-center mt-auto mb-24">
-                                <Link href="/signin">
-                                    <button className="w-40 border border-[#58294E] text-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]">
+                            <div className="flex items-center gap-3 justify-center mt-auto mb-20">
+                                <Link href="/signin" className="w-full">
+                                    <button className="w-full border border-[#58294E] text-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]">
                                         <HiOutlineUser className="text-xl" />
                                         Sign In
                                     </button>
                                 </Link>
-                                <Link href="/signup">
-                                    <button className="w-40 border border-[#58294E] text-white bg-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]">
+                                <Link href="/signup" className="w-full">
+                                    <button className="w-full border border-[#58294E] text-white bg-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]">
                                         <HiOutlineUserPlus className="text-xl" />
                                         Sign Up
                                     </button>
@@ -66,7 +66,7 @@ const Header = () => {
                         <Navbar />
                     </div>
                 </div>
-                <div className="flex items-center gap-7 max-sm:gap-6">
+                <div className="flex items-center gap-5">
                     <Search />
                     <CartCount />
                     <div>
@@ -77,13 +77,18 @@ const Header = () => {
                                     <button className="flex items-center gap-1 sm:hidden"><HiOutlineUserCircle className="text-[24px] text-primary" /></button>
                                 </Link>
                                 :
-                                <div className="flex items-center max-sm:hidden ">
-                                    <Link href="/signin"><button className=" w-28 text-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]"><HiOutlineUser className="text-xl" />Sign In</button></Link>
+                                <div className="flex items-center gap-2 max-sm:hidden ">
+                                    <Link href="/signin"><button className="px-2 w-max text-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]"><HiOutlineUser className="text-xl" />Sign In</button></Link>
                                     <Link href="/signup"><button className=" w-32 border border-[#58294E] text-white bg-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]"><HiOutlineUserPlus className="text-xl" />Sign Up</button></Link>
                                 </div>
                             }
                         </div>
-                        <Link href="/signup"><button className={`sm:hidden ${authUser && 'hidden'}`}><HiOutlineUser className="text-xl relative top-[3px] text-primary" /></button></Link>
+                        <Link href="/signup">
+                            <button className={`sm:hidden ${authUser && 'hidden'} bg-primary text-white rounded-lg px-5 py-[6px]`}>
+                                {/* <HiOutlineUser className="text-xl relative top-[3px] text-primary" /> */}
+                                Sign Up
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>
