@@ -32,7 +32,7 @@ const BlogsSection = () => {
     const swiperRef = useRef(null);
 
     return (
-        <section className='py-16 md:py-32'>
+        <section className='py-16 md:py-20'>
             <div className="grid lg:grid-cols-3 max-lg:grid-cols-1 max-lg:gap-10 ">
                 {/* Left Content */}
                 <div className="lg:col-span-1 flex max-sm:items-end lg:flex-col justify-between xl:pl-20 lg:px-10 max-lg:px-5">

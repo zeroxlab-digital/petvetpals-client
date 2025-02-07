@@ -61,7 +61,7 @@ const HeroSection = () => {
                                 backgroundRepeat: 'no-repeat',
                                 backgroundSize: "cover",
                                 backgroundPosition: "center center",
-                                height: "350px", // Fixed height for consistency
+                                height: "350px",
                             }}
                         >
                             <div className="text-left flex flex-col justify-between h-full">

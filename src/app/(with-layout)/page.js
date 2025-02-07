@@ -1,6 +1,7 @@
 import BestDealSection from "@/landing/BestDealSection/BestDealSection";
 import BlogsSection from "@/landing/BlogsSection/BlogsSection";
 import FeaturesSection from "@/landing/FeaturesSection/FeaturesSection";
+import GetStartedSection from "@/landing/GetStartedSection/GetStartedSection";
 import HeroSection from "@/landing/HeroSection/HeroSection";
 import HowWeWork from "@/landing/HowWeWorkSection/HowWeWork";
 import PetTypesSection from "@/landing/PetTypesSection/PetTypesSection";
@@ -15,6 +16,7 @@ const Home = () => {
       <HowWeWork />
       <PopularItemsSection />
       <BestDealSection />
+      <GetStartedSection />
       <BlogsSection />
     </main>
   );

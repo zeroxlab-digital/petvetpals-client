@@ -19,7 +19,7 @@ const PetTypesSection = () => {
     const swiperRef = useRef(null);
 
     return (
-        <section className='py-16 md:py-32'>
+        <section className='py-16 md:py-28'>
             <div className='app-container'>
                 <div className='text-center mb-10 lg:w-3/6 mx-auto'>
                     <h3 className='text-2xl text-gray-900'>Shop By Pet Type</h3>
