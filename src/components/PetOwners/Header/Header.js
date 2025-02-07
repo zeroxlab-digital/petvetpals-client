@@ -77,8 +77,8 @@ const Header = () => {
                                     <button className="flex items-center gap-1 sm:hidden"><HiOutlineUserCircle className="text-[24px] text-primary" /></button>
                                 </Link>
                                 :
-                                <div className="flex items-center max-sm:hidden ">
-                                    <Link href="/signin"><button className=" w-28 text-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]"><HiOutlineUser className="text-xl" />Sign In</button></Link>
+                                <div className="flex items-center gap-2 max-sm:hidden ">
+                                    <Link href="/signin"><button className="px-2 w-max text-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]"><HiOutlineUser className="text-xl" />Sign In</button></Link>
                                     <Link href="/signup"><button className=" w-32 border border-[#58294E] text-white bg-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]"><HiOutlineUserPlus className="text-xl" />Sign Up</button></Link>
                                 </div>
                             }

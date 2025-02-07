@@ -33,7 +33,7 @@ const Search = () => {
 
     return (
         <form action="#" className="">
-            <div className={`flex items-center pl-3 pr-1 border rounded-full border-[#58294E] max-2xl:hidden`}>
+            <div className={`flex items-center pl-3 pr-1 border rounded-full border-[#58294ea3] max-2xl:hidden`}>
                 <label htmlFor="search" className={`cursor-pointer flex items-center justify-center text-primary`}>
                     <HiMagnifyingGlass className="text-lg" />
                 </label>
@@ -46,7 +46,7 @@ const Search = () => {
                 <div className='relative' ref={dropdownRef}>
                     <p
                         onClick={() => set_clicked(!clicked)}
-                        className={`py-[6px] text-sm flex items-center justify-end gap-[2px] cursor-pointer pr-2 rounded-full w-[6.5rem] text-right font-normal`}>
+                        className={`py-[6px] text-sm flex items-center justify-end gap-[2px] cursor-pointer pr-2 rounded-full w-[6.5rem] text-right font-normal text-primary`}>
                         {selected} <HiChevronDown className='text-[12px]' />
                     </p>
                     {clicked && (
@@ -55,7 +55,7 @@ const Search = () => {
                                 <li
                                     key={index}
                                     onClick={() => handleItemClick(index)}
-                                    className='hover:text-primary duration-150 p-3 cursor-pointer flex items-center gap-2 first:rounded-t-md last:rounded-b-md first:border-b'>
+                                    className='hover:text-primary text-gray-800 duration-150 p-3 cursor-pointer flex items-center gap-2 first:rounded-t-md last:rounded-b-md first:border-b'>
                                     {item.icon} {item.type}
                                 </li>
                             ))}
