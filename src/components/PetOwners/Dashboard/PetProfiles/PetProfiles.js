@@ -43,7 +43,7 @@ const PetProfiles = () => {
                     </div>
                 </div>
             ))}
-            <div className='min-h-full border-dashed border-2 rounded-md flex items-center justify-center'>
+            <div className='h-full border-dashed border-2 rounded-md flex items-center justify-center'>
                 <button onClick={() => handleShowModal("add")} className='text-gray-500 text-lg w-full h-full'><span className='text-xl'>+</span> Add new profile</button>
             </div>
             {modalType && <PetProfileModal modalType={modalType} setModalType={setModalType} petProfile={petProfile} setPetProfile={setPetProfile} updatePet={updatePet} />}
