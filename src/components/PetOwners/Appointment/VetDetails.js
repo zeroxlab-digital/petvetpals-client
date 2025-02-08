@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import useFetchVets from "../../../../hooks/useFetchVets";
 import useGetAppts from "../../../../hooks/useGetAppts";
 import Link from "next/link";
+import FAQs from "@/components/Common/FAQs/FAQs";
 
 const VetDetails = ({ params }) => {
     const { authUser } = useSelector((state) => state.user);
@@ -28,6 +29,15 @@ const VetDetails = ({ params }) => {
 
     const appointments = useGetAppts();
     const pendingAppts = appointments.filter(appt => appt.status === "pending");
+
+    const faqs = [
+        { title: "What is PetVetPals?", details: "PetVetPals is an online platform where pet owners can find animal doctors, book appointments, and use telemedicine for video consultations. Along with that, we also provide pet-focused e-commerce services." },
+        { title: "How do I book an appointment?", details: "You can book an appointment by signing up on our platform, selecting a veterinarian, and choosing an available time slot." },
+        { title: "Can I get prescriptions through PetVetPals?", details: "Yes, after a consultation, veterinarians can provide prescriptions, which you can purchase through our platform or from your local pet pharmacy." },
+        { title: "Is telemedicine available for all pet types?", details: "Yes, we support consultations for dogs, cats, birds, reptiles, and other small animals. However, some conditions may require in-person visits." },
+        { title: "How do I pay for a consultation?", details: "You can pay securely using credit/debit cards, PayPal, or cryptocurrency through our integrated payment system." },
+        { title: "Can I cancel or reschedule my appointment?", details: "Yes, you can cancel or reschedule an appointment from your dashboard, but cancellation policies may vary by veterinarian." }
+    ];
 
     return (
         <div>
@@ -72,7 +82,8 @@ const VetDetails = ({ params }) => {
                     />
                 </div>
                 <div className="p-5 rounded-md bg-white xl:col-span-3">
-                    <h2 className="font-semibold text-gray-900">FAQs</h2>
+                    <h2 className="font-semibold text-gray-900 mb-6">FAQs</h2>
+                    <FAQs faqs={faqs} />
                 </div>
             </div>
         </div >
