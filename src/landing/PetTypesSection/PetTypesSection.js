@@ -34,7 +34,7 @@ const PetTypesSection = () => {
                         swiperRef.current = swiper;
                     }}
                     spaceBetween={10}
-                    slidesPerView={3}
+                    slidesPerView={3.5}
                     loop={true}
                     autoplay={{ delay: 3000 }}
                     modules={[Navigation, Autoplay]}

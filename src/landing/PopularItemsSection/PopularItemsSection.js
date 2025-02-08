@@ -39,7 +39,7 @@ const PopularItemsSection = () => {
                             swiperRef.current = swiper;
                         }}
                         spaceBetween={10}
-                        slidesPerView={2}
+                        slidesPerView={2.2}
                         loop={true}
                         autoplay={{ delay: 5000 }}
                         modules={[Navigation, Autoplay]}
@@ -64,7 +64,7 @@ const PopularItemsSection = () => {
                     >
                         {products.map((product) => (
                             <SwiperSlide
-                                className="border rounded-md p-3 flex flex-col justify-center items-center cursor-pointer"
+                                className="border rounded-md  flex flex-col justify-center items-center cursor-pointer"
                                 key={product._id}
                             >
                                 <Link
@@ -75,29 +75,31 @@ const PopularItemsSection = () => {
                                         },
                                     }}
                                 >
-                                    <div className="bg-gray-300 bg-opacity-10 rounded w-full h-40 md:h-52 mb-3">
+                                    <div className="bg-gray-300 bg-opacity-10 w-full h-36 md:h-52 mb-1">
                                         <Image
                                             src="/images/med1.webp"
                                             alt="product-img"
-                                            width={100}
-                                            height={100}
+                                            width={70}
+                                            height={70}
                                             className="w-full h-full object-cover rounded"
                                         />
                                     </div>
-                                    <h2 className="text-gray-900 hover:underline cursor-pointer mb-2 text-sm md:text-base">
-                                        {product.name}
-                                    </h2>
-                                    <div className="flex items-center justify-between w-full">
-                                        <h4 className="font-semibold text-gray-800 text-sm md:text-base">${product.price}</h4>
-                                        <div className="flex gap-1 items-center">
-                                            <Rating
-                                                name="half-rating-read"
-                                                size="small"
-                                                defaultValue={4.5}
-                                                precision={0.5}
-                                                readOnly
-                                            />
-                                            <p className="font-light text-gray-800 text-sm md:text-base">4.5</p>
+                                    <div className='p-2'>
+                                        <h2 className="text-gray-900 hover:underline cursor-pointer mb-2 text-sm md:text-base">
+                                            {product.name}
+                                        </h2>
+                                        <div className="flex items-center justify-between w-full max-sm:flex-col max-sm:items-start max-sm:gap-1">
+                                            <h4 className="font-semibold text-gray-800 text-sm md:text-base">${product.price}</h4>
+                                            <div className="flex max-sm:flex-row-reverse gap-1 items-center">
+                                                <Rating
+                                                    name="half-rating-read"
+                                                    size="small"
+                                                    defaultValue={4.5}
+                                                    precision={0.5}
+                                                    readOnly
+                                                />
+                                                <p className="font-light text-gray-800 text-sm md:text-base">4.5</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </Link>
@@ -121,7 +123,7 @@ const PopularItemsSection = () => {
                             swiperRef.current = swiper;
                         }}
                         spaceBetween={10}
-                        slidesPerView={2}
+                        slidesPerView={2.2}
                         loop={true}
                         autoplay={{ delay: 5000 }}
                         modules={[Navigation, Autoplay]}
@@ -146,7 +148,7 @@ const PopularItemsSection = () => {
                     >
                         {products.map((product) => (
                             <SwiperSlide
-                                className="border rounded-md p-3 flex flex-col justify-center items-center cursor-pointer"
+                                className="border rounded-md  flex flex-col justify-center items-center cursor-pointer"
                                 key={product._id}
                             >
                                 <Link
@@ -157,29 +159,31 @@ const PopularItemsSection = () => {
                                         },
                                     }}
                                 >
-                                    <div className="bg-gray-300 bg-opacity-10 rounded w-full h-40 md:h-52 mb-3">
+                                    <div className="bg-gray-300 bg-opacity-10 w-full h-36 md:h-52 mb-1">
                                         <Image
                                             src="/images/med1.webp"
                                             alt="product-img"
-                                            width={100}
-                                            height={100}
+                                            width={70}
+                                            height={70}
                                             className="w-full h-full object-cover rounded"
                                         />
                                     </div>
-                                    <h2 className="text-gray-900 hover:underline cursor-pointer mb-2 text-sm md:text-base">
-                                        {product.name}
-                                    </h2>
-                                    <div className="flex items-center justify-between w-full">
-                                        <h4 className="font-semibold text-gray-800 text-sm md:text-base">${product.price}</h4>
-                                        <div className="flex gap-1 items-center">
-                                            <Rating
-                                                name="half-rating-read"
-                                                size="small"
-                                                defaultValue={4.5}
-                                                precision={0.5}
-                                                readOnly
-                                            />
-                                            <p className="font-light text-gray-800 text-sm md:text-base">4.5</p>
+                                    <div className='p-2'>
+                                        <h2 className="text-gray-900 hover:underline cursor-pointer mb-2 text-sm md:text-base">
+                                            {product.name}
+                                        </h2>
+                                        <div className="flex items-center justify-between w-full max-sm:flex-col max-sm:items-start max-sm:gap-1">
+                                            <h4 className="font-semibold text-gray-800 text-sm md:text-base">${product.price}</h4>
+                                            <div className="flex max-sm:flex-row-reverse gap-1 items-center">
+                                                <Rating
+                                                    name="half-rating-read"
+                                                    size="small"
+                                                    defaultValue={4.5}
+                                                    precision={0.5}
+                                                    readOnly
+                                                />
+                                                <p className="font-light text-gray-800 text-sm md:text-base">4.5</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </Link>
@@ -203,7 +207,7 @@ const PopularItemsSection = () => {
                             swiperRef.current = swiper;
                         }}
                         spaceBetween={10}
-                        slidesPerView={2}
+                        slidesPerView={2.2}
                         loop={true}
                         autoplay={{ delay: 5000 }}
                         modules={[Navigation, Autoplay]}
@@ -228,7 +232,7 @@ const PopularItemsSection = () => {
                     >
                         {products.map((product) => (
                             <SwiperSlide
-                                className="border rounded-md p-3 flex flex-col justify-center items-center cursor-pointer"
+                                className="border rounded-md  flex flex-col justify-center items-center cursor-pointer"
                                 key={product._id}
                             >
                                 <Link
@@ -239,29 +243,31 @@ const PopularItemsSection = () => {
                                         },
                                     }}
                                 >
-                                    <div className="bg-gray-300 bg-opacity-10 rounded w-full h-40 md:h-52 mb-3">
+                                    <div className="bg-gray-300 bg-opacity-10 w-full h-36 md:h-52 mb-1">
                                         <Image
                                             src="/images/med1.webp"
                                             alt="product-img"
-                                            width={100}
-                                            height={100}
+                                            width={70}
+                                            height={70}
                                             className="w-full h-full object-cover rounded"
                                         />
                                     </div>
-                                    <h2 className="text-gray-900 hover:underline cursor-pointer mb-2 text-sm md:text-base">
-                                        {product.name}
-                                    </h2>
-                                    <div className="flex items-center justify-between w-full">
-                                        <h4 className="font-semibold text-gray-800 text-sm md:text-base">${product.price}</h4>
-                                        <div className="flex gap-1 items-center">
-                                            <Rating
-                                                name="half-rating-read"
-                                                size="small"
-                                                defaultValue={4.5}
-                                                precision={0.5}
-                                                readOnly
-                                            />
-                                            <p className="font-light text-gray-800 text-sm md:text-base">4.5</p>
+                                    <div className='p-2'>
+                                        <h2 className="text-gray-900 hover:underline cursor-pointer mb-2 text-sm md:text-base">
+                                            {product.name}
+                                        </h2>
+                                        <div className="flex items-center justify-between w-full max-sm:flex-col max-sm:items-start max-sm:gap-1">
+                                            <h4 className="font-semibold text-gray-800 text-sm md:text-base">${product.price}</h4>
+                                            <div className="flex max-sm:flex-row-reverse gap-1 items-center">
+                                                <Rating
+                                                    name="half-rating-read"
+                                                    size="small"
+                                                    defaultValue={4.5}
+                                                    precision={0.5}
+                                                    readOnly
+                                                />
+                                                <p className="font-light text-gray-800 text-sm md:text-base">4.5</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </Link>

@@ -30,18 +30,28 @@ html {
     padding-left: 80px;
 }
 
+.hero-section-hero {
+    height: 350px !important;
+}
+
 @media (max-width: 1024px) {
     .app-container {
         padding-right: 40px;
         padding-left: 40px;
     }
 }
+
 @media (max-width: 768px) {
     .app-container {
         padding-right: 20px;
         padding-left: 20px;
     }
+
+    .hero-section-hero {
+        height: 300px !important;
+    }
 }
+
 @media (max-width: 480px) {
     .app-container {
         padding-right: 10px;

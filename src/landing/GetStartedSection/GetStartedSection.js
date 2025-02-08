@@ -5,7 +5,7 @@ import { HiCheckCircle } from 'react-icons/hi2';
 
 const GetStartedSection = () => {
     return (
-        <section className='app-container md:w-3/4 mx-auto py-28'>
+        <section className='app-container md:w-3/4 mx-auto pt-24 mb-10'>
             <div className=' text-center bg-opacity-20 rounded-xl w-full h-auto flex flex-col items-center p-5 '
                 style={{
                     backgroundImage: 'url(/images/doggies-banner.jpg)',

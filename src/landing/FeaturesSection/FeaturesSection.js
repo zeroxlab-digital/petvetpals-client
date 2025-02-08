@@ -11,11 +11,11 @@ const FeaturesSection = () => {
 
     return (
         <section className='app-container mt-5'>
-            <div className='grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-10'>
+            <div className='grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-10'>
                 {features.map((feature, index) => (
                     <Link key={index} href={feature.link}>
                         <div
-                            className='w-full h-24 border rounded-md flex items-center justify-start p-5 cursor-pointer overflow-hidden relative group'
+                            className='w-full h-24 border rounded flex items-center justify-start p-4 cursor-pointer overflow-hidden relative group'
                             style={{
                                 backgroundImage: `url(${feature.background})`,
                                 backgroundSize: 'cover',
@@ -34,7 +34,7 @@ const FeaturesSection = () => {
                             ></div>
                             <div className='z-[1] relative'>
                                 <p className='text-base font-semibold text-gray-100 mb-1'>{feature.title}</p>
-                                <p className='text-gray-200 text-sm group-hover:underline duration-200'>{feature.link_title}</p>
+                                <p className='text-gray-200 text-sm underline '>{feature.link_title}</p>
                             </div>
                         </div>
                     </Link>
