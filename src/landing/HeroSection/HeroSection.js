@@ -23,7 +23,7 @@ const HeroSection = () => {
             title: "Premium Pet Supplies",
             description: "Shop high-quality pet food, toys, and accessories. Enjoy fast, reliable doorstep delivery.",
             buttonText: "Shop Now",
-            image: "/images/pets-banner-foods.webp",
+            image: "/images/doggies-banner.jpg",
             services: [
                 "Top-rated pet food brands",
                 "Organic and grain-free options",
@@ -55,7 +55,7 @@ const HeroSection = () => {
                     spaceBetween={10}
                     slidesPerView={1}
                     loop={true}
-                    autoplay={{ delay: 5000 }}
+                    autoplay={{ delay: 7000 }}
                     modules={[Navigation, Autoplay]}
                 >
                     {slides.map((slide, index) => (
@@ -89,7 +89,7 @@ const HeroSection = () => {
                         </SwiperSlide>
                     ))}
                 </Swiper>
-                {/* <button
+                <button
                     onClick={() => swiperRef.current?.slidePrev()}
                     className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 "
                 >
@@ -100,7 +100,7 @@ const HeroSection = () => {
                     className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 "
                 >
                     <HiChevronRight className="text-3xl text-gray-300" />
-                </button> */}
+                </button>
             </div>
         </section>
     );

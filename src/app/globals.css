@@ -31,7 +31,7 @@ html {
 }
 
 .hero-section-hero {
-    height: 350px !important;
+    height: 360px !important;
 }
 
 @media (max-width: 1024px) {
