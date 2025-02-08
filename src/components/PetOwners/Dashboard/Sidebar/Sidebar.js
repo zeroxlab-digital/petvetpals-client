@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { HiLogout } from "react-icons/hi";
 import { FaCalendar, FaCartShopping, FaHouse, FaPaw, FaPills, FaRegHeart, FaRegMessage, FaUser } from 'react-icons/fa6';
 import axios from 'axios';
+import { HiArrowRightOnRectangle } from 'react-icons/hi2';
 
 const DashboardSidebar = () => {
 
@@ -122,7 +123,7 @@ const DashboardSidebar = () => {
                     <span>{link.icon}</span>{link.title}
                 </li></Link>)}
             </ul>
-            <button onClick={handleUserLogout} className="mt-auto w-full rounded-md border border-red-500 text-left  h-12 px-3 text-red-500 flex items-center gap-2 hover:text-white hover:bg-red-500 duration-150">Log out <HiLogout className='' /></button>
+            <button onClick={handleUserLogout} className="mt-auto w-full rounded-md border border-red-500 text-left  h-12 px-3 text-red-500 flex items-center gap-2 ">Log out <HiArrowRightOnRectangle className='' /></button>
         </div>
     );
 };
