@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { HiMiniAdjustmentsHorizontal, HiOutlineBarsArrowDown, HiOutlineXCircle } from 'react-icons/hi2';
+import { HiBars4, HiBarsArrowUp, HiMiniAdjustmentsHorizontal, HiOutlineBarsArrowDown, HiOutlineXCircle } from 'react-icons/hi2';
 
 const VetFilterSidebar = ({ setFilterChange, vets }) => {
     const [filters, setFilters] = useState({
@@ -38,8 +38,9 @@ const VetFilterSidebar = ({ setFilterChange, vets }) => {
             <div className='filter-header xl:hidden flex items-center justify-between bg-white p-3 rounded-md'>
                 <p className='text-gray-800 text-sm'>{vets.length} vets found</p>
                 <div className='flex gap-2'>
-                    <button onClick={() => { setShowResponsiveFilter(true), setShowResponsiveSort(false) }} className='rounded px-3 py-[2px] border text-gray-800 text-sm flex items-center gap-1'><HiMiniAdjustmentsHorizontal className='text-xs' /> Filter</button>
-                    <button onClick={() => { setShowResponsiveSort(true), setShowResponsiveFilter(false) }} className='rounded px-3 py-[2px] border text-gray-800 text-sm flex items-center gap-1'><HiOutlineBarsArrowDown className='text-sm' /> Sort by</button>
+                    <button onClick={() => { setShowResponsiveFilter(true), setShowResponsiveSort(false) }} className='rounded px-2 py-[2px] border text-gray-800 text-sm flex items-center gap-1'><HiMiniAdjustmentsHorizontal className='text-xs' /> Filter</button>
+                    <button onClick={() => { setShowResponsiveSort(true), setShowResponsiveFilter(false) }} className='rounded px-2 py-[2px] border text-gray-800 text-sm flex items-center gap-1'><HiOutlineBarsArrowDown className='text-sm' /> Sort by</button>
+                    <button onClick={resetFilters} className='rounded px-2 py-[2px] border text-gray-800 text-sm flex items-center gap-1'><HiBarsArrowUp className='text-sm' /> Reset</button>
                 </div>
                 {showResponsiveSort &&
                     <div className='responsive-sort bg-white border-t px-3 py-6 rounded-t-xl absolute bottom-0 left-0 w-full h-max'>
