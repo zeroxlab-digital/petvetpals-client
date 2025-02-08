@@ -1,10 +1,9 @@
 "use client";
 import Vets from "@/components/PetOwners/Appointment/Vets";
 import { usePathname } from "next/navigation";
-import useVets from "../../../../../hooks/useVets";
 import VetFilterSidebar from "@/components/PetOwners/Appointment/VetFilterSidebar";
 import { useEffect, useState } from "react";
-import useFetchVets from "../../../../../hooks/useFetchVets";
+import useFetchVets from "../../../../hooks/useFetchVets";
 
 const AppointmentsPage = () => {
     const vets = useFetchVets();
@@ -15,9 +14,9 @@ const AppointmentsPage = () => {
     const { sortBy, specialities } = filterChange || {};
 
     useEffect(() => {
-        if (!vets || vets.length === 0) return; // Ensure vets are loaded before processing
+        if (!vets || vets.length === 0) return; // Ensures vets are loaded before processing
 
-        let filteredVets = [...vets]; // Create a copy of the vets array to avoid mutating the original array
+        let filteredVets = [...vets]; // Creates a copy of the vets array to avoid mutating the original array
 
         // Step 1: Apply filtering based on selected specialities
         if (specialities?.length > 0) {
@@ -47,8 +46,8 @@ const AppointmentsPage = () => {
     }, [filterChange, vets]);
 
     return (
-        <div className="container mx-auto max-md:px-3 2xl:px-20 py-10 grid xl:grid-cols-[2fr_7fr] gap-14 max-md:bg-gray-100">
-            <VetFilterSidebar setFilterChange={setFilterChange} />
+        <div className="app-container py-10 max-xl:py-5 grid xl:grid-cols-[2fr_10fr] gap-12 max-xl:gap-3 max-md:bg-gray-100">
+            <VetFilterSidebar setFilterChange={setFilterChange} vets={vets} />
             <Vets vets={filteredVets} currentPath={currentPath} />
         </div>
     );
