@@ -17,19 +17,17 @@ const HeroSection = () => {
                 "24/7 online vet consultations",
                 "Prescription services at affordable rates",
                 "Personalized pet health advice",
-                "Emergency pet care guidance",
             ]
         },
         {
             title: "Premium Pet Supplies",
             description: "Shop high-quality pet food, toys, and accessories. Enjoy fast, reliable doorstep delivery.",
             buttonText: "Shop Now",
-            image: "/images/pets-banner-foods.webp",
+            image: "/images/doggies-banner.jpg",
             services: [
                 "Top-rated pet food brands",
                 "Organic and grain-free options",
                 "Interactive toys and accessories",
-                "Auto-ship for hassle-free refills",
             ]
         },
         {
@@ -40,7 +38,6 @@ const HeroSection = () => {
             services: [
                 "Find professional pet groomers",
                 "Book pet boarding and daycare",
-                "Adopt a pet and give them a home",
                 "Join our pet community for tips & support",
             ]
         },
@@ -58,19 +55,19 @@ const HeroSection = () => {
                     spaceBetween={10}
                     slidesPerView={1}
                     loop={true}
-                    autoplay={{ delay: 5000 }}
+                    autoplay={{ delay: 7000 }}
                     modules={[Navigation, Autoplay]}
                 >
                     {slides.map((slide, index) => (
                         <SwiperSlide
                             key={index}
-                            className="rounded-md p-5 bg-primary relative overflow-hidden"
+                            className="hero-section-hero rounded-md p-5 bg-primary relative overflow-hidden"
                             style={{
                                 backgroundImage: `url(${slide.image})`,
                                 backgroundRepeat: "no-repeat",
                                 backgroundSize: "cover",
                                 backgroundPosition: "center center",
-                                height: "350px",
+                                // height: "350px",
                             }}
                         >
                             <div className="text-left flex flex-col justify-between h-full">
@@ -85,25 +82,25 @@ const HeroSection = () => {
                                         ))}
                                     </ul>
                                 </div>
-                                <button className="mt-auto w-44 h-11 bg-transparent border border-[#58294E] text-primary hover:bg-primary hover:text-white duration-150 rounded flex items-center gap-2 justify-center text-sm md:text-base">
+                                <button className="mt-auto w-44 h-11 bg-transparent border border-[#58294E] text-primary hover:bg-primary hover:text-white duration-150 rounded-md flex items-center gap-2 justify-center text-sm md:text-base">
                                     {slide.buttonText} <HiArrowSmallRight />
                                 </button>
                             </div>
                         </SwiperSlide>
                     ))}
                 </Swiper>
-                {/* <button
+                <button
                     onClick={() => swiperRef.current?.slidePrev()}
-                    className="absolute left-5 top-1/2 transform -translate-y-1/2 z-10 "
+                    className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 "
                 >
-                    <HiChevronLeft className="text-4xl text-gray-500" />
+                    <HiChevronLeft className="text-3xl text-gray-300" />
                 </button>
                 <button
                     onClick={() => swiperRef.current?.slideNext()}
-                    className="absolute right-5 top-1/2 transform -translate-y-1/2 z-10 "
+                    className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 "
                 >
-                    <HiChevronRight className="text-4xl text-gray-500" />
-                </button> */}
+                    <HiChevronRight className="text-3xl text-gray-300" />
+                </button>
             </div>
         </section>
     );

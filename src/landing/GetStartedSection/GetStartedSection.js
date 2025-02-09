@@ -5,8 +5,8 @@ import { HiCheckCircle } from 'react-icons/hi2';
 
 const GetStartedSection = () => {
     return (
-        <section className='app-container md:w-3/4 mx-auto py-28'>
-            <div className=' text-center bg-opacity-20 rounded-xl w-full h-auto flex flex-col items-center p-5 '
+        <section className='app-container md:w-3/4 mx-auto pt-24 my-16'>
+            <div className=' text-center bg-opacity-20 rounded-xl w-full h-auto flex flex-col items-center px-5 py-14 '
                 style={{
                     backgroundImage: 'url(/images/doggies-banner.jpg)',
                     backgroundRepeat: 'no-repeat',
@@ -15,7 +15,7 @@ const GetStartedSection = () => {
                 }}>
                 <h4 className='uppercase font-semibold text-sm text-white'>Get started with PetVetPals Today!</h4>
                 <h1 className='text-primary font-bold text-3xl my-5'>Give Your Animal the Best Care</h1>
-                <p className='text-primary mb-10'>
+                <p className='text-primary mb-10 md:w-3/5 mx-auto'>
                     Sign up now to start chatting with our virtual assistants and get personalized advice for your animals health and wellness.
                 </p>
                 <Button variant={"primary"} size={"large"} classNames={" text-sm rounded-lg text-white w-[14rem] !h-12"}>Get Vet Appointment <HiArrowSmRight /></Button>
