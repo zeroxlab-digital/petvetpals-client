@@ -24,8 +24,8 @@ const Header = () => {
     }, [responsiveMenu]);
 
     return (
-        <header className="py-6 shadow-md sticky top-0 bg-white z-20 ">
-            <div className="flex items-center justify-between app-container">
+        <header className="py-5 shadow-md sticky top-0 bg-white z-20 ">
+            <div className="flex items-center justify-between app-container ">
                 <div className="flex items-center gap-16 max-lg:gap-3">
                     {/* Menu Button */}
                     <button onClick={() => setResponsiveMenu(true)} className="lg:hidden">
@@ -38,7 +38,7 @@ const Header = () => {
                         onClick={() => setResponsiveMenu(false)}
                     ></div>
 
-                    <div className={`fixed top-0 left-0 w-3/4 h-screen bg-white z-40 px-5 py-6 flex flex-col 
+                    <div className={`fixed top-0 left-0 w-3/4 h-screen bg-white z-40 px-5 py-5 flex flex-col 
                     transform transition-transform duration-500 ease-in-out 
                     ${responsiveMenu ? "translate-x-0" : "-translate-x-full"}`}>
 
@@ -54,7 +54,7 @@ const Header = () => {
                         <Navbar setResponsiveMenu={setResponsiveMenu} />
 
                         {/* Auth Buttons */}
-                        <div className="flex items-center gap-3 justify-center mt-auto mb-5">
+                        <div className="flex items-center gap-3 justify-center mt-auto mb-8">
                             <Link href="/signin" className="w-full">
                                 <button className="w-full border border-[#58294E] text-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]">
                                     <HiOutlineUser className="text-xl" />
@@ -82,7 +82,7 @@ const Header = () => {
                 </div>
 
                 {/* Right Side Icons */}
-                <div className="flex items-center gap-5">
+                <div className="flex items-center gap-6">
                     <Search />
                     <CartCount />
                     <div>
@@ -109,13 +109,14 @@ const Header = () => {
                                         </button>
                                     </Link>
                                 </div>
-                                <div className="sm:hidden">
-                                    <Link href="/signup">
-                                        <button className="px-5 py-[7px] text-white bg-primary rounded-lg">
+                                <Link href="/signup" className="sm:hidden">
+                                    <button className="relative top-1">
+                                        <HiOutlineUserCircle className="text-2xl " />
+                                    </button>
+                                    {/* <button className="px-5 py-[7px] text-white bg-primary rounded-lg">
                                             Sign Up
-                                        </button>
-                                    </Link>
-                                </div>
+                                        </button> */}
+                                </Link>
                             </>
                         )}
                     </div>
