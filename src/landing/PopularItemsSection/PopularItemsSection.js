@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
-import { HiArrowSmallRight } from 'react-icons/hi2';
+import { HiArrowSmallRight, HiOutlineHeart, HiShoppingCart } from 'react-icons/hi2';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import "swiper/css/navigation";
@@ -27,10 +27,10 @@ const PopularItemsSection = () => {
             <section className="pb-14 md:pb-24">
                 <div className="app-container mx-auto flex items-center justify-between mb-5 md:mb-10">
                     <div>
-                        <h3 className='text-base font-semibold text-primary '>Top Pet Foods</h3>
+                        <h3 className='text-base font-semibold text-primary '>Top pet foods</h3>
                     </div>
                     <div>
-                        <Link href={`shop/cat-foods`} className="text-primary flex items-center gap-1 font-semibold  text-base">View More <HiArrowSmallRight className='text-sm' /></Link>
+                        <Link href={`shop/cat-foods`} className="text-primary flex items-center gap-1 font-semibold  text-base">View more <HiArrowSmallRight className='text-sm' /></Link>
                     </div>
                 </div>
                 <div className='app-container'>
@@ -39,7 +39,7 @@ const PopularItemsSection = () => {
                             swiperRef.current = swiper;
                         }}
                         spaceBetween={10}
-                        slidesPerView={2}
+                        slidesPerView={2.2}
                         loop={true}
                         autoplay={{ delay: 5000 }}
                         modules={[Navigation, Autoplay]}
@@ -64,7 +64,7 @@ const PopularItemsSection = () => {
                     >
                         {products.map((product) => (
                             <SwiperSlide
-                                className="border rounded-md p-3 flex flex-col justify-center items-center cursor-pointer"
+                                className="border rounded-md  flex flex-col justify-center items-center cursor-pointer"
                                 key={product._id}
                             >
                                 <Link
@@ -75,29 +75,35 @@ const PopularItemsSection = () => {
                                         },
                                     }}
                                 >
-                                    <div className="bg-gray-300 bg-opacity-10 rounded w-full h-40 md:h-52 mb-3">
+                                    <div className="bg-gray-300 bg-opacity-10 w-full h-32 md:h-40 mb-1">
                                         <Image
                                             src="/images/med1.webp"
                                             alt="product-img"
-                                            width={100}
-                                            height={100}
-                                            className="w-full h-full object-cover rounded"
+                                            width={70}
+                                            height={70}
+                                            className="w-full h-full object-cover"
                                         />
                                     </div>
-                                    <h2 className="text-gray-900 hover:underline cursor-pointer mb-2 text-sm md:text-base">
-                                        {product.name}
-                                    </h2>
-                                    <div className="flex items-center justify-between w-full">
-                                        <h4 className="font-semibold text-gray-800 text-sm md:text-base">${product.price}</h4>
-                                        <div className="flex gap-1 items-center">
-                                            <Rating
-                                                name="half-rating-read"
-                                                size="small"
-                                                defaultValue={4.5}
-                                                precision={0.5}
-                                                readOnly
-                                            />
-                                            <p className="font-light text-gray-800 text-sm md:text-base">4.5</p>
+                                    <div className='p-2'>
+                                        <h2 className="text-gray-900 hover:underline cursor-pointer mb-2 text-sm md:text-base ">
+                                            {product.name}
+                                        </h2>
+                                        <div className="flex items-center justify-between w-full max-sm:flex-col max-sm:items-start max-sm:gap-1">
+                                            <h4 className="font-semibold text-gray-800 text-sm md:text-base">${product.price}</h4>
+                                            <div className="flex max-sm:flex-row-reverse gap-1 items-center">
+                                                <Rating
+                                                    name="half-rating-read"
+                                                    size="small"
+                                                    defaultValue={5}
+                                                    precision={0.5}
+                                                    readOnly
+                                                />
+                                                <p className="font-light text-gray-800 text-sm md:text-base">4.5</p>
+                                            </div>
+                                        </div>
+                                        <div className="mt-3 flex gap-1">
+                                            <button onClick={(e) => e.stopPropagation()} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-8 sm:h-9 w-full max-sm:text-sm"><HiShoppingCart className='' /> Add to Cart</button>
+                                            <button onClick={(e) => e.stopPropagation()} className="border border-[#161515a5] rounded w-10 flex justify-center items-center text-base"><HiOutlineHeart className=" text-[#161515]" /></button>
                                         </div>
                                     </div>
                                 </Link>
@@ -109,10 +115,10 @@ const PopularItemsSection = () => {
             <section className="pb-14 md:pb-24">
                 <div className="app-container mx-auto flex items-center justify-between mb-5 md:mb-10">
                     <div>
-                        <h3 className='text-base font-semibold text-primary '>Top Toys & Accessories</h3>
+                        <h3 className='text-base font-semibold text-primary '>Top toys & accessories</h3>
                     </div>
                     <div>
-                        <Link href={`shop/cat-foods`} className="text-primary flex items-center gap-1 font-semibold  text-base">View More <HiArrowSmallRight className='text-sm' /></Link>
+                        <Link href={`shop/cat-foods`} className="text-primary flex items-center gap-1 font-semibold  text-base">View more <HiArrowSmallRight className='text-sm' /></Link>
                     </div>
                 </div>
                 <div className='app-container'>
@@ -121,7 +127,7 @@ const PopularItemsSection = () => {
                             swiperRef.current = swiper;
                         }}
                         spaceBetween={10}
-                        slidesPerView={2}
+                        slidesPerView={2.2}
                         loop={true}
                         autoplay={{ delay: 5000 }}
                         modules={[Navigation, Autoplay]}
@@ -146,7 +152,7 @@ const PopularItemsSection = () => {
                     >
                         {products.map((product) => (
                             <SwiperSlide
-                                className="border rounded-md p-3 flex flex-col justify-center items-center cursor-pointer"
+                                className="border rounded-md  flex flex-col justify-center items-center cursor-pointer"
                                 key={product._id}
                             >
                                 <Link
@@ -157,29 +163,35 @@ const PopularItemsSection = () => {
                                         },
                                     }}
                                 >
-                                    <div className="bg-gray-300 bg-opacity-10 rounded w-full h-40 md:h-52 mb-3">
+                                    <div className="bg-gray-300 bg-opacity-10 w-full h-32 md:h-40 mb-1">
                                         <Image
                                             src="/images/med1.webp"
                                             alt="product-img"
-                                            width={100}
-                                            height={100}
-                                            className="w-full h-full object-cover rounded"
+                                            width={70}
+                                            height={70}
+                                            className="w-full h-full object-cover"
                                         />
                                     </div>
-                                    <h2 className="text-gray-900 hover:underline cursor-pointer mb-2 text-sm md:text-base">
-                                        {product.name}
-                                    </h2>
-                                    <div className="flex items-center justify-between w-full">
-                                        <h4 className="font-semibold text-gray-800 text-sm md:text-base">${product.price}</h4>
-                                        <div className="flex gap-1 items-center">
-                                            <Rating
-                                                name="half-rating-read"
-                                                size="small"
-                                                defaultValue={4.5}
-                                                precision={0.5}
-                                                readOnly
-                                            />
-                                            <p className="font-light text-gray-800 text-sm md:text-base">4.5</p>
+                                    <div className='p-2'>
+                                        <h2 className="text-gray-900 hover:underline cursor-pointer mb-2 text-sm md:text-base ">
+                                            {product.name}
+                                        </h2>
+                                        <div className="flex items-center justify-between w-full max-sm:flex-col max-sm:items-start max-sm:gap-1">
+                                            <h4 className="font-semibold text-gray-800 text-sm md:text-base">${product.price}</h4>
+                                            <div className="flex max-sm:flex-row-reverse gap-1 items-center">
+                                                <Rating
+                                                    name="half-rating-read"
+                                                    size="small"
+                                                    defaultValue={5}
+                                                    precision={0.5}
+                                                    readOnly
+                                                />
+                                                <p className="font-light text-gray-800 text-sm md:text-base">4.5</p>
+                                            </div>
+                                        </div>
+                                        <div className="mt-3 flex gap-1">
+                                            <button onClick={(e) => e.stopPropagation()} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-8 sm:h-9 w-full max-sm:text-sm"><HiShoppingCart className='' /> Add to Cart</button>
+                                            <button onClick={(e) => e.stopPropagation()} className="border border-[#161515a5] rounded w-10 flex justify-center items-center text-base"><HiOutlineHeart className=" text-[#161515]" /></button>
                                         </div>
                                     </div>
                                 </Link>
@@ -191,10 +203,10 @@ const PopularItemsSection = () => {
             <section className="pb-16 md:pb-32">
                 <div className="app-container mx-auto flex items-center justify-between mb-5 md:mb-10">
                     <div>
-                        <h3 className='text-base font-semibold text-primary '>Top Pharmacy Products</h3>
+                        <h3 className='text-base font-semibold text-primary '>Top pharmacy products</h3>
                     </div>
                     <div>
-                        <Link href={`shop/cat-foods`} className="text-primary flex items-center gap-1 font-semibold  text-base">View More <HiArrowSmallRight className='text-sm' /></Link>
+                        <Link href={`shop/cat-foods`} className="text-primary flex items-center gap-1 font-semibold  text-base">View more <HiArrowSmallRight className='text-sm' /></Link>
                     </div>
                 </div>
                 <div className='app-container'>
@@ -203,7 +215,7 @@ const PopularItemsSection = () => {
                             swiperRef.current = swiper;
                         }}
                         spaceBetween={10}
-                        slidesPerView={2}
+                        slidesPerView={2.2}
                         loop={true}
                         autoplay={{ delay: 5000 }}
                         modules={[Navigation, Autoplay]}
@@ -228,7 +240,7 @@ const PopularItemsSection = () => {
                     >
                         {products.map((product) => (
                             <SwiperSlide
-                                className="border rounded-md p-3 flex flex-col justify-center items-center cursor-pointer"
+                                className="border rounded-md  flex flex-col justify-center items-center cursor-pointer"
                                 key={product._id}
                             >
                                 <Link
@@ -239,29 +251,35 @@ const PopularItemsSection = () => {
                                         },
                                     }}
                                 >
-                                    <div className="bg-gray-300 bg-opacity-10 rounded w-full h-40 md:h-52 mb-3">
+                                    <div className="bg-gray-300 bg-opacity-10 w-full h-32 md:h-40 mb-1">
                                         <Image
                                             src="/images/med1.webp"
                                             alt="product-img"
-                                            width={100}
-                                            height={100}
-                                            className="w-full h-full object-cover rounded"
+                                            width={70}
+                                            height={70}
+                                            className="w-full h-full object-cover"
                                         />
                                     </div>
-                                    <h2 className="text-gray-900 hover:underline cursor-pointer mb-2 text-sm md:text-base">
-                                        {product.name}
-                                    </h2>
-                                    <div className="flex items-center justify-between w-full">
-                                        <h4 className="font-semibold text-gray-800 text-sm md:text-base">${product.price}</h4>
-                                        <div className="flex gap-1 items-center">
-                                            <Rating
-                                                name="half-rating-read"
-                                                size="small"
-                                                defaultValue={4.5}
-                                                precision={0.5}
-                                                readOnly
-                                            />
-                                            <p className="font-light text-gray-800 text-sm md:text-base">4.5</p>
+                                    <div className='p-2'>
+                                        <h2 className="text-gray-900 hover:underline cursor-pointer mb-2 text-sm md:text-base ">
+                                            {product.name}
+                                        </h2>
+                                        <div className="flex items-center justify-between w-full max-sm:flex-col max-sm:items-start max-sm:gap-1">
+                                            <h4 className="font-semibold text-gray-800 text-sm md:text-base">${product.price}</h4>
+                                            <div className="flex max-sm:flex-row-reverse gap-1 items-center">
+                                                <Rating
+                                                    name="half-rating-read"
+                                                    size="small"
+                                                    defaultValue={5}
+                                                    precision={0.5}
+                                                    readOnly
+                                                />
+                                                <p className="font-light text-gray-800 text-sm md:text-base">4.5</p>
+                                            </div>
+                                        </div>
+                                        <div className="mt-3 flex gap-1">
+                                            <button onClick={(e) => e.stopPropagation()} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-8 sm:h-9 w-full max-sm:text-sm"><HiShoppingCart className='' /> Add to Cart</button>
+                                            <button onClick={(e) => e.stopPropagation()} className="border border-[#161515a5] rounded w-10 flex justify-center items-center text-base"><HiOutlineHeart className=" text-[#161515]" /></button>
                                         </div>
                                     </div>
                                 </Link>
