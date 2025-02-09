@@ -44,6 +44,43 @@ const BookingDetails = ({ apptId, setBookingState }) => {
         }
     }
 
+    const [petProfile, setPetProfile] = useState({
+        type: '',
+        name: '',
+        image: null,
+        age: 0,
+        breed: '',
+        gender: '',
+        weight: 0,
+    })
+
+    const handleManualPetAdd = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await axios.post(`http://localhost:8000/api/pet/add-pet`, petProfile, {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                withCredentials: true
+            })
+            console.log(res);
+            if (res.status === 200) {
+                setPetDetailsOption("selector")
+            }
+            setPetProfile({
+                type: '',
+                name: '',
+                image: null,
+                age: 0,
+                breed: '',
+                gender: '',
+                weight: 0,
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className=''>
             <div className='w-3/4 mx-auto'>
@@ -80,38 +117,62 @@ const BookingDetails = ({ apptId, setBookingState }) => {
                             Continue to pay
                         </button>
                     </div>
-
-
                     :
                     <div className='text-left'>
-                        <form onSubmit={() => setBookingState('payment-details')} className='mt-7'>
+                        <form onSubmit={handleManualPetAdd} className='mt-7'>
                             <div className='mb-5'>
-                                <Label htmlFor="petsname">Pets Name</Label>
-                                <Input type="text" id="petsname" placeholder="Enter your pet's name" classNames="py-2 w-full" />
+                                <Label htmlFor="petsname">Pet Name</Label>
+                                <Input type="text" id="petname" placeholder="Enter your pet's name" classNames="py-2 w-full"
+                                    name="petname"
+                                    default={petProfile.name}
+                                    onChange={(e) => setPetProfile({ ...petProfile, name: e.target.value })}
+                                />
+                            </div>
+                            <div className='grid grid-cols-2 gap-5 mb-5'>
+                                <div className=''>
+                                    <Label htmlFor="type">Pet Type</Label>
+                                    <SelectOptions options={['Cat', 'Dog', 'Rabbit', 'Bird', 'Other']}
+                                        name="pettype"
+                                        default={petProfile.type}
+                                        onChange={(e) => setPetProfile({ ...petProfile, type: e.target.value })}
+                                    />
+                                </div>
+                                <div className=''>
+                                    <Label htmlFor="type">Gender</Label>
+                                    <SelectOptions options={["male", "female"]}
+                                        name="gender"
+                                        default={petProfile.gender}
+                                        onChange={(e) => setPetProfile({ ...petProfile, gender: e.target.value })}
+                                    />
+                                </div>
                             </div>
                             <div className='grid grid-cols-2 gap-5 mb-5'>
                                 <div className='w-full'>
                                     <Label htmlFor="age">Age</Label>
-                                    <Input type="number" id="age" placeholder="Enter your pet's age" classNames="py-2 w-full" />
+                                    <Input type="number" id="age" placeholder="Enter your pet's age" classNames="py-2 w-full"
+                                        name="age"
+                                        default={petProfile.age}
+                                        onChange={(e) => setPetProfile({ ...petProfile, age: e.target.value })}
+                                    />
                                 </div>
                                 <div className='w-full'>
                                     <Label htmlFor="weight">Weight (lbs)</Label>
-                                    <Input type="number" id="weight" placeholder="Enter your pet's weight" classNames="py-2 w-full" />
+                                    <Input type="number" id="weight" placeholder="Enter your pet's weight" classNames="py-2 w-full"
+                                        name="weight"
+                                        default={petProfile.weight}
+                                        onChange={(e) => setPetProfile({ ...petProfile, weight: e.target.value })}
+                                    />
                                 </div>
                             </div>
                             <div className='mb-5'>
-                                <Label htmlFor="type">Pet Type</Label>
-                                <SelectOptions options={['Cat', 'Dog', 'Rabbit', 'Bird', 'Other']} />
-                            </div>
-                            <div className='mb-5'>
                                 <Label htmlFor="breed">Breed</Label>
-                                <Input type="text" id="breed" placeholder="Enter your pet's breed" classNames="py-2 w-full" />
+                                <Input type="text" id="breed" placeholder="Enter your pet's breed" classNames="py-2 w-full"
+                                    name="breed"
+                                    default={petProfile.breed}
+                                    onChange={(e) => setPetProfile({ ...petProfile, breed: e.target.value })}
+                                />
                             </div>
-                            <div>
-                                <Label htmlFor="symptoms">Symptoms</Label>
-                                <Textarea classNames="w-full" id="symptoms" placeholder="Type the symptoms or reason for visit..." />
-                            </div>
-                            <input type="submit" value="Continue to pay" className={`bg-primary rounded-full text-white cursor-pointer py-3 w-full mt-5 `} />
+                            <input type="submit" value="Add New Pet" className={`bg-primary rounded-full text-white cursor-pointer py-3 w-full mt-5 `} />
                         </form>
                     </div>
             }

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { HiArrowRight } from 'react-icons/hi2';
 
 const Vets = ({ vets, currentPath }) => {
     if (vets?.length < 1) {
@@ -14,7 +15,7 @@ const Vets = ({ vets, currentPath }) => {
                         query: {
                             vet: `${fullName.toLowerCase()}`
                         }
-                    }} key={_id} className='rounded-md hover:shadow-md duration-150 grid sm:grid-cols-[5fr_3fr_2fr] gap-5 items-center md:border max-md:bg-white '>
+                    }} key={_id} className='rounded-md hover:shadow-md duration-150 grid sm:grid-cols-[5fr_3fr_2fr] gap-5 max-sm:gap-0 items-center md:border max-md:bg-white '>
                         <div className='flex sm:items-start gap-5 max-sm:gap-3 p-3'>
                             <div><Image src="/images/vet.png" alt="" width={100} height={100} className='rounded max-w-32' /></div>
                             <div>
@@ -35,10 +36,15 @@ const Vets = ({ vets, currentPath }) => {
                                 <p className='font-semibold text-sm'>{experience_years}+ years</p>
                             </div>
                         </div>
-                        <div className='bg-primary h-full max-md:p-3 max-md:rounded-b-md md:rounded-r-md md:flex items-center justify-center'>
-                            <div>
-                                <h1 className='mb-1 font-bold text-white text-2xl flex items-center gap-1'>${fees.toFixed(2)} USD</h1>
-                                <p className='text-gray-200 text-sm'>Consultation fee</p>
+                        <div className='max-sm:border-t  sm:bg-primary h-full max-md:p-3 max-md:rounded-b-md md:rounded-r-md md:flex items-center justify-center'>
+                            <div className='max-sm:flex items-center justify-between '>
+                                <div className='max-sm:flex items-center gap-1'>
+                                    <h1 className=' font-bold text-white max-sm:text-primary text-2xl max-sm:text-xl flex items-center gap-1'>${fees.toFixed(2)} USD</h1>
+                                    <p className='text-gray-200 max-sm:text-gray-700 text-sm'>(Consultation fee)</p>
+                                </div>
+                                <span className='sm:hidden'>
+                                    <HiArrowRight className='text-primary' />
+                                </span>
                             </div>
                         </div>
                     </Link>
