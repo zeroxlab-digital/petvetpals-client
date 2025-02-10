@@ -26,7 +26,7 @@ const PetProfiles = () => {
     }
 
     return (
-        <div className='grid grid-cols-3 gap-5 auto-rows-fr'>
+        <div className='grid grid-cols-3 max-xl:grid-cols-2 max-sm:grid-cols-1 gap-5 auto-rows-fr'>
             {pets.map( pet  => (
                 <div key={pet._id} className='border rounded-md bg-white '>
                     <Image src={pet.image || "/images/cat-cute.jpg"} alt="pet's-img" width={200} height={200} className='object-cover w-full h-56 rounded-t-md rounded-b-3xl' />
