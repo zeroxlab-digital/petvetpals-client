@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HiArrowSmallRight, HiOutlineHeart, HiShoppingCart } from 'react-icons/hi2';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -12,7 +12,6 @@ import FilterSort from '../ProductFilterSort/FilterSort';
 
 const TopProducts = () => {
     const [products, setProducts] = useState([]);
-    const swiperRef = useRef(null);
 
     useEffect(() => {
         const handleFetchProduct = async () => {
@@ -25,7 +24,7 @@ const TopProducts = () => {
 
     return (
         <section className="my-10">
-            <div className="flex items-center justify-between mb-5 md:mb-7">
+            <div className="flex max-sm:flex-col items-center justify-between max-sm:gap-4 mb-5 md:mb-7">
                 <div>
                     <h3 className='text-lg font-medium text-primary '>Featured products</h3>
                 </div>

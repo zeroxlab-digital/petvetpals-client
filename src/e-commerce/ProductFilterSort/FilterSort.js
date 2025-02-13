@@ -9,7 +9,7 @@ const FilterSort = () => {
             <div className='flex gap-2'>
                 <button onClick={() => { set_show_filters(!show_filters), set_show_sort(false) }} className={`rounded px-3 py-1 border text-gray-800 ${show_filters && 'bg-gray-100'} hover:bg-gray-100 duration-150 text-base flex items-center gap-1`}><HiMiniAdjustmentsHorizontal className='text-sm' /> All filters</button>
                 <button onClick={() => { set_show_sort(!show_sort), set_show_filters(false) }} className={`rounded px-3 py-1 border text-gray-800 ${show_sort && 'bg-gray-100'} hover:bg-gray-100 duration-150 text-base flex items-center gap-1`}><HiOutlineBarsArrowDown className='text-base' /> Sort by</button>
-                <button className='max-md:hidden rounded px-3 py-1 border text-gray-800 hover:bg-gray-100 duration-150 text-base flex items-center gap-1'><HiBarsArrowUp className='text-base' /> Reset</button>
+                <button className='rounded px-3 py-1 border text-gray-800 hover:bg-gray-100 duration-150 text-base flex items-center gap-1'><HiBarsArrowUp className='text-base' /> Reset</button>
             </div>
             {show_sort &&
                 <div className=' bg-white border shadow-lg px-3 py-5 rounded-lg absolute top-10 right-0 w-80 h-max z-10'>
