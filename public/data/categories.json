@@ -1,42 +1,51 @@
 [
     {
-        "category_name": "Cat Foods",
-        "category_slug": "cat-foods",
-        "category_image": "/images/pet-foods.webp"
+        "category_name": "Dog Deals",
+        "category_slug": "dog-deals",
+        "category_image": "/images/dog-foods.jfif",
+        "sub_categories": [
+            {
+                "name": "Shop All",
+                "slug": "shop-all",
+                "image": "/images/pet-foods.webp"
+            },
+            {
+                "name": "Dog Food",
+                "slug": "foods",
+                "image": "/images/pet-foods.webp"
+            },
+            {
+                "name": "Dog Treats",
+                "slug": "treats",
+                "image": "/images/pet-foods.webp"
+            },
+            {
+                "name": "Dog Supplies",
+                "slug": "dog-supplies",
+                "image": "/images/pet-foods.webp"
+            }
+        ]
     },
     {
-        "category_name": "Dog Foods",
-        "category_slug": "dog-foods",
-        "category_image": "/images/dog-foods.jfif"
-    },
-    {
-        "category_name": "Rabbit Foods",
-        "category_slug": "rabbit-foods",
-        "category_image": "/images/dog-foods.jfif"
-    },
-    {
-        "category_name": "Bird Foods",
-        "category_slug": "bird-foods",
-        "category_image": "/images/dog-foods.jfif"
-    },
-    {
-        "category_name": "Fish Foods",
-        "category_slug": "fish-foods",
-        "category_image": "/images/fish-foods.webp"
-    },
-    {
-        "category_name": "Pet Accessories",
-        "category_slug": "pet-accessories",
-        "category_image": "/images/pet-accessories.webp"
-    },
-    {
-        "category_name": "Pet Toys",
-        "category_slug": "pet-toys",
-        "category_image": "/images/pet-accessories.webp"
-    },
-    {
-        "category_name": "Others",
-        "category_slug": "others",
-        "category_image": "/images/pet-accessories.webp"
+        "category_name": "Cat Deals",
+        "category_slug": "cat-deals",
+        "category_image": "/images/pet-foods.webp",
+        "sub_categories": [
+            {
+                "name": "Shop All",
+                "slug": "shop-all",
+                "image": "/images/pet-foods.webp"
+            },
+            {
+                "name": "Cat Food & Treats",
+                "slug": "foods-and-treats",
+                "image": "/images/pet-foods.webp"
+            },
+            {
+                "name": "Accessories Supplies",
+                "slug": "accessories-and-supplies",
+                "image": "/images/pet-foods.webp"
+            }
+        ]
     }
 ]

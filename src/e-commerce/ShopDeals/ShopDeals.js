@@ -1,13 +1,14 @@
+import React from 'react';
 import Link from 'next/link';
-import useCategories from '../../../../hooks/useCategories';
 import { LuCat, LuDog, LuPill } from "react-icons/lu";
 import { usePathname } from 'next/navigation';
+import useCategories from '../../../hooks/useCategories';
 
-const ShopCategories = () => {
+const ShopDeals = () => {
     const categories = useCategories();
     const pathname = usePathname();
     return (
-        <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 items-center gap-8 text-center'>
+        <div className='grid grid-cols-2 sm:grid-cols-1 items-center gap-8 text-center'>
             {categories.map((category) => <Link href={{
                 pathname: `${pathname.slice(1, pathname.length)}/${category.category_slug}`,
                 query: {
@@ -24,4 +25,4 @@ const ShopCategories = () => {
     );
 };
 
-export default ShopCategories;
+export default ShopDeals;

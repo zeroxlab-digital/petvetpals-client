@@ -1,11 +1,13 @@
-import ShopPage from "@/components/ECommerce/Shop/Shop";
+"use client";
+import ShopDeals from '@/e-commerce/ShopDeals/ShopDeals';
+import React from 'react';
 
-const Shop = () => {
+const page = () => {
     return (
         <div>
-            <ShopPage />
+            <ShopDeals />
         </div>
     );
 };
 
-export default Shop;
+export default page;
