@@ -8,6 +8,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import Image from 'next/image';
 import Link from 'next/link';
 import { Rating } from '@mui/material';
+import FilterSort from '../ProductFilterSort/FilterSort';
 
 const TopProducts = () => {
     const [products, setProducts] = useState([]);
@@ -26,10 +27,10 @@ const TopProducts = () => {
         <section className="my-10">
             <div className="flex items-center justify-between mb-5 md:mb-7">
                 <div>
-                    <h3 className='text-2xl font-medium text-primary '>Featured products</h3>
+                    <h3 className='text-lg font-medium text-primary '>Featured products</h3>
                 </div>
                 <div>
-                    <Link href={`shop/cat-foods`} className="text-primary flex items-center gap-1 font-semibold  text-base">View more <HiArrowSmallRight className='text-sm' /></Link>
+                    <FilterSort />
                 </div>
             </div>
             <div className='grid grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-5'>
