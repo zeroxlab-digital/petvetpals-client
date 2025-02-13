@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -17,18 +18,36 @@ const ShopCategories = ({ type }) => {
         <>
             {
                 type === "dog-deals" ?
-                    <div className='flex gap-5 flex-wrap'>
+                    <div className='flex gap-5 flex-wrap justify-evenly'>
                         {
-                            dogCategories.map((category, index) => <Link key={index} href={`${type}/${category.link}`} className='w-32 h-32 p-3 flex justify-center items-center rounded-full border text-center'>
-                                <h3>{category.title}</h3>
+                            dogCategories.map((category, index) => <Link key={index} href={`${type}/${category.link}`}>
+                                <div className='text-center group flex flex-col items-center'>
+                                    <Image
+                                        src={"/images/cat.avif"}
+                                        alt="type-img"
+                                        width={100}
+                                        height={100}
+                                        className='group-hover:shadow-lg rounded-full duration-200 w-32 h-32 md:w-40 md:h-40'
+                                    />
+                                    <p className='mt-2 text-gray-800 text-sm md:text-base group-hover:underline duration-200'>{category.title}</p>
+                                </div>
                             </Link>)
                         }
                     </div>
                     :
-                    <div className='flex gap-5 flex-wrap'>
+                    <div className='flex gap-5 flex-wrap justify-evenly'>
                         {
-                            catCategories.map((category, index) => <Link key={index} href={`${type}/${category.link}`} className='w-32 h-32 p-3 flex justify-center items-center rounded-full border text-center'>
-                                <h3>{category.title}</h3>
+                            catCategories.map((category, index) => <Link key={index} href={`${type}/${category.link}`} >
+                                <div className='text-center group flex flex-col items-center'>
+                                    <Image
+                                        src={"/images/cat.avif"}
+                                        alt="type-img"
+                                        width={100}
+                                        height={100}
+                                        className='group-hover:shadow-lg rounded-full duration-200 w-32 h-32 md:w-40 md:h-40'
+                                    />
+                                    <p className='mt-2 text-gray-800 text-sm md:text-base group-hover:underline duration-200'>{category.title}</p>
+                                </div>
                             </Link>)
                         }
                     </div>
