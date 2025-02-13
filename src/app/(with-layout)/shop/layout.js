@@ -1,10 +1,12 @@
-import CategoriesSidebar from "@/components/PetOwners/Shop/CategoriesSidebar";
+
+import CategoriesSidebar from '@/e-commerce/CategoriesSidebar/CategoriesSidebar';
+import React from 'react';
 
 const ShopLayout = ({ children }) => {
     return (
-        <div className="container mx-auto max-md:px-3 2xl:px-20 py-10 grid xl:grid-cols-[2fr_7fr] gap-14">
+        <div className='app-container py-10 grid lg:grid-cols-5 gap-10'>
             <CategoriesSidebar />
-            <div>
+            <div className='lg:col-span-4'>
                 {children}
             </div>
         </div>

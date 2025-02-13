@@ -1,14 +1,12 @@
-import CartPage from '@/components/PetOwners/CartPage/CartPage';
+import Cart from "@/e-commerce/Cart/Cart";
 
-const Cart = () => {
+const CartPage = () => {
     return (
-        <div className='container mx-auto max-md:px-3 xl:px-20 py-14 '>
-            <h2 className='text-primary mb-7 font-semibold text-2xl'>Your Shopping Cart</h2>
-            <div className=''>
-                <CartPage />
-            </div>
+        <div className='app-container py-10'>
+            <h2 className='text-primary mb-7 font-bold text-xl'>Your Shopping Cart</h2>
+                <Cart />
         </div>
     );
 };
 
-export default Cart;
+export default CartPage;
