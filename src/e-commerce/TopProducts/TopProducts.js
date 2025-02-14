@@ -9,18 +9,20 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Rating } from '@mui/material';
 import FilterSort from '../ProductFilterSort/FilterSort';
+import { usePathname } from 'next/navigation';
 
 const TopProducts = () => {
+    const pathname = usePathname();
+    const pathnameCategory = pathname.split("/").slice(0, 2).join("/");
     const [products, setProducts] = useState([]);
-
     useEffect(() => {
         const handleFetchProduct = async () => {
-            const res = await fetch(`/data/products.json`);
+            const res = await fetch(`/data/${pathnameCategory === '/shop' ? 'products' : 'medicines'}.json`);
             const data = await res.json();
             setProducts(data);
         };
         handleFetchProduct();
-    }, []);
+    }, [products]);
 
     return (
         <section className="my-10">
@@ -38,7 +40,7 @@ const TopProducts = () => {
                         products.map(product => <div key={product._id} className='border pb-3 rounded-md'>
                             <Link
                                 href={{
-                                    pathname: `shop/all-deals/shop-all/${product._id}`,
+                                    pathname: `${pathnameCategory === "/shop" ? "shop" : "pharmacy"}/all-deals/shop-all/${product._id}`,
                                     query: {
                                         title: `${product.name.toLowerCase()}`,
                                         description: `${product.product_description.toLowerCase()}`

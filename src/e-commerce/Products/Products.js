@@ -2,15 +2,18 @@
 import { Rating } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { HiOutlineHeart, HiShoppingCart } from 'react-icons/hi2';
 
 const Products = ({ slug }) => {
     console.log(slug);
+    const pathname = usePathname();
+    const pathnameCategory = pathname.split("/").slice(0, 2).join("/");
     const [products, set_products] = useState([]);
     useEffect(() => {
         const handleFetchProducts = async () => {
-            const res = await fetch("/data/products.json")
+            const res = await fetch(`/data/${pathnameCategory === '/shop' ? 'products' : 'medicines'}.json`)
             const data = await res.json();
             if (slug.length < 2) {
                 const productsBasedOnDeal = data.filter(product => product.category.deal_type === slug[0]);

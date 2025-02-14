@@ -8,17 +8,20 @@ import { useEffect, useState } from "react";
 import ProductDetailsTabs from "./ProductDetailsTabs";
 import RelatedProducts from "./RelatedProducts";
 import Quantity from "../Quantity/Quantity";
+import { usePathname } from "next/navigation";
 
 const ProductDetails = ({ slug }) => {
+    const pathname = usePathname();
+    const pathnameCategory = pathname.split("/").slice(0, 2).join("/");
     const [products, set_products] = useState([]);
     useEffect(() => {
         const handleFetchProducts = async () => {
-            const res = await fetch("/data/products.json")
+            const res = await fetch(`/data/${pathnameCategory === '/shop' ? 'products' : 'medicines'}.json`)
             const data = await res.json();
-                set_products(data);
+            set_products(data);
         }
         handleFetchProducts();
-    }, [])
+    }, [slug])
     const foundProduct = products?.find(product => product._id === Number(slug));
     const { _id, name, product_image, price, stock, product_description, product_details, category, } = foundProduct || {};
     return (
