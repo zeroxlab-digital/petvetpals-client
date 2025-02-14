@@ -7,7 +7,6 @@ import React, { useEffect, useState } from 'react';
 import { HiOutlineHeart, HiShoppingCart } from 'react-icons/hi2';
 
 const Products = ({ slug }) => {
-    console.log(slug);
     const pathname = usePathname();
     const pathnameCategory = pathname.split("/").slice(0, 2).join("/");
     const [products, set_products] = useState([]);
