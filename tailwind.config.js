@@ -4,6 +4,7 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/landing/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/e-commerce/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {

@@ -1,21 +1,17 @@
 import { usePathname } from "next/navigation";
-import useProducts from "../../../../hooks/useProducts";
 import { HiOutlineHeart, HiShoppingCart } from "react-icons/hi2";
 import { Rating } from "@mui/material";
 import Link from "next/link";
 
-const RelatedProducts = () => {
-    const products = useProducts();
-    const currentPathname = usePathname();
-    const pathnameSlug = currentPathname.split('/').slice(0, -1).join('/');
-    const relatedProducts = products?.filter(item => item.category.category_slug === pathnameSlug.split('/').slice(2, 3).join(''));
+const RelatedProducts = ({ products }) => {
+
     return (
         <div className="mt-10">
             <h2 className="font-semibold text-primary text-lg">Related products</h2>
             <div className="items mt-5 grid grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-5">
-                {relatedProducts?.slice(0, 4).map(product => <div key={product._id} className="border rounded-md p-3">
+                {products?.slice(0, 4).map(product => <div key={product._id} className="border rounded-md p-3">
                     <Link href={{
-                        pathname: `${pathnameSlug}/${product._id}`,
+                        pathname: `${product._id}`,
                         query: {
                             title: `${product.name.toLowerCase()}`
                         }

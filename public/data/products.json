@@ -1,214 +1,132 @@
 [
-  {
-      "_id": 101,
-      "name": "Premium Cat Food",
-      "product_description": "A high-quality cat food with essential nutrients for your feline.",
-      "price": 24.99,
-      "product_image": "cat_food_premium.jpg",
-      "stock": 50,
-      "category": {
-          "category_name": "Cat Foods",
-          "category_slug": "cat-foods",
-          "category_image": "/images/pet-foods.webp"
-      },
-      "product_details": {
-          "ingredients": ["Chicken", "Rice", "Fish Oil"],
-          "nutritional_info": {
-              "protein": "30%",
-              "fat": "15%",
-              "fiber": "3%"
-          },
-          "brand": "Cat Premium"
-      }
-  },
-  {
-      "_id": 102,
-      "name": "Organic Cat Food",
-      "product_description": "Nutritious and organic food for your pet cat.",
-      "price": 18.99,
-      "product_image": "cat_food_organic.jpg",
-      "stock": 30,
-      "category": {
-          "category_name": "Cat Foods",
-          "category_slug": "cat-foods",
-          "category_image": "/images/pet-foods.webp"
-      },
-      "product_details": {
-          "ingredients": ["Organic Chicken", "Carrots", "Sweet Potatoes"],
-          "nutritional_info": {
-              "protein": "28%",
-              "fat": "12%",
-              "fiber": "4%"
-          },
-          "brand": "Organic Pet"
-      }
-  },
-  {
-      "_id": 103,
-      "name": "Natural Cat Food",
-      "product_description": "Nutritious and organic food for your pet cat.",
-      "price": 19.99,
-      "product_image": "cat_food_organic.jpg",
-      "stock": 40,
-      "category": {
-          "category_name": "Cat Foods",
-          "category_slug": "cat-foods",
-          "category_image": "/images/pet-foods.webp"
-      },
-      "product_details": {
-          "ingredients": ["Organic Chicken", "Carrots", "Sweet Potatoes"],
-          "nutritional_info": {
-              "protein": "28%",
-              "fat": "12%",
-              "fiber": "4%"
-          },
-          "brand": "Organic Pet"
-      }
-  },
-  {
-      "_id": 104,
-      "name": "Exported Cat Food",
-      "product_description": "Nutritious and organic food for your pet cat.",
-      "price": 10.99,
-      "product_image": "cat_food_organic.jpg",
-      "stock": 32,
-      "category": {
-          "category_name": "Cat Foods",
-          "category_slug": "cat-foods",
-          "category_image": "/images/pet-foods.webp"
-      },
-      "product_details": {
-          "ingredients": ["Organic Chicken", "Carrots", "Sweet Potatoes"],
-          "nutritional_info": {
-              "protein": "28%",
-              "fat": "12%",
-              "fiber": "4%"
-          },
-          "brand": "Organic Pet"
-      }
-  },
-  {
-      "_id": 201,
-      "name": "Grain-Free Dog Food",
-      "product_description": "A healthy and grain-free option for your dog.",
-      "price": 29.99,
-      "product_image": "dog_food_grain_free.jpg",
-      "stock": 45,
-      "category": {
-          "category_name": "Dog Foods",
-          "category_slug": "dog-foods",
-          "category_image": "/images/dog-foods.jfif"
-      },
-      "product_details": {
-          "ingredients": ["Beef", "Peas", "Carrots"],
-          "nutritional_info": {
-              "protein": "32%",
-              "fat": "14%",
-              "fiber": "3%"
-          },
-          "brand": "Dog Prime"
-      }
-  },
-  {
-      "_id": 202,
-      "name": "Puppy Growth Formula",
-      "product_description": "Special formula designed for growing puppies.",
-      "price": 22.99,
-      "product_image": "puppy_growth_formula.jpg",
-      "stock": 60,
-      "category": {
-          "category_name": "Dog Foods",
-          "category_slug": "dog-foods",
-          "category_image": "/images/dog-foods.jfif"
-      },
-      "product_details": {
-          "ingredients": ["Chicken", "Brown Rice", "Oatmeal"],
-          "nutritional_info": {
-              "protein": "26%",
-              "fat": "13%",
-              "fiber": "5%"
-          },
-          "brand": "Puppy Grow"
-      }
-  },
-  {
-      "_id": 203,
-      "name": "Small Dog Growth",
-      "product_description": "Special formula designed for growing puppies.",
-      "price": 12.50,
-      "product_image": "puppy_growth_formula.jpg",
-      "stock": 60,
-      "category": {
-          "category_name": "Dog Foods",
-          "category_slug": "dog-foods",
-          "category_image": "/images/dog-foods.jfif"
-      },
-      "product_details": {
-          "ingredients": ["Chicken", "Brown Rice", "Oatmeal"],
-          "nutritional_info": {
-              "protein": "26%",
-              "fat": "13%",
-              "fiber": "5%"
-          },
-          "brand": "Puppy Grow"
-      }
-  },
-  {
-      "_id": 204,
-      "name": "Big Dog Growth",
-      "product_description": "Special formula designed for growing puppies.",
-      "price": 12.50,
-      "product_image": "puppy_growth_formula.jpg",
-      "stock": 60,
-      "category": {
-          "category_name": "Dog Foods",
-          "category_slug": "dog-foods",
-          "category_image": "/images/dog-foods.jfif"
-      },
-      "product_details": {
-          "ingredients": ["Chicken", "Brown Rice", "Oatmeal"],
-          "nutritional_info": {
-              "protein": "26%",
-              "fat": "13%",
-              "fiber": "5%"
-          },
-          "brand": "Puppy Grow"
-      }
-  },
-  {
-      "_id": 501,
-      "name": "Hip Chair",
-      "product_description": "Support your dog's joint health with these supplements.",
-      "price": 20.99,
-      "product_image": "hip_joint_supplements.jpg",
-      "stock": 80,
-      "category": {
-          "category_name": "Pet Accessories",
-          "category_slug": "pet-accessories",
-          "category_image": "/images/pet-accessories.webp"
-      },
-      "product_details": {
-          "dimensions": "30x30x45 cm",
-          "material": "Wood and fabric",
-          "brand": "Comfort Pet"
-      }
-  },
-  {
-      "_id": 502,
-      "name": "Travel Bag",
-      "product_description": "A convenient travel bag for your pet.",
-      "price": 25.99,
-      "product_image": "travel_bag.jpg",
-      "stock": 40,
-      "category": {
-          "category_name": "Pet Accessories",
-          "category_slug": "pet-accessories",
-          "category_image": "/images/pet-accessories.webp"
-      },
-      "product_details": {
-          "dimensions": "50x30x25 cm",
-          "material": "Waterproof fabric",
-          "brand": "Travel Easy"
-      }
-  }
+    {
+        "_id": 101,
+        "name": "Premium Cat Food",
+        "product_description": "A high-quality cat food with essential nutrients for your feline.",
+        "price": 24.99,
+        "product_image": "/images/cat_food_premium.jpg",
+        "stock": 50,
+        "category": {
+            "deal_type": "cat-deals",
+            "name": "Cat food & treats",
+            "slug": "foods-and-treats"
+        }
+    },
+    {
+        "_id": 102,
+        "name": "Organic Dog Food",
+        "product_description": "Nutritious and organic food for your pet dog.",
+        "price": 18.99,
+        "product_image": "/images/dog_food_organic.jpg",
+        "stock": 30,
+        "category": {
+            "deal_type": "dog-deals",
+            "name": "Dog food",
+            "slug": "foods"
+        }
+    },
+    {
+        "_id": 103,
+        "name": "Crunchy Dog Treats",
+        "product_description": "Delicious crunchy treats for your dog’s enjoyment.",
+        "price": 12.49,
+        "product_image": "/images/dog_treats_crunchy.jpg",
+        "stock": 40,
+        "category": {
+            "deal_type": "dog-deals",
+            "name": "Dog treats",
+            "slug": "treats"
+        }
+    },
+    {
+        "_id": 1033,
+        "name": "Hot Dog Treats",
+        "product_description": "Delicious hot treats for your dog’s enjoyment.",
+        "price": 12.49,
+        "product_image": "/images/dog_treats_crunchy.jpg",
+        "stock": 40,
+        "category": {
+            "deal_type": "dog-deals",
+            "name": "Dog treats",
+            "slug": "treats"
+        }
+    },
+    {
+        "_id": 104,
+        "name": "Cat Scratching Post",
+        "product_description": "A sturdy scratching post to keep your cat entertained and furniture safe.",
+        "price": 35.99,
+        "product_image": "/images/cat_scratching_post.jpg",
+        "stock": 20,
+        "category": {
+            "deal_type": "cat-deals",
+            "name": "Accessories and supplies",
+            "slug": "accessories-and-supplies"
+        }
+    },
+    {
+        "_id": 1031,
+        "name": "Organic Cat Food",
+        "product_description": "A high-quality cat food with essential nutrients for your feline.",
+        "price": 24.99,
+        "product_image": "/images/cat_food_premium.jpg",
+        "stock": 50,
+        "category": {
+            "deal_type": "cat-deals",
+            "name": "Cat food & treats",
+            "slug": "foods-and-treats"
+        }
+    },
+    {
+        "_id": 10262,
+        "name": "Organic Dog Food",
+        "product_description": "Nutritious and organic food for your pet dog.",
+        "price": 18.99,
+        "product_image": "/images/dog_food_organic.jpg",
+        "stock": 30,
+        "category": {
+            "deal_type": "dog-deals",
+            "name": "Dog food",
+            "slug": "foods"
+        }
+    },
+    {
+        "_id": 1703,
+        "name": "Crunchy Dog Treats",
+        "product_description": "Delicious crunchy treats for your dog’s enjoyment.",
+        "price": 12.49,
+        "product_image": "/images/dog_treats_crunchy.jpg",
+        "stock": 40,
+        "category": {
+            "deal_type": "dog-deals",
+            "name": "Dog treats",
+            "slug": "treats"
+        }
+    },
+    {
+        "_id": 103963,
+        "name": "Hot Dog Treats",
+        "product_description": "Delicious hot treats for your dog’s enjoyment.",
+        "price": 12.49,
+        "product_image": "/images/dog_treats_crunchy.jpg",
+        "stock": 40,
+        "category": {
+            "deal_type": "dog-deals",
+            "name": "Dog treats",
+            "slug": "treats"
+        }
+    },
+    {
+        "_id": 10574,
+        "name": "Cat Scratching Post",
+        "product_description": "A sturdy scratching post to keep your cat entertained and furniture safe.",
+        "price": 35.99,
+        "product_image": "/images/cat_scratching_post.jpg",
+        "stock": 20,
+        "category": {
+            "deal_type": "cat-deals",
+            "name": "Accessories and supplies",
+            "slug": "accessories-and-supplies"
+        }
+    }
 ]

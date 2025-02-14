@@ -1,9 +1,9 @@
 import { Rating } from '@mui/material';
-import Quantity from '../Shop/Quantity';
 import { HiOutlineTrash } from 'react-icons/hi2';
 import Button from '@/components/Common/Button/Button';
+import Quantity from '../Quantity/Quantity';
 
-const CartPage = () => {
+const Cart = () => {
     const cartItems = [
         { title: "Grain free dog foods", description: "High quality, grain free dog foods for all.", price: 52.99, quantity: 1 },
         { title: "Grain free dog foods", description: "High quality, grain free dog foods for all.", price: 50.99, quantity: 2 },
@@ -18,7 +18,7 @@ const CartPage = () => {
                     <div className='flex items-center gap-5'>
                         <div className='product-img min-w-24 h-24 rounded-md bg-gray-200'></div>
                         <div className='product-details'>
-                            <h4 className='font-semibold text-xl mb-1'>{item.title}</h4>
+                            <h4 className='font-semibold text-lg mb-1'>{item.title}</h4>
                             <p className='text-gray-500 mb-3'>{item.description}</p>
                             <div className='flex items-center gap-2'><Rating name="half-rating-read" size="small" defaultValue={4} precision={0.5} readOnly /> <h4 className='text-gray-600 text-sm'>4.5</h4></div>
                         </div>
@@ -53,4 +53,4 @@ const CartPage = () => {
     );
 };
 
-export default CartPage;
+export default Cart;

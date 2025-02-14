@@ -1,22 +1,56 @@
 [
     {
-        "category_name": "Cat Medicines",
-        "category_slug": "cat-medicines",
-        "category_image": "/images/cat-medicines.jfif"
+        "category_name": "Dog Pharmacy",
+        "category_slug": "dog-pharmacy",
+        "category_image": "/images/dog-pharmacy.jfif",
+        "sub_categories": [
+            {
+                "name": "Shop All",
+                "slug": "shop-all",
+                "image": "/images/pharmacy-shop-all.webp"
+            },
+            {
+                "name": "Dog Medications",
+                "slug": "dog-medications",
+                "image": "/images/dog-medications.webp"
+            },
+            {
+                "name": "Flea & Tick Treatments",
+                "slug": "flea-tick-treatments",
+                "image": "/images/flea-tick-treatments.webp"
+            },
+            {
+                "name": "Supplements & Vitamins",
+                "slug": "supplements-vitamins",
+                "image": "/images/supplements-vitamins.webp"
+            }
+        ]
     },
     {
-        "category_name": "Dog Medicines",
-        "category_slug": "dog-medicines",
-        "category_image": "/images/dog-medicines.jfif"
-    },
-    {
-        "category_name": "Rabbit Medicines",
-        "category_slug": "rabbit-medicines",
-        "category_image": "/images/dog-medicines.jfif"
-    },
-    {
-        "category_name": "Others",
-        "category_slug": "others",
-        "category_image": "/images/pet-accessories.webp"
+        "category_name": "Cat Pharmacy",
+        "category_slug": "cat-pharmacy",
+        "category_image": "/images/cat-pharmacy.jfif",
+        "sub_categories": [
+            {
+                "name": "Shop All",
+                "slug": "shop-all",
+                "image": "/images/pharmacy-shop-all.webp"
+            },
+            {
+                "name": "Cat Medications",
+                "slug": "cat-medications",
+                "image": "/images/cat-medications.webp"
+            },
+            {
+                "name": "Flea & Tick Treatments",
+                "slug": "flea-tick-treatments",
+                "image": "/images/flea-tick-treatments.webp"
+            },
+            {
+                "name": "Supplements & Vitamins",
+                "slug": "supplements-vitamins",
+                "image": "/images/supplements-vitamins.webp"
+            }
+        ]
     }
 ]

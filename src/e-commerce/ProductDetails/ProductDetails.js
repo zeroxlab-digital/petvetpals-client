@@ -1,17 +1,28 @@
 "use client";
-import Quantity from "@/components/PetOwners/Shop/Quantity";
-import useProducts from "../../../../hooks/useProducts";
-import ProductDetailsTabs from "@/components/PetOwners/Shop/ProductDetailsTabs";
 import { Rating } from "@mui/material";
 import { HiOutlineHeart, HiOutlineShare, HiShoppingCart } from "react-icons/hi2";
 import Button from "@/components/Common/Button/Button";
-import RelatedProducts from "@/components/PetOwners/Shop/RelatedProducts";
 import Reviews from "@/components/Common/Reviews/Reviews";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import ProductDetailsTabs from "./ProductDetailsTabs";
+import RelatedProducts from "./RelatedProducts";
+import Quantity from "../Quantity/Quantity";
+import { usePathname } from "next/navigation";
 
-const ProductDetails = ({ params }) => {
-    const products = useProducts();
-    const foundProduct = products?.find(product => product._id === Number(params.id));
+const ProductDetails = ({ slug }) => {
+    const pathname = usePathname();
+    const pathnameCategory = pathname.split("/").slice(0, 2).join("/");
+    const [products, set_products] = useState([]);
+    useEffect(() => {
+        const handleFetchProducts = async () => {
+            const res = await fetch(`/data/${pathnameCategory === '/shop' ? 'products' : 'medicines'}.json`)
+            const data = await res.json();
+            set_products(data);
+        }
+        handleFetchProducts();
+    }, [slug])
+    const foundProduct = products?.find(product => product._id === Number(slug));
     const { _id, name, product_image, price, stock, product_description, product_details, category, } = foundProduct || {};
     return (
         <div className="max-w-full">
@@ -51,7 +62,7 @@ const ProductDetails = ({ params }) => {
                 <h2 className="font-semibold text-primary text-lg mb-2">Product reviews</h2>
                 <Reviews />
             </div>
-            <RelatedProducts />
+            <RelatedProducts products={products} />
         </div>
     );
 };

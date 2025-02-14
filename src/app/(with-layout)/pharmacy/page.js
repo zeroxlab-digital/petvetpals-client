@@ -1,11 +1,14 @@
-import ShopPage from '@/components/ECommerce/Shop/Shop';
+import React from 'react';
+import ShopDeals from '@/e-commerce/ShopDeals/ShopDeals';
+import TopProducts from '@/e-commerce/TopProducts/TopProducts';
 
-const Pharmacy = () => {
+const page = () => {
     return (
         <div>
-            <ShopPage />
+            <ShopDeals />
+            <TopProducts />
         </div>
     );
 };
 
-export default Pharmacy;
+export default page;

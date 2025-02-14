@@ -2,10 +2,10 @@
 import Link from "next/link";
 import Navbar from "./Navbar";
 import { HiBars3CenterLeft, HiOutlineUser, HiOutlineUserCircle, HiOutlineUserPlus, HiXMark } from "react-icons/hi2";
-import CartCount from "./CartCount";
 import { useEffect, useState } from "react";
 import Search from "./Search";
 import { useSelector } from "react-redux";
+import CartCount from "@/e-commerce/Cart/CartCount";
 
 const Header = () => {
 
