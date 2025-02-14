@@ -32,7 +32,7 @@ const CategoriesSidebar = () => {
                             {category.sub_categories.map((sub_category, subIndex) => (
                                 <Link
                                     key={subIndex}
-                                    href={`/shop/${category.category_slug}${sub_category.slug ? `/${sub_category.slug}` : ''}`}
+                                    href={`/${pathnameCategory === '/shop' ? 'shop' : 'pharmacy'}/${category.category_slug}${sub_category.slug ? `/${sub_category.slug}` : ''}`}
                                     className="w-full"
                                 >
                                     <li className="flex items-center justify-between border-b py-4 hover:text-primary duration-150">

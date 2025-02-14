@@ -1,7 +1,7 @@
 import CategoriesSidebar from '@/e-commerce/CategoriesSidebar/CategoriesSidebar';
 import React from 'react';
 
-const ShopLayout = ({ children }) => {
+const PharmacyLayout = ({ children }) => {
     return (
         <div className='app-container py-10 grid lg:grid-cols-5 gap-10'>
             <CategoriesSidebar />
@@ -12,4 +12,4 @@ const ShopLayout = ({ children }) => {
     );
 };
 
-export default ShopLayout;
+export default PharmacyLayout;
