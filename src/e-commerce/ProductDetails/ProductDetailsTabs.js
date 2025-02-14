@@ -2,11 +2,11 @@
 import { useState } from "react";
 
 const ProductDetailsTabs = () => {
-    const tabList = ["Description", "Ingredients", "Instructions", "Warnings"];
+    const tabList = ["Description", "Ingredients", "Warnings"];
     const [selectedTab, setSelectedTab] = useState("Description");
     return (
         <div className='h-fit w-full'>
-            <ul className='flex gap-2 items-center mb-6 max-sm:w-80 overflow-auto'>
+            <ul className='flex gap-2 items-center mb-6 max-sm:w-full max-sm:overflow-auto'>
                 {tabList.map((list, index) => <li key={index} onClick={() => setSelectedTab(list)} className={`font-semibold w-24 h-10 text-primary text-center leading-10 cursor-pointer ${selectedTab == list && 'border-b-2 border-[#58294E]'}`}>
                     {list}
                 </li>)}
