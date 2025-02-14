@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import DashboardSidebar from '../../components/PetOwners/Dashboard/Sidebar/Sidebar';
 import { HiBars3, HiBars3BottomLeft, HiChevronDoubleRight, HiChevronRight, HiOutlineChevronDoubleRight } from 'react-icons/hi2';
 import { HiX } from 'react-icons/hi';
+import ProtectedPage from '@/components/Common/ProtectedPage/ProtectedPage';
 
 const DashboardLayout = ({ children }) => {
     const [responsiveToggle, setResponsiveToggle] = useState(false);
@@ -49,4 +50,4 @@ const DashboardLayout = ({ children }) => {
     );
 };
 
-export default DashboardLayout;
+export default ProtectedPage(DashboardLayout);
