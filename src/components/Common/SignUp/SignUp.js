@@ -18,7 +18,7 @@ const SignUpPage = () => {
         e.preventDefault();
         try {
             console.log(user);
-            const response = await axios.post(`http://localhost:8000/api/user/register`, user , {
+            const response = await axios.post(`https://petvetpals-server.onrender.com/api/user/register`, user , {
                 headers: {
                     "Content-Type": "application/json"
                 }

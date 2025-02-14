@@ -6,7 +6,7 @@ const useFetchPets = () => {
     useEffect(() => {
         const handleFetchPets = async () => {
             try {
-                const res = await axios.get("http://localhost:8000/api/pet/get-pets", {
+                const res = await axios.get("https://petvetpals-server.onrender.com/api/pet/get-pets", {
                     withCredentials: true
                 });
                 if (res.status === 200) {
