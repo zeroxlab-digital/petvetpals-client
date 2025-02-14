@@ -23,7 +23,7 @@ const DashboardSidebar = ({ setResponsiveToggle }) => {
 
     const handleUserLogout = async () => {
         try {
-            const res = await axios.post(`http://localhost:8000/api/user/logout`, { },  {
+            const res = await axios.post(`https://petvetpals-server.onrender.com/api/user/logout`, { },  {
                 withCredentials: true,
             })
             if(res.status === 200){

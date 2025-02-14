@@ -24,7 +24,7 @@ const BookingPayment = ({ apptId, setShowModal }) => {
     const handleCompleteBooking = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.patch(`http://localhost:8000/api/appointment/update-appointment/${apptId}`, { payment_status: true, status: "confirmed" }, {
+            const res = await axios.patch(`https://petvetpals-server.onrender.com/api/appointment/update-appointment/${apptId}`, { payment_status: true, status: "confirmed" }, {
                 headers: {
                     "Content-Type": "application/json"
                 },

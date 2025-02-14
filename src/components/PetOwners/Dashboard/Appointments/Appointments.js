@@ -19,7 +19,7 @@ const Appointments = () => {
 
     const handleAppointmentDlt = async (id) => {
         try {
-            const res = await axios.delete(`http://localhost:8000/api/appointment/delete-appointment/${id}`, {
+            const res = await axios.delete(`https://petvetpals-server.onrender.com/api/appointment/delete-appointment/${id}`, {
                 withCredentials: true,
             });
             if (res.status === 200) console.log("Appointment deleted successfully!");

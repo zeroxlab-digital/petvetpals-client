@@ -17,7 +17,7 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
     const handleAddPet = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`http://localhost:8000/api/pet/add-pet`, petProfile, {
+            const res = await axios.post(`https://petvetpals-server.onrender.com/api/pet/add-pet`, petProfile, {
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -52,7 +52,7 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
     const handleUpdatePet = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.patch(`http://localhost:8000/api/pet/update-pet/${updatePet._id}`, updatePetProfile, {
+            const res = await axios.patch(`https://petvetpals-server.onrender.com/api/pet/update-pet/${updatePet._id}`, updatePetProfile, {
                 headers: {
                     "Content-Type": "application/json"
                 },
