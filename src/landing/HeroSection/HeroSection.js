@@ -82,7 +82,7 @@ const HeroSection = () => {
                                         ))}
                                     </ul>
                                 </div>
-                                <button className="mt-auto w-44 h-11 bg-transparent border border-[#58294E] text-primary hover:bg-primary hover:text-white duration-150 rounded-md flex items-center gap-2 justify-center text-sm md:text-base">
+                                <button className="mt-auto w-44 h-11 bg-primary border border-[#58294E]  hover:bg-primary text-white duration-150 rounded-md flex items-center gap-2 justify-center text-sm md:text-base">
                                     {slide.buttonText} <HiArrowSmallRight />
                                 </button>
                             </div>

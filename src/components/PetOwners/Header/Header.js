@@ -54,7 +54,7 @@ const Header = () => {
                         <Navbar setResponsiveMenu={setResponsiveMenu} />
 
                         {/* Auth Buttons */}
-                        <div className="flex items-center gap-3 justify-center mt-auto mb-8">
+                        <div className="flex items-center gap-3 justify-center mt-auto mb-10">
                             <Link href="/signin" className="w-full">
                                 <button className="w-full border border-[#58294E] text-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]">
                                     <HiOutlineUser className="text-xl" />

@@ -9,13 +9,13 @@ import { Navigation, Autoplay } from "swiper/modules";
 
 const PetTypesSection = () => {
     const types = [
-        { title: "Dog deals", image: "/images/cat.avif", link: "/shop/dog-deals" },
-        { title: "Dog deals", image: "/images/cat.avif", link: "/shop/dog-deals" },
-        { title: "Dog deals", image: "/images/cat.avif", link: "/shop/dog-deals" },
-        { title: "Dog deals", image: "/images/cat.avif", link: "/shop/dog-deals" },
-        { title: "Dog deals", image: "/images/cat.avif", link: "/shop/dog-deals" },
-        { title: "Dog deals", image: "/images/cat.avif", link: "/shop/dog-deals" },
-        { title: "Pharmacy", image: "/images/pharmacy.avif", link: "/shop/dog-deals" },
+        { title: "Dog deals", image: "/images/cute-dog.jpg", link: "/shop/dog-deals" },
+        { title: "Cat deals", image: "/images/cat.avif", link: "/shop/cat-deals" },
+        { title: "Pharmacy", image: "/images/pharmacy.avif", link: "/pharmacy" },
+        { title: "Rabbit deals", image: "/images/cat.avif", link: "/shop/dog-deals" },
+        { title: "Birds deals", image: "/images/cat.avif", link: "/shop/dog-deals" },
+        { title: "Fish deals", image: "/images/cat.avif", link: "/shop/dog-deals" },
+        { title: "Small animals", image: "/images/cat.avif", link: "/shop/dog-deals" },
     ];
 
     const swiperRef = useRef(null);
@@ -36,7 +36,7 @@ const PetTypesSection = () => {
                     spaceBetween={10}
                     slidesPerView={3.5}
                     loop={true}
-                    autoplay={{ delay: 3000 }}
+                    // autoplay={{ delay: 3000 }}
                     modules={[Navigation, Autoplay]}
                     breakpoints={{
                         640: {
