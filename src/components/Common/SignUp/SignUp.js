@@ -33,17 +33,17 @@ const SignUpPage = () => {
     }
 
     return (
-        <div className="max-w-96 text-center flex justify-center mx-auto my-20 p-3">
+        <div className="max-w-96 text-center flex justify-center items-center h-screen mx-auto ">
             <div className="w-full">
                 <>
-                    <h2 className="text-3xl font-semibold mb-10">Create an account</h2>
+                    <h2 className="text-2xl font-bold text-primary mb-10">Create an account</h2>
                     <form onSubmit={handleRegistration} action="#" className="flex flex-col gap-3">
-                        <Input type="text" placeholder="Enter fullname"
+                        <Input type="text" placeholder="Enter Full Name"
                             name="fullname"
                             onChange={(e) => setUser({ ...user, fullName: e.target.value })}
                             value={user.fullName}
                         />
-                        <Input type="email" placeholder="Email address"
+                        <Input type="email" placeholder="Email Address"
                             name="email"
                             onChange={(e) => setUser({ ...user, email: e.target.value })}
                             value={user.email}
@@ -53,7 +53,7 @@ const SignUpPage = () => {
                             onChange={(e) => setUser({ ...user, password: e.target.value })}
                             value={user.password}
                         />
-                        <Input type="password" placeholder="Confirm password"
+                        <Input type="password" placeholder="Confirm Password"
                             name="confirmPassword"
                             onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
                             value={user.confirmPassword}
@@ -69,9 +69,9 @@ const SignUpPage = () => {
                     <p>OR</p>
                     <hr />
                 </div>
-                <div className="text-left flex flex-col gap-3 mt-5">
-                    <button className="w-full hover:bg-[#e5e5e5d5] duration-200 text-gray-800 border border-gray-400 p-3 rounded-md  flex items-center gap-3"><FaGoogle /> Continue with Google</button>
-                    <button className="w-full hover:bg-[#e5e5e5d5] duration-200 text-gray-800 border border-gray-400 p-3 rounded-md flex items-center gap-3"><FaFacebookF />Continue with Facebook</button>
+                <div className="text-left flex max-sm:flex-col gap-2 mt-5">
+                    <button className="w-full hover:bg-[#e5e5e5d5] duration-200 text-gray-800 border border-gray-400 p-2 rounded-md  flex items-center gap-2"><FaGoogle /> Google Sign-in</button>
+                    <button className="w-full hover:bg-[#e5e5e5d5] duration-200 text-gray-800 border border-gray-400 p-2 rounded-md flex items-center gap-2"><FaFacebookF /> Facebook Sign-in</button>
                 </div>
             </div>
         </div>
