@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const useGetAppts = () => {
-    const { authUser } = useSelector((state) => state.user);
+    const { authUser } = useSelector((state) => state.userRedu.user);
     const [appointments, setAppointments] = useState([]);
     useEffect(() => {
         const handleFetchAppts = async () => {

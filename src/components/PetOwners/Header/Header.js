@@ -9,7 +9,7 @@ import CartCount from "@/e-commerce/Cart/CartCount";
 
 const Header = () => {
 
-    const { authUser } = useSelector((state) => state.user);
+    const { authUser } = useSelector((state) => state.userRedu.user);
 
     const [responsiveMenu, setResponsiveMenu] = useState(false)
 
