@@ -8,6 +8,8 @@ import { Navigation, Autoplay } from "swiper/modules";
 import Image from 'next/image';
 import Link from 'next/link';
 import { Rating } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { setCart } from '@/redux/features/cartSlice';
 
 const PopularItemsSection = () => {
     const [products, setProducts] = useState([]);
@@ -21,6 +23,12 @@ const PopularItemsSection = () => {
         };
         handleFetchProduct();
     }, []);
+
+    const disptach = useDispatch();
+    const handleAddToCart = (e, product) => {
+        e.stopPropagation()
+        disptach(setCart({ product, order_quantity: 1 }));
+    }
 
     return (
         <>
@@ -64,7 +72,7 @@ const PopularItemsSection = () => {
                     >
                         {products.map((product) => (
                             <SwiperSlide
-                                className="border rounded-md  flex flex-col justify-center items-center cursor-pointer"
+                                className="border rounded-md  flex flex-col justify-center items-center"
                                 key={product._id}
                             >
                                 <Link
@@ -101,12 +109,12 @@ const PopularItemsSection = () => {
                                                 <p className="font-light text-gray-800 text-sm md:text-base">4.5</p>
                                             </div>
                                         </div>
-                                        <div className="mt-3 flex gap-1">
-                                            <button onClick={(e) => e.stopPropagation()} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-8 sm:h-9 w-full max-sm:text-sm"><HiShoppingCart className='' /> Add to Cart</button>
-                                            <button onClick={(e) => e.stopPropagation()} className="border border-[#161515a5] rounded w-10 flex justify-center items-center text-base"><HiOutlineHeart className=" text-[#161515]" /></button>
-                                        </div>
                                     </div>
                                 </Link>
+                                <div className=" flex gap-1 p-2">
+                                    <button onClick={(e) => handleAddToCart(e, product)} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-8 sm:h-9 w-full max-sm:text-sm"><HiShoppingCart className='' /> Add to Cart</button>
+                                    <button onClick={(e) => e.stopPropagation()} className="border border-[#161515a5] rounded w-10 flex justify-center items-center text-base"><HiOutlineHeart className=" text-[#161515]" /></button>
+                                </div>
                             </SwiperSlide>
                         ))}
                     </Swiper>
@@ -152,7 +160,7 @@ const PopularItemsSection = () => {
                     >
                         {products.map((product) => (
                             <SwiperSlide
-                                className="border rounded-md  flex flex-col justify-center items-center cursor-pointer"
+                                className="border rounded-md  flex flex-col justify-center items-center"
                                 key={product._id}
                             >
                                 <Link
@@ -189,12 +197,12 @@ const PopularItemsSection = () => {
                                                 <p className="font-light text-gray-800 text-sm md:text-base">4.5</p>
                                             </div>
                                         </div>
-                                        <div className="mt-3 flex gap-1">
-                                            <button onClick={(e) => e.stopPropagation()} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-8 sm:h-9 w-full max-sm:text-sm"><HiShoppingCart className='' /> Add to Cart</button>
-                                            <button onClick={(e) => e.stopPropagation()} className="border border-[#161515a5] rounded w-10 flex justify-center items-center text-base"><HiOutlineHeart className=" text-[#161515]" /></button>
-                                        </div>
                                     </div>
                                 </Link>
+                                <div className=" flex gap-1 p-2">
+                                    <button onClick={(e) => handleAddToCart(e, product)} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-8 sm:h-9 w-full max-sm:text-sm"><HiShoppingCart className='' /> Add to Cart</button>
+                                    <button onClick={(e) => e.stopPropagation()} className="border border-[#161515a5] rounded w-10 flex justify-center items-center text-base"><HiOutlineHeart className=" text-[#161515]" /></button>
+                                </div>
                             </SwiperSlide>
                         ))}
                     </Swiper>
@@ -240,7 +248,7 @@ const PopularItemsSection = () => {
                     >
                         {products.map((product) => (
                             <SwiperSlide
-                                className="border rounded-md  flex flex-col justify-center items-center cursor-pointer"
+                                className="border rounded-md  flex flex-col justify-center items-center"
                                 key={product._id}
                             >
                                 <Link
@@ -277,12 +285,12 @@ const PopularItemsSection = () => {
                                                 <p className="font-light text-gray-800 text-sm md:text-base">4.5</p>
                                             </div>
                                         </div>
-                                        <div className="mt-3 flex gap-1">
-                                            <button onClick={(e) => e.stopPropagation()} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-8 sm:h-9 w-full max-sm:text-sm"><HiShoppingCart className='' /> Add to Cart</button>
-                                            <button onClick={(e) => e.stopPropagation()} className="border border-[#161515a5] rounded w-10 flex justify-center items-center text-base"><HiOutlineHeart className=" text-[#161515]" /></button>
-                                        </div>
                                     </div>
                                 </Link>
+                                <div className=" flex gap-1 p-2">
+                                    <button onClick={(e) => handleAddToCart(e, product)} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-8 sm:h-9 w-full max-sm:text-sm"><HiShoppingCart className='' /> Add to Cart</button>
+                                    <button onClick={(e) => e.stopPropagation()} className="border border-[#161515a5] rounded w-10 flex justify-center items-center text-base"><HiOutlineHeart className=" text-[#161515]" /></button>
+                                </div>
                             </SwiperSlide>
                         ))}
                     </Swiper>
