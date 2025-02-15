@@ -1,10 +1,12 @@
 "use client";
+import { setCart } from '@/redux/features/cartSlice';
 import { Rating } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { HiOutlineHeart, HiShoppingCart } from 'react-icons/hi2';
+import { useDispatch } from 'react-redux';
 
 const Products = ({ slug }) => {
     const pathname = usePathname();
@@ -33,6 +35,12 @@ const Products = ({ slug }) => {
     } else {
         href = slug[1]
     }
+
+    const disptach = useDispatch();
+    const handleAddToCart = (e, product) => {
+        e.stopPropagation()
+        disptach(setCart({ product, order_quantity: 1 }));
+    }
     return (
         <div className='grid grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-5'>
             {
@@ -41,10 +49,10 @@ const Products = ({ slug }) => {
                         <Link
                             href={{
                                 pathname: `${href + '/' + product._id}`,
-                                // query: {
-                                //     title: `${product.name.toLowerCase()}`,
-                                //     description: `${product.product_description.toLowerCase()}`
-                                // }
+                                query: {
+                                    title: `${product.name.toLowerCase()}`,
+                                    description: `${product.product_description.toLowerCase()}`
+                                }
                             }}
                         >
                             <div className="bg-gray-300 bg-opacity-10 rounded w-auto h-52 mb-3">
@@ -63,7 +71,7 @@ const Products = ({ slug }) => {
                             </div>
                         </Link>
                         <div className="mt-4 flex gap-2 px-3">
-                            <button onClick={(e) => e.stopPropagation()} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-10 w-full"><HiShoppingCart /> Add to Cart</button>
+                            <button onClick={(e) => handleAddToCart(e, product)} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-10 w-full"><HiShoppingCart /> Add to Cart</button>
                             <button onClick={(e) => e.stopPropagation()} className="border border-[#161515a5] rounded w-[3.3rem] flex justify-center items-center"><HiOutlineHeart className="text-xl text-[#161515]" /></button>
                         </div>
                     </div>)
