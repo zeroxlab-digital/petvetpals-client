@@ -20,9 +20,14 @@ const cartSlice = createSlice({
             if (productToUpdate) {
                 productToUpdate.order_quantity = quantity;
             }
+        },
+        removeProductFromCart: (state, action) => {
+            const productId = action.payload;
+            const filtered_products = state.cart.filter(item => item.product._id !== productId);
+            state.cart = filtered_products;
         }
     }
 });
 
-export const { setCart, updateQuantity } = cartSlice.actions;
+export const { setCart, updateQuantity, removeProductFromCart } = cartSlice.actions;
 export default cartSlice.reducer;

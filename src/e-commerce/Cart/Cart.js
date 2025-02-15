@@ -3,11 +3,16 @@ import { Rating } from '@mui/material';
 import { HiOutlineTrash } from 'react-icons/hi2';
 import Button from '@/components/Common/Button/Button';
 import Quantity from '../Quantity/Quantity';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeProductFromCart } from '@/redux/features/cartSlice';
 
 const Cart = () => {
     const cart = useSelector((state) => state.userRedu.cart.cart);
-
+    console.log(cart);
+    const dispatch = useDispatch();
+    const handleRemoveProduct = (productId) => {
+        dispatch(removeProductFromCart(productId))
+    }
     return (
         <div className='grid grid-cols-[4fr_2fr] max-lg:grid-cols-1 gap-7 items-start'>
             <div className="cart-items rounded-md border px-5 flex flex-col">
@@ -24,7 +29,7 @@ const Cart = () => {
                         <div className='flex max-sm:justify-between sm:flex-col items-center sm:items-end sm:text-right'>
                             <h2 className='font-semibold text-xl sm:mb-2'>${item.product.price}</h2>
                             <Quantity item={item} />
-                            <button className='flex items-center gap-2 text-red-500 sm:mt-3'><HiOutlineTrash /> Remove</button>
+                            <button onClick={() => handleRemoveProduct(item.product._id)} className='flex items-center gap-2 text-red-500 sm:mt-3'><HiOutlineTrash /> Remove</button>
                         </div>
                     </div>
                 ))}
