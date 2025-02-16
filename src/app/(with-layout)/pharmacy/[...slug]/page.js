@@ -11,7 +11,6 @@ const page = ({ params }) => {
             <>
                 <ShopCategories type={slug[0]} />
                 <div className='mt-10'>
-                    <Breadcrumb />
                     <Products slug={slug} />
                 </div>
             </>
@@ -19,7 +18,6 @@ const page = ({ params }) => {
     } else if (slug.length === 2) {
         return (
             <>
-                <Breadcrumb />
                 <Products slug={slug} />
             </>
         )
