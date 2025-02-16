@@ -15,7 +15,7 @@ import Link from "next/link";
 import FAQs from "@/components/Common/FAQs/FAQs";
 
 const VetDetails = ({ params }) => {
-    const { authUser } = useSelector((state) => state.user);
+    const { authUser } = useSelector((state) => state.userRedu.user);
 
     const vets = useFetchVets();
     const foundVet = vets.find(vet => vet._id === params._id);
