@@ -1,6 +1,5 @@
 import Breadcrumb from '@/components/Common/Breadcrumb/Breadcrumb';
 import ProductDetails from '@/e-commerce/ProductDetails/ProductDetails';
-import FilterSort from '@/e-commerce/ProductFilterSort/FilterSort';
 import Products from '@/e-commerce/Products/Products';
 import ShopCategories from '@/e-commerce/ShopCategories/ShopCategories';
 import React from 'react';
