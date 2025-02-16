@@ -8,11 +8,20 @@ import { removeProductFromCart } from '@/redux/features/cartSlice';
 
 const Cart = () => {
     const cart = useSelector((state) => state.userRedu.cart.cart);
-    console.log(cart);
+
     const dispatch = useDispatch();
     const handleRemoveProduct = (productId) => {
         dispatch(removeProductFromCart(productId))
     }
+    
+    const subTotal = cart.reduce((sum, item) => {
+        return sum + item.order_quantity * item.product.price;
+    }, 0)
+
+    const shippingTotal = 4.99;
+    const taxTotal = 0;
+    const total = subTotal + shippingTotal + taxTotal;
+
     return (
         <div className='app-container py-10'>
             {
@@ -42,13 +51,13 @@ const Cart = () => {
                             <div className='order-summary rounded-md border p-5'>
                                 <h4 className='mb-5 font-semibold text-xl'>Order summary</h4>
                                 <ul className='flex flex-col gap-3 border-b pb-3 mb-3'>
-                                    <li className='flex items-center justify-between'><p>Subtotal</p> <p>$120.83</p></li>
-                                    <li className='flex items-center justify-between'><p>Shipping</p> <p>$0.00</p></li>
-                                    <li className='flex items-center justify-between'><p>Tax</p> <p>$0.00</p></li>
+                                    <li className='flex items-center justify-between'><p>Subtotal</p> <p>${subTotal.toFixed(2)}</p></li>
+                                    <li className='flex items-center justify-between'><p>Shipping</p> <p>${shippingTotal.toFixed(2)}</p></li>
+                                    <li className='flex items-center justify-between'><p>Tax</p> <p>${taxTotal.toFixed(2)}</p></li>
                                 </ul>
                                 <div className='flex items-center justify-between font-semibold text-lg'>
                                     <p>Total</p>
-                                    <p>$120.83</p>
+                                    <p>${total.toFixed(2)}</p>
                                 </div>
                                 <div className='actions mt-8'>
                                     <form className='flex items-center gap-3 mb-3'>
