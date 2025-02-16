@@ -1,3 +1,4 @@
+import Breadcrumb from '@/components/Common/Breadcrumb/Breadcrumb';
 import ProductDetails from '@/e-commerce/ProductDetails/ProductDetails';
 import Products from '@/e-commerce/Products/Products';
 import ShopCategories from '@/e-commerce/ShopCategories/ShopCategories';
@@ -10,7 +11,7 @@ const page = ({ params }) => {
             <>
                 <ShopCategories type={slug[0]} />
                 <div className='mt-10'>
-                    <h2 className='font-bold text-primary text-xl mb-5'>All products</h2>
+                    <Breadcrumb />
                     <Products slug={slug} />
                 </div>
             </>
@@ -18,12 +19,14 @@ const page = ({ params }) => {
     } else if (slug.length === 2) {
         return (
             <>
+                <Breadcrumb />
                 <Products slug={slug} />
             </>
         )
     } else if (slug.length === 3) {
         return (
             <>
+                <Breadcrumb />
                 <ProductDetails slug={slug[2]} />
             </>
         )

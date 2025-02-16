@@ -33,22 +33,21 @@ const ProductDetails = ({ slug }) => {
     const dispatch = useDispatch();
 
     const handleAddToCart = (product) => {
-        dispatch(setCart({ product, order_quantity: quantity })); // Use the local quantity state
+        dispatch(setCart({ product, order_quantity: quantity }));
     };
 
     const handleQuantityIncrease = () => {
-        setQuantity((prev) => prev + 1); // Increase local quantity
+        setQuantity((prev) => prev + 1);
     };
 
     const handleQuantityDecrease = () => {
         if (quantity > 1) {
-            setQuantity((prev) => prev - 1); // Decrease local quantity
+            setQuantity((prev) => prev - 1);
         }
     };
 
     return (
         <div className="max-w-full">
-            <h2 className="text-lg font-semibold ">Product Details</h2>
             <div className=" grid grid-cols-2 max-md:grid-cols-1 gap-5 mt-5 border-b border-gray-300 mb-10 pb-14">
                 <div className="image-details">
                     <div className="bg-gray-300 bg-opacity-20 p-5 rounded-md h-96">
