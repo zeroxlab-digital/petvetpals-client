@@ -1,5 +1,6 @@
 import Breadcrumb from '@/components/Common/Breadcrumb/Breadcrumb';
 import ProductDetails from '@/e-commerce/ProductDetails/ProductDetails';
+import FilterSort from '@/e-commerce/ProductFilterSort/FilterSort';
 import Products from '@/e-commerce/Products/Products';
 import ShopCategories from '@/e-commerce/ShopCategories/ShopCategories';
 import React from 'react';
@@ -10,8 +11,7 @@ const page = ({ params }) => {
         return (
             <>
                 <ShopCategories type={slug[0]} />
-                <div className='mt-10'>
-                    <Breadcrumb />
+                <div className='mt-14'>
                     <Products slug={slug} />
                 </div>
             </>
@@ -19,7 +19,6 @@ const page = ({ params }) => {
     } else if (slug.length === 2) {
         return (
             <>
-                <Breadcrumb />
                 <Products slug={slug} />
             </>
         )

@@ -7,7 +7,7 @@ const Breadcrumb = () => {
     const pathname = usePathname();
     const pathnameSlugs = pathname.split("/").filter(slug => slug);
     return (
-        <nav className="text-gray-600 text-sm font-medium mb-5">
+        <nav className="text-gray-600 text-sm font-medium">
             <ul className="flex uppercase">
                 <li>
                     <Link href="/" className="hover:text-blue-500 duration-100">home</Link>
