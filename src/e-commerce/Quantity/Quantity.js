@@ -1,24 +1,31 @@
 "use client";
-import { useState } from "react";
+import { updateQuantity } from "@/redux/features/cartSlice";
 import { HiMinus, HiPlus } from "react-icons/hi2";
+import { useDispatch } from "react-redux";
 
-const Quantity = () => {
-    const [quantity, setQuantity] = useState(0);
+const Quantity = ({ item }) => {
+    const dispatch = useDispatch();
+
     const handleQuantityIncrease = () => {
-        setQuantity(quantity + 1)
-    }
+        dispatch(updateQuantity({ productId: item.product._id, quantity: item.order_quantity + 1 }));
+    };
+
     const handleQuantityDecrease = () => {
-        if(quantity >= 1) {
-            setQuantity(quantity - 1)
+        if (item.order_quantity > 1) {
+            dispatch(updateQuantity({ productId: item.product._id, quantity: item.order_quantity - 1 }));
         }
-    }
+    };
+
     return (
-        <div className="">
-            {/* <h4 className="mb-2 font-[500]">Quantity</h4> */}
+        <div>
             <div className="flex items-center gap-1">
-                <button onClick={handleQuantityDecrease} className="border border-gray-500 w-10 h-9 flex items-center justify-center rounded"><HiMinus /></button>
-                <p className="border border-gray-500 w-16 h-9 flex items-center justify-center rounded">{quantity}</p>
-                <button onClick={handleQuantityIncrease} className="border border-gray-500 w-10 h-9 flex items-center justify-center rounded"><HiPlus /></button>
+                <button onClick={handleQuantityDecrease} className="border border-gray-500 w-10 h-9 flex items-center justify-center rounded">
+                    <HiMinus />
+                </button>
+                <p className="border border-gray-500 w-16 h-9 flex items-center justify-center rounded">{item.order_quantity}</p>
+                <button onClick={handleQuantityIncrease} className="border border-gray-500 w-10 h-9 flex items-center justify-center rounded">
+                    <HiPlus />
+                </button>
             </div>
         </div>
     );

@@ -10,6 +10,8 @@ import Link from 'next/link';
 import { Rating } from '@mui/material';
 import FilterSort from '../ProductFilterSort/FilterSort';
 import { usePathname } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { setCart } from '@/redux/features/cartSlice';
 
 const TopProducts = () => {
     const pathname = usePathname();
@@ -23,6 +25,12 @@ const TopProducts = () => {
         };
         handleFetchProduct();
     }, [products]);
+
+    const disptach = useDispatch();
+    const handleAddToCart = (e, product) => {
+        e.stopPropagation()
+        disptach(setCart({ product, order_quantity: 1 }));
+    }
 
     return (
         <section className="my-10">
@@ -63,7 +71,7 @@ const TopProducts = () => {
                                 </div>
                             </Link>
                             <div className="mt-4 flex gap-2 px-3">
-                                <button onClick={(e) => e.stopPropagation()} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-10 w-full"><HiShoppingCart /> Add to Cart</button>
+                                <button onClick={(e) => handleAddToCart(e, product)} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-10 w-full"><HiShoppingCart /> Add to Cart</button>
                                 <button onClick={(e) => e.stopPropagation()} className="border border-[#161515a5] rounded w-[3.3rem] flex justify-center items-center"><HiOutlineHeart className="text-xl text-[#161515]" /></button>
                             </div>
                         </div>)
