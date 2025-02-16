@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import { HiBarsArrowUp, HiMiniAdjustmentsHorizontal, HiOutlineBarsArrowDown, HiOutlineXCircle } from 'react-icons/hi2';
 
