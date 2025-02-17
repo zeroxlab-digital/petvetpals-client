@@ -6,6 +6,7 @@ import HeroSection from "@/landing/HeroSection/HeroSection";
 import HowWeWork from "@/landing/HowWeWorkSection/HowWeWork";
 import PetTypesSection from "@/landing/PetTypesSection/PetTypesSection";
 import PopularItemsSection from "@/landing/PopularItemsSection/PopularItemsSection";
+import HowItWorksSection from "@/landing/HowItWorksSection/HowItWorksSection";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <HeroSection />
       <FeaturesSection />
       <PetTypesSection />
+      <HowItWorksSection />
       <HowWeWork />
       <PopularItemsSection />
       <BestDealSection />
