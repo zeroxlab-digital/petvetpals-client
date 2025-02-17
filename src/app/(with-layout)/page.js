@@ -7,6 +7,7 @@ import HowWeWork from "@/landing/HowWeWorkSection/HowWeWork";
 import PetTypesSection from "@/landing/PetTypesSection/PetTypesSection";
 import PopularItemsSection from "@/landing/PopularItemsSection/PopularItemsSection";
 import HowItWorksSection from "@/landing/HowItWorksSection/HowItWorksSection";
+import AllInOne from "@/landing/AllServicesSection/AllServicesSection";
 
 const Home = () => {
   return (
@@ -18,6 +19,7 @@ const Home = () => {
       <HowWeWork />
       <PopularItemsSection />
       <BestDealSection />
+      <AllInOne />
       <GetStartedSection />
       <BlogsSection />
     </main>
