@@ -77,7 +77,7 @@ const PopularItemsSection = () => {
                             >
                                 <Link
                                     href={{
-                                        pathname: `/shop/${product._id}`,
+                                        pathname: `/shop/all-deals/shop-all/${product._id}`,
                                         query: {
                                             title: `${product.name.toLowerCase()}`,
                                         },
@@ -165,7 +165,7 @@ const PopularItemsSection = () => {
                             >
                                 <Link
                                     href={{
-                                        pathname: `/shop/${product._id}`,
+                                        pathname: `/shop/all-deals/shop-all/${product._id}`,
                                         query: {
                                             title: `${product.name.toLowerCase()}`,
                                         },
@@ -253,7 +253,7 @@ const PopularItemsSection = () => {
                             >
                                 <Link
                                     href={{
-                                        pathname: `/shop/${product._id}`,
+                                        pathname: `/shop/all-deals/shop-all/${product._id}`,
                                         query: {
                                             title: `${product.name.toLowerCase()}`,
                                         },
