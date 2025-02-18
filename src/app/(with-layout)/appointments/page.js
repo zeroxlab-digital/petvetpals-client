@@ -46,7 +46,7 @@ const AppointmentsPage = () => {
     }, [filterChange, vets]);
 
     return (
-        <div className="app-container py-10 max-xl:py-5 grid xl:grid-cols-[2fr_10fr] gap-12 max-xl:gap-3 max-md:bg-gray-100">
+        <div className="app-container py-10 max-xl:py-5 xl:grid xl:grid-cols-[2fr_10fr] gap-12 max-xl:gap-3 max-md:bg-gray-100 max-md:h-[calc(100vh-5.1rem)]">
             <VetFilterSidebar setFilterChange={setFilterChange} vets={filteredVets} />
             <Vets vets={filteredVets} currentPath={currentPath} />
         </div>
