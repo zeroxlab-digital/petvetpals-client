@@ -33,7 +33,7 @@ const SignUpPage = () => {
     }
 
     return (
-        <div className="max-w-96 text-center flex justify-center items-center h-screen mx-auto ">
+        <div className="max-w-96 text-center flex justify-center items-center h-screen mx-auto p-3">
             <div className="w-full">
                 <>
                     <h2 className="text-2xl font-bold text-primary mb-10">Create an account</h2>
@@ -69,7 +69,7 @@ const SignUpPage = () => {
                     <p>OR</p>
                     <hr />
                 </div>
-                <div className="text-left flex max-sm:flex-col gap-2 mt-5">
+                <div className="text-left flex flex-col gap-2 mt-5">
                     <button className="w-full hover:bg-[#e5e5e5d5] duration-200 text-gray-800 border border-gray-400 p-2 rounded-md  flex items-center gap-2"><FaGoogle /> Google Sign-in</button>
                     <button className="w-full hover:bg-[#e5e5e5d5] duration-200 text-gray-800 border border-gray-400 p-2 rounded-md flex items-center gap-2"><FaFacebookF /> Facebook Sign-in</button>
                 </div>

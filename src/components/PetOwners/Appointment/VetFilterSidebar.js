@@ -35,7 +35,7 @@ const VetFilterSidebar = ({ setFilterChange, vets }) => {
 
     return (
         <>
-            <div className='filter-header xl:hidden flex items-center justify-between bg-white p-3 rounded-md'>
+            <div className='filter-header xl:hidden flex items-center justify-between bg-white p-3 rounded-md max-h-max'>
                 <p className='text-gray-800 text-sm'>{vets.length} vets found</p>
                 <div className='flex gap-2'>
                     <button onClick={() => { setShowResponsiveFilter(true), setShowResponsiveSort(false) }} className='rounded px-2 py-[2px] border text-gray-800 text-sm flex items-center gap-1'><HiMiniAdjustmentsHorizontal className='text-xs' /> Filter</button>
