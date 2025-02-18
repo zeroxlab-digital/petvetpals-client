@@ -46,7 +46,7 @@ const ShopDeals = () => {
                         }}
                     ></div>
                     <div className="absolute inset-0 bg-black opacity-30 z-[1]"></div>
-                    <button className='font-bold text-white uppercase text-sm z-10 bg-transparent border group-hover:border-none group-hover:bg-primary duration-300 ease-in-out w-44 h-12 rounded-full max-sm:bg-primary max-sm:border-none'>
+                    <button className='font-bold text-white sm:uppercase text-sm z-10 bg-transparent border group-hover:border-none group-hover:bg-primary duration-300 ease-in-out w-44 h-12 max-sm:w-36 max-sm:h-10 rounded-full'>
                         {category.category_name}
                     </button>
                 </Link>

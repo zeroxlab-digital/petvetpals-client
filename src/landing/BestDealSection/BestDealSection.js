@@ -1,5 +1,6 @@
 import Button from '@/components/Common/Button/Button';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const BestDealSection = () => {
@@ -38,7 +39,8 @@ const BestDealSection = () => {
                     <p className='text-gray-200 text-sm md:text-base mb-8 md:mb-14 px-5 md:px-0'>
                         Grab the best deals from PetVetPals Grab the best deals from PetVetPals Grab the best deals from PetVetPals
                     </p>
-                    <Button classNames={"bg-yellow-300 rounded-full font-semibold"} size={"medium"}>Shop Now</Button>
+                    <Link href="/shop"><Button classNames={"bg-yellow-300 rounded-full font-semibold"} size={"medium"}>Shop Now</Button>
+                    </Link>
                 </div>
 
                 {/* Right Image */}

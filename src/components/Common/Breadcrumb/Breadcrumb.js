@@ -8,9 +8,9 @@ const Breadcrumb = () => {
     const pathnameSlugs = pathname.split("/").filter(slug => slug);
     return (
         <nav className="text-gray-600 text-sm font-medium">
-            <ul className="flex uppercase">
+            <ul className="flex sm:uppercase">
                 <li>
-                    <Link href="/" className="hover:text-blue-500 duration-100">home</Link>
+                    <Link href="/" className="hover:text-blue-600 duration-200">home</Link>
                 </li>
                 {pathnameSlugs.map((slug, index) => {
                     const routeTo = "/" + pathnameSlugs.slice(0, index + 1).join("/");
@@ -18,7 +18,7 @@ const Breadcrumb = () => {
 
                     return (
                         <li key={routeTo} className="flex items-center">
-                            <span className="mx-2">/</span>
+                            <span className="mx-1">/</span>
                             {isLast ? (
                                 <span className="text-gray-700">{decodeURIComponent(slug)}</span>
                             ) : (

@@ -5,8 +5,8 @@ import { HiCheckCircle } from 'react-icons/hi2';
 
 const GetStartedSection = () => {
     return (
-        <section className='app-container md:w-3/4 mx-auto pt-24 my-16'>
-            <div className=' text-center bg-opacity-20 rounded-xl w-full h-auto flex flex-col items-center px-5 py-14 '
+        <section className='app-container md:w-3/4 mx-auto pt-20 my-10'>
+            <div className=' text-center bg-opacity-20 rounded-xl w-full h-auto flex flex-col items-center px-5 py-14 max-sm:py-7'
                 style={{
                     backgroundImage: 'url(/images/doggies-banner.jpg)',
                     backgroundRepeat: 'no-repeat',
@@ -21,8 +21,7 @@ const GetStartedSection = () => {
                 <Button variant={"primary"} size={"large"} classNames={" text-sm rounded-lg text-white w-[14rem] !h-12"}>Get Vet Appointment <HiArrowSmRight /></Button>
                 <ul className='flex items-center gap-7 mt-10'>
                     <li className='flex items-center gap-1 text-gray-600 text-sm'><HiCheckCircle className='text-green-300' /> Fast & convenient</li>
-                    <li className='flex items-center gap-1 text-gray-600 text-sm'><HiCheckCircle className='text-green-300' /> Cheap</li>
-                    <li className='flex items-center gap-1 text-gray-600 text-sm'><HiCheckCircle className='text-green-300' /> 24/7</li>
+                    <li className='flex items-center gap-1 text-gray-600 text-sm'><HiCheckCircle className='text-green-300' /> 24/7 services</li>
                 </ul>
             </div>
         </section>
