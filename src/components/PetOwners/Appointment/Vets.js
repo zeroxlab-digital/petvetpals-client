@@ -4,9 +4,9 @@ import { HiArrowRight } from 'react-icons/hi2';
 
 const Vets = ({ vets, currentPath }) => {
     return (
-        <div className='mt-5'>
+        <div className='max-sm:mt-5'>
             {vets?.length > 1 ?
-                <div className='flex flex-col gap-5 '>
+                <div className='flex flex-col gap-5'>
                     {
                         vets.map(({ _id, image, fullName, title, works_at, experience_years, specialities, fees }) => (
                             <Link href={{
@@ -14,7 +14,7 @@ const Vets = ({ vets, currentPath }) => {
                                 query: {
                                     vet: `${fullName.toLowerCase()}`
                                 }
-                            }} key={_id} className='rounded-md hover:shadow-md duration-150 grid sm:grid-cols-[5fr_3fr_2fr] gap-5 max-sm:gap-0 items-center md:border max-md:bg-white '>
+                            }} key={_id} className='rounded-md max-md:shadow-lg hover:shadow-lg duration-200 grid sm:grid-cols-[5fr_3fr_2fr] gap-5 max-sm:gap-0 items-center md:border max-md:bg-white '>
                                 <div className='flex sm:items-start gap-5 max-sm:gap-3 p-3'>
                                     <div><Image src="/images/vet.png" alt="" width={100} height={100} className='rounded max-w-32' /></div>
                                     <div>
