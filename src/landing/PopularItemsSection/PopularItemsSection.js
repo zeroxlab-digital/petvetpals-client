@@ -77,7 +77,7 @@ const PopularItemsSection = () => {
                             >
                                 <Link
                                     href={{
-                                        pathname: `/shop/${product._id}`,
+                                        pathname: `/shop/all-deals/shop-all/${product._id}`,
                                         query: {
                                             title: `${product.name.toLowerCase()}`,
                                         },
@@ -113,7 +113,7 @@ const PopularItemsSection = () => {
                                 </Link>
                                 <div className=" flex gap-1 p-2">
                                     <button onClick={(e) => handleAddToCart(e, product)} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-8 sm:h-9 w-full max-sm:text-sm"><HiShoppingCart className='' /> Add to Cart</button>
-                                    <button onClick={(e) => e.stopPropagation()} className="border border-[#161515a5] rounded w-10 flex justify-center items-center text-base"><HiOutlineHeart className=" text-[#161515]" /></button>
+                                    <button onClick={(e) => e.stopPropagation()} className="max-sm:hidden border border-[#161515a5] rounded w-10 flex justify-center items-center text-base "><HiOutlineHeart className=" text-[#161515]" /></button>
                                 </div>
                             </SwiperSlide>
                         ))}
@@ -165,7 +165,7 @@ const PopularItemsSection = () => {
                             >
                                 <Link
                                     href={{
-                                        pathname: `/shop/${product._id}`,
+                                        pathname: `/shop/all-deals/shop-all/${product._id}`,
                                         query: {
                                             title: `${product.name.toLowerCase()}`,
                                         },
@@ -201,7 +201,7 @@ const PopularItemsSection = () => {
                                 </Link>
                                 <div className=" flex gap-1 p-2">
                                     <button onClick={(e) => handleAddToCart(e, product)} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-8 sm:h-9 w-full max-sm:text-sm"><HiShoppingCart className='' /> Add to Cart</button>
-                                    <button onClick={(e) => e.stopPropagation()} className="border border-[#161515a5] rounded w-10 flex justify-center items-center text-base"><HiOutlineHeart className=" text-[#161515]" /></button>
+                                    <button onClick={(e) => e.stopPropagation()} className="max-sm:hidden border border-[#161515a5] rounded w-10 flex justify-center items-center text-base"><HiOutlineHeart className=" text-[#161515]" /></button>
                                 </div>
                             </SwiperSlide>
                         ))}
@@ -253,7 +253,7 @@ const PopularItemsSection = () => {
                             >
                                 <Link
                                     href={{
-                                        pathname: `/shop/${product._id}`,
+                                        pathname: `/shop/all-deals/shop-all/${product._id}`,
                                         query: {
                                             title: `${product.name.toLowerCase()}`,
                                         },
@@ -289,7 +289,7 @@ const PopularItemsSection = () => {
                                 </Link>
                                 <div className=" flex gap-1 p-2">
                                     <button onClick={(e) => handleAddToCart(e, product)} className="flex items-center gap-2 justify-center  text-center bg-[#1b1a1af7] text-white  rounded h-8 sm:h-9 w-full max-sm:text-sm"><HiShoppingCart className='' /> Add to Cart</button>
-                                    <button onClick={(e) => e.stopPropagation()} className="border border-[#161515a5] rounded w-10 flex justify-center items-center text-base"><HiOutlineHeart className=" text-[#161515]" /></button>
+                                    <button onClick={(e) => e.stopPropagation()} className="max-sm:hidden border border-[#161515a5] rounded w-10 flex justify-center items-center text-base"><HiOutlineHeart className=" text-[#161515]" /></button>
                                 </div>
                             </SwiperSlide>
                         ))}

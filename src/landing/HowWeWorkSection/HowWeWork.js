@@ -18,21 +18,21 @@ const HowWeWork = () => {
                         alt="vet"
                         width={300}
                         height={200}
-                        className='w-full md:w-auto  h-auto max-md:order-2'
+                        className='w-full max-md:order-2'
                     />
                     <Image
                         src="/images/vet-video.webp"
                         alt="vet"
                         width={300}
                         height={300}
-                        className='w-full md:w-auto h-auto max-md:order-1'
+                        className='w-full  max-md:order-1'
                     />
                     <Image
                         src="/images/vet-result.png"
                         alt="vet"
                         width={300}
                         height={200}
-                        className='w-full md:w-auto h-auto max-lg:hidden'
+                        className='w-full  max-lg:hidden'
                     />
                 </div>
             </div>
