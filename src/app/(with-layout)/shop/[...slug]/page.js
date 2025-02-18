@@ -8,12 +8,12 @@ const page = ({ params }) => {
     const { slug } = params;
     if (slug.length === 1) {
         return (
-            <>
+            <div>
                 <ShopCategories type={slug[0]} />
                 <div className='mt-14'>
                     <Products slug={slug} />
                 </div>
-            </>
+            </div>
         )
     } else if (slug.length === 2) {
         return (
@@ -23,10 +23,10 @@ const page = ({ params }) => {
         )
     } else if (slug.length === 3) {
         return (
-            <>
+            <div>
                 <Breadcrumb />
                 <ProductDetails slug={slug[2]} />
-            </>
+            </div>
         )
     }
 };
