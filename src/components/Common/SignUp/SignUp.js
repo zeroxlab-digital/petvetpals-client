@@ -14,8 +14,11 @@ const SignUpPage = () => {
         password: "",
         confirmPassword: ""
     })
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
     const handleRegistration = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             console.log(user);
             const response = await axios.post(`https://petvetpals-server.onrender.com/api/user/register`, user , {
@@ -29,6 +32,8 @@ const SignUpPage = () => {
             }
         } catch (error) {
             console.log(error);
+            setError(error.response?.data?.message)
+            setIsLoading(false);
         }
     }
 
@@ -58,7 +63,8 @@ const SignUpPage = () => {
                             onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
                             value={user.confirmPassword}
                         />
-                        <button type="submit" className="bg-primary p-3 rounded-md cursor-pointer text-white mt-5">Submit</button>
+                        {error && <p className="text-red-400">{error}</p>}
+                        <button type="submit" className={`bg-primary p-3 rounded-md cursor-pointer text-white mt-5 ${error && '!mt-0'}`}>{isLoading ? 'Loading...' : 'Sign Up'}</button>
                     </form>
                     <div className="my-5">
                         <p>Already have an account? <Link href="/signin" className="text-primary">Sign In</Link></p>
