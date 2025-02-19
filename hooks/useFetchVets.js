@@ -4,16 +4,21 @@ import { useEffect, useState } from "react";
 
 const useFetchVets = () => {
     const [vets, setVets] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(false);
     useEffect(() => {
         const handleFetchVets = async () => {
             const res = await axios.get(`https://petvetpals-server.onrender.com/api/vet/all-vets`);
-            if(res.status === 200) {
+            if (res.status === 200) {
                 setVets(res.data.vets)
+                setIsLoading(false);
+            } else {
+                setError(true);
             }
         };
         handleFetchVets();
     }, [])
-    return vets;;
+    return { vets, isLoading, error };;
 }
 
 export default useFetchVets;
