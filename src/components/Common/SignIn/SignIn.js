@@ -15,8 +15,11 @@ const SignInPage = () => {
         email: "",
         password: ""
     })
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
     const handleUserLogin = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             const response = await axios.post(`https://petvetpals-server.onrender.com/api/user/login`, user, {
                 headers: {
@@ -24,6 +27,7 @@ const SignInPage = () => {
                 },
                 withCredentials: true
             })
+
             if (response.status === 200) {
                 dispatch(setAuthUser(response?.data?.userDetails));
                 alert("User loggin successfull!");
@@ -31,6 +35,8 @@ const SignInPage = () => {
             }
         } catch (error) {
             console.log(error);
+            setError(error.response?.data?.message)
+            setIsLoading(false);
         }
     }
     return (
@@ -52,7 +58,8 @@ const SignInPage = () => {
                         <div className="flex">
                             <Link className="text-primary" href="">Forgot password?</Link>
                         </div>
-                        <button type="submit" className="bg-primary p-3 rounded-md cursor-pointer text-white mt-5">Sign In </button>
+                        {error && <p className="text-red-400">{error}</p>}
+                        <button type="submit" className={`bg-primary p-3 rounded-md cursor-pointer text-white mt-5 ${error && '!mt-0'}`}>{isLoading ? 'Loading...' : 'Sign In'}</button>
                     </form>
                     <div className="my-5">
                         <p>Dont have an account? <Link href="/signup" className="text-primary">Sign Up</Link></p>
