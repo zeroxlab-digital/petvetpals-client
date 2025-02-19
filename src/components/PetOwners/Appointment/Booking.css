@@ -29,7 +29,7 @@
 }
 /* Selected date style */
 .rdp-custom .rdp-day.rdp-selected {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color)!important;
     color: white;
     font-weight: 500;
 }
@@ -75,6 +75,7 @@
     transition: all 0.3s ease;
     padding: 16px;
     border: none;
+
 }
 
 .rdp-months button:hover {
@@ -83,3 +84,9 @@
 
 
 
+/* Apply a blue background to available dates */
+.rdp-custom .rdp-day:not(.rdp-disabled) {
+    background-color: #36363649;
+    color: white;
+    font-weight: 600;
+}
