@@ -17,7 +17,7 @@ import FAQs from "@/components/Common/FAQs/FAQs";
 const VetDetails = ({ params }) => {
     const { authUser } = useSelector((state) => state.userRedu.user);
 
-    const vets = useFetchVets();
+    const { vets, isLoading, error } = useFetchVets();
     const foundVet = vets.find(vet => vet._id === params._id);
 
     const { _id, image, fullName, title, works_at, experience_years, specialities, fees } = foundVet || {};
@@ -38,7 +38,12 @@ const VetDetails = ({ params }) => {
         { title: "How do I pay for a consultation?", details: "You can pay securely using credit/debit cards, PayPal, or cryptocurrency through our integrated payment system." },
         { title: "Can I cancel or reschedule my appointment?", details: "Yes, you can cancel or reschedule an appointment from your dashboard, but cancellation policies may vary by veterinarian." }
     ];
-
+    if (isLoading) {
+        return <div className='max-sm:mt-5 text-center h-[calc(100vh-5.1rem)]'>Loading vet details...</div>
+    }
+    if (error) {
+        return <div className='max-sm:mt-5 text-center h-[calc(100vh-5.1rem)]'>There was an error fetching vet details!</div>
+    }
     return (
         <div>
             <div className="bg-white">

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import useFetchVets from "../../../../hooks/useFetchVets";
 
 const AppointmentsPage = () => {
-    const vets = useFetchVets();
+    const { vets, isLoading, error } = useFetchVets();
     const currentPath = usePathname();
     const [filterChange, setFilterChange] = useState({});
     const [filteredVets, setFilteredVets] = useState([]);
@@ -48,7 +48,7 @@ const AppointmentsPage = () => {
     return (
         <div className="app-container py-10 max-xl:py-5 xl:grid xl:grid-cols-[2fr_10fr] gap-12 max-xl:gap-3 max-md:bg-gray-100 max-md:h-[calc(100vh-5.1rem)]">
             <VetFilterSidebar setFilterChange={setFilterChange} vets={filteredVets} />
-            <Vets vets={filteredVets} currentPath={currentPath} />
+            <Vets vets={filteredVets} isLoading={isLoading} error={error} currentPath={currentPath} />
         </div>
     );
 };

@@ -2,7 +2,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { HiArrowRight } from 'react-icons/hi2';
 
-const Vets = ({ vets, currentPath }) => {
+const Vets = ({ vets, isLoading, error, currentPath }) => {
+    if(isLoading) {
+        return <div className='max-sm:mt-5 text-center'>Loading vets...</div>
+    }
+    if(error) {
+        return <div className='max-sm:mt-5 text-center'>There was an error fetching vets!</div>
+    }
     return (
         <div className='max-sm:mt-5'>
             {vets?.length > 1 ?
