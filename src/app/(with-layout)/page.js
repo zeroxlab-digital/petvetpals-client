@@ -8,6 +8,8 @@ import PetTypesSection from "@/landing/PetTypesSection/PetTypesSection";
 import PopularItemsSection from "@/landing/PopularItemsSection/PopularItemsSection";
 import HowItWorksSection from "@/landing/HowItWorksSection/HowItWorksSection";
 import AllInOne from "@/landing/AllServicesSection/AllServicesSection";
+import PetHealthTrackerSection from "../../landing/PetHealthTrackerSection/PetHealthTrackerSection";
+import AISyndromeCheckerSection from "@/landing/AISyndromeCheckerSection/AISyndromeCheckerSection";
 
 const Home = () => {
   return (
@@ -19,6 +21,8 @@ const Home = () => {
       <HowWeWork />
       <PopularItemsSection />
       <BestDealSection />
+      <PetHealthTrackerSection />
+      <AISyndromeCheckerSection />
       <AllInOne />
       <GetStartedSection />
       <BlogsSection />
