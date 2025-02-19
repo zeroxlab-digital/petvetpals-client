@@ -7,26 +7,26 @@ import React from 'react';
 const ShopCategories = ({ type }) => {
     const dogCategories = [
         { title: "Shop all", image: "/images/cute-dog.jpg", link: "shop-all" },
-        { title: "Dog food", image: "/images/cute-dog.jpg", link: "foods" },
-        { title: "Dog treats", image: "/images/cute-dog.jpg", link: "treats" },
-        { title: "Dog supplies", image: "/images/cute-dog.jpg", link: "supplies" },
+        { title: "Dog food", image: "/images/dog-foods.jfif", link: "foods" },
+        { title: "Dog treats", image: "/images/dog-treats.jpg", link: "treats" },
+        { title: "Dog supplies", image: "/images/dog-accessories.jpg", link: "supplies" },
     ];
     const catCategories = [
         { title: "Shop all", image: "/images/cat.avif", link: "shop-all" },
-        { title: "Cat food & treats", image: "/images/cat.avif", link: "foods-and-treats" },
-        { title: "Accessories and supplies", image: "/images/cat.avif", link: "accessories-and-supplies" },
+        { title: "Cat food & treats", image: "/images/pet-foods.webp", link: "foods-and-treats" },
+        { title: "Accessories and supplies", image: "/images/cat-accessories.webp", link: "accessories-and-supplies" },
     ];
     const dogPharmacyCategories = [
-        { title: "Shop all", image: "/images/cute-dog.jpg", link: "shop-all" },
-        { title: "Dog medications", image: "/images/cute-dog.jpg", link: "dog-medications" },
-        { title: "Flea & tick treatments", image: "/images/cute-dog.jpg", link: "flea-tick-treatments" },
-        { title: "Supplements & vitamins", image: "/images/cute-dog.jpg", link: "supplements-vitamins" },
+        { title: "Shop all", image: "/images/dog-medicines.jfif", link: "shop-all" },
+        { title: "Dog medications", image: "/images/dog-medications.jpg", link: "dog-medications" },
+        { title: "Flea & tick treatments", image: "/images/dog-flea-treat.jpg", link: "flea-tick-treatments" },
+        { title: "Supplements & vitamins", image: "/images/dog-supplements.webp", link: "supplements-vitamins" },
     ];
     const catPharmacyCategories = [
-        { title: "Shop all", image: "/images/cat.avif", link: "shop-all" },
-        { title: "Cat medications", image: "/images/cat.avif", link: "cat-medications" },
-        { title: "Flea & tick treatments", image: "/images/cat.avif", link: "flea-tick-treatments" },
-        { title: "Supplements & vitamins", image: "/images/cat.avif", link: "supplements-vitamins" },
+        { title: "Shop all", image: "/images/cat-medicines.jfif", link: "shop-all" },
+        { title: "Cat medications", image: "/images/cat-medication.jpg", link: "cat-medications" },
+        { title: "Flea & tick treatments", image: "/images/cat-flea-treat.avif", link: "flea-tick-treatments" },
+        { title: "Supplements & vitamins", image: "/images/cat-supplement.jpg", link: "supplements-vitamins" },
     ];
 
     const pathname = usePathname();
@@ -41,7 +41,7 @@ const ShopCategories = ({ type }) => {
                 : catPharmacyCategories;
 
     return (
-        <div className="flex flex-wrap gap-5 justify-evenly">
+        <div className="grid grid-cols-5 max-md:grid-cols-3 gap-5">
             {categories.map((category, index) => (
                 <div key={index}>
                     <Link href={`${type}/${category.link}`}>

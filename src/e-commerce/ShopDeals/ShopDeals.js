@@ -23,9 +23,9 @@ const ShopDeals = () => {
                     className='border rounded-lg hover:shadow-lg duration-200 w-full h-32 text-center flex items-center justify-center relative group overflow-hidden'
                     style={{
                         backgroundImage: index === 0
-                            ? 'url("/images/cute-dog.jpg")'
+                            ? `url(${category.category_image})`
                             : index === 1
-                                ? 'url("/images/cat-cute.jpg")'
+                                ? `url(${category.category_image})`
                                 : 'url("")',
                         backgroundRepeat: 'no-repeat',
                         backgroundSize: 'cover',
@@ -36,9 +36,9 @@ const ShopDeals = () => {
                         className='absolute inset-0 transition-transform duration-500 ease-in-out group-hover:scale-110 z-[0]'
                         style={{
                             backgroundImage: index === 0
-                                ? 'url("/images/cute-dog.jpg")'
+                                ? `url(${category.category_image})`
                                 : index === 1
-                                    ? 'url("/images/cat-cute.jpg")'
+                                    ? `url(${category.category_image})`
                                     : 'url("")',
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',

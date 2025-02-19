@@ -2,7 +2,7 @@
     {
         "category_name": "Dog Pharmacy",
         "category_slug": "dog-pharmacy",
-        "category_image": "/images/dog-pharmacy.jfif",
+        "category_image": "/images/dog-pharmacy.jpeg",
         "sub_categories": [
             {
                 "name": "Shop All",
@@ -29,7 +29,7 @@
     {
         "category_name": "Cat Pharmacy",
         "category_slug": "cat-pharmacy",
-        "category_image": "/images/cat-pharmacy.jfif",
+        "category_image": "/images/cat-pharmacy-1.webp",
         "sub_categories": [
             {
                 "name": "Shop All",

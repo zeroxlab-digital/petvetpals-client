@@ -11,10 +11,6 @@ const PetTypesSection = () => {
         { title: "Dog deals", image: "/images/cute-dog.jpg", link: "/shop/dog-deals" },
         { title: "Cat deals", image: "/images/cat.avif", link: "/shop/cat-deals" },
         { title: "Pharmacy", image: "/images/pharmacy.avif", link: "/pharmacy" },
-        // { title: "Rabbit deals", image: "/images/cat.avif", link: "/shop/dog-deals" },
-        // { title: "Birds deals", image: "/images/cat.avif", link: "/shop/dog-deals" },
-        // { title: "Fish deals", image: "/images/cat.avif", link: "/shop/dog-deals" },
-        // { title: "Small animals", image: "/images/cat.avif", link: "/shop/dog-deals" },
     ];
 
     const swiperRef = useRef(null);

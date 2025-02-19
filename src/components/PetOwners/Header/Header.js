@@ -54,19 +54,27 @@ const Header = () => {
                         <Navbar setResponsiveMenu={setResponsiveMenu} />
 
                         {/* Auth Buttons */}
-                        <div className="flex items-center gap-3 justify-center mt-auto mb-10">
-                            <Link href="/signin" className="w-full">
-                                <button className="w-full border border-[#58294E] text-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]">
-                                    <HiOutlineUser className="text-xl" />
-                                    Sign In
-                                </button>
-                            </Link>
-                            <Link href="/signup" className="w-full">
-                                <button className="w-full border border-[#58294E] text-white bg-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]">
-                                    <HiOutlineUserPlus className="text-xl" />
-                                    Sign Up
-                                </button>
-                            </Link>
+                        <div className="mt-auto mb-10">
+                            {!authUser ?
+                                <div className="flex items-center gap-3 justify-center ">
+                                    <Link href="/signin" className="w-full">
+                                        <button className="w-full border border-[#58294E] text-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]">
+                                            <HiOutlineUser className="text-xl" />
+                                            Sign In
+                                        </button>
+                                    </Link>
+                                    <Link href="/signup" className="w-full">
+                                        <button className="w-full border border-[#58294E] text-white bg-primary h-11 rounded-full flex items-center gap-2 justify-center font-[500]">
+                                            <HiOutlineUserPlus className="text-xl" />
+                                            Sign Up
+                                        </button>
+                                    </Link>
+                                </div>
+                                :
+                                <div>
+                                    <p className="text-gray-700 text-sm">&copy; All rights reserved by - PetVetPals</p>
+                                </div>
+                            }
                         </div>
                     </div>
 
@@ -113,9 +121,6 @@ const Header = () => {
                                     <button className="relative top-1">
                                         <HiOutlineUserCircle className="text-2xl " />
                                     </button>
-                                    {/* <button className="px-5 py-[7px] text-white bg-primary rounded-lg">
-                                            Sign Up
-                                        </button> */}
                                 </Link>
                             </>
                         )}

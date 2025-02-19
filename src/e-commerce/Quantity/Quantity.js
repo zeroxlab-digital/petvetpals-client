@@ -19,11 +19,11 @@ const Quantity = ({ item }) => {
     return (
         <div>
             <div className="flex items-center gap-1">
-                <button onClick={handleQuantityDecrease} className="border border-gray-500 w-10 h-9 flex items-center justify-center rounded">
+                <button onClick={handleQuantityDecrease} className="border border-gray-500 w-10 h-9 max-sm:w-7 max-sm:h-7 flex items-center justify-center rounded">
                     <HiMinus />
                 </button>
-                <p className="border border-gray-500 w-16 h-9 flex items-center justify-center rounded">{item.order_quantity}</p>
-                <button onClick={handleQuantityIncrease} className="border border-gray-500 w-10 h-9 flex items-center justify-center rounded">
+                <p className="border border-gray-500 w-16 h-9 max-sm:w-11 max-sm:h-7 flex items-center justify-center rounded">{item.order_quantity}</p>
+                <button onClick={handleQuantityIncrease} className="border border-gray-500 w-10 h-9 max-sm:w-7 max-sm:h-7 flex items-center justify-center rounded">
                     <HiPlus />
                 </button>
             </div>
