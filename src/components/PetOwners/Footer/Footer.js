@@ -1,11 +1,287 @@
-import './Footer.css';
+/* eslint-disable react/no-unescaped-entities */
+"use client"
 
-const Footer = () => {
-    return (
-        <footer className=''>
-            
-        </footer>
-    );
-};
+import { motion } from "framer-motion"
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+  Mail,
+  MapPin,
+  Phone,
+  Heart,
+  PawPrintIcon as Paw,
+  ShoppingBag,
+  Pill,
+  Video,
+  Calendar,
+  Clock,
+  ChevronRight,
+  Send,
+  Shield,
+  Scissors,
+  GraduationCap,
+  Home,
+  Linkedin,
+} from "lucide-react"
 
-export default Footer;
+export default function Footer() {
+  const currentYear = new Date().getFullYear()
+
+  return (
+    <footer className="bg-primary text-gray-200 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          className="absolute top-0 left-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"
+          animate={{
+            x: [-50, 50, -50],
+            y: [-50, 50, -50],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "linear",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl"
+          animate={{
+            x: [50, -50, 50],
+            y: [50, -50, 50],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "linear",
+          }}
+        />
+      </div>
+
+      {/* Newsletter Section */}
+      <div className="relative border-b border-gray-800">
+        <div className="app-container mx-auto px-4 py-12">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <h3 className="text-2xl md:text-3xl font-bold mb-4">Join Our Pet-Loving Community</h3>
+              <p className="text-gray-300 mb-8">Subscribe to receive updates, pet care tips, and exclusive offers</p>
+              <form className="grid grid-cols-[3fr_1fr] max-sm:grid-cols-1 gap-4 sm:w-3/5 max-sm:px-10 mx-auto">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className=" bg-gray-800/50 border-gray-700 text-white placeholder:text-gray-500 rounded-lg p-3"
+                />
+                <button className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white p-3 rounded-md flex items-center gap-0">
+                  Subscribe
+                  <Send className="w-4 h-4 ml-2" />
+                </button>
+              </form>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Footer Content */}
+      <div className="relative app-container mx-auto  py-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* Company Info */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="flex items-center gap-2 mb-6">
+              <Paw className="w-8 h-8 text-purple-500" />
+              <span className="text-2xl font-bold">PetVetPals</span>
+            </div>
+            <p className="text-gray-300 mb-6">
+              Your one-stop destination for all pet health needs. We're committed to providing the best care for your
+              furry friends.
+            </p>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 text-gray-300">
+                <MapPin className="w-5 h-5 text-purple-500" />
+                <span>123 Pet Street, Pawsome City, PC 12345</span>
+              </div>
+              <div className="flex items-center gap-3 text-gray-300">
+                <Phone className="w-5 h-5 text-purple-500" />
+                <span>+1 (555) 123-4567</span>
+              </div>
+              <div className="flex items-center gap-3 text-gray-300">
+                <Mail className="w-5 h-5 text-purple-500" />
+                <span>care@petvetpals.com</span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Shop Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <h4 className="text-xl font-semibold mb-6 flex items-center gap-2">
+              <ShoppingBag className="w-5 h-5 text-purple-500" />
+              Shop & Pharmacy
+            </h4>
+            <ul className="space-y-4">
+              {[
+                "Pet Food & Treats",
+                "Toys & Accessories",
+                "Grooming Supplies",
+                "Health Supplements",
+                "Prescription Medicine",
+                "Pet Care Equipment",
+                "Special Diet Food",
+              ].map((item, index) => (
+                <motion.li
+                  key={index}
+                  className="flex items-center gap-2 text-gray-300 hover:text-purple-400 transition-colors cursor-pointer"
+                  whileHover={{ x: 5 }}
+                >
+                  <ChevronRight className="w-4 h-4" />
+                  {item}
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Services Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <h4 className="text-xl font-semibold mb-6 flex items-center gap-2">
+              <Heart className="w-5 h-5 text-purple-500" />
+              Our Services
+            </h4>
+            <ul className="space-y-4">
+              {[
+                { text: "Online Vet Consultation", icon: Video },
+                { text: "AI Health Checker", icon: Pill },
+                { text: "Emergency Care", icon: Clock },
+                { text: "Vaccination Scheduler", icon: Calendar },
+                { text: "Pet Insurance", icon: Shield },
+                { text: "Training Programs", icon: GraduationCap },
+                { text: "Pet Adoption", icon: Home },
+              ].map((item, index) => (
+                <motion.li
+                  key={index}
+                  className="flex items-center gap-2 text-gray-300 hover:text-purple-400 transition-colors cursor-pointer group"
+                  whileHover={{ x: 5 }}
+                >
+                  <item.icon className="w-4 h-4 group-hover:text-purple-500 transition-colors" />
+                  {item.text}
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Working Hours & Social */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            <h4 className="text-xl font-semibold mb-6 flex items-center gap-2">
+              <Clock className="w-5 h-5 text-purple-500" />
+              Working Hours
+            </h4>
+            <div className="mb-8 space-y-3">
+              <div className="flex justify-between text-gray-300">
+                <span>Monday - Friday:</span>
+                <span>8:00 AM - 9:00 PM</span>
+              </div>
+              <div className="flex justify-between text-gray-300">
+                <span>Saturday:</span>
+                <span>9:00 AM - 7:00 PM</span>
+              </div>
+              <div className="flex justify-between text-gray-300">
+                <span>Sunday:</span>
+                <span>10:00 AM - 5:00 PM</span>
+              </div>
+              <div className="pt-2 text-purple-400 font-semibold">24/7 Emergency Care Available</div>
+            </div>
+
+            <h4 className="text-xl font-semibold mb-4">Connect With Us</h4>
+            <div className="flex gap-4">
+              {[
+                { icon: Facebook, color: "hover:bg-blue-500" },
+                { icon: Twitter, color: "hover:bg-sky-500" },
+                { icon: Instagram, color: "hover:bg-pink-600" },
+                { icon: Youtube, color: "hover:bg-red-600" },
+                { icon: Linkedin, color: "hover:bg-blue-600" },
+              ].map((social, index) => (
+                <motion.a
+                  key={index}
+                  href="#"
+                  className={`w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center ${social.color} transition-colors`}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <social.icon className="w-5 h-5" />
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="mt-16 pt-8 border-t border-gray-800">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="text-gray-300 text-sm">© {currentYear} PetVetPals. All rights reserved.</div>
+            <div className="flex gap-6 text-sm">
+              <a href="#" className="text-gray-300 hover:text-purple-400 transition-colors">
+                Privacy Policy
+              </a>
+              <a href="#" className="text-gray-300 hover:text-purple-400 transition-colors">
+                Terms of Service
+              </a>
+              <a href="#" className="text-gray-300 hover:text-purple-400 transition-colors">
+                Cookie Policy
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Floating paw prints */}
+        {[...Array(5)].map((_, index) => (
+          <motion.div
+            key={index}
+            className="absolute text-purple-500/10"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              x: [0, Math.random() * 100 - 50],
+              y: [0, Math.random() * -100],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Number.POSITIVE_INFINITY,
+              delay: index * 2,
+            }}
+            style={{
+              left: `${Math.random() * 100}%`,
+              bottom: "20%",
+            }}
+          >
+            <Paw className="w-8 h-8" />
+          </motion.div>
+        ))}
+      </div>
+    </footer>
+  )
+}
+
