@@ -1,4 +1,3 @@
-import Footer from "@/components/PetOwners/Footer/Footer";
 import Header from "@/components/PetOwners/Header/Header";
 
 const WithLayout = ({ children }) => {
@@ -6,7 +5,6 @@ const WithLayout = ({ children }) => {
         <div>
             <Header />
             {children}
-            <Footer />
         </div>
     );
 };

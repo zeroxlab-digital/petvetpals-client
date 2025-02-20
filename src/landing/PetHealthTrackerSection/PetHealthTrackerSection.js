@@ -41,7 +41,7 @@ const PetHealthTrackerSection = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <h2 className="text-3xl font-bold text-center text-indigo-800 mb-8">Track Your Pet&apos;s Health Over Time</h2>
+          <h2 className="text-2xl font-semibold text-center text-indigo-800 mb-8">Track Your Pet&apos;s Health Over Time</h2>
           <div className="bg-white p-8 rounded-xl shadow-xl">
             <AnimatedGraph />
           </div>
