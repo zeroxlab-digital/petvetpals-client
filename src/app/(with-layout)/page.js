@@ -10,23 +10,27 @@ import HowItWorksSection from "@/landing/HowItWorksSection/HowItWorksSection";
 import AllInOne from "@/landing/AllServicesSection/AllServicesSection";
 import PetHealthTrackerSection from "../../landing/PetHealthTrackerSection/PetHealthTrackerSection";
 import AISyndromeCheckerSection from "@/landing/AISyndromeCheckerSection/AISyndromeCheckerSection";
+import Footer from "@/components/PetOwners/Footer/Footer";
 
 const Home = () => {
   return (
-    <main>
-      <HeroSection />
-      <FeaturesSection />
-      <PetTypesSection />
-      <HowItWorksSection />
-      <HowWeWork />
-      <PopularItemsSection />
-      <BestDealSection />
-      <PetHealthTrackerSection />
-      <AISyndromeCheckerSection />
-      <AllInOne />
-      <GetStartedSection />
-      <BlogsSection />
-    </main>
+    <>
+      <main>
+        <HeroSection />
+        <FeaturesSection />
+        <PetTypesSection />
+        <HowItWorksSection />
+        <HowWeWork />
+        <PopularItemsSection />
+        <BestDealSection />
+        <PetHealthTrackerSection />
+        <AISyndromeCheckerSection />
+        <AllInOne />
+        <GetStartedSection />
+        <BlogsSection />
+      </main>
+      <Footer />
+    </>
   );
 }
 

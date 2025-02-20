@@ -1,36 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client"
-
 import { motion } from "framer-motion"
-import {
-  Facebook,
-  Twitter,
-  Instagram,
-  Youtube,
-  Mail,
-  MapPin,
-  Phone,
-  Heart,
-  PawPrintIcon as Paw,
-  ShoppingBag,
-  Pill,
-  Video,
-  Calendar,
-  Clock,
-  ChevronRight,
-  Send,
-  Shield,
-  Scissors,
-  GraduationCap,
-  Home,
-  Linkedin,
-} from "lucide-react"
+import { Facebook, Twitter, Instagram, Youtube, Mail, MapPin, Phone, Heart, PawPrintIcon as Paw, ShoppingBag, Pill, Video, Calendar, Clock, ChevronRight, Send, Shield, Scissors, GraduationCap, Home, Linkedin, Building2Icon } from "lucide-react"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-primary text-gray-200 relative overflow-hidden">
+    <footer className="bg-primary text-gray-200 relative overflow-hidden rounded-t-[4rem]">
       {/* Decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -60,8 +37,8 @@ export default function Footer() {
       </div>
 
       {/* Newsletter Section */}
-      <div className="relative border-b border-gray-800">
-        <div className="app-container mx-auto px-4 py-12">
+      <div className="relative border-b border-gray-300 border-opacity-20">
+        <div className="app-container mx-auto py-16">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -69,15 +46,15 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h3 className="text-2xl md:text-3xl font-bold mb-4">Join Our Pet-Loving Community</h3>
+              <h3 className="text-2xl font-semibold mb-4">Join Our Pet-Loving Community</h3>
               <p className="text-gray-300 mb-8">Subscribe to receive updates, pet care tips, and exclusive offers</p>
-              <form className="grid grid-cols-[3fr_1fr] max-sm:grid-cols-1 gap-4 sm:w-3/5 max-sm:px-10 mx-auto">
+              <form className="grid grid-cols-[3fr_1fr] gap-3 sm:w-3/5 mx-auto">
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="bg-transparent bg-white outline-none text-gray-800 focus:ring-1 placeholder:text-gray-500 rounded-lg p-3"
+                  className="bg-transparent bg-white text-gray-800 outline-none placeholder:text-gray-500 rounded-md p-3"
                 />
-                <button className="border text-white p-3 rounded-md flex items-center gap-0">
+                <button className="bg-pink-900 bg-opacity-70 hover:bg-opacity-100 duration-100 text-white font-semibold p-3 rounded-md flex items-center gap-0">
                   Subscribe
                   <Send className="w-4 h-4 ml-2" />
                 </button>
@@ -98,7 +75,7 @@ export default function Footer() {
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center gap-2 mb-6">
-              <Paw className="w-8 h-8 text-purple-500" />
+              <Paw className="w-8 h-8 text-white" />
               <span className="text-2xl font-bold">PetVetPals</span>
             </div>
             <p className="text-gray-300 mb-6">
@@ -107,16 +84,16 @@ export default function Footer() {
             </p>
             <div className="space-y-4">
               <div className="flex items-center gap-3 text-gray-300">
-                <MapPin className="w-5 h-5 text-purple-500" />
-                <span>123 Pet Street, Pawsome City, PC 12345</span>
+                <MapPin className="w-5 h-5 text-white" />
+                <span>123 Pet Street, Monroe, LA 71203</span>
               </div>
               <div className="flex items-center gap-3 text-gray-300">
-                <Phone className="w-5 h-5 text-purple-500" />
-                <span>+1 (555) 123-4567</span>
+                <Phone className="w-5 h-5 text-white" />
+                <span>+1 (318) 123-4567</span>
               </div>
               <div className="flex items-center gap-3 text-gray-300">
-                <Mail className="w-5 h-5 text-purple-500" />
-                <span>care@petvetpals.com</span>
+                <Mail className="w-5 h-5 text-white" />
+                <span>hello@petvetpals.com</span>
               </div>
             </div>
           </motion.div>
@@ -129,7 +106,7 @@ export default function Footer() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <h4 className="text-xl font-semibold mb-6 flex items-center gap-2">
-              <ShoppingBag className="w-5 h-5 text-purple-500" />
+              <ShoppingBag className="w-5 h-5 text-white" />
               Shop & Pharmacy
             </h4>
             <ul className="space-y-4">
@@ -162,7 +139,7 @@ export default function Footer() {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <h4 className="text-xl font-semibold mb-6 flex items-center gap-2">
-              <Heart className="w-5 h-5 text-purple-500" />
+              <Heart className="w-5 h-5 text-white" />
               Our Services
             </h4>
             <ul className="space-y-4">
@@ -195,26 +172,28 @@ export default function Footer() {
             transition={{ duration: 0.5, delay: 0.6 }}
           >
             <h4 className="text-xl font-semibold mb-6 flex items-center gap-2">
-              <Clock className="w-5 h-5 text-purple-500" />
-              Working Hours
+              <Building2Icon className="w-5 h-5 text-white" />
+              About Us
             </h4>
-            <div className="mb-8 space-y-3">
-              <div className="flex justify-between text-gray-300">
-                <span>Monday - Friday:</span>
-                <span>8:00 AM - 9:00 PM</span>
-              </div>
-              <div className="flex justify-between text-gray-300">
-                <span>Saturday:</span>
-                <span>9:00 AM - 7:00 PM</span>
-              </div>
-              <div className="flex justify-between text-gray-300">
-                <span>Sunday:</span>
-                <span>10:00 AM - 5:00 PM</span>
-              </div>
-              <div className="pt-2 text-purple-400 font-semibold">24/7 Emergency Care Available</div>
-            </div>
+            <ul className="space-y-4">
+              {[
+                "Our Stories",
+                "Blog",
+                "Site Map",
+                "Refer Friends",
+              ].map((item, index) => (
+                <motion.li
+                  key={index}
+                  className="flex items-center gap-2 text-gray-300 hover:text-purple-400 transition-colors cursor-pointer"
+                  whileHover={{ x: 5 }}
+                >
+                  <ChevronRight className="w-4 h-4" />
+                  {item}
+                </motion.li>
+              ))}
+            </ul>
 
-            <h4 className="text-xl font-semibold mb-4">Connect With Us</h4>
+            <h4 className="text-base font-semibold mb-4 mt-8">Connect With Us</h4>
             <div className="flex gap-4">
               {[
                 { icon: Facebook, color: "hover:bg-blue-500" },
@@ -226,11 +205,11 @@ export default function Footer() {
                 <motion.a
                   key={index}
                   href="#"
-                  className={`w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center ${social.color} transition-colors`}
+                  className={`w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center ${social.color} transition-colors`}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <social.icon className="w-5 h-5" />
+                  <social.icon className="w-4 h-4" />
                 </motion.a>
               ))}
             </div>
@@ -238,7 +217,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-gray-800">
+        <div className="mt-16 pt-8 border-t border-gray-300 border-opacity-20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-gray-300 text-sm">© {currentYear} PetVetPals. All rights reserved.</div>
             <div className="flex gap-6 text-sm">

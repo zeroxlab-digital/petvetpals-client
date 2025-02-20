@@ -6,7 +6,7 @@ import { Brain, Bone, Fish, Cat, Dog, Bird, Heart, Star, Search, Shield, Activit
 
 export default function AISyndromeCheckerSection() {
   return (
-    <section className="rounded-t-[5rem] rounded-b-[5rem] py-32 bg-gradient-to-br from-rose-900 via-purple-900 to-indigo-900 overflow-hidden relative">
+    <section className="rounded-b-[4rem] py-32 bg-gradient-to-br from-rose-900 via-purple-900 to-indigo-900 overflow-hidden relative">
       {/* Floating pet elements */}
       <FloatingElements />
 
@@ -86,7 +86,7 @@ export default function AISyndromeCheckerSection() {
               </motion.p>
 
               {/* Feature cards */}
-              <div className="grid grid-cols-2 gap-6 mb-12">
+              <div className="grid grid-cols-2 gap-6">
                 {[
                   {
                     icon: Shield,
@@ -125,7 +125,7 @@ export default function AISyndromeCheckerSection() {
                 ))}
               </div>
 
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -146,7 +146,7 @@ export default function AISyndromeCheckerSection() {
                     →
                   </motion.span>
                 </button>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
 
             {/* Right side animation */}
