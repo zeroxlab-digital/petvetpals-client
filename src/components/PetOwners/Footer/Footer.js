@@ -75,9 +75,9 @@ export default function Footer() {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className=" bg-gray-800/50 border-gray-700 text-white placeholder:text-gray-500 rounded-lg p-3"
+                  className="bg-transparent bg-white outline-none text-gray-800 focus:ring-1 placeholder:text-gray-500 rounded-lg p-3"
                 />
-                <button className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white p-3 rounded-md flex items-center gap-0">
+                <button className="border text-white p-3 rounded-md flex items-center gap-0">
                   Subscribe
                   <Send className="w-4 h-4 ml-2" />
                 </button>
