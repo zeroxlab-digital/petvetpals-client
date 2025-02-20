@@ -1,57 +1,22 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client"
-
 import { useEffect, useState } from "react"
-import {
-  Activity,
-  Bell,
-  Calendar,
-  Check,
-  ChevronDown,
-  MessageSquare,
-  PawPrint,
-  PillIcon as Pills,
-  Plus,
-  Syringe,
-  Weight,
-} from "lucide-react"
+import { Activity, Bell, Calendar, Check, ChevronDown, MessageSquare, PawPrint, PillIcon as Pills, Plus, Syringe, Weight } from "lucide-react"
 import Image from "next/image"
 import { Line, LineChart as RechartsLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
+import InitialDashboard from "./InitialDashboard"
 
 const healthData = [
-  {
-    name: "Week 1",
-    weight: 32.5,
-    activity: 75,
-  },
-  {
-    name: "Week 2",
-    weight: 32.8,
-    activity: 82,
-  },
-  {
-    name: "Week 3",
-    weight: 32.6,
-    activity: 78,
-  },
-  {
-    name: "Week 4",
-    weight: 32.5,
-    activity: 85,
-  },
-  {
-    name: "Week 5",
-    weight: 32.4,
-    activity: 88,
-  },
-  {
-    name: "Week 6",
-    weight: 32.5,
-    activity: 85,
-  },
+  { name: "Week 1", weight: 32.5, activity: 75, },
+  { name: "Week 2", weight: 32.8, activity: 82, },
+  { name: "Week 3", weight: 32.6, activity: 78, },
+  { name: "Week 4", weight: 32.5, activity: 85, },
+  { name: "Week 5", weight: 32.4, activity: 88, },
+  { name: "Week 6", weight: 32.5, activity: 85, },
 ]
 
-export default function DashboardPage() {
+const DashboardPage = () => {
+  const pets = [];
   const [mounted, setMounted] = useState(false)
   const [showPetMenu, setShowPetMenu] = useState(false)
 
@@ -59,9 +24,12 @@ export default function DashboardPage() {
     setMounted(true)
   }, [])
 
+  if(pets.length < 1) {
+    return <InitialDashboard />
+  }
+
   return (
     <div className="min-h-screen ">
-
       {/* Main Content */}
       <main className="max-w-7xl mx-auto ">
         {/* Pet Selector and Actions */}
@@ -104,7 +72,7 @@ export default function DashboardPage() {
             </div>
           </div>
           <div className="flex gap-2">
-            <button className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+            <button className="flex items-center bg-primary text-white px-4 py-2 rounded-lg hover:bg-primaryOutline transition-colors">
               <Calendar className="mr-2 h-4 w-4" />
               Book Appointment
             </button>
@@ -260,8 +228,8 @@ export default function DashboardPage() {
         </div>
 
         {/* Medical History and Recent Updates */}
-        <div className="grid gap-4 md:grid-cols-2">
-          <div className="bg-white rounded-xl border shadow-sm">
+        <div className="grid gap-4 md:grid-cols-7">
+          <div className="bg-white rounded-xl border shadow-sm md:col-span-4">
             <div className="p-4 border-b">
               <h3 className="text-lg font-semibold">Medical History</h3>
               <p className="text-sm text-gray-500">Recent medical records</p>
@@ -305,7 +273,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl border shadow-sm">
+          <div className="bg-white rounded-xl border shadow-sm md:col-span-3">
             <div className="p-4 border-b">
               <h3 className="text-lg font-semibold">Recent Updates</h3>
               <p className="text-sm text-gray-500">Latest activities and notifications</p>
@@ -348,3 +316,4 @@ export default function DashboardPage() {
   )
 }
 
+export default DashboardPage;
