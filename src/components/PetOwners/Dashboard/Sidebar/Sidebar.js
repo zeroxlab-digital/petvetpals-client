@@ -43,7 +43,7 @@ const DashboardSidebar = ({ setResponsiveToggle }) => {
                     <span>{link.icon}</span>{link.title}
                 </li></Link>)}
             </ul>
-            <button onClick={handleUserLogout} className="mt-auto w-full rounded-md border border-red-500 text-left  h-12 px-3 text-red-500 flex items-center gap-2 "><HiArrowRightOnRectangle className='text-xl' /> Log out</button>
+            <button onClick={handleUserLogout} className="mt-auto w-full rounded-md border border-red-500 text-left  h-12 px-3 text-red-500  font-medium hover:bg-red-500 hover:bg-opacity-10 duration-200 flex items-center gap-2 "><HiArrowRightOnRectangle className='text-xl' /> Log out</button>
         </div>
     );
 };

@@ -6,7 +6,7 @@ import { Brain, Bone, Fish, Cat, Dog, Bird, Heart, Star, Search, Shield, Activit
 
 export default function AISyndromeCheckerSection() {
   return (
-    <section className="py-32 bg-gradient-to-br from-rose-900 via-purple-900 to-indigo-900 overflow-hidden relative">
+    <section className="rounded-t-[5rem] rounded-b-[5rem] py-32 bg-gradient-to-br from-rose-900 via-purple-900 to-indigo-900 overflow-hidden relative">
       {/* Floating pet elements */}
       <FloatingElements />
 
@@ -131,8 +131,8 @@ export default function AISyndromeCheckerSection() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.6 }}
               >
-                <button className="bg-gradient-to-r from-rose-500 via-purple-500 to-indigo-500 hover:from-rose-600 hover:via-purple-600 hover:to-indigo-600 text-white px-8 py-6 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group">
-                  <span>Check Your Pet's Health</span>
+                <button className="border border-white/30 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group">
+                  <span>Check your pet's health</span>
                   <motion.span
                     className="inline-block ml-2"
                     animate={{

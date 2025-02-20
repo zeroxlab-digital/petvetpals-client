@@ -1,10 +1,10 @@
-import SyndromChecker from '@/components/PetOwners/Dashboard/SyndromChecker/SyndromChecker';
+import SymptomChecker from '@/components/PetOwners/Dashboard/SymptomChecker/SymptomChecker';
 import React from 'react';
 
 const page = () => {
     return (
         <div>
-            <SyndromChecker />
+            <SymptomChecker />
         </div>
     );
 };
