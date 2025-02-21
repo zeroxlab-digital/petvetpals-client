@@ -34,6 +34,7 @@
     "swiper": "^11.2.2"
   },
   "devDependencies": {
+    "daisyui": "^4.12.23",
     "eslint": "^8",
     "eslint-config-next": "14.2.6",
     "postcss": "^8",

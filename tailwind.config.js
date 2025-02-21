@@ -23,5 +23,27 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('daisyui')
+  ],
+  daisyui: {
+    // Disable DaisyUI base styles (optional)
+    base: false,
+    // Customize DaisyUI theme (optional)
+    themes: [
+      {
+        mytheme: {
+          "primary": "#570df8",
+          "secondary": "#f000b8",
+          "accent": "#1dcdbc",
+          "neutral": "#2b3440",
+          "base-100": "#ffffff",
+          "info": "#3abff8",
+          "success": "#36d399",
+          "warning": "#fbbd23",
+          "error": "#f87272",
+        },
+      },
+    ],
+  },
 };
