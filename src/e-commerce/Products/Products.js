@@ -62,7 +62,7 @@ const Products = ({ slug }) => {
                                     }
                                 }}
                             >
-                                <div className="bg-gray-300 bg-opacity-10 rounded w-auto h-52 mb-3">
+                                <div className="bg-gray-300 bg-opacity-10 rounded w-auto h-max mb-3">
                                     <Image src="/images/med1.webp" alt="product-img" width={100} height={100} className="w-full h-full object-cover rounded" />
                                 </div>
                                 <div className='px-3'>

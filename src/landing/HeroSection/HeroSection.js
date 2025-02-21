@@ -12,7 +12,7 @@ const HeroSection = () => {
             title: "Expert Online Vet Services",
             description: "Get instant virtual consultations from licensed veterinarians. Available 24/7 for your pet's health and wellness.",
             buttonText: "Consult Now",
-            image: "/images/cat-medicine-banner.jpg",
+            image: "/images/cat-vet.jpg",
             services: [
                 "24/7 online vet consultations",
                 "Prescription services at affordable rates",
@@ -23,7 +23,7 @@ const HeroSection = () => {
             title: "Premium Pet Supplies",
             description: "Shop high-quality pet food, toys, and accessories. Enjoy fast, reliable doorstep delivery.",
             buttonText: "Shop Now",
-            image: "/images/doggies-banner.jpg",
+            image: "/images/dog-white-yellow.jpg",
             services: [
                 "Top-rated pet food brands",
                 "Organic and grain-free options",
@@ -72,7 +72,7 @@ const HeroSection = () => {
                         >
                             <div className="text-left flex flex-col justify-between h-full">
                                 <div>
-                                    <h2 className="text-2xl md:text-3xl font-semibold text-primary">{slide.title}</h2>
+                                    <h2 className="text-2xl md:text-3xl font-bold text-primary">{slide.title}</h2>
                                     <p className="mt-2 mb-5 text-gray-900 text-sm md:text-base">{slide.description}</p>
                                     <ul>
                                         {slide.services.map((service, index) => (
@@ -82,7 +82,7 @@ const HeroSection = () => {
                                         ))}
                                     </ul>
                                 </div>
-                                <button className="mt-auto w-44 h-11 bg-primary border border-[#58294E]  hover:bg-primary text-white duration-150 rounded-md flex items-center gap-2 justify-center text-sm md:text-base">
+                                <button className="mt-auto w-44 h-11 bg-[#481d3f] font-semibold hover:bg-primary  text-white duration-150 rounded-md flex items-center gap-2 justify-center text-sm md:text-base">
                                     {slide.buttonText} <HiArrowSmallRight />
                                 </button>
                             </div>
@@ -97,7 +97,7 @@ const HeroSection = () => {
                 </button>
                 <button
                     onClick={() => swiperRef.current?.slideNext()}
-                    className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 "
+                    className=" absolute right-0 top-1/2 transform -translate-y-1/2 z-10 "
                 >
                     <HiChevronRight className="text-3xl text-gray-300" />
                 </button>

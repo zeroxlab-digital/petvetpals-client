@@ -56,7 +56,7 @@ export default function Footer() {
                 />
                 <button className="bg-pink-900 bg-opacity-70 hover:bg-opacity-100 duration-100 text-white font-semibold p-3 rounded-md flex items-center gap-0">
                   Subscribe
-                  <Send className="w-4 h-4 ml-2" />
+                  <Send className="w-4 h-4 ml-2 max-sm:hidden" />
                 </button>
               </form>
             </motion.div>
