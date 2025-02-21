@@ -35,10 +35,10 @@ const PopularItemsSection = () => {
             <section className="pb-14 md:pb-24">
                 <div className="app-container mx-auto flex items-center justify-between mb-5 md:mb-10">
                     <div>
-                        <h3 className='text-base font-semibold text-primary '>Top pet foods</h3>
+                        <h3 className='text-base lg:text-lg font-semibold text-primary '>Top pet foods</h3>
                     </div>
                     <div>
-                        <Link href={`shop/cat-foods`} className="text-primary flex items-center gap-1 font-semibold  text-base">View more <HiArrowSmallRight className='text-sm' /></Link>
+                        <Link href={`shop/cat-foods`} className="text-primary flex items-center gap-1 font-semibold  text-base ">View more <HiArrowSmallRight className='text-sm' /></Link>
                     </div>
                 </div>
                 <div className='app-container'>
@@ -123,7 +123,7 @@ const PopularItemsSection = () => {
             <section className="pb-14 md:pb-24">
                 <div className="app-container mx-auto flex items-center justify-between mb-5 md:mb-10">
                     <div>
-                        <h3 className='text-base font-semibold text-primary '>Top toys & accessories</h3>
+                        <h3 className='text-base lg:text-lg font-semibold text-primary '>Top toys & accessories</h3>
                     </div>
                     <div>
                         <Link href={`shop/cat-foods`} className="text-primary flex items-center gap-1 font-semibold  text-base">View more <HiArrowSmallRight className='text-sm' /></Link>
@@ -211,7 +211,7 @@ const PopularItemsSection = () => {
             <section className="pb-16 md:pb-32">
                 <div className="app-container mx-auto flex items-center justify-between mb-5 md:mb-10">
                     <div>
-                        <h3 className='text-base font-semibold text-primary '>Top pharmacy products</h3>
+                        <h3 className='text-base lg:text-lg font-semibold text-primary '>Top pharmacy products</h3>
                     </div>
                     <div>
                         <Link href={`shop/cat-foods`} className="text-primary flex items-center gap-1 font-semibold  text-base">View more <HiArrowSmallRight className='text-sm' /></Link>

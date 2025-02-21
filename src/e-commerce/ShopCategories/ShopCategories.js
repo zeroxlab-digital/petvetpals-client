@@ -41,7 +41,7 @@ const ShopCategories = ({ type }) => {
                 : catPharmacyCategories;
 
     return (
-        <div className="grid grid-cols-5 max-md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-5 max-md:grid-cols-3 max-sm:grid-cols-2 gap-5">
             {categories.map((category, index) => (
                 <div key={index}>
                     <Link href={`${type}/${category.link}`}>
