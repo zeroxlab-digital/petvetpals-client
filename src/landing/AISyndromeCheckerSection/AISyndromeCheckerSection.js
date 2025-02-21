@@ -6,7 +6,7 @@ import { Brain, Bone, Fish, Cat, Dog, Bird, Heart, Star, Search, Shield, Activit
 
 export default function AISyndromeCheckerSection() {
   return (
-    <section className="rounded-b-[4rem] py-32 bg-gradient-to-br from-rose-900 via-purple-900 to-indigo-900 overflow-hidden relative">
+    <section className="rounded-b-[4rem] max-sm:rounded-b-[3rem] py-32 bg-gradient-to-br from-rose-900 via-purple-900 to-indigo-900 overflow-hidden relative">
       {/* Floating pet elements */}
       <FloatingElements />
 
