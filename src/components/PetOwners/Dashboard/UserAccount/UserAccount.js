@@ -1,24 +1,6 @@
 "use client"
-
 import { useState } from "react"
-import {
-  Bell,
-  Camera,
-  CreditCard,
-  Edit,
-  Eye,
-  EyeOff,
-  Key,
-  Lock,
-  LogOut,
-  Mail,
-  Phone,
-  PlusCircle,
-  Save,
-  Settings,
-  Shield,
-  User,
-} from "lucide-react"
+import { Bell, Camera, CreditCard, Edit, Eye, EyeOff, Key, Lock, LogOut, Mail, Phone, PlusCircle, Save, Settings, Shield, User, } from "lucide-react"
 import Image from "next/image"
 
 export default function UserAccount() {
@@ -36,17 +18,16 @@ export default function UserAccount() {
 
         {/* Navigation Tabs */}
         <div className="mb-8 border-b">
-          <nav className="-mb-px flex space-x-8">
+          <nav className="-mb-px flex space-x-6">
             {["profile", "billing", "security", "notifications"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`
                   py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap
-                  ${
-                    activeTab === tab
-                      ? "border-blue-500 text-blue-600"
-                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  ${activeTab === tab
+                    ? "border-blue-500 text-blue-600"
+                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                   }
                 `}
               >
@@ -271,8 +252,8 @@ export default function UserAccount() {
                     <div className="flex items-center gap-4">
                       <input
                         type={showPassword ? "text" : "password"}
-                        value="••••••••"
-                        disabled
+                        value="12345678"
+                        
                         className="px-3 py-2 border rounded-lg bg-gray-50 text-gray-500"
                       />
                       <button
@@ -409,14 +390,6 @@ export default function UserAccount() {
               </div>
             </div>
           )}
-        </div>
-
-        {/* Logout Button */}
-        <div className="mt-8 flex justify-end">
-          <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-600 bg-white border border-red-300 rounded-lg hover:bg-red-50 transition-colors">
-            <LogOut className="h-4 w-4" />
-            Sign Out
-          </button>
         </div>
       </div>
     </div>
