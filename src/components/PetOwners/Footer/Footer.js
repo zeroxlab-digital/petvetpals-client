@@ -7,7 +7,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-primary text-gray-200 relative overflow-hidden rounded-t-[4rem]">
+    <footer className="bg-primary text-gray-200 relative overflow-hidden rounded-t-[4rem] max-sm:rounded-t-[3rem]">
       {/* Decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -38,8 +38,8 @@ export default function Footer() {
 
       {/* Newsletter Section */}
       <div className="relative border-b border-gray-300 border-opacity-20">
-        <div className="app-container mx-auto py-16">
-          <div className="max-w-4xl mx-auto text-center">
+        <div className="app-container py-16">
+          <div className=" text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -48,7 +48,7 @@ export default function Footer() {
             >
               <h3 className="text-2xl font-semibold mb-4">Join Our Pet-Loving Community</h3>
               <p className="text-gray-300 mb-8">Subscribe to receive updates, pet care tips, and exclusive offers</p>
-              <form className="grid grid-cols-[3fr_1fr] gap-3 sm:w-3/5 mx-auto">
+              <form className="grid grid-cols-[3fr_1fr] gap-2 sm:w-3/5 mx-auto max-w-max">
                 <input
                   type="email"
                   placeholder="Enter your email"

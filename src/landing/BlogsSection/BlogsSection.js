@@ -4,28 +4,27 @@ import { HiArrowLeft, HiArrowRight } from 'react-icons/hi2';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Link from 'next/link';
-import SImg from '/public/images/cat-cute.jpg';
 import Image from 'next/image';
 
 const BlogsSection = () => {
     const blogs = [
         {
-            title: 'NASA Animations with SpaceX Mixer Ready to Fly',
+            title: 'Best way to groom pets at home at the minimum cost',
             description: 'Peer-to-peer real estate sales platform asking to renovate their brand from zero',
-            banner: SImg,
+            banner: "/images/pet-dog-yellow.jpg",
+            read_time: 3
+        },
+        {
+            title: 'What to do when your dog act paranoid out of nowhere!',
+            description: 'Peer-to-peer real estate sales platform asking to renovate their brand from zero',
+            banner: "/images/cute-dog.jpg",
             read_time: 6
         },
         {
-            title: 'NASA Animations with SpaceX Mixer Ready to Fly',
+            title: '10 tips for keeping your cat health well',
             description: 'Peer-to-peer real estate sales platform asking to renovate their brand from zero',
-            banner: SImg,
-            read_time: 6
-        },
-        {
-            title: 'NASA Animations with SpaceX Mixer Ready to Fly',
-            description: 'Peer-to-peer real estate sales platform asking to renovate their brand from zero',
-            banner: SImg,
-            read_time: 6
+            banner: "/images/cat-cute.jpg",
+            read_time: 4
         }
     ];
 
@@ -94,7 +93,7 @@ const BlogsSection = () => {
                             <SwiperSlide key={index}>
                                 <div className="cursor-pointer">
                                     <Image
-                                        src={SImg}
+                                        src={blog.banner}
                                         alt="banner"
                                         width={400}
                                         height={200}

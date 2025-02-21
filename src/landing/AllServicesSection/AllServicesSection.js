@@ -14,12 +14,12 @@ const AllServicesSection = () => {
                         </p>
                     </div>
                     <div className="flex justify-center items-center">
-                        <Image src="/images/dog-app-1.avif" alt="Online Vet Consultation" width={300} height={300} className="w-96" />
+                        <Image src="/images/vet-consultation.png" alt="Online Vet Consultation" width={300} height={300} className="w-96" />
                     </div>
                 </div>
                 <div className="grid grid-cols-2  max-lg:grid-cols-1 gap-20 max-lg:gap-10 justify-between items-center item">
                     <div className="flex justify-center items-center max-lg:order-2">
-                        <Image src="/images/dog-app-1.avif" alt="Vet Chat Video Calls" width={300} height={300} className="w-96" />
+                        <Image src="/images/vet-call.jpg" alt="Vet Chat Video Calls" width={300} height={300} className="w-96" />
                     </div>
                     <div>
                         <h6 className="text-primary text-xl font-bold mb-3">Vet Chat & Video Calls</h6>
@@ -36,12 +36,12 @@ const AllServicesSection = () => {
                         </p>
                     </div>
                     <div className="flex justify-center items-center">
-                        <Image src="/images/dog-app-1.avif" alt="E-Commerce Pharmacy & Shopping" width={300} height={300} className="w-96" />
+                        <Image src="/images/pet-shop.avif" alt="E-Commerce Pharmacy & Shopping" width={300} height={300} className="w-96" />
                     </div>
                 </div>
                 <div className="grid grid-cols-2 max-lg:grid-cols-1 gap-20 max-lg:gap-10 justify-between items-center item">
                     <div className="flex justify-center items-center max-lg:order-2">
-                        <Image src="/images/dog-app-1.avif" alt="Pet Health Tracker" width={300} height={300} className="w-96" />
+                        <Image src="/images/cat-tracker.jpg" alt="Pet Health Tracker" width={300} height={300} className="w-96" />
                     </div>
                     <div>
                         <h6 className="text-primary text-xl font-bold mb-3">Pet Health Tracker</h6>
@@ -58,7 +58,7 @@ const AllServicesSection = () => {
                         </p>
                     </div>
                     <div className="flex justify-center items-center">
-                        <Image src="/images/dog-app-1.avif" alt="AI-Powered Pet Syndrome Checker" width={300} height={300} className="w-96" />
+                        <Image src="/images/pet-care.jpg" alt="AI-Powered Pet Syndrome Checker" width={300} height={300} className="w-96" />
                     </div>
                 </div>
             </div>
