@@ -42,7 +42,7 @@ const DashboardLayout = ({ children }) => {
                 )}
 
                 {/* Main Content */}
-                <div className='col-span-8 max-lg:col-span-12 p-5 bg-white border border-l-0 rounded-md rounded-l-none overflow-auto hide-scrollbar'>
+                <div className='col-span-8 max-lg:col-span-12 lg:p-5 lg:bg-white lg:border border-l-0 rounded-md rounded-l-none overflow-auto hide-scrollbar'>
                     {children}
                 </div>
             </div>
