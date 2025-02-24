@@ -5,6 +5,7 @@ import { Activity, Bell, Calendar, Check, ChevronDown, MessageSquare, PawPrint, 
 import Image from "next/image"
 import { Line, LineChart as RechartsLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 import InitialDashboard from "./InitialDashboard"
+import useFetchPets from "../../../../../hooks/useFetchPets"
 
 const healthData = [
   { name: "Week 1", weight: 32.5, activity: 75, },
@@ -16,10 +17,10 @@ const healthData = [
 ]
 
 const DashboardPage = () => {
-  const pets = [];
+  const pets = useFetchPets();
+
   const [mounted, setMounted] = useState(false)
   const [showPetMenu, setShowPetMenu] = useState(false)
-
   useEffect(() => {
     setMounted(true)
   }, [])
