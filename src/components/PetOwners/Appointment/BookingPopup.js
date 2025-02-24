@@ -43,7 +43,7 @@ const BookingPopup = ({ setShowModal, foundVet }) => {
 
     const handleBookingConfirm = async () => {
         try {
-            const res = await axios.post(`https://petvetpals-server.onrender.com/api/appointment/book-appointment/${foundVet._id}`, { date: selectedDate.toISOString() }, {
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/appointment/book-appointment/${foundVet._id}`, { date: selectedDate.toISOString() }, {
                 headers: {
                     "Content-Type": "application/json",
                 },

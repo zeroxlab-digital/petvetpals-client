@@ -8,7 +8,7 @@ const useFetchVets = () => {
     const [error, setError] = useState(false);
     useEffect(() => {
         const handleFetchVets = async () => {
-            const res = await axios.get(`https://petvetpals-server.onrender.com/api/vet/all-vets`);
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/api/vet/all-vets`);
             if (res.status === 200) {
                 setVets(res.data.vets)
                 setIsLoading(false);

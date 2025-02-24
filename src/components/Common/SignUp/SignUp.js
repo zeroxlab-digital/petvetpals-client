@@ -21,7 +21,7 @@ const SignUpPage = () => {
         setIsLoading(true);
         try {
             console.log(user);
-            const response = await axios.post(`https://petvetpals-server.onrender.com/api/user/register`, user , {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/user/register`, user , {
                 headers: {
                     "Content-Type": "application/json"
                 }
