@@ -21,7 +21,7 @@ const SignInPage = () => {
         e.preventDefault();
         setIsLoading(true);
         try {
-            const response = await axios.post(`https://petvetpals-server.onrender.com/api/user/login`, user, {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/user/login`, user, {
                 headers: {
                     "Content-Type": "application/json"
                 },

@@ -9,7 +9,7 @@ const useGetAppts = () => {
         const handleFetchAppts = async () => {
             try {
                 if (authUser) {
-                    const res = await axios.get(`https://petvetpals-server.onrender.com/api/appointment/view-appointments`, {
+                    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/api/appointment/view-appointments`, {
                         withCredentials: true,
                     });
                     if (res.status === 200) {

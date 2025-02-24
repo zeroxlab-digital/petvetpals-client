@@ -29,7 +29,7 @@ const BookingDetails = ({ apptId, setBookingState }) => {
             return alert("To continue, you must select a pet or add manually!")
         }
         try {
-            const res = await axios.patch(`https://petvetpals-server.onrender.com/api/appointment/update-appointment/${apptId}`, consultation_purpose, {
+            const res = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE}/api/appointment/update-appointment/${apptId}`, consultation_purpose, {
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -57,7 +57,7 @@ const BookingDetails = ({ apptId, setBookingState }) => {
     const handleManualPetAdd = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`https://petvetpals-server.onrender.com/api/pet/add-pet`, petProfile, {
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/pet/add-pet`, petProfile, {
                 headers: {
                     "Content-Type": "application/json"
                 },
