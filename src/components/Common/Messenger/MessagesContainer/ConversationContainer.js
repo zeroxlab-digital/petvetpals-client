@@ -1,15 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
-import { Send } from 'lucide-react';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { HiDotsVertical } from 'react-icons/hi';
 import useFetchMessages from '../../../../../hooks/useFetchMessages';
+import SendMessage from './SendMessage';
 
 const ConversationContainer = ({ clickedParticipant, authUser }) => {
-    const { messages, loading, error } = useFetchMessages();
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
+    const { messages, loading, error } = useFetchMessages(refreshTrigger);
     console.log(messages);
-    console.log(loading);
-    console.log(error);
+
+    const messagesEndRef = useRef(null);
+
+    // Scroll to the bottom when messages update
+    useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [messages]);
+
     return (
         <div className='max-md:order-2 flex flex-col h-[calc(100vh-10.2rem)]'>
             <div className='flex items-center justify-between rounded-md bg-primary p-2'>
@@ -45,12 +54,12 @@ const ConversationContainer = ({ clickedParticipant, authUser }) => {
                             </div>
                         </div>)
                     }
+                    {/* Empty div to scroll to bottom */}
+                    <div ref={messagesEndRef}></div>
                 </div>
             }
-            <div className='send-message mt-auto pt-2 relative'>
-                <input type="text" placeholder='Write a message' className='border border-[#58294ea8] w-full p-3 rounded-md outline-[#58294E]' />
-                <button className='absolute top-5 right-4 text-gray-800'><Send className='h-5 w-5 text-primary' /></button>
-            </div>
+
+            <SendMessage triggerRefresh={() => setRefreshTrigger((prev) => prev + 1)} />
         </div>
     );
 };

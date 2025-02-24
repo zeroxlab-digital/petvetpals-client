@@ -1,10 +1,11 @@
+import { setMessages } from "@/redux/features/messageSlice";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-const useFetchMessages = () => {
-    const clickedParticipant = useSelector((state) => state.messageRedu.clickedParticipant);
-    const [messages, setMessages] = useState([]);
+const useFetchMessages = (refreshTrigger) => {
+    const dispatch = useDispatch();
+    const {clickedParticipant, messages} = useSelector((state) => state.messageRedu);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -13,7 +14,7 @@ const useFetchMessages = () => {
 
         const handleFetchMessages = async () => {
             // Reset state before fetching new messages
-            setMessages([]);
+            dispatch(setMessages([]));
             setLoading(true);
             setError(null);
 
@@ -23,12 +24,12 @@ const useFetchMessages = () => {
                 });
 
                 if (res.status === 200) {
-                    setMessages(res.data?.messages || []);
+                    dispatch(setMessages(res.data?.messages || []));
                 } else {
-                    setMessages([]);
+                    dispatch(setMessages([]));
                 }
             } catch (error) {
-                setMessages([]);
+                dispatch(setMessages([]));
                 setError({ message: "There was an error while fetching messages!", error: error.response?.data?.message || "Unknown error" });
             } finally {
                 setLoading(false);
@@ -36,7 +37,7 @@ const useFetchMessages = () => {
         };
 
         handleFetchMessages();
-    }, [clickedParticipant]);
+    }, [clickedParticipant, dispatch, refreshTrigger]);
 
     return { messages, loading, error };
 };

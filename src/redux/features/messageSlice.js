@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const messageSlice = createSlice({
     name: "message",
-    initialState: { clickedParticipant: null, messages: null },
+    initialState: { clickedParticipant: null, messages: [] },
     reducers: {
         setClickedParticipant: (state, action) => {
             state.clickedParticipant = action.payload;
