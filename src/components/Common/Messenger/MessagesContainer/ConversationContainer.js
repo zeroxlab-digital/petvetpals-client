@@ -8,10 +8,8 @@ import SendMessage from './SendMessage';
 const ConversationContainer = ({ clickedParticipant, authUser }) => {
     const [refreshTrigger, setRefreshTrigger] = useState(0);
     const { messages, loading, error } = useFetchMessages(refreshTrigger);
-    console.log(messages);
 
     const messagesEndRef = useRef(null);
-
     // Scroll to the bottom when messages update
     useEffect(() => {
         if (messagesEndRef.current) {
@@ -26,9 +24,9 @@ const ConversationContainer = ({ clickedParticipant, authUser }) => {
                     <Image src="/images/vet.png" alt="participant-profile" width={20} height={20} className='rounded-full w-10 h-10' />
                     <span className='font-medium text-gray-200'>{clickedParticipant.fullName}</span>
                 </div>
-                <div>
+                <button>
                     <HiDotsVertical className='text-gray-200' />
-                </div>
+                </button>
             </div>
             {messages.length < 1 && error ?
                 <div className='flex items-center justify-center h-full'>

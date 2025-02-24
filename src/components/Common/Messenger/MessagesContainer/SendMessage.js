@@ -16,7 +16,6 @@ const SendMessage = ({triggerRefresh}) => {
                 },
                 withCredentials: true,
             });
-            console.log(res);
             if(res.status === 201) {
                 triggerRefresh();
             }
@@ -32,7 +31,7 @@ const SendMessage = ({triggerRefresh}) => {
                 onChange={(e) => setMessage(e.target.value)}
                 required
             />
-            <button type='submit' className='absolute top-5 right-4 text-gray-800'><Send className='h-5 w-5 text-primary' /></button>
+            <button type='submit' className='p-1 absolute top-4 right-4 text-gray-800'><Send className='h-5 w-5 text-primary' /></button>
         </form>
     );
 };
