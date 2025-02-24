@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 const Messenger = () => {
     const authUser = useSelector((state) => state.userRedu.user.authUser);
-    const [clickedParticipant, setClickedParticipant] = useState(null);
+    const clickedParticipant = useSelector((state) => state.messageRedu.clickedParticipant);
     return (
         <div className='grid grid-cols-[5fr_2fr] max-md:grid-cols-1 gap-5 '>
             {clickedParticipant ?
@@ -19,7 +19,7 @@ const Messenger = () => {
                     <p className='text-gray-600'>Select a vet available and ask anything regarding your furry family member</p>
                 </div>
             }
-            <Participants setClickedParticipant={setClickedParticipant} />
+            <Participants />
         </div>
     );
 };

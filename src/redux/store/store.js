@@ -3,7 +3,7 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import rootReducer from "../features/rootReducer";
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
-import cartReducer from "../features/cartSlice";
+import messageReducer from "../features/messageSlice";
 
 // Redux Persist configuration
 const persistConfig = {
@@ -17,7 +17,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 const store = configureStore({
     reducer: {
         userRedu: persistedReducer,
-        // cartRedu: cartReducer,
+        messageRedu: messageReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
