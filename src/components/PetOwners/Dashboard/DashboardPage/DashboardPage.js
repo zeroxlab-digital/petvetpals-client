@@ -18,6 +18,13 @@ const healthData = [
 
 const DashboardPage = () => {
   const pets = useFetchPets();
+  const [selectedPet, setSelectedPet] = useState({});
+  console.log("Selected pet:", selectedPet);
+  useEffect(() => {
+    if (pets.length > 0) {
+      setSelectedPet(pets[0]);
+    }
+  }, [pets])
 
   const [mounted, setMounted] = useState(false)
   const [showPetMenu, setShowPetMenu] = useState(false)
@@ -25,10 +32,9 @@ const DashboardPage = () => {
     setMounted(true)
   }, [])
 
-  if(pets.length < 1) {
+  if (pets.length < 1) {
     return <InitialDashboard />
   }
-
   return (
     <div className="min-h-screen ">
       {/* Main Content */}
@@ -54,22 +60,32 @@ const DashboardPage = () => {
                   onClick={() => setShowPetMenu(!showPetMenu)}
                   className="flex items-center text-lg font-semibold hover:bg-gray-100 rounded-lg px-3 py-2 transition-colors"
                 >
-                  Max <span className="text-gray-500">(Golden Retriever)</span>
+                  {selectedPet.name} <span className="text-gray-500">({selectedPet.breed})</span>
                   <ChevronDown className="ml-2 h-4 w-4" />
                 </button>
                 {showPetMenu && (
-                  <div className="absolute top-full left-0 mt-1 w-[200px] bg-white rounded-lg shadow-lg border p-1 z-10">
-                    <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md transition-colors">
-                      Luna (Persian Cat)
-                    </button>
-                    <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md flex items-center transition-colors">
-                      <Plus className="mr-2 h-4 w-4" />
-                      Add New Pet
-                    </button>
-                  </div>
+                  <>
+                    {showPetMenu && (
+                      <div className="absolute top-full left-0 mt-1 w-[200px] bg-white rounded-lg shadow-lg border p-1 z-10">
+                        {pets.map((pet) => (
+                          <button
+                            key={pet._id}
+                            onClick={() => { setSelectedPet(pet), setShowPetMenu(false) }}
+                            className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md transition-colors"
+                          >
+                            {pet.name} ({pet.breed})
+                          </button>
+                        ))}
+                        <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md flex items-center transition-colors">
+                          <Plus className="mr-2 h-4 w-4" />
+                          Add New Pet
+                        </button>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
-              <p className="text-sm text-gray-500">3 years old • Male • 32.5 kg</p>
+              <p className="text-sm text-gray-500">{selectedPet.age} years old • {selectedPet.gender} • {selectedPet.weight} kg</p>
             </div>
           </div>
           <div className="flex gap-2">
