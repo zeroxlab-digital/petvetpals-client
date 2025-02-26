@@ -10,7 +10,7 @@ import useFetchPets from '../../../../../hooks/useFetchPets';
 const BookingDetails = ({ apptId, setBookingState }) => {
     console.log("appointment id from details:", apptId);
     const [petDetailsOption, setPetDetailsOption] = useState("selector");
-    const pets = useFetchPets();
+    const { pets, isLoading } = useFetchPets();
     const [selectedPet, setSelectedPet] = useState(null);
 
     const [consultation_purpose, set_consultation_purpose] = useState({
@@ -80,10 +80,12 @@ const BookingDetails = ({ apptId, setBookingState }) => {
             console.log(error);
         }
     }
-
+    if(isLoading) {
+        return <div>Loading...</div>
+    }
     return (
         <div className=''>
-            <div className='w-3/4 mx-auto'>
+            <div className='md:w-3/4 mx-auto'>
                 <div className=' flex items-center justify-between gap-5 mb-5'>
                     <button onClick={() => setPetDetailsOption("selector")} className={`${petDetailsOption === "selector" ? "bg-primary text-white" : ""} border w-full h-11 font-semibold`}>Select Pet</button>
                     <button onClick={() => setPetDetailsOption("manual")} className={`${petDetailsOption === "manual" ? "bg-primary text-white" : ""} border w-full h-11 font-semibold`}>Add new</button>
@@ -92,7 +94,7 @@ const BookingDetails = ({ apptId, setBookingState }) => {
             {
                 petDetailsOption === "selector" ?
                     <div className="flex flex-col mt-20">
-                        <ul className="flex justify-center gap-5 ">
+                        <ul className="grid grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 gap-5 ">
                             {pets.map(pet => (
                                 <li key={pet._id} onClick={() => setSelectedPet(pet)} className={`${selectedPet?._id === pet._id ? "border-green-500 bg-gray-200 bg-opacity-20" : ""} border rounded-md cursor-pointer`}>
                                     <Image

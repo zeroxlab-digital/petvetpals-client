@@ -27,7 +27,7 @@ const VetDetails = ({ params }) => {
     const today = new Date();
     const twoDaysFromNow = addDays(today, 5);
 
-    const appointments = useGetAppts();
+    const {appointments} = useGetAppts();
     const pendingAppts = appointments.filter(appt => appt.status === "pending");
 
     const faqs = [
