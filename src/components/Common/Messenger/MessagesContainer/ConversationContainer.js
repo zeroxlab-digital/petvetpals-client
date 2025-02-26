@@ -4,11 +4,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import { HiDotsVertical } from 'react-icons/hi';
 import useFetchMessages from '../../../../../hooks/useFetchMessages';
 import SendMessage from './SendMessage';
+import { HiArrowLeft, HiInformationCircle } from 'react-icons/hi2';
+import { useDispatch } from 'react-redux';
+import { setClickedParticipant } from '@/redux/features/messageSlice';
 
 const ConversationContainer = ({ clickedParticipant, authUser }) => {
     const [refreshTrigger, setRefreshTrigger] = useState(0);
     const { messages, loading, error } = useFetchMessages(refreshTrigger);
-
+    const dispatch = useDispatch();
+    
     const messagesEndRef = useRef(null);
     // Scroll to the bottom when messages update
     useEffect(() => {
@@ -18,14 +22,17 @@ const ConversationContainer = ({ clickedParticipant, authUser }) => {
     }, [messages]);
 
     return (
-        <div className='max-md:order-2 flex flex-col h-[calc(100vh-10.2rem)]'>
+        <div className={`max-md:order-2 ${clickedParticipant ? '' : 'max-md:hidden'} flex flex-col h-[calc(100vh-10.2rem)] max-md:!min-h-full`}>
             <div className='flex items-center justify-between rounded-md bg-primary p-2'>
                 <div className='flex items-center gap-3'>
+                    <button onClick={() => dispatch(setClickedParticipant(null))} className='md:hidden'>
+                        <HiArrowLeft className='text-gray-200 text-xl' />
+                    </button>
                     <Image src="/images/vet.png" alt="participant-profile" width={20} height={20} className='rounded-full w-10 h-10' />
                     <span className='font-medium text-gray-200'>{clickedParticipant.fullName}</span>
                 </div>
                 <button>
-                    <HiDotsVertical className='text-gray-200' />
+                    <HiInformationCircle className='text-gray-200 text-2xl' />
                 </button>
             </div>
             {messages.length < 1 && error ?
@@ -33,7 +40,7 @@ const ConversationContainer = ({ clickedParticipant, authUser }) => {
                     <h3 className='font-bold text-lg text-gray-800'>No convo found</h3>
                 </div>
                 :
-                <div className='messages h-max overflow-auto'>
+                <div className='messages h-min overflow-auto'>
                     {
                         messages.map(message => <div key={message._id}>
                             <div className={`chat ${message.senderType === "user" ? "chat-end" : "chat-start"}`}>
