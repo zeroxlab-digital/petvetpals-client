@@ -77,9 +77,9 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
     }
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="relative w-[90%] max-w-[50rem]  bg-white shadow-lg rounded-lg overflow-hidden">
-                <div className='h-[80%] lg:h-[30rem] overflow-auto hide-scrollbar p-4'>
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+            <div className="relative w-[95%] max-w-[50rem]  bg-white shadow-lg rounded-lg overflow-hidden">
+                <div className='h-[80%] lg:h-max overflow-auto hide-scrollbar p-4'>
                     {modalType == "update" ?
                         <div className='text-left'>
                             <h3 className='font-bold text-xl text-gray-800 '>Update Pet Details</h3>
@@ -137,7 +137,7 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
                                         onChange={(e) => setUpdatePetProfile({ ...updatePetProfile, breed: e.target.value })}
                                     />
                                 </div>
-                                <input type="submit" value="UPDATE PET PROFILE" className={`bg-primary rounded-full text-white cursor-pointer py-3 w-full mt-5}`} />
+                                <input type="submit" value="Update pet profile" className={`bg-primary rounded-full text-white font-semibold cursor-pointer py-3 w-full mt-5}`} />
                             </form>
                         </div>
                         :
@@ -197,13 +197,13 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
                                         onChange={(e) => setPetProfile({ ...petProfile, breed: e.target.value })}
                                     />
                                 </div>
-                                <input type="submit" value="ADD PET PROFILE" className={`bg-primary rounded-full text-white cursor-pointer py-3 w-full mt-5}`} />
+                                <input type="submit" value="Add pet profile" className={`bg-primary rounded-full text-white font-semibold cursor-pointer py-3 w-full mt-5}`} />
                             </form>
                         </div>
                     }
                 </div>
                 <button
-                    className="absolute sm:top-2 right-2 max-sm:right-0 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700"
+                    className="absolute top-2 right-2 sm:right-2 sm:top-2 max-sm:right-2 max-sm:top-2 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-red-700"
                     onClick={() => setModalType(null)}
                 >
                     <HiXMark size={25} />

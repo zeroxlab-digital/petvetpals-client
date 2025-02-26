@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi2";
 
 const SelectOptions = ({ options, name, default: defaultValue, placeholder, onChange }) => {
-    const [selectedOption, setSelectedOption] = useState(defaultValue || placeholder || "Select an option");
+    const [selectedOption, setSelectedOption] = useState(defaultValue || placeholder || "Select option");
     const [selected, setSelected] = useState(false);
 
     useEffect(() => {

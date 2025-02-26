@@ -6,7 +6,7 @@ const Button = ({ children, variant, size, classNames, onClick, ...props }) => {
             case 'primary':
                 return 'bg-primary text-white font-semibold rounded-full'
             case 'primaryOutline':
-                return 'bg-transparent text-white border hover:border-[#58294E] hover:text-primary duration-300 font-semibold  rounded-full'
+                return 'bg-transparent hover:bg-primary text-primary border border-[#58294ec7] hover:text-white duration-300 font-semibold  rounded-full'
             default:
                 return ''
         }

@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 const useGetAppts = () => {
     const { authUser } = useSelector((state) => state.userRedu.user);
     const [appointments, setAppointments] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
     useEffect(() => {
         const handleFetchAppts = async () => {
             try {
@@ -20,10 +22,13 @@ const useGetAppts = () => {
                 }
             } catch (error) {
                 console.log(error)
+                setError({ error: error.message })
+            } finally {
+                setIsLoading(false);
             }
         }
         handleFetchAppts();
     }, [authUser])
-    return appointments;
+    return {appointments, isLoading, error};
 }
 export default useGetAppts;
