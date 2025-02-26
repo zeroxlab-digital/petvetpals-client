@@ -6,8 +6,8 @@ import PetProfileModal from './PetProfileModal';
 import useFetchPets from '../../../../../hooks/useFetchPets';
 
 const PetProfiles = () => {
-    const pets = useFetchPets();
-
+    const { pets, isLoading, error } = useFetchPets();
+    console.log("Pets:", pets)
     const [petProfile, setPetProfile] = useState({
         type: '',
         name: '',
@@ -24,17 +24,19 @@ const PetProfiles = () => {
         setModalType(type);
         setUpdatePet(pet);
     }
-
+    if(isLoading) {
+        return <div>Loading...</div>
+    }
     return (
         <div>
             <div className='mb-5'>
                 <h2 className='font-bold text-2xl mb-1'>Pet profiles</h2>
                 <p className='text-gray-500'>Add and modify your furry pet&apos;s profiles</p>
             </div>
-            <div className='grid grid-cols-3 max-xl:grid-cols-2 max-sm:grid-cols-1 gap-5 auto-rows-fr'>
+            <div className='grid grid-cols-3 max-xl:grid-cols-2 max-sm:grid-cols-1 gap-7 auto-rows-fr'>
                 {pets.map(pet => (
-                    <div key={pet._id} className='border rounded-md bg-white shadow-lg'>
-                        <Image src={pet.image || "/images/cat-cute.jpg"} alt="pet's-img" width={200} height={200} className='object-cover w-full h-56 rounded-md' />
+                    <div key={pet._id} className=' rounded-lg bg-white shadow-xl hover:shadow-2xl duration-200'>
+                        <Image src={pet.image || "/images/cat-cute.jpg"} alt="pet's-img" width={200} height={200} className='object-cover w-full h-56 rounded-lg' />
                         <div className='p-3 mt-3'>
                             <ul className='text-gray-600 flex flex-col gap-3 mb-7'>
                                 <li className='flex items-center justify-between text-sm capitalize'><span>Type</span>{pet.type}</li>
@@ -44,12 +46,12 @@ const PetProfiles = () => {
                                 <li className='flex items-center justify-between text-sm capitalize'><span>Gender</span>{pet.gender}</li>
                                 <li className='flex items-center justify-between text-sm capitalize'><span>Weight</span>{pet.weight}</li>
                             </ul>
-                            <Button onClick={() => handleShowModal("update", pet)} variant={"primary"} classNames={"!w-full !text-base !font-normal"}>Update Profile</Button>
+                            <Button onClick={() => handleShowModal("update", pet)} variant={"primaryOutline"} classNames={"!w-full !text-base !font-semibold"}>Update profile</Button>
                         </div>
                     </div>
                 ))}
-                <div className='h-full border-dashed border-2 rounded-md flex items-center justify-center'>
-                    <button onClick={() => handleShowModal("add")} className='text-gray-500 text-lg w-full h-full'><span className='text-xl'>+</span> Add new profile</button>
+                <div className='h-full border-dashed border-[#58294e98] border-2 rounded-md flex items-center justify-center'>
+                    <button onClick={() => handleShowModal("add")} className='text-primary text-lg w-full h-full font-semibold'><span className='text-xl'>+</span> Add new profile</button>
                 </div>
                 {modalType && <PetProfileModal modalType={modalType} setModalType={setModalType} petProfile={petProfile} setPetProfile={setPetProfile} updatePet={updatePet} />}
             </div>

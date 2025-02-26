@@ -17,7 +17,7 @@ const healthData = [
 ]
 
 const DashboardPage = () => {
-  const pets = useFetchPets();
+  const { pets, isLoading, error } = useFetchPets();
   const [selectedPet, setSelectedPet] = useState({});
   console.log("Selected pet:", selectedPet);
   useEffect(() => {
@@ -31,7 +31,9 @@ const DashboardPage = () => {
   useEffect(() => {
     setMounted(true)
   }, [])
-
+  if(isLoading) {
+    return <div>Loading...</div>
+  }
   if (pets.length < 1) {
     return <InitialDashboard />
   }

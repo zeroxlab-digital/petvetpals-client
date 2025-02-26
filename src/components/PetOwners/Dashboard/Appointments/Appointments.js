@@ -9,7 +9,7 @@ import useGetAppts from '../../../../../hooks/useGetAppts';
 import ConfirmBookingModal from './ConfirmBookingModal';
 
 const Appointments = () => {
-    const appointments = useGetAppts();
+    const { appointments, isLoading, error } = useGetAppts();
     const status_tabs = ["confirmed", "pending", "cancelled", "past"];
     const [active_status_tab, set_active_status_tab] = useState(status_tabs[0]);
     const [showModal, setShowModal] = useState(false);
@@ -32,14 +32,16 @@ const Appointments = () => {
         setClickedAppointment(appointment);
         setShowModal(true);
     };
-
+    if (isLoading) {
+        return <div>Loading...</div>
+    }
     return (
         <div className=''>
             <div className='mb-5'>
                 <h2 className='font-bold text-2xl mb-1'>Appointments</h2>
                 <p className='text-gray-500'>See your scheduled and all other appointments</p>
             </div>
-            
+
             <ul className='bg-gray-100 bg-opacity-50 p-2 rounded-md flex overflow-auto items-center gap-2 mb-6'>
                 {status_tabs.map((tab, index) => {
                     const count = appointments.filter(appointment => appointment.status === tab).length;
@@ -54,7 +56,7 @@ const Appointments = () => {
                     );
                 })}
             </ul>
-            
+
             {filtered_appointments.length > 0 ? (
                 <div className='space-y-4'>
                     {filtered_appointments.map((appointment, index) => (
@@ -71,7 +73,7 @@ const Appointments = () => {
                                     );
                                 })()}
                             </div>
-                            
+
                             <div className='flex items-center gap-3 lg:col-span-3'>
                                 <Image src={NoPhoto} alt='vet_img' width={200} height={200} className='w-14 h-auto rounded-full' />
                                 <div>
@@ -79,7 +81,7 @@ const Appointments = () => {
                                     <p className='text-sm text-gray-500'>Consul. type</p>
                                 </div>
                             </div>
-                            
+
                             <div className='lg:col-span-3'>
                                 <p className='text-gray-600 flex items-center gap-2 mb-2'>
                                     <HiOutlineClock className='text-lg' />
@@ -91,12 +93,12 @@ const Appointments = () => {
                                 </p>
                                 <p className='text-gray-600 flex items-center gap-2'><HiOutlineMapPin className='text-lg' /> Online</p>
                             </div>
-                            
+
                             <div className='lg:col-span-2'>
                                 <p className='text-gray-600 flex items-center gap-2'><LuDog className='text-lg' /> {appointment?.pet?.name || 'N/A'} ({appointment?.pet?.type || 'N/A'})</p>
                                 <p className='text-gray-600 flex items-center gap-2'><HiOutlineCurrencyDollar className='text-lg' /> {appointment.payment_status ? 'Paid' : 'Unpaid'}</p>
                             </div>
-                            
+
                             <div className='flex flex-wrap gap-4 lg:col-span-3 justify-end'>
                                 {active_status_tab === 'confirmed' ? (
                                     <>

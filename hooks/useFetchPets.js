@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 
 const useFetchPets = () => {
     const [pets, setPets] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
     useEffect(() => {
         const handleFetchPets = async () => {
             try {
@@ -14,10 +16,13 @@ const useFetchPets = () => {
                 }
             } catch (error) {
                 console.log(error);
+                setError({ error: error.message })
+            } finally {
+                setIsLoading(false);
             }
         }
         handleFetchPets();
     }, [])
-    return pets;
+    return { pets, isLoading, error };
 }
 export default useFetchPets;
