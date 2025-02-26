@@ -8,6 +8,7 @@ import ProtectedPage from '@/components/Common/ProtectedPage/ProtectedPage';
 
 const DashboardLayout = ({ children }) => {
     const [responsiveToggle, setResponsiveToggle] = useState(false);
+    console.log("BASE_API:", process.env.NEXT_PUBLIC_API_BASE);
     return (
         <>
             <Header />
