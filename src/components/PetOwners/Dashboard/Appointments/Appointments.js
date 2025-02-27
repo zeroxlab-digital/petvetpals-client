@@ -1,8 +1,8 @@
 "use client";
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import NoPhoto from '/public/images/vet.png';
-import { HiArrowRight, HiChevronDown, HiClock, HiCurrencyDollar, HiMapPin, HiOutlineClock, HiOutlineCurrencyDollar, HiOutlineMapPin, HiOutlineStar, HiOutlineTrash, HiVideoCamera } from 'react-icons/hi2';
+import { HiArrowRight, HiChevronDown, HiOutlineClock, HiOutlineCurrencyDollar, HiOutlineMapPin, HiOutlineStar, HiOutlineTrash, HiVideoCamera } from 'react-icons/hi2';
 import { LuDog } from 'react-icons/lu';
 import axios from 'axios';
 import useGetAppts from '../../../../../hooks/useGetAppts';

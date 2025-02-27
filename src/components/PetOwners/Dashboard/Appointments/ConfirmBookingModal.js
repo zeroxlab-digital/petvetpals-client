@@ -15,7 +15,7 @@ const ConfirmBookingModal = ({ setShowModal, apptId }) => {
         <div className="fixed inset-0 bg-black bg-opacity-20 flex items-center justify-center z-50">
             <div className="relative w-[95%] max-w-[50rem] bg-white shadow-lg rounded-lg overflow-hidden hide-scrollbar">
 
-                <div className='overflow-auto hide-scrollbar h-[80%] lg:h-max p-4'>
+                <div className='overflow-auto hide-scrollbar h-[30rem] p-4'>
                     {
                         bookingStage == "pet-details" ?
                             <BookingDetails apptId={apptId} setBookingState={setBookingState} />

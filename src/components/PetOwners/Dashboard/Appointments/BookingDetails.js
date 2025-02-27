@@ -93,7 +93,7 @@ const BookingDetails = ({ apptId, setBookingState }) => {
             </div>
             {
                 petDetailsOption === "selector" ?
-                    <div className="flex flex-col mt-20">
+                    <div className="flex flex-col mt-10">
                         <ul className="grid grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 gap-5 ">
                             {pets.map(pet => (
                                 <li key={pet._id} onClick={() => setSelectedPet(pet)} className={`${selectedPet?._id === pet._id ? "border-green-500 bg-gray-200 bg-opacity-20" : ""} border rounded-md cursor-pointer`}>
