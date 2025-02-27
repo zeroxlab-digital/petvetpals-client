@@ -12,7 +12,7 @@ const DashboardLayout = ({ children }) => {
     return (
         <>
             <Header />
-            <div className='app-container h-[calc(100vh-5.1rem)] grid grid-cols-10 py-5 bg-gray-100 bg-opacity-50'>
+            <div className='app-container h-[calc(100vh-5.1rem)] grid grid-cols-10 py-5 '>
                 {/* Toggle Button for Mobile */}
                 <div className={`lg:hidden fixed top-20 left-2 z-10 ${responsiveToggle && 'hidden'}`}>
                     <button 
@@ -42,7 +42,7 @@ const DashboardLayout = ({ children }) => {
                 )}
 
                 {/* Main Content */}
-                <div className='col-span-8 max-lg:col-span-12 lg:p-5 lg:bg-white lg:border border-l-0 rounded-md rounded-l-none overflow-auto hide-scrollbar'>
+                <div className='col-span-8 max-lg:col-span-12 p-3 lg:p-5 bg-gray-50 lg:border border-l-0 rounded-md rounded-l-none overflow-auto hide-scrollbar'>
                     {children}
                 </div>
             </div>
