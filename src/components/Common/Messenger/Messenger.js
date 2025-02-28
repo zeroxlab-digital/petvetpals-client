@@ -15,7 +15,7 @@ const Messenger = () => {
                 <ConversationContainer clickedParticipant={clickedParticipant} authUser={authUser} />
                 :
                 <div className="flex flex-col items-center justify-center text-center max-md:order-2 max-md:hidden">
-                    <Image src="/images/pet-care.jpg" alt="vet" width={100} height={100} className='w-72' />
+                    <Image src="/images/paw-heart.webp" alt="vet" width={100} height={100} className='w-72' />
                     <h1 className='font-bold text-2xl text-primary mb-3 mt-5'>Choose a vet you want to chat with!</h1>
                     <p className='text-gray-600'>Select a vet available and ask anything regarding your furry family member</p>
                 </div>
