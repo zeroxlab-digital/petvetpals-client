@@ -5,6 +5,7 @@ import Image from "next/image"
 import useUserProfile from "../../../../../hooks/useUserProfile"
 import axios from "axios"
 import { HiUserCircle } from "react-icons/hi2"
+import { PetSpinner } from "@/components/Common/Loader/PetSpinner"
 
 const UserAccount = () => {
   const { userProfile, setUserProfile, loading, error } = useUserProfile();
@@ -31,7 +32,7 @@ const UserAccount = () => {
   }
 
   if (loading) {
-    return <div>Loading...</div>
+    return <PetSpinner />
   }
   return (
     <div className="min-h-screen">

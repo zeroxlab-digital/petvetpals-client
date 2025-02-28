@@ -4,6 +4,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import PetProfileModal from './PetProfileModal';
 import useFetchPets from '../../../../../hooks/useFetchPets';
+import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 
 const PetProfiles = () => {
     const { pets, isLoading, error } = useFetchPets();
@@ -25,7 +26,7 @@ const PetProfiles = () => {
         setUpdatePet(pet);
     }
     if(isLoading) {
-        return <div>Loading...</div>
+        return <PetSpinner />
     }
     return (
         <div>

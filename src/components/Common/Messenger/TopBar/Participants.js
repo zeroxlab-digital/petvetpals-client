@@ -5,13 +5,14 @@ import { HiDotsVertical } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import { setClickedParticipant } from '@/redux/features/messageSlice';
 import { Search } from 'lucide-react';
+import { PetSpinner } from '../../Loader/PetSpinner';
 
 const Participants = () => {
     const clickedParticipant = useSelector((state) => state.messageRedu.clickedParticipant);
     const dispatch = useDispatch();
     const { vets, isLoading, error } = useFetchVets();
     if (isLoading) {
-        return <div className='bg-primary p-3 rounded-md md:h-[calc(100vh-10.2rem)] text-gray-200'>Loading vets...</div>
+        return <PetSpinner />
     }
     const participants = vets;
 
