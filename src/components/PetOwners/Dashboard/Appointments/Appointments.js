@@ -42,7 +42,7 @@ const Appointments = () => {
                 <p className='text-gray-500'>See your scheduled and all other appointments</p>
             </div>
 
-            <ul className='bg-gray-100 bg-opacity-50 p-2 rounded-md flex overflow-auto items-center gap-2 mb-6'>
+            <ul className='bg-gray-200 bg-opacity-50 p-2 rounded-md flex overflow-auto items-center gap-2 mb-6'>
                 {status_tabs.map((tab, index) => {
                     const count = appointments.filter(appointment => appointment.status === tab).length;
                     return (
@@ -60,7 +60,7 @@ const Appointments = () => {
             {filtered_appointments.length > 0 ? (
                 <div className='space-y-4 max-md:space-y-8'>
                     {filtered_appointments.map((appointment, index) => (
-                        <div key={index} className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 items-center gap-5 md:border md:p-3 max-md:shadow-xl max-md:hover:shadow-2xl duration-200 max-md:bg-white rounded-md'>
+                        <div key={index} className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 items-center gap-5  md:p-3 shadow-sm max-md:shadow-xl max-md:hover:shadow-2xl duration-200 bg-white rounded-md'>
                             <div className='text-center lg:col-span-1 max-md:bg-primary max-md:rounded-md max-md:p-3'>
                                 {(() => {
                                     const date = new Date(appointment.date);
