@@ -46,7 +46,7 @@ export default function SymptomChecker() {
     <div className="min-h-screen ">
       <div className="max-w-7xl mx-auto ">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Pet Symptom Checker</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Pet Symptom Checker <span className="bg-primary px-3 py-1 text-sm rounded-md text-white ml-2">BETA</span></h1>
           <p className="text-sm text-gray-500">Check your pet's symptoms and get instant recommendations</p>
         </div>
 

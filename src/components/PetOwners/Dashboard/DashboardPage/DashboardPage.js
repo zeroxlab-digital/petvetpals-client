@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client"
 import { useEffect, useState } from "react"
-import { Activity, AlertCircle, Bell, Calendar, Check, ChevronDown, Clock, Clipboard, FileText, Heart, MapPin, MessageSquare, PawPrint, PillIcon as Pills, Plus, Settings, Syringe, Thermometer, User, Weight, X, Zap, Menu, Search, Filter, MoreHorizontal } from "lucide-react"
+import { Activity, AlertCircle, Bell, Calendar, Check, ChevronDown, Clock, Clipboard, FileText, Heart, MapPin, MessageSquare, PawPrint, PillIcon as Pills, Plus, Settings, Syringe, Thermometer, User, Weight, X, Zap, Menu, Search, Filter, MoreHorizontal, ChevronUp } from "lucide-react"
 import Image from "next/image"
 import {
   Line,
@@ -278,7 +278,7 @@ const DashboardPage = () => {
       {/* Main Content */}
       <main className="">
         {/* Pet Selector and Actions */}
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-8">
+        <div className="flex flex-col gap-4 max-md:gap-6 md:flex-row md:items-center md:justify-between mb-8">
           <div className="flex items-center gap-4">
             <div className="relative h-16 w-16">
               <Image
@@ -293,13 +293,13 @@ const DashboardPage = () => {
               </span>
             </div>
             <div>
-              <div className="relative">
+              <div className="relative mb-1">
                 <button
                   onClick={() => setShowPetMenu(!showPetMenu)}
-                  className="flex items-center text-lg font-semibold hover:bg-gray-100 rounded-lg px-3 py-2 transition-colors"
+                  className="flex items-center gap-1 text-lg font-semibold rounded-lg transition-colors"
                 >
                   {selectedPet.name} <span className="text-gray-500">({selectedPet.breed})</span>
-                  <ChevronDown className="ml-2 h-4 w-4" />
+                  {showPetMenu ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                 </button>
                 {showPetMenu && (
                   <div className="absolute top-full left-0 mt-1 w-[15rem] bg-white rounded-lg shadow-lg border p-1 z-10">
@@ -326,21 +326,18 @@ const DashboardPage = () => {
               </p>
             </div>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex gap-2 flex-wrap">
             <button
               onClick={() => setShowAppointmentDialog(true)}
-              className="flex items-center bg-primary text-white px-4 py-2 rounded-lg hover:bg-primaryOutline transition-colors"
+              className="flex items-center bg-primary text-white px-4 max-sm:px-2 py-2 rounded-lg hover:bg-primaryOutline transition-colors"
             >
               <Calendar className="mr-2 h-4 w-4" />
               Book Appointment
             </button>
-            <button className="flex items-center border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+            <button className="flex items-center border border-gray-300 px-4 max-sm:px-2 py-2 rounded-lg hover:bg-gray-100 transition-colors">
               <MessageSquare className="mr-2 h-4 w-4" />
               Chat with Vet
             </button>
-            {/* <button className="flex items-center border border-gray-300 p-2 rounded-lg hover:bg-gray-100 transition-colors">
-              <Settings className="h-4 w-4" />
-            </button> */}
           </div>
         </div>
 
@@ -366,7 +363,7 @@ const DashboardPage = () => {
               >
                 Health Records
               </button>
-              <button
+              {/* <button
                 onClick={() => setActiveTab("appointments")}
                 className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === "appointments"
                     ? "border-primary text-primary"
@@ -374,7 +371,7 @@ const DashboardPage = () => {
                   }`}
               >
                 Appointments
-              </button>
+              </button> */}
               <button
                 onClick={() => setActiveTab("medications")}
                 className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === "medications"
@@ -826,7 +823,7 @@ const DashboardPage = () => {
           )}
 
           {/* Appointments Tab */}
-          {activeTab === "appointments" && (
+          {/* {activeTab === "appointments" && (
             <div className="space-y-6 mt-8">
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-semibold">Appointments</h2>
@@ -911,7 +908,7 @@ const DashboardPage = () => {
                 ))}
               </div>
             </div>
-          )}
+          )} */}
 
           {/* Medications Tab */}
           {activeTab === "medications" && (
