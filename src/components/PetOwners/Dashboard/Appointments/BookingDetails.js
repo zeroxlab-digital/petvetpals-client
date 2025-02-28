@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
 import useFetchPets from '../../../../../hooks/useFetchPets';
+import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 
 const BookingDetails = ({ apptId, setBookingState }) => {
     console.log("appointment id from details:", apptId);
@@ -81,7 +82,7 @@ const BookingDetails = ({ apptId, setBookingState }) => {
         }
     }
     if(isLoading) {
-        return <div>Loading...</div>
+        return <PetSpinner />
     }
     return (
         <div className=''>

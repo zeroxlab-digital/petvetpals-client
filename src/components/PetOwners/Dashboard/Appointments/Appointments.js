@@ -7,6 +7,7 @@ import { LuDog } from 'react-icons/lu';
 import axios from 'axios';
 import useGetAppts from '../../../../../hooks/useGetAppts';
 import ConfirmBookingModal from './ConfirmBookingModal';
+import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 
 const Appointments = () => {
     const { appointments, isLoading, error } = useGetAppts();
@@ -33,7 +34,7 @@ const Appointments = () => {
         setShowModal(true);
     };
     if (isLoading) {
-        return <div>Loading...</div>
+        return <PetSpinner />
     }
     return (
         <div className=''>
