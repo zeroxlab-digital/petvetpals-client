@@ -23,7 +23,7 @@ const Participants = () => {
         }
     }
     return (
-        <div className={`${clickedParticipant ? 'max-md:hidden' : ''} border-l-2   p-3 py-0 pr-0 md:h-[calc(100vh-10.2rem)] `}>
+        <div className={`${clickedParticipant ? 'max-md:hidden' : ''} md:border-l-2   md:p-3 py-0 pr-0 md:h-[calc(100vh-10.2rem)] `}>
             <div className='flex items-center justify-between  mb-4'>
                 <h3 className='text-gray-800 font-medium  md:ml-1'>Available vets</h3>
                 <div className='flex items-center gap-5'>
@@ -31,8 +31,8 @@ const Participants = () => {
                     <button><HiDotsVertical className='h-4 w-4 text-gray-800' /></button>
                 </div>
             </div>
-            <ul className='flex justify-start items-start flex-col gap-1 max-md:gap-3'>
-                {participants.map(participant => <li key={participant._id} onClick={() => dispatch(setClickedParticipant(participant))} className={`text-center w-full flex  items-center gap-3 cursor-pointer hover:bg-gray-100 duration-200 p-1 rounded-md  ${clickedParticipant?._id === participant._id && 'md:bg-gray-200'}`}>
+            <ul className='flex justify-start items-start flex-col '>
+                {participants.map(participant => <li key={participant._id} onClick={() => dispatch(setClickedParticipant(participant))} className={`border-b last:border-none py-2 text-center w-full flex  items-center gap-3 cursor-pointer hover:bg-gray-100 duration-200 rounded-md  ${clickedParticipant?._id === participant._id && 'md:bg-gray-200'}`}>
                     <Image src="/images/vet.png" alt="participant-profile" width={30} height={30} className='rounded-full w-10 h-10 max-md:w-14 max-md:h-14' />
                     <span className='font-medium text-gray-800 max-md:text-lg'>{nameFormat(participant.fullName)}</span>
                 </li>)}

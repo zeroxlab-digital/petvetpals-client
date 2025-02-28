@@ -7,12 +7,13 @@ import SendMessage from './SendMessage';
 import { HiArrowLeft, HiInformationCircle } from 'react-icons/hi2';
 import { useDispatch } from 'react-redux';
 import { setClickedParticipant } from '@/redux/features/messageSlice';
+import { PetSpinner } from '../../Loader/PetSpinner';
 
 const ConversationContainer = ({ clickedParticipant, authUser }) => {
     const [refreshTrigger, setRefreshTrigger] = useState(0);
     const { messages, loading, error } = useFetchMessages(refreshTrigger);
     const dispatch = useDispatch();
-    
+
     const messagesEndRef = useRef(null);
     // Scroll to the bottom when messages update
     useEffect(() => {
@@ -35,6 +36,7 @@ const ConversationContainer = ({ clickedParticipant, authUser }) => {
                     <HiInformationCircle className='text-gray-200 text-2xl' />
                 </button>
             </div>
+            {loading && <PetSpinner />}
             {messages.length < 1 && error ?
                 <div className='flex items-center justify-center h-full'>
                     <h3 className='font-bold text-lg text-gray-800'>No convo found</h3>
