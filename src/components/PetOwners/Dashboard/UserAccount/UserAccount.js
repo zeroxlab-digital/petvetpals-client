@@ -68,8 +68,8 @@ const UserAccount = () => {
             <div className="grid gap-6">
               {/* Profile Header */}
               <form onSubmit={handleUpdateProfile} className="bg-white rounded-xl border shadow-sm p-6">
-                <div className="flex items-start justify-between mb-6">
-                  <div className="flex gap-4">
+                <div className="sm:flex items-start justify-between mb-6">
+                  <div className="flex items-center gap-4">
                     <div className="relative">
                       <Image src="/images/vet.png" alt="Profile" width={80} height={80} className="rounded-full" />
                       <button type="button" className="absolute bottom-0 right-0 p-1 bg-blue-500 rounded-full text-white hover:bg-blue-600 transition-colors">
@@ -84,7 +84,7 @@ const UserAccount = () => {
                   </div>
                   <div
                     onClick={() => setEditMode(!editMode)}
-                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="max-sm:hidden px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                   >
                     {editMode ?
                       <button type="button" className="flex items-center gap-1">
@@ -163,6 +163,22 @@ const UserAccount = () => {
                       />
                     </div>
                   </div>
+                </div>
+                <div
+                  onClick={() => setEditMode(!editMode)}
+                  className="sm:hidden mt-10 px-4 py-3 flex justify-center text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  {editMode ?
+                    <button type="button" className="flex items-center gap-1">
+                      <Save className="h-4 w-4" />
+                      Save Changes
+                    </button>
+                    :
+                    <button type="submit" className="flex items-center gap-1">
+                      <Edit className="h-4 w-4" />
+                      Edit Profile
+                    </button>
+                  }
                 </div>
               </form>
 
