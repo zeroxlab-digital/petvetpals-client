@@ -2,12 +2,36 @@
 import { useState } from "react"
 import { Bell, Camera, CreditCard, Edit, Eye, EyeOff, Key, Lock, LogOut, Mail, Phone, PlusCircle, Save, Settings, Shield, User, } from "lucide-react"
 import Image from "next/image"
+import useUserProfile from "../../../../../hooks/useUserProfile"
+import axios from "axios"
 
-export default function UserAccount() {
+const UserAccount = () => {
+  const { userProfile, setUserProfile, loading, error } = useUserProfile();
+
   const [showPassword, setShowPassword] = useState(false)
   const [activeTab, setActiveTab] = useState("profile")
   const [editMode, setEditMode] = useState(false)
 
+  const handleUpdateProfile = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE}/api/user/user-details`, userProfile, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      if (res.status === 200) {
+        console.log("Profile updated successfull!")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto ">
@@ -43,37 +67,37 @@ export default function UserAccount() {
           {activeTab === "profile" && (
             <div className="grid gap-6">
               {/* Profile Header */}
-              <div className="bg-white rounded-xl border shadow-sm p-6">
+              <form onSubmit={handleUpdateProfile} className="bg-white rounded-xl border shadow-sm p-6">
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex gap-4">
                     <div className="relative">
                       <Image src="/images/vet.png" alt="Profile" width={80} height={80} className="rounded-full" />
-                      <button className="absolute bottom-0 right-0 p-1 bg-blue-500 rounded-full text-white hover:bg-blue-600 transition-colors">
+                      <button type="button" className="absolute bottom-0 right-0 p-1 bg-blue-500 rounded-full text-white hover:bg-blue-600 transition-colors">
                         <Camera className="h-4 w-4" />
                       </button>
                     </div>
                     <div>
-                      <h2 className="text-xl font-semibold">John Doe</h2>
+                      <h2 className="text-xl font-semibold">{userProfile?.fullName}</h2>
                       <p className="text-sm text-gray-500">Member since January 2024</p>
                       <p className="text-sm text-blue-500">Premium Member</p>
                     </div>
                   </div>
-                  <button
+                  <div
                     onClick={() => setEditMode(!editMode)}
-                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                   >
-                    {editMode ? (
-                      <>
+                    {editMode ?
+                      <button type="button" className="flex items-center gap-1">
                         <Save className="h-4 w-4" />
                         Save Changes
-                      </>
-                    ) : (
-                      <>
+                      </button>
+                      :
+                      <button type="submit" className="flex items-center gap-1">
                         <Edit className="h-4 w-4" />
                         Edit Profile
-                      </>
-                    )}
-                  </button>
+                      </button>
+                    }
+                  </div>
                 </div>
 
                 <div className="grid gap-6 md:grid-cols-2">
@@ -82,7 +106,8 @@ export default function UserAccount() {
                       <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                       <input
                         type="text"
-                        defaultValue="John Doe"
+                        defaultValue={userProfile?.fullName}
+                        onChange={(e) => setUserProfile({ ...userProfile, fullName: e.target.value })}
                         disabled={!editMode}
                         className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
                       />
@@ -91,8 +116,8 @@ export default function UserAccount() {
                       <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
                       <input
                         type="email"
-                        defaultValue="john.doe@example.com"
-                        disabled={!editMode}
+                        defaultValue={userProfile?.email}
+                        disabled
                         className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
                       />
                     </div>
@@ -111,7 +136,8 @@ export default function UserAccount() {
                       <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
                       <input
                         type="text"
-                        defaultValue="123 Pet Street"
+                        defaultValue={userProfile?.address || ''}
+                        onChange={(e) => setUserProfile({ ...userProfile, address: e.target.value })}
                         disabled={!editMode}
                         className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
                       />
@@ -120,7 +146,8 @@ export default function UserAccount() {
                       <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
                       <input
                         type="text"
-                        defaultValue="Pet City"
+                        defaultValue={userProfile?.city || ''}
+                        onChange={(e) => setUserProfile({ ...userProfile, city: e.target.value })}
                         disabled={!editMode}
                         className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
                       />
@@ -129,14 +156,15 @@ export default function UserAccount() {
                       <label className="block text-sm font-medium text-gray-700 mb-1">Zip Code</label>
                       <input
                         type="text"
-                        defaultValue="12345"
+                        defaultValue={userProfile?.zip || ''}
+                        onChange={(e) => setUserProfile({ ...userProfile, zip: e.target.value })}
                         disabled={!editMode}
                         className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
                       />
                     </div>
                   </div>
                 </div>
-              </div>
+              </form>
 
               {/* Recent Activity */}
               <div className="bg-white rounded-xl border shadow-sm p-6">
@@ -253,7 +281,7 @@ export default function UserAccount() {
                       <input
                         type={showPassword ? "text" : "password"}
                         value="12345678"
-                        
+
                         className="px-3 py-2 border rounded-lg bg-gray-50 text-gray-500"
                       />
                       <button
@@ -396,3 +424,4 @@ export default function UserAccount() {
   )
 }
 
+export default UserAccount;
