@@ -5,6 +5,7 @@ import DashboardSidebar from '../../components/PetOwners/Dashboard/Sidebar/Sideb
 import { HiBars3, HiBars3BottomLeft, HiChevronDoubleRight, HiChevronRight, HiOutlineChevronDoubleRight } from 'react-icons/hi2';
 import { HiX } from 'react-icons/hi';
 import ProtectedPage from '@/components/Common/ProtectedPage/ProtectedPage';
+import { ToastContainer } from 'react-toastify';
 
 const DashboardLayout = ({ children }) => {
     const [responsiveToggle, setResponsiveToggle] = useState(false);
@@ -46,6 +47,7 @@ const DashboardLayout = ({ children }) => {
                     {children}
                 </div>
             </div>
+            <ToastContainer />
         </>
     );
 };

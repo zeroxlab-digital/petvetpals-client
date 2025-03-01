@@ -5,6 +5,7 @@ import { HiLogout } from "react-icons/hi";
 import { FaCalendar, FaCartShopping, FaHouse, FaPaw, FaPills, FaRegHeart, FaRegMessage, FaUser } from 'react-icons/fa6';
 import axios from 'axios';
 import { HiArrowRightOnRectangle } from 'react-icons/hi2';
+import { toast } from 'react-toastify';
 
 const DashboardSidebar = ({ setResponsiveToggle }) => {
 
@@ -21,12 +22,17 @@ const DashboardSidebar = ({ setResponsiveToggle }) => {
     const pathname = usePathname();
     const router = useRouter();
 
+    const notify = (message, type) => {
+        toast(message, { type: type, autoClose: 1500 });
+    }
+
     const handleUserLogout = async () => {
         try {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/user/logout`, { },  {
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/user/logout`, {}, {
                 withCredentials: true,
             })
-            if(res.status === 200){
+            if (res.status === 200) {
+                notify("Logout successfull!", "success");
                 localStorage.clear();
                 router.push("/signin");
             }

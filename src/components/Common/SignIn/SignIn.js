@@ -7,8 +7,12 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setAuthUser } from "@/redux/features/userSlice";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const SignInPage = () => {
+    const notify = (message, type) => {
+        toast(message, { type: type, autoClose: 1000 });
+    }
     const router = useRouter();
     const dispatch = useDispatch();
     const [user, setUser] = useState({
@@ -30,7 +34,7 @@ const SignInPage = () => {
 
             if (response.status === 200) {
                 dispatch(setAuthUser(response?.data?.userDetails));
-                alert("User loggin successfull!");
+                notify("User login successfull!", "success");
                 router.push("/");
             }
         } catch (error) {

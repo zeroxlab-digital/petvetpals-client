@@ -5,8 +5,12 @@ import Input from "../Form/Input";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const SignUpPage = () => {
+    const notify = (message, type) => {
+        toast(message, { type: type, autoClose: 1000 });
+    }
     const router = useRouter()
     const [user, setUser] = useState({
         fullName: "",
@@ -20,14 +24,13 @@ const SignUpPage = () => {
         e.preventDefault();
         setIsLoading(true);
         try {
-            console.log(user);
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/user/register`, user , {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/user/register`, user, {
                 headers: {
                     "Content-Type": "application/json"
                 }
             });
-            if(response.status === 200) {
-                alert("User registration successfull! Please log in.");
+            if (response.status === 200) {
+                notify("User registration successful! Please sign in.", "success");
                 router.push("/signin");
             }
         } catch (error) {
