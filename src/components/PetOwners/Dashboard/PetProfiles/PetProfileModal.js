@@ -1,3 +1,4 @@
+import FileUpload from '@/components/Common/FileUpload/FileUpload';
 import Input from '@/components/Common/Form/Input';
 import Label from '@/components/Common/Form/Label';
 import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
@@ -79,125 +80,237 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
     return (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
             <div className="relative w-[95%] max-w-[50rem]  bg-white shadow-lg rounded-lg overflow-hidden">
-                <div className='h-[80%] lg:h-max overflow-auto hide-scrollbar p-4'>
+                <div className='h-[30rem] overflow-auto hide-scrollbar p-4'>
                     {modalType == "update" ?
-                        <div className='text-left'>
-                            <h3 className='font-bold text-xl text-gray-800 '>Update Pet Details</h3>
-                            <p className='text-gray-600 font-light'>Please udpate the form below with your pets details</p>
-                            <form onSubmit={handleUpdatePet} className='mt-7'>
-                                <div className='mb-5'>
-                                    <Label htmlFor="petsname">Pet Name</Label>
-                                    <Input type="text" id="petname" placeholder={updatePet.name} classNames="py-2 w-full"
+                        <div className="bg-gray-50 rounded-xl p-4">
+                            <h3 className="text-lg font-bold text-gray-800 mb-5">Update pet profile</h3>
+                            <form onSubmit={handleUpdatePet} className="space-y-5">
+                                <div>
+                                    <Label htmlFor="petname" className="text-gray-800 font-medium mb-1 block">
+                                        Pet Name
+                                    </Label>
+                                    <Input
+                                        type="text"
+                                        id="petname"
+                                        placeholder={updatePet.name}
+                                        classNames="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                         name="petname"
                                         default={updatePetProfile.name}
                                         onChange={(e) => setUpdatePetProfile({ ...updatePetProfile, name: e.target.value })}
+                                        required
                                     />
                                 </div>
-                                <div className='grid grid-cols-2 gap-5 mb-5'>
-                                    <div className=''>
-                                        <Label htmlFor="type">Pet Type</Label>
-                                        <SelectOptions options={['Cat', 'Dog', 'Rabbit', 'Bird', 'Other']}
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    <div>
+                                        <Label htmlFor="type" className="text-gray-800 font-medium mb-1 block">
+                                            Pet Type
+                                        </Label>
+                                        <SelectOptions
+                                            options={["Cat", "Dog", "Rabbit", "Bird", "Other"]}
                                             name="pettype"
                                             default={updatePetProfile.type}
                                             onChange={(e) => setUpdatePetProfile({ ...updatePetProfile, type: e.target.value })}
+                                            className="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                         />
                                     </div>
-                                    <div className=''>
-                                        <Label htmlFor="type">Gender</Label>
-                                        <SelectOptions options={["male", "female"]}
+                                    <div>
+                                        <Label htmlFor="gender" className="text-gray-800 font-medium mb-1 block">
+                                            Gender
+                                        </Label>
+                                        <SelectOptions
+                                            options={["Male", "Female"]}
                                             name="gender"
                                             default={updatePetProfile.gender}
-                                            onChange={(e) => setUpdatePetProfile({ ...updatePetProfile, gender: e.target.value })}
+                                            onChange={(e) => setUpdatePetProfile({ ...updatePetProfile, gender: e.target.value.toLowerCase() })}
+                                            className="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                         />
                                     </div>
                                 </div>
-                                <div className='grid grid-cols-2 gap-5 mb-5'>
-                                    <div className='w-full'>
-                                        <Label htmlFor="age">Age</Label>
-                                        <Input type="number" id="age" placeholder={updatePet.age} classNames="py-2 w-full"
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    <div>
+                                        <Label htmlFor="age" className="text-gray-800 font-medium mb-1 block">
+                                            Age (years)
+                                        </Label>
+                                        <Input
+                                            type="number"
+                                            id="age"
+                                            placeholder={updatePet.age}
+                                            classNames="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                             name="age"
                                             default={updatePetProfile.age}
                                             onChange={(e) => setUpdatePetProfile({ ...updatePetProfile, age: e.target.value })}
+                                            min="0"
+                                            step="0.1"
                                         />
                                     </div>
-                                    <div className='w-full'>
-                                        <Label htmlFor="weight">Weight (lbs)</Label>
-                                        <Input type="number" id="weight" placeholder={updatePet.weight} classNames="py-2 w-full"
+                                    <div>
+                                        <Label htmlFor="weight" className="text-gray-800 font-medium mb-1 block">
+                                            Weight (lbs)
+                                        </Label>
+                                        <Input
+                                            type="number"
+                                            id="weight"
+                                            placeholder={updatePet.weight}
+                                            classNames="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                             name="weight"
                                             default={updatePetProfile.weight}
                                             onChange={(e) => setUpdatePetProfile({ ...updatePetProfile, weight: e.target.value })}
+                                            min="0"
+                                            step="0.1"
                                         />
                                     </div>
                                 </div>
-                                <div className='mb-5'>
-                                    <Label htmlFor="breed">Breed</Label>
-                                    <Input type="text" id="breed" placeholder={updatePet.breed} classNames="py-2 w-full"
+
+                                <div>
+                                    <Label htmlFor="breed" className="text-gray-800 font-medium mb-1 block">
+                                        Breed
+                                    </Label>
+                                    <Input
+                                        type="text"
+                                        id="breed"
+                                        placeholder={updatePet.breed}
+                                        classNames="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                         name="breed"
                                         default={updatePetProfile.breed}
                                         onChange={(e) => setUpdatePetProfile({ ...updatePetProfile, breed: e.target.value })}
                                     />
                                 </div>
-                                <input type="submit" value="Update pet profile" className={`bg-primary rounded-full text-white font-semibold cursor-pointer py-3 w-full mt-5}`} />
+
+                                <FileUpload />
+
+                                <div className="flex gap-4 pt-2">
+                                    <button
+                                        type="button"
+                                        onClick={() => setModalType(null)}
+                                        className="bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg font-medium py-3 px-6 transition-colors duration-200 flex-1"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="bg-primary hover:bg-primary/90 text-white rounded-lg font-medium py-3 px-6 transition-colors duration-200 flex-1"
+                                    >
+                                        Update Pet
+                                    </button>
+                                </div>
                             </form>
                         </div>
                         :
-                        <div className='text-left'>
-                            <h3 className='font-bold text-xl text-gray-800 '>Provide Pet Details</h3>
-                            <p className='text-gray-600 font-light'>Please fill the form below with your pets details</p>
-                            <form onSubmit={handleAddPet} className='mt-7'>
-                                <div className='mb-5'>
-                                    <Label htmlFor="petsname">Pet Name</Label>
-                                    <Input type="text" id="petname" placeholder="Enter your pet's name" classNames="py-2 w-full"
+                        <div className="bg-gray-50 rounded-xl p-4">
+                            <h3 className="text-lg font-bold text-gray-800 mb-5">Add a new pet</h3>
+                            <form onSubmit={handleAddPet} className="space-y-5">
+                                <div>
+                                    <Label htmlFor="petname" className="text-gray-800 font-medium mb-1 block">
+                                        Pet Name
+                                    </Label>
+                                    <Input
+                                        type="text"
+                                        id="petname"
+                                        placeholder="Enter your pet's name"
+                                        classNames="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                         name="petname"
                                         default={petProfile.name}
                                         onChange={(e) => setPetProfile({ ...petProfile, name: e.target.value })}
+                                        required
                                     />
                                 </div>
-                                <div className='grid grid-cols-2 gap-5 mb-5'>
-                                    <div className=''>
-                                        <Label htmlFor="type">Pet Type</Label>
-                                        <SelectOptions options={['Cat', 'Dog', 'Rabbit', 'Bird', 'Other']}
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    <div>
+                                        <Label htmlFor="type" className="text-gray-800 font-medium mb-1 block">
+                                            Pet Type
+                                        </Label>
+                                        <SelectOptions
+                                            options={["Cat", "Dog", "Rabbit", "Bird", "Other"]}
                                             name="pettype"
                                             default={petProfile.type}
                                             onChange={(e) => setPetProfile({ ...petProfile, type: e.target.value })}
+                                            className="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                         />
                                     </div>
-                                    <div className=''>
-                                        <Label htmlFor="type">Gender</Label>
-                                        <SelectOptions options={["male", "female"]}
+                                    <div>
+                                        <Label htmlFor="gender" className="text-gray-800 font-medium mb-1 block">
+                                            Gender
+                                        </Label>
+                                        <SelectOptions
+                                            options={["Male", "Female"]}
                                             name="gender"
                                             default={petProfile.gender}
-                                            onChange={(e) => setPetProfile({ ...petProfile, gender: e.target.value })}
+                                            onChange={(e) => setPetProfile({ ...petProfile, gender: e.target.value.toLowerCase() })}
+                                            className="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                         />
                                     </div>
                                 </div>
-                                <div className='grid grid-cols-2 gap-5 mb-5'>
-                                    <div className='w-full'>
-                                        <Label htmlFor="age">Age</Label>
-                                        <Input type="number" id="age" placeholder="Enter your pet's age" classNames="py-2 w-full"
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    <div>
+                                        <Label htmlFor="age" className="text-gray-800 font-medium mb-1 block">
+                                            Age (years)
+                                        </Label>
+                                        <Input
+                                            type="number"
+                                            id="age"
+                                            placeholder="Enter your pet's age"
+                                            classNames="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                             name="age"
                                             default={petProfile.age}
                                             onChange={(e) => setPetProfile({ ...petProfile, age: e.target.value })}
+                                            min="0"
+                                            step="0.1"
                                         />
                                     </div>
-                                    <div className='w-full'>
-                                        <Label htmlFor="weight">Weight (lbs)</Label>
-                                        <Input type="number" id="weight" placeholder="Enter your pet's weight" classNames="py-2 w-full"
+                                    <div>
+                                        <Label htmlFor="weight" className="text-gray-800 font-medium mb-1 block">
+                                            Weight (lbs)
+                                        </Label>
+                                        <Input
+                                            type="number"
+                                            id="weight"
+                                            placeholder="Enter your pet's weight"
+                                            classNames="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                             name="weight"
                                             default={petProfile.weight}
                                             onChange={(e) => setPetProfile({ ...petProfile, weight: e.target.value })}
+                                            min="0"
+                                            step="0.1"
                                         />
                                     </div>
                                 </div>
-                                <div className='mb-5'>
-                                    <Label htmlFor="breed">Breed</Label>
-                                    <Input type="text" id="breed" placeholder="Enter your pet's breed" classNames="py-2 w-full"
+
+                                <div>
+                                    <Label htmlFor="breed" className="text-gray-800 font-medium mb-1 block">
+                                        Breed
+                                    </Label>
+                                    <Input
+                                        type="text"
+                                        id="breed"
+                                        placeholder="Enter your pet's breed"
+                                        classNames="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
                                         name="breed"
                                         default={petProfile.breed}
                                         onChange={(e) => setPetProfile({ ...petProfile, breed: e.target.value })}
                                     />
                                 </div>
-                                <input type="submit" value="Add pet profile" className={`bg-primary rounded-full text-white font-semibold cursor-pointer py-3 w-full mt-5}`} />
+
+                                <FileUpload />
+
+                                <div className="flex gap-4 pt-2">
+                                    <button
+                                        type="button"
+                                        onClick={() => setModalType(null)}
+                                        className="bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg font-medium py-3 px-6 transition-colors duration-200 flex-1"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="bg-primary hover:bg-primary/90 text-white rounded-lg font-medium py-3 px-6 transition-colors duration-200 flex-1"
+                                    >
+                                        Add Pet
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     }
