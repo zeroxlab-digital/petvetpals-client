@@ -9,6 +9,7 @@ import ApplePay from '/public/images/applepay.png';
 import Gpay from '/public/images/gpay.png';
 import Image from 'next/image';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const BookingPayment = ({ apptId, setShowModal }) => {
     const expirationMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -21,6 +22,10 @@ const BookingPayment = ({ apptId, setShowModal }) => {
     ]
     const [selectedPaymentOption, setSelectedPaymentOption] = useState('Card');
     
+    const notify = (message, type) => {
+        toast(message, { type: type, autoClose: 1500 });
+    }
+
     const handleCompleteBooking = async (e) => {
         e.preventDefault();
         try {
@@ -31,7 +36,8 @@ const BookingPayment = ({ apptId, setShowModal }) => {
                 withCredentials: true
             })
             if (res.status === 200) {
-                alert("Booking completed!")
+                notify("Booking completed!", "success");
+                // alert("Booking completed!")
                 setShowModal(false);
             }
         } catch (error) {

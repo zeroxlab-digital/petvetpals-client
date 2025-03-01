@@ -13,6 +13,7 @@ import useFetchPets from "../../../../../hooks/useFetchPets"
 import { PetSpinner } from "@/components/Common/Loader/PetSpinner"
 import { HiDocument } from "react-icons/hi2"
 import FileUpload from "@/components/Common/FileUpload/FileUpload"
+import { toast } from "react-toastify"
 
 const BookingDetails = ({ apptId, setBookingState }) => {
     console.log("appointment id from details:", apptId)
@@ -66,6 +67,10 @@ const BookingDetails = ({ apptId, setBookingState }) => {
         weight: 0,
     })
 
+    const notify = (message, type) => {
+        toast(message, { type: type, autoClose: 1500 });
+    }
+
     const handleManualPetAdd = async (e) => {
         e.preventDefault()
         try {
@@ -77,6 +82,7 @@ const BookingDetails = ({ apptId, setBookingState }) => {
             })
             console.log(res)
             if (res.status === 200) {
+                notify("Added new pet profile successfully!", "success");
                 setPetDetailsOption("selector")
             }
             setPetProfile({

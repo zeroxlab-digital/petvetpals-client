@@ -8,6 +8,7 @@ import axios from 'axios';
 import useGetAppts from '../../../../../hooks/useGetAppts';
 import ConfirmBookingModal from './ConfirmBookingModal';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
+import { toast } from 'react-toastify';
 
 const Appointments = () => {
     const { appointments, isLoading, error } = useGetAppts();
@@ -18,12 +19,19 @@ const Appointments = () => {
 
     const filtered_appointments = appointments.filter(appointment => appointment.status === active_status_tab);
 
+    const notify = (message, type) => {
+        toast(message, { type: type, autoClose: 1500 });
+    }
+
     const handleAppointmentDlt = async (id) => {
         try {
             const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE}/api/appointment/delete-appointment/${id}`, {
                 withCredentials: true,
             });
-            if (res.status === 200) console.log("Appointment deleted successfully!");
+            if (res.status === 200) {
+                notify("Appointment deleted successfully!", "success");
+                // console.log("Appointment deleted successfully!");
+            }
         } catch (error) {
             console.log(error);
         }

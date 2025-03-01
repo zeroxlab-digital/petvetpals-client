@@ -6,6 +6,7 @@ import useUserProfile from "../../../../../hooks/useUserProfile"
 import axios from "axios"
 import { HiUserCircle } from "react-icons/hi2"
 import { PetSpinner } from "@/components/Common/Loader/PetSpinner"
+import { toast, ToastContainer } from "react-toastify"
 
 const UserAccount = () => {
   const { userProfile, setUserProfile, loading, error } = useUserProfile();
@@ -13,6 +14,10 @@ const UserAccount = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [activeTab, setActiveTab] = useState("profile")
   const [editMode, setEditMode] = useState(false)
+
+  const notify = (message, type) => {
+    toast(message, { type: type, autoClose: 1500 });
+  }
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
@@ -24,7 +29,8 @@ const UserAccount = () => {
         withCredentials: true,
       })
       if (res.status === 200) {
-        console.log("Profile updated successfull!")
+        notify("Profile updated successfull!", "success");
+        // console.log("Profile updated successfull!")
       }
     } catch (error) {
       console.log(error)
@@ -36,6 +42,7 @@ const UserAccount = () => {
   }
   return (
     <div className="min-h-screen">
+      <ToastContainer />
       <div className="max-w-7xl mx-auto ">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Account Settings</h1>

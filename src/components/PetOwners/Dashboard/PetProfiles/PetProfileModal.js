@@ -5,6 +5,7 @@ import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { HiXMark } from 'react-icons/hi2';
+import { toast } from 'react-toastify';
 
 const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, updatePet }) => {
 
@@ -14,6 +15,10 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
             document.body.classList.remove("overflow-hidden");
         }
     }, [])
+
+    const notify = (message, type) => {
+            toast(message, { type: type, autoClose: 1500 });
+        }
 
     const handleAddPet = async (e) => {
         e.preventDefault();
@@ -25,6 +30,7 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
                 withCredentials: true
             })
             if (res.status === 200) {
+                notify("Added new pet profile!", "success");
                 setModalType(null);
             }
             setPetProfile({
@@ -61,6 +67,7 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
             })
             console.log(res);
             if (res.status === 200) {
+                notify("Updated pet profile successfully!", "success");
                 setModalType(null);
             }
             setUpdatePetProfile({
