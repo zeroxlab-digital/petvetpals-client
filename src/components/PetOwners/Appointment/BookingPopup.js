@@ -4,6 +4,7 @@ import { format, addDays } from 'date-fns';
 import BookingCalendar from './BookingCalendar';
 import Button from '@/components/Common/Button/Button';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const BookingPopup = ({ setShowModal, foundVet }) => {
 
@@ -40,7 +41,9 @@ const BookingPopup = ({ setShowModal, foundVet }) => {
         setSelectedDate(newDateWithTime);
         setSelectedTime(time);
     };
-
+    const notify = (message, type) => {
+        toast(message, { type, autoClose: 1000 })
+    }
     const handleBookingConfirm = async () => {
         try {
             const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/appointment/book-appointment/${foundVet._id}`, { date: selectedDate.toISOString() }, {
@@ -51,23 +54,22 @@ const BookingPopup = ({ setShowModal, foundVet }) => {
             })
             console.log("res:", res);
             if (res.status === 200) {
-                alert(res.data?.message)
+                // alert(res.data?.message)
+                notify(res.data?.message || "Appointment booked!", "success");
                 setShowModal(false);
             } else {
                 console.log(res)
             }
         } catch (error) {
             console.log(error);
-            alert(error.response?.data?.message)
+            // alert(error.response?.data?.message);
+            notify(error.response?.data?.message, "error");
         }
     }
 
 
     useEffect(() => {
-        // Add scroll lock to the body
         document.body.classList.add('overflow-hidden');
-
-        // Cleanup on unmount
         return () => {
             document.body.classList.remove('overflow-hidden');
         };
