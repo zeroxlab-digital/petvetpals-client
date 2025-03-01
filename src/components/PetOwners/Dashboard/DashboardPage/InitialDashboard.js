@@ -1,7 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Activity, Calendar, MessageSquare, PawPrint, Plus, ShoppingBag, Stethoscope } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 const InitialDashboard = () => {
+  const router = useRouter();
   return (
     <div className="min-h-screen">
       <main className="max-w-7xl mx-auto">
@@ -24,7 +26,7 @@ const InitialDashboard = () => {
             <p className="text-gray-500 mb-4">
               Create a profile for your pet to start tracking their health and accessing our services.
             </p>
-            <button className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primaryOutline transition-colors">
+            <button onClick={() => router.push("/dashboard/pets")} className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primaryOutline transition-colors">
               Add Pet
             </button>
           </div>

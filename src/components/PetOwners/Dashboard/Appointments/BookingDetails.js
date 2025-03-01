@@ -1,27 +1,34 @@
-import Label from '@/components/Common/Form/Label';
-import Input from '@/components/Common/Form/Input';
-import Textarea from '@/components/Common/Form/Textarea';
-import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import axios from 'axios';
-import useFetchPets from '../../../../../hooks/useFetchPets';
-import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
+"use client"
+
+import { useEffect, useState } from "react"
+import Image from "next/image"
+import axios from "axios"
+import { Check, Paperclip, PawPrint, Plus } from "lucide-react"
+
+import Label from "@/components/Common/Form/Label"
+import Input from "@/components/Common/Form/Input"
+import Textarea from "@/components/Common/Form/Textarea"
+import SelectOptions from "@/components/Common/SelectOptions/SelectOptions"
+import useFetchPets from "../../../../../hooks/useFetchPets"
+import { PetSpinner } from "@/components/Common/Loader/PetSpinner"
+import { HiDocument } from "react-icons/hi2"
+import FileUpload from "@/components/Common/FileUpload/FileUpload"
 
 const BookingDetails = ({ apptId, setBookingState }) => {
-    console.log("appointment id from details:", apptId);
-    const [petDetailsOption, setPetDetailsOption] = useState("selector");
-    const { pets, isLoading } = useFetchPets();
-    const [selectedPet, setSelectedPet] = useState(null);
+    console.log("appointment id from details:", apptId)
+    const [petDetailsOption, setPetDetailsOption] = useState("selector")
+    const { pets, isLoading } = useFetchPets()
+    const [selectedPet, setSelectedPet] = useState(null)
 
     const [consultation_purpose, set_consultation_purpose] = useState({
         pet: selectedPet,
-        purpose: ""
-    });
+        purpose: "",
+    })
+
     useEffect(() => {
         set_consultation_purpose({
             pet: selectedPet,
-            purpose: consultation_purpose.purpose || null
+            purpose: consultation_purpose.purpose || null,
         })
     }, [consultation_purpose.purpose, selectedPet])
 
@@ -30,157 +37,291 @@ const BookingDetails = ({ apptId, setBookingState }) => {
             return alert("To continue, you must select a pet or add manually!")
         }
         try {
-            const res = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE}/api/appointment/update-appointment/${apptId}`, consultation_purpose, {
-                headers: {
-                    "Content-Type": "application/json"
+            const res = await axios.patch(
+                `${process.env.NEXT_PUBLIC_API_BASE}/api/appointment/update-appointment/${apptId}`,
+                consultation_purpose,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true,
                 },
-                withCredentials: true
-            })
-            console.log(res);
+            )
+            console.log(res)
             if (res.status === 200) {
-                setBookingState('payment-details')
+                setBookingState("payment-details")
             }
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
     }
 
     const [petProfile, setPetProfile] = useState({
-        type: '',
-        name: '',
+        type: "",
+        name: "",
         image: null,
         age: 0,
-        breed: '',
-        gender: '',
+        breed: "",
+        gender: "",
         weight: 0,
     })
 
     const handleManualPetAdd = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         try {
             const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/pet/add-pet`, petProfile, {
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
-                withCredentials: true
+                withCredentials: true,
             })
-            console.log(res);
+            console.log(res)
             if (res.status === 200) {
                 setPetDetailsOption("selector")
             }
             setPetProfile({
-                type: '',
-                name: '',
+                type: "",
+                name: "",
                 image: null,
                 age: 0,
-                breed: '',
-                gender: '',
+                breed: "",
+                gender: "",
                 weight: 0,
             })
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
     }
-    if(isLoading) {
-        return <PetSpinner />
+
+    if (isLoading) {
+        return (
+            <div className="flex items-center justify-center min-h-[400px]">
+                <PetSpinner />
+            </div>
+        )
     }
+
     return (
-        <div className=''>
-            <div className='md:w-3/4 mx-auto'>
-                <div className=' flex items-center justify-between gap-5 mb-5'>
-                    <button onClick={() => setPetDetailsOption("selector")} className={`${petDetailsOption === "selector" ? "bg-primary text-white" : ""} border w-full h-11 font-semibold`}>Select Pet</button>
-                    <button onClick={() => setPetDetailsOption("manual")} className={`${petDetailsOption === "manual" ? "bg-primary text-white" : ""} border w-full h-11 font-semibold`}>Add new</button>
+        <div className="bg-white rounded-xl p-3 shadow-sm">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Booking Details</h2>
+
+            <div className="md:w-4/5 mx-auto mb-8">
+                <div className="flex items-center justify-between gap-5 max-sm:gap-1 p-1 bg-gray-100 rounded-lg">
+                    <button
+                        onClick={() => setPetDetailsOption("selector")}
+                        className={`${petDetailsOption === "selector"
+                            ? "bg-primary text-white shadow-md"
+                            : "bg-transparent text-gray-700 hover:bg-gray-200"
+                            } 
+                            w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2`}
+                    >
+                        <PawPrint size={18} />
+                        Select Pet
+                    </button>
+                    <button
+                        onClick={() => setPetDetailsOption("manual")}
+                        className={`${petDetailsOption === "manual"
+                            ? "bg-primary text-white shadow-md"
+                            : "bg-transparent text-gray-700 hover:bg-gray-200"
+                            } 
+                            w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2`}
+                    >
+                        <Plus size={18} />
+                        Add New Pet
+                    </button>
                 </div>
             </div>
-            {
-                petDetailsOption === "selector" ?
-                    <div className="flex flex-col mt-10">
-                        <ul className="grid grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 gap-5 ">
-                            {pets.map(pet => (
-                                <li key={pet._id} onClick={() => setSelectedPet(pet)} className={`${selectedPet?._id === pet._id ? "border-green-500 bg-gray-200 bg-opacity-20" : ""} border rounded-md cursor-pointer`}>
-                                    <Image
-                                        src={pet.image || "/images/cat-cute.jpg"}
-                                        alt="pet's-img"
-                                        width={200}
-                                        height={200}
-                                        className={`object-cover w-full rounded-md rounded-b-none`}
-                                    />
-                                    <p className="text-center font-semibold text-gray-700 p-3">{pet.name}</p>
-                                </li>
-                            ))}
-                        </ul>
-                        <div className='mt-10'>
-                            <Label htmlFor="purpose">Purpose of consultation</Label>
-                            <Textarea classNames="w-full" id="purpose" name="purpose" onChange={(e) => set_consultation_purpose({ ...consultation_purpose, purpose: e.target.value })} placeholder="Type the symptoms or reason for visit..." />
-                        </div>
-                        <button
-                            onClick={handleContinue}
-                            className="mt-5 bg-primary rounded-full text-white cursor-pointer py-3 w-full"
-                        >
-                            Continue to pay
-                        </button>
-                    </div>
-                    :
-                    <div className='text-left'>
-                        <form onSubmit={handleManualPetAdd} className='mt-7'>
-                            <div className='mb-5'>
-                                <Label htmlFor="petsname">Pet Name</Label>
-                                <Input type="text" id="petname" placeholder="Enter your pet's name" classNames="py-2 w-full"
-                                    name="petname"
-                                    default={petProfile.name}
-                                    onChange={(e) => setPetProfile({ ...petProfile, name: e.target.value })}
-                                />
-                            </div>
-                            <div className='grid grid-cols-2 gap-5 mb-5'>
-                                <div className=''>
-                                    <Label htmlFor="type">Pet Type</Label>
-                                    <SelectOptions options={['Cat', 'Dog', 'Rabbit', 'Bird', 'Other']}
-                                        name="pettype"
-                                        default={petProfile.type}
-                                        onChange={(e) => setPetProfile({ ...petProfile, type: e.target.value })}
-                                    />
-                                </div>
-                                <div className=''>
-                                    <Label htmlFor="type">Gender</Label>
-                                    <SelectOptions options={["male", "female"]}
-                                        name="gender"
-                                        default={petProfile.gender}
-                                        onChange={(e) => setPetProfile({ ...petProfile, gender: e.target.value })}
-                                    />
-                                </div>
-                            </div>
-                            <div className='grid grid-cols-2 gap-5 mb-5'>
-                                <div className='w-full'>
-                                    <Label htmlFor="age">Age</Label>
-                                    <Input type="number" id="age" placeholder="Enter your pet's age" classNames="py-2 w-full"
-                                        name="age"
-                                        default={petProfile.age}
-                                        onChange={(e) => setPetProfile({ ...petProfile, age: e.target.value })}
-                                    />
-                                </div>
-                                <div className='w-full'>
-                                    <Label htmlFor="weight">Weight (lbs)</Label>
-                                    <Input type="number" id="weight" placeholder="Enter your pet's weight" classNames="py-2 w-full"
-                                        name="weight"
-                                        default={petProfile.weight}
-                                        onChange={(e) => setPetProfile({ ...petProfile, weight: e.target.value })}
-                                    />
-                                </div>
-                            </div>
-                            <div className='mb-5'>
-                                <Label htmlFor="breed">Breed</Label>
-                                <Input type="text" id="breed" placeholder="Enter your pet's breed" classNames="py-2 w-full"
-                                    name="breed"
-                                    default={petProfile.breed}
-                                    onChange={(e) => setPetProfile({ ...petProfile, breed: e.target.value })}
-                                />
-                            </div>
-                            <input type="submit" value="Add New Pet" className={`bg-primary rounded-full text-white cursor-pointer py-3 w-full mt-5 `} />
-                        </form>
-                    </div>
-            }
-        </div>
-    );
-};
 
-export default BookingDetails;
+            {petDetailsOption === "selector" ? (
+                <div className="flex flex-col">
+                    {pets.length > 0 ? (
+                        <div className="mb-8">
+                            <h3 className="text-lg font-semibold text-gray-700 mb-4">Select your pet</h3>
+                            <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                {pets.map((pet) => (
+                                    <li
+                                        key={pet._id}
+                                        onClick={() => setSelectedPet(pet)}
+                                        className={`relative border rounded-xl overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-md ${selectedPet?._id === pet._id ? "ring-2 ring-[#58294E] ring-offset-2" : "hover:border-gray-300"
+                                            }`}
+                                    >
+                                        <div className="aspect-square relative">
+                                            <Image
+                                                src={pet.image || pet.type == "Cat" ? "/images/cat-cute.jpg" : "/images/cute-dog.jpg"}
+                                                alt={`${pet.name}'s photo`}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </div>
+                                        <div className="p-3 bg-white">
+                                            <p className="font-semibold text-gray-800 text-center">{pet.name}</p>
+                                            <p className="text-xs text-gray-500 text-center">{pet.breed || pet.type}</p>
+                                        </div>
+                                        {selectedPet?._id === pet._id && (
+                                            <div className="absolute top-2 right-2 bg-primary text-white rounded-full p-1">
+                                                <Check size={16} />
+                                            </div>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ) : (
+                        <div className="text-center bg-gray-50 rounded-xl p-8 mb-8">
+                            <PawPrint size={48} className="mx-auto mb-4 text-gray-400" />
+                            <h2 className="text-xl font-bold text-primary mb-2">No pets found</h2>
+                            <p className="text-gray-600 mb-4">Add a new pet profile to continue</p>
+                            <button
+                                onClick={() => setPetDetailsOption("manual")}
+                                className="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                            >
+                                Add New Pet
+                            </button>
+                        </div>
+                    )}
+
+                    <div className="bg-gray-50 rounded-xl p-3 md:p-4 mb-6">
+                        <Label htmlFor="purpose" className="text-gray-800 font-medium mb-3 block">
+                            Purpose of consultation
+                        </Label>
+                        <Textarea
+                            classNames="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+                            id="purpose"
+                            name="purpose"
+                            onChange={(e) => set_consultation_purpose({ ...consultation_purpose, purpose: e.target.value })}
+                            placeholder="Describe your pet's symptoms or reason for visit..."
+                            rows={4}
+                        />
+                    </div>
+
+                    <button
+                        onClick={handleContinue}
+                        className="bg-primary hover:bg-primary/90 rounded-lg text-white font-medium py-4 w-full transition-colors duration-200 flex items-center justify-center gap-2"
+                        disabled={!selectedPet}
+                    >
+                        Continue to Payment
+                    </button>
+                </div>
+            ) : (
+                <div className="bg-gray-50 rounded-xl p-4">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-4">Add a new pet</h3>
+                    <form onSubmit={handleManualPetAdd} className="space-y-5">
+                        <div>
+                            <Label htmlFor="petname" className="text-gray-800 font-medium mb-1 block">
+                                Pet Name
+                            </Label>
+                            <Input
+                                type="text"
+                                id="petname"
+                                placeholder="Enter your pet's name"
+                                classNames="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+                                name="petname"
+                                default={petProfile.name}
+                                onChange={(e) => setPetProfile({ ...petProfile, name: e.target.value })}
+                                required
+                            />
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <Label htmlFor="type" className="text-gray-800 font-medium mb-1 block">
+                                    Pet Type
+                                </Label>
+                                <SelectOptions
+                                    options={["Cat", "Dog", "Rabbit", "Bird", "Other"]}
+                                    name="pettype"
+                                    default={petProfile.type}
+                                    onChange={(e) => setPetProfile({ ...petProfile, type: e.target.value })}
+                                    className="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+                                />
+                            </div>
+                            <div>
+                                <Label htmlFor="gender" className="text-gray-800 font-medium mb-1 block">
+                                    Gender
+                                </Label>
+                                <SelectOptions
+                                    options={["Male", "Female"]}
+                                    name="gender"
+                                    default={petProfile.gender}
+                                    onChange={(e) => setPetProfile({ ...petProfile, gender: e.target.value.toLowerCase() })}
+                                    className="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <Label htmlFor="age" className="text-gray-800 font-medium mb-1 block">
+                                    Age (years)
+                                </Label>
+                                <Input
+                                    type="number"
+                                    id="age"
+                                    placeholder="Enter your pet's age"
+                                    classNames="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+                                    name="age"
+                                    default={petProfile.age}
+                                    onChange={(e) => setPetProfile({ ...petProfile, age: e.target.value })}
+                                    min="0"
+                                    step="0.1"
+                                />
+                            </div>
+                            <div>
+                                <Label htmlFor="weight" className="text-gray-800 font-medium mb-1 block">
+                                    Weight (lbs)
+                                </Label>
+                                <Input
+                                    type="number"
+                                    id="weight"
+                                    placeholder="Enter your pet's weight"
+                                    classNames="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+                                    name="weight"
+                                    default={petProfile.weight}
+                                    onChange={(e) => setPetProfile({ ...petProfile, weight: e.target.value })}
+                                    min="0"
+                                    step="0.1"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <Label htmlFor="breed" className="text-gray-800 font-medium mb-1 block">
+                                Breed
+                            </Label>
+                            <Input
+                                type="text"
+                                id="breed"
+                                placeholder="Enter your pet's breed"
+                                classNames="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+                                name="breed"
+                                default={petProfile.breed}
+                                onChange={(e) => setPetProfile({ ...petProfile, breed: e.target.value })}
+                            />
+                        </div>
+
+                        <FileUpload />
+
+                        <div className="flex gap-4 pt-2">
+                            <button
+                                type="button"
+                                onClick={() => setPetDetailsOption("selector")}
+                                className="bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg font-medium py-3 px-6 transition-colors duration-200 flex-1"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="submit"
+                                className="bg-primary hover:bg-primary/90 text-white rounded-lg font-medium py-3 px-6 transition-colors duration-200 flex-1"
+                            >
+                                Add Pet
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            )}
+        </div>
+    )
+}
+
+export default BookingDetails
+
