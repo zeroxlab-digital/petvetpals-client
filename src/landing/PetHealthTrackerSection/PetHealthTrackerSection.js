@@ -1,10 +1,13 @@
 "use client"
-
 import { useState, useEffect } from "react"
 import { motion, useAnimation, useMotionValue, useTransform } from "framer-motion"
 import { Activity, Calendar, Bell, Heart, Zap, Bone, Fish, Carrot } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useSelector } from "react-redux"
 
 const PetHealthTrackerSection = () => {
+  const authUser = useSelector((state) => state.userRedu.user.authUser);
+  const router = useRouter();
   const [currentFeature, setCurrentFeature] = useState(0)
   const controls = useAnimation()
   const y = useMotionValue(0)
@@ -67,6 +70,7 @@ const PetHealthTrackerSection = () => {
             className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold py-4 px-8 rounded-full text-lg shadow-lg"
             whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(79, 70, 229, 0.5)" }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => router.push(authUser ? "/dashboard" : "/signup")}
           >
             Start Your Free Trial
             <motion.span
