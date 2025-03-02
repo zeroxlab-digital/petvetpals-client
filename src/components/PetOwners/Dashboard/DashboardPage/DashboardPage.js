@@ -17,6 +17,7 @@ import InitialDashboard from "./InitialDashboard"
 import useFetchPets from "../../../../../hooks/useFetchPets"
 import { format } from "date-fns"
 import { PetSpinner } from "@/components/Common/Loader/PetSpinner"
+import { useRouter } from "next/navigation"
 
 // Sample data for charts and displays
 const healthData = [
@@ -242,16 +243,18 @@ const DashboardPage = () => {
   const [showPetMenu, setShowPetMenu] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [activeTab, setActiveTab] = useState("overview")
-  const [date, setDate] = useState(new Date())
-  const [showAppointmentDialog, setShowAppointmentDialog] = useState(false)
-  const [showMedicationDialog, setShowMedicationDialog] = useState(false)
-  const [showNotifications, setShowNotifications] = useState(false)
-  const [selectedAppointmentType, setSelectedAppointmentType] = useState("checkup")
-  const [selectedAppointmentTime, setSelectedAppointmentTime] = useState("10:00")
-  const [selectedVet, setSelectedVet] = useState("smith")
-  const [appointmentNotes, setAppointmentNotes] = useState("")
 
-  console.log("Selected pet:", selectedPet)
+  // Appointment related states
+  // const [date, setDate] = useState(new Date())
+  // const [showAppointmentDialog, setShowAppointmentDialog] = useState(false)
+  // const [showMedicationDialog, setShowMedicationDialog] = useState(false)
+  // const [showNotifications, setShowNotifications] = useState(false)
+  // const [selectedAppointmentType, setSelectedAppointmentType] = useState("checkup")
+  // const [selectedAppointmentTime, setSelectedAppointmentTime] = useState("10:00")
+  // const [selectedVet, setSelectedVet] = useState("smith")
+  // const [appointmentNotes, setAppointmentNotes] = useState("")
+
+  const router = useRouter();
 
   useEffect(() => {
     if (pets.length > 0) {
@@ -298,7 +301,7 @@ const DashboardPage = () => {
                   onClick={() => setShowPetMenu(!showPetMenu)}
                   className="flex items-center gap-1 text-lg font-semibold rounded-lg transition-colors"
                 >
-                  {selectedPet.name} <span className="text-gray-500">({selectedPet.breed})</span>
+                  {selectedPet.name} <span className="text-gray-500 text-base font-normal">({selectedPet.breed})</span>
                   {showPetMenu ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                 </button>
                 {showPetMenu && (
@@ -311,13 +314,9 @@ const DashboardPage = () => {
                         }}
                         className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md transition-colors"
                       >
-                        {pet.name} ({pet.breed})
+                        <span>{pet.name}</span> <span className="text-sm">({pet.breed})</span>
                       </button>
                     ))}
-                    <button className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md flex items-center transition-colors">
-                      <Plus className="mr-2 h-4 w-4" />
-                      Add New Pet
-                    </button>
                   </div>
                 )}
               </div>
@@ -328,13 +327,13 @@ const DashboardPage = () => {
           </div>
           <div className="flex gap-2 flex-wrap">
             <button
-              onClick={() => setShowAppointmentDialog(true)}
+              onClick={() => router.push("/appointments")}
               className="flex items-center bg-primary text-white px-4 max-sm:px-2 py-2 rounded-lg hover:bg-primaryOutline transition-colors"
             >
               <Calendar className="mr-2 h-4 w-4" />
               Book Appointment
             </button>
-            <button className="flex items-center border border-gray-300 px-4 max-sm:px-2 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+            <button onClick={() => router.push("/dashboard/messages")} className="flex items-center border border-gray-300 px-4 max-sm:px-2 py-2 rounded-lg hover:bg-gray-100 transition-colors">
               <MessageSquare className="mr-2 h-4 w-4" />
               Chat with Vet
             </button>
@@ -348,8 +347,8 @@ const DashboardPage = () => {
               <button
                 onClick={() => setActiveTab("overview")}
                 className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === "overview"
-                    ? "border-primary text-primary"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  ? "border-primary text-primary"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                   }`}
               >
                 Overview
@@ -357,8 +356,8 @@ const DashboardPage = () => {
               <button
                 onClick={() => setActiveTab("health")}
                 className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === "health"
-                    ? "border-primary text-primary"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  ? "border-primary text-primary"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                   }`}
               >
                 Health Records
@@ -375,8 +374,8 @@ const DashboardPage = () => {
               <button
                 onClick={() => setActiveTab("medications")}
                 className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === "medications"
-                    ? "border-primary text-primary"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  ? "border-primary text-primary"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                   }`}
               >
                 Medications
@@ -384,8 +383,8 @@ const DashboardPage = () => {
               <button
                 onClick={() => setActiveTab("diet")}
                 className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === "diet"
-                    ? "border-primary text-primary"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  ? "border-primary text-primary"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                   }`}
               >
                 Diet & Activity
@@ -1084,7 +1083,7 @@ const DashboardPage = () => {
       </main>
 
       {/* Appointment Dialog */}
-      {showAppointmentDialog && (
+      {/* {showAppointmentDialog && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-4">
@@ -1180,7 +1179,7 @@ const DashboardPage = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   )
 }
