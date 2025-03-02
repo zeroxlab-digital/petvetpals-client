@@ -80,7 +80,7 @@ const UserAccount = () => {
                 <div className="sm:flex items-start justify-between mb-6">
                   <div className="flex items-center gap-4">
                     <div className="relative">
-                      <Image src="/images/vet.png" alt="Profile" width={80} height={80} className="rounded-full" />
+                      <Image src={userProfile?.image || "/images/user-man.png" } alt="user-image" width={80} height={80} className="rounded-full" />
                       {/* <HiUserCircle className="w-16 h-16 text-gray-600" /> */}
                       <button type="button" className="absolute bottom-0 right-0 p-1 bg-blue-500 rounded-full text-white hover:bg-blue-600 transition-colors">
                         <Camera className="h-4 w-4" />
