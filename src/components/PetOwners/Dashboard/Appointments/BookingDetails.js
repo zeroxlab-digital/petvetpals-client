@@ -119,10 +119,10 @@ const BookingDetails = ({ apptId, setBookingState }) => {
                             ? "bg-primary text-white shadow-md"
                             : "bg-transparent text-gray-700 hover:bg-gray-200"
                             } 
-                            w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2`}
+                            w-full py-3 px-4 max-sm:px-3 max-sm:text-sm rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2`}
                     >
                         <PawPrint size={18} />
-                        Select Pet
+                        Select pet
                     </button>
                     <button
                         onClick={() => setPetDetailsOption("manual")}
@@ -130,10 +130,10 @@ const BookingDetails = ({ apptId, setBookingState }) => {
                             ? "bg-primary text-white shadow-md"
                             : "bg-transparent text-gray-700 hover:bg-gray-200"
                             } 
-                            w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2`}
+                            w-full py-3  px-4 max-sm:px-3 max-sm:text-sm rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 max-sm:gap-1`}
                     >
                         <Plus size={18} />
-                        Add New Pet
+                        Add new pet
                     </button>
                 </div>
             </div>
