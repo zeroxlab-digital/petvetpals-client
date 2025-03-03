@@ -1,18 +1,17 @@
-import { useState } from "react";
 import { Paperclip, X } from "lucide-react";
 
-const FileUpload = () => {
-  const [fileName, setFileName] = useState("");
+const FileUpload = ({ uploadedFile, setUploadedFile }) => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
+    console.log(file);
     if (file) {
-      setFileName(file.name);
+      setUploadedFile(file);
     }
   };
 
   const handleRemove = () => {
-    setFileName("");
+    setUploadedFile(null);
   };
 
   return (
@@ -20,12 +19,12 @@ const FileUpload = () => {
       <label className="flex flex-col items-center justify-center w-full p-4 border-2 border-dashed border-gray-600 rounded-lg cursor-pointer hover:border-gray-400 transition">
         <input type="file" className="hidden" onChange={handleFileChange} />
         <Paperclip className="text-gray-400 mb-2" size={24} />
-        <span className="text-gray-400 text-sm">{fileName || "Click to upload a file"}</span>
+        <span className="text-gray-400 text-sm">{uploadedFile?.name || "Click to upload a file"}</span>
       </label>
 
-      {fileName && (
+      {uploadedFile && (
         <div className="mt-3 flex items-center justify-between bg-gray-800 text-gray-300 px-3 py-2 rounded-lg">
-          <span className="text-sm truncate">{fileName}</span>
+          <span className="text-sm truncate">{uploadedFile?.name}</span>
           <button onClick={handleRemove} className="text-gray-400 hover:text-red-500 transition">
             <X size={18} />
           </button>

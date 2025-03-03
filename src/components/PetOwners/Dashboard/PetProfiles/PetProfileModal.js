@@ -17,16 +17,28 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
     }, [])
 
     const notify = (message, type) => {
-            toast(message, { type: type, autoClose: 1500 });
-        }
+        toast(message, { type: type, autoClose: 1500 });
+    }
+
+    // File upload states
+    const [uploadedFile, setUploadedFile] = useState(null);
+    console.log(uploadedFile);
 
     const handleAddPet = async (e) => {
         e.preventDefault();
+
+        // Form data for adding texts and files at the same time
+        const formData = new FormData();
+        formData.append("type", petProfile.type);
+        formData.append("name", petProfile.name);
+        formData.append("image", uploadedFile);
+        formData.append("age", petProfile.age);
+        formData.append("breed", petProfile.breed);
+        formData.append("gender", petProfile.gender);
+        formData.append("weight", petProfile.weight);
+
         try {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/pet/add-pet`, petProfile, {
-                headers: {
-                    "Content-Type": "application/json"
-                },
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/pet/add-pet`, formData, {
                 withCredentials: true
             })
             if (res.status === 200) {
@@ -58,11 +70,19 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
     })
     const handleUpdatePet = async (e) => {
         e.preventDefault();
+
+        // Form data for updating texts and files at the same time
+        const formData = new FormData();
+        formData.append("type", updatePetProfile.type);
+        formData.append("name", updatePetProfile.name);
+        formData.append("image", uploadedFile);
+        formData.append("age", updatePetProfile.age);
+        formData.append("breed", updatePetProfile.breed);
+        formData.append("gender", updatePetProfile.gender);
+        formData.append("weight", updatePetProfile.weight);
+
         try {
-            const res = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE}/api/pet/update-pet/${updatePet._id}`, updatePetProfile, {
-                headers: {
-                    "Content-Type": "application/json"
-                },
+            const res = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE}/api/pet/update-pet/${updatePet._id}`, formData, {
                 withCredentials: true
             })
             console.log(res);
@@ -83,6 +103,7 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
             console.log(error);
         }
     }
+
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
@@ -185,7 +206,7 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
                                     />
                                 </div>
 
-                                <FileUpload />
+                                <FileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
 
                                 <div className="flex gap-4 pt-2">
                                     <button
@@ -301,7 +322,7 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
                                     />
                                 </div>
 
-                                <FileUpload />
+                                <FileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
 
                                 <div className="flex gap-4 pt-2">
                                     <button
