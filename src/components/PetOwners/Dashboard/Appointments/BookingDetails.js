@@ -71,13 +71,28 @@ const BookingDetails = ({ apptId, setBookingState }) => {
         toast(message, { type: type, autoClose: 1500 });
     }
 
+    // File upload states
+    const [uploadedFile, setUploadedFile] = useState(null);
+    console.log(uploadedFile);
+
     const handleManualPetAdd = async (e) => {
         e.preventDefault()
+
+        // Form data for adding texts and files at the same time
+        const formData = new FormData();
+        formData.append("type", petProfile.type);
+        formData.append("name", petProfile.name);
+        formData.append("image", uploadedFile);
+        formData.append("age", petProfile.age);
+        formData.append("breed", petProfile.breed);
+        formData.append("gender", petProfile.gender);
+        formData.append("weight", petProfile.weight);
+
         try {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/pet/add-pet`, petProfile, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/pet/add-pet`, formData, {
+                // headers: {
+                //     "Content-Type": "application/json",
+                // },
                 withCredentials: true,
             })
             console.log(res)
@@ -153,7 +168,7 @@ const BookingDetails = ({ apptId, setBookingState }) => {
                                     >
                                         <div className="aspect-square relative">
                                             <Image
-                                                src={pet.image || pet.type == "Cat" ? "/images/cat-cute.jpg" : "/images/cute-dog.jpg"}
+                                                src={pet.image || "/images/cute-dog.jpg"}
                                                 alt={`${pet.name}'s photo`}
                                                 fill
                                                 className="object-cover"
@@ -305,7 +320,7 @@ const BookingDetails = ({ apptId, setBookingState }) => {
                             />
                         </div>
 
-                        <FileUpload />
+                        <FileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
 
                         <div className="flex gap-4 pt-2">
                             <button
