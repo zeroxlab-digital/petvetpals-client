@@ -21,7 +21,7 @@ const VetDetails = ({ params }) => {
     const { vets, isLoading, error } = useFetchVets();
     const foundVet = vets.find(vet => vet._id === params._id);
 
-    const { _id, image, fullName, title, works_at, experience_years, specialities, fees } = foundVet || {};
+    const { _id, image, banner, fullName, title, works_at, experience_years, specialities, fees } = foundVet || {};
     const [showModal, setShowModal] = useState(false);
 
     // Availability Calendar
@@ -49,11 +49,11 @@ const VetDetails = ({ params }) => {
         <div>
             <div className="bg-white">
                 <div>
-                    <Image src="/images/cute-dog.jpg" alt="" width={100} height={100} className="w-full h-96 max-sm:h-56 object-cover rounded-md" />
+                    <Image src={banner || "/images/cat-vet.jpg"} alt="vet-banner" width={100} height={100} className="w-full h-96 max-sm:h-56 object-cover rounded-md" />
                 </div>
                 <div className="relative -top-10 grid grid-cols-3 max-lg:grid-cols-1 items-end px-5 pb-0 max-lg:gap-y-10 rounded-md ">
                     <div className="flex max-md:flex-col md:items-end gap-5 col-span-2 ">
-                        <div className=""><Image src="/images/vet.png" alt="vet logo" width={200} height={200} className="rounded-full max-md:rounded-md border-2 border-gray-300 max-sm:w-40" /></div>
+                        <div className=""><Image src={image || "/images/vet.png"} alt="vet image" width={200} height={200} className="rounded-full max-md:rounded-md border-2 border-gray-300 max-sm:w-40" /></div>
                         <div className="md:pb-3">
                             <h2 className="mb-2 font-bold text-lg">{fullName}</h2>
                             <p className='mb-2'>{title || "Title goes here"}</p>
