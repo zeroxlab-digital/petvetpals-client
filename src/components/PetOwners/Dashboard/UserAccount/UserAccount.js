@@ -10,7 +10,7 @@ import { toast, ToastContainer } from "react-toastify"
 
 const UserAccount = () => {
   const { userProfile, setUserProfile, loading, error } = useUserProfile();
-
+  console.log(userProfile);
   const [showPassword, setShowPassword] = useState(false)
   const [activeTab, setActiveTab] = useState("profile")
   const [editMode, setEditMode] = useState(false)
@@ -88,7 +88,7 @@ const UserAccount = () => {
                     </div>
                     <div>
                       <h2 className="text-xl font-semibold">{userProfile?.fullName}</h2>
-                      <p className="text-sm text-gray-500">Member since January 2024</p>
+                      <p className="text-sm text-gray-500">Member since { new Date(userProfile?.createdAt).toLocaleString("en-US", { month: "long", year: "numeric" }) }</p>
                       <p className="text-sm text-blue-500">Premium Member</p>
                     </div>
                   </div>
@@ -132,10 +132,10 @@ const UserAccount = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number <span className="text-gray-500 font-normal">(optional)</span></label>
                       <input
                         type="tel"
-                        defaultValue="+1 (555) 123-4567"
+                        defaultValue=""
                         disabled={!editMode}
                         className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
                       />
