@@ -8,7 +8,7 @@ import { HiXMark } from 'react-icons/hi2';
 import { toast } from 'react-toastify';
 
 const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, updatePet }) => {
-
+    console.log("update pet image:", updatePet?.image)
     useEffect(() => {
         document.body.classList.add("overflow-hidden");
         return () => {
@@ -22,7 +22,7 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
 
     // File upload states
     const [uploadedFile, setUploadedFile] = useState(null);
-    console.log(uploadedFile);
+    console.log("File:", uploadedFile);
 
     const handleAddPet = async (e) => {
         e.preventDefault();
@@ -68,6 +68,19 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
         gender: updatePet?.gender,
         weight: updatePet?.weight,
     })
+
+    // Update the image in updatePetProfile when uploadedFile changes
+    useEffect(() => {
+        if (uploadedFile) {
+            setUpdatePetProfile(prevState => ({
+                ...prevState,
+                image: uploadedFile
+            }));
+        }
+    }, [uploadedFile]);
+
+    console.log("updatePetProfile:", updatePetProfile);
+
     const handleUpdatePet = async (e) => {
         e.preventDefault();
 
@@ -75,17 +88,15 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
         const formData = new FormData();
         formData.append("type", updatePetProfile.type);
         formData.append("name", updatePetProfile.name);
-        formData.append("image", uploadedFile);
+        formData.append("image", updatePetProfile.image);
         formData.append("age", updatePetProfile.age);
         formData.append("breed", updatePetProfile.breed);
         formData.append("gender", updatePetProfile.gender);
         formData.append("weight", updatePetProfile.weight);
-
         try {
             const res = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE}/api/pet/update-pet/${updatePet._id}`, formData, {
                 withCredentials: true
             })
-            console.log(res);
             if (res.status === 200) {
                 notify("Updated pet profile successfully!", "success");
                 setModalType(null);
@@ -103,7 +114,6 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
             console.log(error);
         }
     }
-
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
