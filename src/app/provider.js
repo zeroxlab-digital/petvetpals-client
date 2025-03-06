@@ -19,7 +19,11 @@ const StoreProvider = ({ children }) => {
     return (
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-                {isReady ? children : <PetVetPalsLoader />}
+                {
+                // isReady ? 
+                children
+                // : <PetVetPalsLoader />
+                }
             </PersistGate>
         </Provider>
     );

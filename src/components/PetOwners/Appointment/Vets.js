@@ -15,7 +15,7 @@ const Vets = ({ vets, isLoading, error, currentPath }) => {
             {vets?.length > 1 ?
                 <div className='flex flex-col gap-5'>
                     {
-                        vets.map(({ _id, image, fullName, title, works_at, experience_years, specialities, fees }) => (
+                        vets.map(({ _id, image, fullName, degrees, works_at, experience_years, specialities, fees }) => (
                             <Link href={{
                                 pathname: `${currentPath}/${_id}`,
                                 query: {
@@ -26,7 +26,7 @@ const Vets = ({ vets, isLoading, error, currentPath }) => {
                                     <div><Image src={image || "/images/vet.png"} alt="vet-image" width={100} height={100} className='rounded max-w-32' /></div>
                                     <div>
                                         <h4 className='font-bold'>{fullName}</h4>
-                                        <p className='text-sm mb-2'>{title || "Title goes here"}</p>
+                                        <p className='text-sm mb-2'>{degrees[0] || "Title goes here"}</p>
                                         <p className='text-sm text-gray-700 mb-1'>Specialities</p>
                                         <div className='flex gap-1 flex-wrap lg:hidden'>{specialities.slice(0, 2).map((speciality, index) => <p key={index} className='text-xs bg-primary p-1 text-white rounded'>{speciality}</p>)}</div>
                                         <div className='flex gap-1 flex-wrap max-lg:hidden'>{specialities.map((speciality, index) => <p key={index} className='text-xs bg-primary p-1 text-white rounded'>{speciality}</p>)}</div>
