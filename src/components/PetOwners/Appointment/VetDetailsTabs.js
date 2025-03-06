@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { HiChat, HiLocationMarker } from 'react-icons/hi';
 import { HiAcademicCap, HiBriefcase, HiCalendar, HiHeart, HiOutlineBriefcase, HiStar } from 'react-icons/hi2';
 
-const VetDetailsTabs = ({ fullName, title }) => {
+const VetDetailsTabs = ({ foundVet }) => {
+    const { _id, image, banner, fullName, degrees, works_at, experience_years, specialities, fees, languages, based_in } = foundVet || {};
     const tabList = ["About Vet", "Experiences", "Reviews"];
     const [selectedTab, setSelectedTab] = useState("About Vet");
 
@@ -28,19 +29,22 @@ const VetDetailsTabs = ({ fullName, title }) => {
                             <div className='mb-5'>
                                 <ul className='flex flex-col gap-4'>
                                     <li className='flex items-center gap-2 text-gray-800'>
-                                        <HiBriefcase className='text-xl text-gray-700' /> Works at <span className='font-medium'>St. Francis Med</span>
+                                        <HiBriefcase className='text-xl text-gray-700' /> Works at <span className='font-medium'>{works_at || 'N/A'}</span>
                                     </li>
                                     <li className='flex items-center gap-2 text-gray-800'>
-                                        <HiAcademicCap className='text-xl text-gray-700' /> Degree in <span className='font-medium'>Veterinary Medicine</span>
+                                        <HiAcademicCap className='text-xl text-gray-700' /> Degree in <span className='font-medium'>{degrees[0] || 'N/A'}</span>
                                     </li>
                                     <li className='flex items-center gap-2 text-gray-800'>
-                                        <HiCalendar className='text-xl text-gray-700' /> Experience <span className='font-medium'>8+ years</span>
+                                        <HiCalendar className='text-xl text-gray-700' /> Experience <span className='font-medium'>{experience_years || 'N/A'}+ years</span>
                                     </li>
                                     <li className='flex items-center gap-2 text-gray-800'>
-                                        <HiLocationMarker className='text-xl text-gray-700' /> Based in <span className='font-medium'>Los Angeles, CA</span>
+                                        <HiLocationMarker className='text-xl text-gray-700' /> Based in <span className='font-medium'>{based_in || 'N/A'}</span>
                                     </li>
                                     <li className='flex items-center gap-2 text-gray-800'>
-                                        <HiChat className='text-xl text-gray-700' /> Speaks <span className='font-medium'>English, Spanish</span>
+                                        <HiChat className='text-xl text-gray-700' /> Speaks
+                                        <span className='font-medium'>
+                                            {languages.length > 1 ? languages.join(', ') : languages[0] || 'N/A'}
+                                        </span>
                                     </li>
                                     <li className='flex items-center gap-2 text-gray-800'>
                                         <HiStar className='text-xl text-gray-700' /> Ratings <span className='font-medium'>4.7 (193)</span>
@@ -49,7 +53,7 @@ const VetDetailsTabs = ({ fullName, title }) => {
 
                             </div>
                             <div className=''>
-                                <h2 className='font-bold text-lg text-gray-900 mb-2'>{fullName} - {title}</h2>
+                                <h2 className='font-bold text-lg text-gray-900 mb-2'>{fullName} - {degrees[0] || 'N/A'}</h2>
                                 <p className='text-gray-700 text-justify'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam.</p>
                             </div>
                         </div>

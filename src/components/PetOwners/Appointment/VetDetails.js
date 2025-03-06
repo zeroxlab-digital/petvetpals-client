@@ -21,7 +21,7 @@ const VetDetails = ({ params }) => {
     const { vets, isLoading, error } = useFetchVets();
     const foundVet = vets.find(vet => vet._id === params._id);
 
-    const { _id, image, banner, fullName, title, works_at, experience_years, specialities, fees } = foundVet || {};
+    const { _id, image, banner, fullName, degrees, works_at, experience_years, specialities, fees, languages, based_in } = foundVet || {};
     const [showModal, setShowModal] = useState(false);
 
     // Availability Calendar
@@ -56,7 +56,7 @@ const VetDetails = ({ params }) => {
                         <div className=""><Image src={image || "/images/vet.png"} alt="vet image" width={200} height={200} className="rounded-full max-md:rounded-md border-2 border-gray-300 max-sm:w-40" /></div>
                         <div className="md:pb-3">
                             <h2 className="mb-2 font-bold text-lg">{fullName}</h2>
-                            <p className='mb-2'>{title || "Title goes here"}</p>
+                            <p className='mb-2'>{degrees[0] || "N/A"}</p>
                             <p className=' text-gray-700 mb-1'>Specialities</p>
                             <div className='flex flex-wrap gap-1'>{specialities?.map((speciality, index) => <p key={index} className='text-xs bg-primary p-1 text-white rounded'>{speciality}</p>)}</div>
                         </div>
@@ -73,7 +73,7 @@ const VetDetails = ({ params }) => {
                     </div>
                 </div>
             </div>
-            <VetDetailsTabs fullName={fullName} title={title || "Title goes here"} />
+            <VetDetailsTabs foundVet={foundVet} />
             <div className="mt-5 grid xl:grid-cols-5 gap-5">
                 <div className="p-5 rounded-md bg-white overflow-hidden xl:col-span-2">
                     <h2 className="mb-8 font-semibold text-gray-900">Availability Calendar</h2>
