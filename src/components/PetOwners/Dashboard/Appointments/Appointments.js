@@ -2,13 +2,14 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import NoPhoto from '/public/images/vet.png';
-import { HiArrowRight, HiChevronDown, HiOutlineClock, HiOutlineCurrencyDollar, HiOutlineMapPin, HiOutlineStar, HiOutlineTrash, HiVideoCamera } from 'react-icons/hi2';
+import { HiArrowRight, HiChevronDown, HiClock, HiOutlineClock, HiOutlineCurrencyDollar, HiOutlineMapPin, HiOutlineStar, HiOutlineTrash, HiPencilSquare, HiVideoCamera } from 'react-icons/hi2';
 import { LuDog } from 'react-icons/lu';
 import axios from 'axios';
 import useGetAppts from '../../../../../hooks/useGetAppts';
 import ConfirmBookingModal from './ConfirmBookingModal';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 import { toast } from 'react-toastify';
+import Countdown from './Countdown';
 
 const Appointments = () => {
     const { appointments, isLoading, error } = useGetAppts();
@@ -84,10 +85,10 @@ const Appointments = () => {
                             </div>
 
                             <div className='flex items-center gap-3 lg:col-span-3 px-3'>
-                                <Image src={NoPhoto} alt='vet_img' width={200} height={200} className='w-14 h-auto rounded-full' />
+                                <Image src={NoPhoto} alt='vet_img' width={200} height={200} className='w-16 h-auto rounded-full' />
                                 <div>
                                     <h5 className='font-semibold text-lg mb-1'>{appointment.vet?.fullName}</h5>
-                                    <p className='text-sm text-gray-500'>Consul. type</p>
+                                    <p className='text-sm text-gray-500'>{appointment.vet?.degrees[0]}</p>
                                 </div>
                             </div>
 
@@ -95,6 +96,7 @@ const Appointments = () => {
                                 <p className='text-gray-600 flex items-center gap-2 mb-2'>
                                     <HiOutlineClock className='text-lg' />
                                     {(() => {
+                                        console.log(new Date(appointment.date));
                                         const startDate = new Date(appointment.date);
                                         const endDate = new Date(startDate.getTime() + 30 * 60 * 1000);
                                         return `${startDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })} - ${endDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;
@@ -111,13 +113,21 @@ const Appointments = () => {
                             <div className='flex flex-wrap gap-4 lg:col-span-3 justify-end p-3'>
                                 {active_status_tab === 'confirmed' ? (
                                     <div className='w-full flex items-center max-md:flex-col gap-3'>
-                                        <button className='bg-white px-5 py-3 rounded-lg border text-gray-900 text-sm flex items-center gap-2 justify-center md:max-w-max max-md:w-full'>Edit <HiChevronDown /></button>
-                                        <button className='bg-primary px-5 py-3 rounded-lg text-white text-sm flex items-center gap-2  justify-center min-w-max max-md:w-full'>Join Now <HiVideoCamera /></button>
+                                        <button className='bg-white rounded-lg border text-blue-500 flex items-center justify-center  w-12 max-md:w-full h-12'>
+                                            <HiPencilSquare className='text-2xl ' />
+                                        </button>
+                                        {new Date() >= new Date(appointment.date) ? (
+                                            <button className='bg-primary rounded-lg text-white text-base flex items-center gap-2 justify-center  w-44 max-md:w-full h-12'>
+                                                Join Now <HiVideoCamera />
+                                            </button>
+                                        ) : (
+                                            <Countdown date_time={new Date(appointment.date)} />
+                                        )}
                                     </div>
                                 ) : active_status_tab === 'pending' ? (
-                                    <div className='w-full flex gap-3 '>
-                                        <button onClick={() => handleConfirmBooking(appointment)} className='bg-primary px-5 py-3 rounded-lg text-white text-sm flex items-center gap-2  justify-center w-full'>Confirm <HiArrowRight /></button>
-                                        <button onClick={() => handleAppointmentDlt(appointment._id)} className='bg-white p-3 rounded-lg text-primary border border-[#58294E] flex items-center  '><HiOutlineTrash className='h-5 w-5' /></button>
+                                    <div className='w-full flex items-center max-md:flex-col-reverse gap-3 '>
+                                        <button onClick={() => handleConfirmBooking(appointment)} className='bg-primary rounded-lg text-white w-44 max-md:w-full h-12 flex items-center gap-2  justify-center'>Confirm <HiArrowRight /></button>
+                                        <button onClick={() => handleAppointmentDlt(appointment._id)} className='bg-white w-12 max-md:w-full h-12 rounded-lg text-blue-500 border flex items-center justify-center '><HiOutlineTrash className='text-2xl' /></button>
                                         {showModal && <ConfirmBookingModal apptId={clickedAppointment._id} setShowModal={setShowModal} />}
                                     </div>
                                 ) : (
