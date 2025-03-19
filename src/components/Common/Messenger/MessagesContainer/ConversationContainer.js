@@ -1,15 +1,32 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
-import { HiDotsVertical } from 'react-icons/hi';
 import useFetchMessages from '../../../../../hooks/useFetchMessages';
 import SendMessage from './SendMessage';
-import { HiArrowLeft, HiInformationCircle } from 'react-icons/hi2';
+import { HiArrowLeft, HiInformationCircle, HiOutlineInformationCircle } from 'react-icons/hi2';
 import { useDispatch } from 'react-redux';
 import { setClickedParticipant } from '@/redux/features/messageSlice';
 import { PetSpinner } from '../../Loader/PetSpinner';
+import { useRouter } from 'next/navigation';
 
 const ConversationContainer = ({ clickedParticipant, authUser }) => {
+    const [showMenu, setShowMenu] = useState(false);
+    const dropdownRef = useRef(null);
+    // Close the dropdown when clicking outside of it
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setShowMenu(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     const [refreshTrigger, setRefreshTrigger] = useState(0);
     const { messages, loading, error } = useFetchMessages(refreshTrigger);
     const dispatch = useDispatch();
@@ -22,9 +39,11 @@ const ConversationContainer = ({ clickedParticipant, authUser }) => {
         }
     }, [messages]);
 
+    const router = useRouter();
+
     return (
         <div className={`max-md:order-2 ${clickedParticipant ? '' : 'max-md:hidden'} flex flex-col h-[calc(100vh-10.2rem)] max-md:!min-h-full`}>
-            <div className='flex items-center justify-between rounded-md bg-primary p-2'>
+            <div className='relative flex items-center justify-between rounded-md bg-primary p-2'>
                 <div className='flex items-center gap-3'>
                     <button onClick={() => dispatch(setClickedParticipant(null))} className='md:hidden'>
                         <HiArrowLeft className='text-gray-200 text-xl' />
@@ -32,9 +51,15 @@ const ConversationContainer = ({ clickedParticipant, authUser }) => {
                     <Image src="/images/vet.png" alt="participant-profile" width={20} height={20} className='rounded-full w-10 h-10' />
                     <span className='font-medium text-gray-200'>{clickedParticipant.fullName}</span>
                 </div>
-                <button>
-                    <HiInformationCircle className='text-gray-200 text-2xl' />
+                <button onClick={() => setShowMenu(!showMenu)} className='text-gray-200 text-2xl'>
+                    {showMenu ? <HiInformationCircle /> : <HiOutlineInformationCircle />}
                 </button>
+                {showMenu && <div className='absolute top-10 right-0 w-52 h-max border shadow-lg bg-white rounded-md '>
+                    <ul>
+                        <li onClick={() => { router.push(`/appointments/${clickedParticipant._id}`), setShowMenu(false) }} className='py-3 px-3 text-gray-800 cursor-pointer hover:bg-gray-100 duration-150 rounded-t-md font-medium'>View profile</li>
+                        <li onClick={() => setShowMenu(false)} className='py-3 px-3 text-gray-800 cursor-pointer hover:bg-gray-100 duration-150 rounded-b-md font-medium'>View media & links</li>
+                    </ul>
+                </div>}
             </div>
             {loading && <PetSpinner />}
             {messages.length < 1 && error ?
