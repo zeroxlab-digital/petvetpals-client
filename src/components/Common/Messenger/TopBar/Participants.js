@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import useFetchVets from '../../../../../hooks/useFetchVets';
 import { HiDotsVertical } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,6 +8,7 @@ import { Search } from 'lucide-react';
 import { PetSpinner } from '../../Loader/PetSpinner';
 
 const Participants = () => {
+    
     const clickedParticipant = useSelector((state) => state.messageRedu.clickedParticipant);
     const dispatch = useDispatch();
     const { vets, isLoading, error } = useFetchVets();
@@ -16,12 +17,13 @@ const Participants = () => {
     }
     const participants = vets;
 
-    const nameFormat = (name) => {
-        const format = name.split(" ");
-        if (format.length > 1) {
-            return `${format[0][0]}. ${format[1]}`;
-        }
-    }
+    // Use this for showing the first letter for firstname
+    // const nameFormat = (name) => {
+    //     const format = name.split(" ");
+    //     if (format.length > 1) {
+    //         return `${format[0][0]}. ${format[1]}`;
+    //     }
+    // }
     return (
         <div className={`${clickedParticipant ? 'max-md:hidden' : ''} md:border-l-2   md:p-3 py-0 pr-0 md:h-[calc(100vh-10.2rem)] `}>
             <div className='flex items-center justify-between  mb-4'>
@@ -29,12 +31,13 @@ const Participants = () => {
                 <div className='flex items-center gap-5'>
                     <button><Search className='h-4 w-4 text-gray-800' /></button>
                     <button><HiDotsVertical className='h-4 w-4 text-gray-800' /></button>
+                    
                 </div>
             </div>
             <ul className='flex justify-start items-start flex-col '>
                 {participants.map(participant => <li key={participant._id} onClick={() => dispatch(setClickedParticipant(participant))} className={`border-b last:border-none py-2 text-center w-full flex  items-center gap-3 cursor-pointer hover:bg-gray-100 duration-200 rounded-md  ${clickedParticipant?._id === participant._id && 'md:bg-gray-200'}`}>
                     <Image src="/images/vet.png" alt="participant-profile" width={30} height={30} className='rounded-full w-10 h-10 max-md:w-14 max-md:h-14' />
-                    <span className='font-medium text-gray-800 max-md:text-lg'>{nameFormat(participant.fullName)}</span>
+                    <span className='font-medium text-gray-800 max-md:text-lg'>{participant.fullName}</span>
                 </li>)}
             </ul>
         </div>
