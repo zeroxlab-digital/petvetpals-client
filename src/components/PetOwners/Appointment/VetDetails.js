@@ -10,10 +10,10 @@ import { DayPicker } from 'react-day-picker';
 import { format, addDays } from 'date-fns';
 import { useSelector } from "react-redux";
 import useFetchVets from "../../../../hooks/useFetchVets";
-import useGetAppts from "../../../../hooks/useGetAppts";
 import Link from "next/link";
 import FAQs from "@/components/Common/FAQs/FAQs";
 import { PetSpinner } from "../../Common/Loader/PetSpinner";
+import { useGetAppointmentsQuery } from "@/redux/services/appointmentApi";
 
 const VetDetails = ({ params }) => {
     const { authUser } = useSelector((state) => state.userRedu.user);
@@ -28,8 +28,9 @@ const VetDetails = ({ params }) => {
     const today = new Date();
     const twoDaysFromNow = addDays(today, 5);
 
-    const { appointments } = useGetAppts();
-    const pendingAppts = appointments.filter(appt => appt.status === "pending");
+    const { data } = useGetAppointmentsQuery();
+
+    const pendingAppts = data?.appointments.filter(appt => appt.status === "pending");
 
     const faqs = [
         { title: "What is PetVetPals?", details: "PetVetPals is an online platform where pet owners can find animal doctors, book appointments, and use telemedicine for video consultations. Along with that, we also provide pet-focused e-commerce services." },

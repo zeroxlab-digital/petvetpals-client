@@ -5,38 +5,30 @@ import NoPhoto from '/public/images/vet.png';
 import { HiArrowRight, HiChevronDown, HiClock, HiOutlineClock, HiOutlineCurrencyDollar, HiOutlineMapPin, HiOutlineStar, HiOutlineTrash, HiPencilSquare, HiVideoCamera } from 'react-icons/hi2';
 import { LuDog } from 'react-icons/lu';
 import axios from 'axios';
-import useGetAppts from '../../../../../hooks/useGetAppts';
 import ConfirmBookingModal from './ConfirmBookingModal';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 import { toast } from 'react-toastify';
 import Countdown from './Countdown';
+import { appointmentApi, useDeleteAppointmentMutation, useGetAppointmentsQuery } from '@/redux/services/appointmentApi';
 
 const Appointments = () => {
-    const { appointments, isLoading, error } = useGetAppts();
+    const { data, isLoading, isError } = useGetAppointmentsQuery();
     const status_tabs = ["confirmed", "pending", "cancelled", "past"];
     const [active_status_tab, set_active_status_tab] = useState(status_tabs[0]);
     const [showModal, setShowModal] = useState(false);
     const [clickedAppointment, setClickedAppointment] = useState(null);
 
-    const filtered_appointments = appointments.filter(appointment => appointment.status === active_status_tab);
+    const filtered_appointments = data?.appointments.filter(appointment => appointment.status === active_status_tab);
 
     const notify = (message, type) => {
         toast(message, { type: type, autoClose: 1500 });
     }
 
-    const handleAppointmentDlt = async (id) => {
-        try {
-            const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE}/api/appointment/delete-appointment/${id}`, {
-                withCredentials: true,
-            });
-            if (res.status === 200) {
-                notify("Appointment deleted successfully!", "success");
-                // console.log("Appointment deleted successfully!");
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    const [deleteAppointment] = useDeleteAppointmentMutation();
+    const handleAppointmentDlt = (id) => {
+        deleteAppointment(id);
+        notify("Appointment deleted successfully!", "success");
+    }
 
     const handleConfirmBooking = (appointment) => {
         setClickedAppointment(appointment);
@@ -54,7 +46,7 @@ const Appointments = () => {
 
             <ul className='bg-gray-200 bg-opacity-50 p-2 rounded-md flex overflow-auto items-center gap-2 mb-6'>
                 {status_tabs.map((tab, index) => {
-                    const count = appointments.filter(appointment => appointment.status === tab).length;
+                    const count = data?.appointments.filter(appointment => appointment.status === tab).length;
                     return (
                         <li
                             key={index}
@@ -96,7 +88,6 @@ const Appointments = () => {
                                 <p className='text-gray-600 flex items-center gap-2 mb-2'>
                                     <HiOutlineClock className='text-lg' />
                                     {(() => {
-                                        console.log(new Date(appointment.date));
                                         const startDate = new Date(appointment.date);
                                         const endDate = new Date(startDate.getTime() + 30 * 60 * 1000);
                                         return `${startDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })} - ${endDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;

@@ -10,6 +10,7 @@ import Gpay from '/public/images/gpay.png';
 import Image from 'next/image';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useUpdateAppointmentMutation } from '@/redux/services/appointmentApi';
 
 const BookingPayment = ({ apptId, setShowModal }) => {
     const expirationMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -21,27 +22,21 @@ const BookingPayment = ({ apptId, setShowModal }) => {
         { logo: Gpay, title: 'Google Pay' }
     ]
     const [selectedPaymentOption, setSelectedPaymentOption] = useState('Card');
-    
+
     const notify = (message, type) => {
         toast(message, { type: type, autoClose: 1500 });
     }
 
+    const [updateAppointment] = useUpdateAppointmentMutation();
     const handleCompleteBooking = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE}/api/appointment/update-appointment/${apptId}`, { payment_status: true, status: "confirmed" }, {
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                withCredentials: true
-            })
-            if (res.status === 200) {
-                notify("Booking completed!", "success");
-                // alert("Booking completed!")
-                setShowModal(false);
-            }
+            const res = await updateAppointment({ id: apptId, payment_status: true, status: "confirmed" }).unwrap();
+            console.log(res);
+            notify("Update completed!", "success");
+            setShowModal(false);
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
     }
     return (
