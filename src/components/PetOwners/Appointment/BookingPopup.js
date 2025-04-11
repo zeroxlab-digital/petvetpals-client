@@ -5,6 +5,7 @@ import BookingCalendar from './BookingCalendar';
 import Button from '@/components/Common/Button/Button';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useBookAppointmentMutation } from '@/redux/services/appointmentApi';
 
 const BookingPopup = ({ setShowModal, foundVet }) => {
 
@@ -44,26 +45,16 @@ const BookingPopup = ({ setShowModal, foundVet }) => {
     const notify = (message, type) => {
         toast(message, { type, autoClose: 1000 })
     }
+
+    const [bookAppointment] = useBookAppointmentMutation();
     const handleBookingConfirm = async () => {
         try {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/appointment/book-appointment/${foundVet._id}`, { date: selectedDate.toISOString() }, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                withCredentials: true
-            })
-            console.log("res:", res);
-            if (res.status === 200) {
-                // alert(res.data?.message)
-                notify(res.data?.message || "Appointment booked!", "success");
-                setShowModal(false);
-            } else {
-                console.log(res)
-            }
+            const response = await bookAppointment({ id: foundVet._id, date: selectedDate.toISOString() }).unwrap();
+            notify("Appointment booked!", "success");
+            setShowModal(false);
         } catch (error) {
             console.log(error);
-            // alert(error.response?.data?.message);
-            notify(error.response?.data?.message, "error");
+            notify("error");
         }
     }
 
