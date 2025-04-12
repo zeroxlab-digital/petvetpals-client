@@ -3,11 +3,11 @@ import Button from '@/components/Common/Button/Button';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import PetProfileModal from './PetProfileModal';
-import useFetchPets from '../../../../../hooks/useFetchPets';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
+import { useGetPetsQuery } from '@/redux/services/petApi';
 
 const PetProfiles = () => {
-    const { pets, isLoading, error } = useFetchPets();
+    const {data, isLoading, isError, error} = useGetPetsQuery();
 
     const [petProfile, setPetProfile] = useState({
         type: '',
@@ -35,7 +35,7 @@ const PetProfiles = () => {
                 <p className='text-gray-500'>Add and modify your furry pet&apos;s profiles</p>
             </div>
             <div className='grid grid-cols-3 max-xl:grid-cols-2 max-sm:grid-cols-1 gap-7 auto-rows-fr'>
-                {pets.map(pet => (
+                {data?.pets.map(pet => (
                     <div key={pet._id} className=' rounded-lg bg-white shadow-xl hover:shadow-2xl duration-200'>
                         <Image src={pet.image || "/images/no-image.jpg"} alt="pet's-img" width={200} height={200} className='object-cover w-full h-56 rounded-lg' />
                         <div className='p-4'>
