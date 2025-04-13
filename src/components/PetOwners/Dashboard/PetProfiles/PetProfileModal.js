@@ -2,6 +2,7 @@ import FileUpload from '@/components/Common/FileUpload/FileUpload';
 import Input from '@/components/Common/Form/Input';
 import Label from '@/components/Common/Form/Label';
 import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
+import { useAddPetMutation, useUpdateAPetMutation, useUpdatePetMutation, useUpdatePetProfileMutation } from '@/redux/services/petApi';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { HiXMark } from 'react-icons/hi2';
@@ -24,6 +25,8 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
     const [uploadedFile, setUploadedFile] = useState(null);
     console.log("File:", uploadedFile);
 
+    const [addPet, isLoading, isError, error] = useAddPetMutation();
+
     const handleAddPet = async (e) => {
         e.preventDefault();
 
@@ -38,13 +41,9 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
         formData.append("weight", petProfile.weight);
 
         try {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/pet/add-pet`, formData, {
-                withCredentials: true
-            })
-            if (res.status === 200) {
-                notify("Added new pet profile!", "success");
-                setModalType(null);
-            }
+            const res = await addPet(formData).unwrap();
+            notify("Added new pet profile!", "success");
+            setModalType(null);
             setPetProfile({
                 type: '',
                 name: '',
@@ -79,7 +78,7 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
         }
     }, [uploadedFile]);
 
-    console.log("updatePetProfile:", updatePetProfile);
+    const [updateAPet] = useUpdateAPetMutation();
 
     const handleUpdatePet = async (e) => {
         e.preventDefault();
@@ -94,13 +93,10 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
         formData.append("gender", updatePetProfile.gender);
         formData.append("weight", updatePetProfile.weight);
         try {
-            const res = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE}/api/pet/update-pet/${updatePet._id}`, formData, {
-                withCredentials: true
-            })
-            if (res.status === 200) {
-                notify("Updated pet profile successfully!", "success");
-                setModalType(null);
-            }
+            const res = await updateAPet({ id: updatePet._id, formData }).unwrap();
+            console.log(res);
+            notify("Updated pet profile successfully!", "success");
+            setModalType(null);
             setUpdatePetProfile({
                 type: '',
                 name: '',
