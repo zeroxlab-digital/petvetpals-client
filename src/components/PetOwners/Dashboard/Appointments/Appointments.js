@@ -59,7 +59,7 @@ const Appointments = () => {
                 })}
             </ul>
 
-            {filtered_appointments.length > 0 ? (
+            {filtered_appointments?.length > 0 ? (
                 <div className='space-y-4 max-md:space-y-8'>
                     {filtered_appointments.map((appointment, index) => (
                         <div key={index} className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 items-center gap-5  md:p-3 shadow-sm max-md:shadow-xl max-md:hover:shadow-2xl duration-200 bg-white rounded-md'>
@@ -105,7 +105,7 @@ const Appointments = () => {
                                 {active_status_tab === 'confirmed' ? (
                                     <div className='w-full flex items-center max-md:flex-col gap-3'>
                                         <button className='bg-white rounded-lg border text-blue-500 flex items-center justify-center  w-12 max-md:w-full h-12'>
-                                            <HiPencilSquare className='text-2xl ' />
+                                            <HiPencilSquare className='text-xl ' />
                                         </button>
                                         {new Date() >= new Date(appointment.date) ? (
                                             <button className='bg-primary rounded-lg text-white text-base flex items-center gap-2 justify-center  w-44 max-md:w-full h-12'>
@@ -118,7 +118,7 @@ const Appointments = () => {
                                 ) : active_status_tab === 'pending' ? (
                                     <div className='w-full flex items-center max-md:flex-col-reverse gap-3 '>
                                         <button onClick={() => handleConfirmBooking(appointment)} className='bg-primary rounded-lg text-white w-44 max-md:w-full h-12 flex items-center gap-2  justify-center'>Confirm <HiArrowRight /></button>
-                                        <button onClick={() => handleAppointmentDlt(appointment._id)} className='bg-white w-12 max-md:w-full h-12 rounded-lg text-blue-500 border flex items-center justify-center '><HiOutlineTrash className='text-2xl' /></button>
+                                        <button onClick={() => handleAppointmentDlt(appointment._id)} className='bg-white w-12 max-md:w-full h-12 rounded-lg text-blue-500 border flex items-center justify-center '><HiOutlineTrash className='text-xl' /></button>
                                         {showModal && <ConfirmBookingModal apptId={clickedAppointment._id} setShowModal={setShowModal} />}
                                     </div>
                                 ) : (
