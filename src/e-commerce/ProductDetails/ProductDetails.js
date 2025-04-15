@@ -50,8 +50,8 @@ const ProductDetails = ({ slug }) => {
         <div className="max-w-full mt-5">
             <div className=" grid grid-cols-2 max-md:grid-cols-1  gap-5 border-b border-gray-300 mb-10 pb-14">
                 <div className="image-details">
-                    <div className="bg-gray-300 bg-opacity-20 p-5 rounded-md h-max">
-                        <Image src="/images/med1.webp" alt="product-img" width={100} height={100} className="w-full h-full object-cover" />
+                    <div className="bg-gray-300 bg-opacity-20 border border-gray-300 rounded-md h-max">
+                        <Image src="/images/no-image.jpg" alt="product-img" width={100} height={100} className="w-full h-full object-cover" />
                     </div>
                     <div className="mt-4 flex  gap-2 items-center justify-items-start">
                         <div className="cursor-pointer bg-gray-300 bg-opacity-20 p-2 rounded w-16 h-14 border border-gray-300"></div>
