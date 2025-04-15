@@ -11,7 +11,6 @@ const VetDetailsTabs = ({ foundVet }) => {
     // Experiences
     const work_experience = [
         { title: "Senior Veterinarian", work_place: "PetCare Plus Clinic", start_date: "July 2018", end_date: "February 2019", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet" },
-        { title: "Senior Veterinarian", work_place: "PetCare Plus Clinic", start_date: "July 2018", end_date: "February 2019", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet" },
         { title: "Senior Veterinarian", work_place: "PetCare Plus Clinic", start_date: "July 2018", end_date: "February 2019", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet" }
     ]
     return (
@@ -31,8 +30,8 @@ const VetDetailsTabs = ({ foundVet }) => {
                                     <li className='flex items-center gap-2 text-gray-800'>
                                         <HiBriefcase className='text-xl text-gray-700' /> Works at <span className='font-medium'>{works_at || 'N/A'}</span>
                                     </li>
-                                    <li className='flex items-center gap-2 text-gray-800'>
-                                        <HiAcademicCap className='text-xl text-gray-700' /> Degree in <span className='font-medium'>{degrees[0] || 'N/A'}</span>
+                                    <li className='flex items-start gap-2 text-gray-800 '>
+                                        <HiAcademicCap className='text-xl text-gray-700' /> <p><span>Degree in</span> <span className='font-medium'>{degrees[0] || 'N/A'}</span></p>
                                     </li>
                                     <li className='flex items-center gap-2 text-gray-800'>
                                         <HiCalendar className='text-xl text-gray-700' /> Experience <span className='font-medium'>{experience_years || 'N/A'}+ years</span>
@@ -61,17 +60,26 @@ const VetDetailsTabs = ({ foundVet }) => {
                             ?
                             <div className='experiences'>
                                 <h3 className='font-bold text-xl mb-2'>Work Experience</h3>
-                                <p className='text-gray-700 '>{name} proffessional journey</p>
-                                <div className='experience-list mt-5 flex flex-col gap-6'>
-                                    {work_experience.map((item, index) => <div key={index} className='flex items-start gap-3'>
-                                        <div className='bg-black p-1 text-white rounded-full relative top-[2px]'><HiOutlineBriefcase /></div>
-                                        <div>
-                                            <h4 className='font-semibold text-lg mb-1'>{item.title}</h4>
-                                            <p className='text-gray-600 mb-3'>{item.work_place} | {item.start_date} - {item.end_date}</p>
-                                            <p className='text-gray-600'>{item.description}</p>
-                                        </div>
-                                    </div>)}
-                                </div>
+                                {
+                                    work_experience.length < 1 ?
+                                        <>
+                                            <h2 className='font-bold text-gray-600 text-2xl'>This vet does not have any work experience!</h2>
+                                        </>
+                                        :
+                                        <>
+                                            <p className='text-gray-700 '>{fullName}&apos;s proffessional journey</p>
+                                            <div className='experience-list mt-5 flex flex-col gap-6'>
+                                                {work_experience.map((item, index) => <div key={index} className='flex items-start gap-3'>
+                                                    <div className='bg-black p-1 text-white rounded-full relative top-[2px]'><HiOutlineBriefcase /></div>
+                                                    <div>
+                                                        <h4 className='font-semibold text-lg mb-1'>{item.title}</h4>
+                                                        <p className='text-gray-600 mb-3'>{item.work_place} | {item.start_date} - {item.end_date}</p>
+                                                        <p className='text-gray-600'>{item.description}</p>
+                                                    </div>
+                                                </div>)}
+                                            </div>
+                                        </>
+                                }
                             </div>
                             : selectedTab === "Reviews"
                                 ?
