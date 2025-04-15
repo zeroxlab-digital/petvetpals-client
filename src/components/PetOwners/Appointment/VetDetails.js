@@ -25,8 +25,42 @@ const VetDetails = ({ params }) => {
     const [showModal, setShowModal] = useState(false);
 
     // Availability Calendar
+    const defaultDate = addDays(new Date(), 0);
+    const [selectedDate, setSelectedDate] = useState(defaultDate);
+    // const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedTime, setSelectedTime] = useState(null);
+
     const today = new Date();
     const twoDaysFromNow = addDays(today, 5);
+
+    const availableTimes = [
+        '4:30 AM', '5:00 PM', '5:30 PM', '6:00 PM', '7:00 PM', '8:30 PM', '9:00 PM', '9:30 PM', '10:00 PM'
+    ];
+
+    const handleDateSelect = (date) => {
+        setSelectedDate(date);
+        setSelectedTime(null);
+    };
+
+    const handleTimeSelect = (time) => {
+        const [hours, minutesPart] = time.split(':');
+        const minutes = parseInt(minutesPart.slice(0, 2));
+        const period = minutesPart.slice(-2);
+
+        let hours24 = parseInt(hours);
+        if (period === 'PM' && hours24 !== 12) {
+            hours24 += 12;
+        } else if (period === 'AM' && hours24 === 12) {
+            hours24 = 0;
+        }
+
+        const newDateWithTime = new Date(selectedDate);
+        newDateWithTime.setHours(hours24, minutes, 0);
+
+        setSelectedDate(newDateWithTime);
+        setSelectedTime(time);
+    };
+
 
     const { data } = useGetAppointmentsQuery();
 
@@ -50,11 +84,18 @@ const VetDetails = ({ params }) => {
         <div>
             <div className="bg-white">
                 <div>
-                    <Image src={banner || "/images/cat-vet.jpg"} alt="vet-banner" width={100} height={100} className="w-full h-96 max-sm:h-56 object-cover rounded-md" />
+                    <div className="relative w-full h-96 max-sm:h-56 rounded-md overflow-hidden">
+                        <Image
+                            src={banner || "/images/purple-dog-cat.png"}
+                            alt="vet-banner"
+                            fill
+                            className="object-cover"
+                        />
+                    </div>
                 </div>
                 <div className="relative -top-10 grid grid-cols-3 max-lg:grid-cols-1 items-end px-5 pb-0 max-lg:gap-y-10 rounded-md ">
                     <div className="flex max-md:flex-col md:items-end gap-5 col-span-2 ">
-                        <div className=""><Image src={image || "/images/vet.png"} alt="vet image" width={200} height={200} className="rounded-full max-md:rounded-md border-2 border-gray-300 max-sm:w-40" /></div>
+                        <div className=""><Image src={image || "/images/user.jpg"} alt="vet image" width={200} height={200} className="rounded-full max-md:rounded-md border-2 border-gray-300 max-sm:w-32" /></div>
                         <div className="md:pb-3">
                             <h2 className="mb-2 font-bold text-lg">{fullName}</h2>
                             <p className='mb-2'>{degrees[0] || "N/A"}</p>
@@ -80,6 +121,8 @@ const VetDetails = ({ params }) => {
                     <h2 className="mb-8 font-semibold text-gray-900">Availability Calendar</h2>
                     <DayPicker
                         mode="single"
+                        selected={selectedDate}
+                        onSelect={handleDateSelect}
                         disabled={[
                             { before: today },
                             { after: twoDaysFromNow },
@@ -87,6 +130,24 @@ const VetDetails = ({ params }) => {
                         ]}
                         className="rdp-custom text-center"
                     />
+                    {selectedDate && (
+                        <div className="">
+                            <div className="grid grid-cols-3 gap-4">
+                                {availableTimes.map((time) => (
+                                    <button
+                                        key={time}
+                                        onClick={() => handleTimeSelect(time)}
+                                        className={`py-2 px-4 transition duration-300 text-sm font-medium ${selectedTime === time
+                                            ? 'bg-primary text-white shadow-lg transform scale-105'
+                                            : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                                            }`}
+                                    >
+                                        {time}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
                 <div className="p-5 rounded-md bg-white xl:col-span-3">
                     <h2 className="font-semibold text-gray-900 mb-6">FAQs</h2>

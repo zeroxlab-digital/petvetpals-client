@@ -23,7 +23,7 @@ const Vets = ({ vets, isLoading, error, currentPath }) => {
                                 }
                             }} key={_id} className='rounded-md  hover:shadow-lg duration-200 grid sm:grid-cols-[5fr_3fr_2fr] gap-5 max-sm:gap-0 items-center md:border max-md:bg-white '>
                                 <div className='flex sm:items-start gap-5 max-sm:gap-3 p-3'>
-                                    <div><Image src={image || "/images/vet.png"} alt="vet-image" width={100} height={100} className='rounded max-w-32' /></div>
+                                    <div><Image src={image || "/images/user.jpg"} alt="vet-image" width={100} height={100} className='rounded max-w-32' /></div>
                                     <div>
                                         <h4 className='font-bold'>{fullName}</h4>
                                         <p className='text-sm mb-2'>{degrees[0] || "Title goes here"}</p>
