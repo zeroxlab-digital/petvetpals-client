@@ -56,7 +56,7 @@ const TopProducts = () => {
                                 }}
                             >
                                 <div className="bg-gray-300 bg-opacity-10 rounded w-auto h-max mb-3">
-                                    <Image src="/images/med1.webp" alt="product-img" width={100} height={100} className="w-full h-full object-cover rounded" />
+                                    <Image src="/images/no-image.jpg" alt="product-img" width={100} height={100} className="w-full h-full object-cover rounded" />
                                 </div>
                                 <div className='px-3'>
                                     <h2 className="text-gray-900 hover:underline cursor-pointer mb-2">{product.name}</h2>
