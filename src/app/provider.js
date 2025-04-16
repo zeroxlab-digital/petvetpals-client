@@ -1,8 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import store, { persistor } from "@/redux/store/store";
+import store from "@/redux/store/store";
 import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
 import { PetVetPalsLoader } from "@/components/Common/Loader/PetVetPalsLoader";
 
 const StoreProvider = ({ children }) => {
@@ -18,13 +17,11 @@ const StoreProvider = ({ children }) => {
 
     return (
         <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                {
+            {
                 // isReady ? 
                 children
                 // : <PetVetPalsLoader />
-                }
-            </PersistGate>
+            }
         </Provider>
     );
 };

@@ -1,12 +1,11 @@
 "use client";
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { HiLogout } from "react-icons/hi";
 import { FaCalendar, FaCartShopping, FaHouse, FaPaw, FaPills, FaRegHeart, FaRegMessage, FaUser } from 'react-icons/fa6';
-import axios from 'axios';
 import { HiArrowRightOnRectangle } from 'react-icons/hi2';
 import { toast } from 'react-toastify';
 import { PawPrint } from 'lucide-react';
+import { useLogoutUserMutation } from '@/redux/services/userApi';
 
 const DashboardSidebar = ({ setResponsiveToggle }) => {
 
@@ -26,13 +25,12 @@ const DashboardSidebar = ({ setResponsiveToggle }) => {
     const notify = (message, type) => {
         toast(message, { type: type, autoClose: 1500 });
     }
-
+    const [logoutUser] = useLogoutUserMutation();
     const handleUserLogout = async () => {
         try {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/user/logout`, {}, {
-                withCredentials: true,
-            })
-            if (res.status === 200) {
+            const res = await logoutUser({});
+            console.log(res);
+            if (res.data?.success) {
                 notify("Logout successfull!", "success");
                 localStorage.clear();
                 router.push("/signin");

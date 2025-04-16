@@ -1,19 +1,20 @@
-import { useUserSession } from '@/utils/userSession';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { useIsAuthenticated } from '../../../../hooks/useIsAuthenticated';
 
-// HoC - Higher order Component
 const ProtectedPage = (Component) => {
     return function ProtectedComponent(props) {
         const router = useRouter();
-        const sessionStatus = useUserSession();
+        const { isAuthenticated, isLoading } = useIsAuthenticated();
+
         useEffect(() => {
-            if (!sessionStatus) {
+            if (!isLoading && !isAuthenticated) {
                 router.push("/signin");
             }
-        }, [sessionStatus]);
+        }, [isAuthenticated, isLoading]);
 
-        if (!sessionStatus) return null;
+        if (isLoading) return null; // or a loading spinner
+        if (!isAuthenticated) return null;
 
         return <Component {...props} />;
     };

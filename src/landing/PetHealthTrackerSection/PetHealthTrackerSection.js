@@ -3,10 +3,10 @@ import { useState, useEffect } from "react"
 import { motion, useAnimation, useMotionValue, useTransform } from "framer-motion"
 import { Activity, Calendar, Bell, Heart, Zap, Bone, Fish, Carrot } from "lucide-react"
 import { useRouter } from "next/navigation"
-import { useSelector } from "react-redux"
+import { useIsAuthenticated } from "../../../hooks/useIsAuthenticated"
 
 const PetHealthTrackerSection = () => {
-  const authUser = useSelector((state) => state.userRedu.user.authUser);
+  const {isAuthenticated: authUser} = useIsAuthenticated();
   const router = useRouter();
   const [currentFeature, setCurrentFeature] = useState(0)
   const controls = useAnimation()

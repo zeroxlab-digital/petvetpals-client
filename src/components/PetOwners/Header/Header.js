@@ -4,13 +4,13 @@ import Navbar from "./Navbar";
 import { HiBars3CenterLeft, HiOutlineUser, HiOutlineUserCircle, HiOutlineUserPlus, HiXMark } from "react-icons/hi2";
 import { useEffect, useState } from "react";
 import Search from "./Search";
-import { useSelector } from "react-redux";
 import CartCount from "@/e-commerce/Cart/CartCount";
 import { PawPrint } from "lucide-react";
+import { useIsAuthenticated } from "../../../../hooks/useIsAuthenticated";
 
 const Header = () => {
-
-    const { authUser } = useSelector((state) => state.userRedu.user);
+    const {isAuthenticated: authUser} = useIsAuthenticated();
+    console.log(authUser);
 
     const [responsiveMenu, setResponsiveMenu] = useState(false)
 
