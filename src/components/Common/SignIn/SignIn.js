@@ -9,7 +9,7 @@ import { setAuthUser } from "@/redux/features/userSlice";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Image from "next/image";
-import TinySpinner from "../Loader/tinySpinner";
+import TinySpinner from "../Loader/TinySpinner";
 
 const SignInPage = () => {
     const notify = (message, type) => {

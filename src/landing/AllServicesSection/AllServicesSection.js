@@ -1,7 +1,10 @@
+"use client";
 import Image from "next/image";
 import "./AllServicesSection.css";
+import { useRouter } from "next/navigation";
 
 const AllServicesSection = () => {
+    const router = useRouter();
     return (
         <section className="">
             <div className="app-container lg:mx-60 all-service-cont pt-36 pb-8 max-lg:text-center max-lg:space-y-5">
@@ -65,7 +68,7 @@ const AllServicesSection = () => {
             <div className="bg-primary w-full text-center py-10 px-5">
                 <h2 className="text-3xl max-md:text-xl font-bold mb-3 text-white">Your Pet’s Health, Our Priority</h2>
                 <p className="text-gray-300 mb-10 text-lg max-md:text-base">Join us in revolutionizing pet care with top-tier veterinary services, smart tools, and a seamless digital experience.</p>
-                <button className="text-white  border rounded-full font-semibold px-7 py-3 text-center">Get Started Today</button>
+                <button onClick={() => router.push("/dashboard")} className="text-white  border rounded-full font-semibold px-7 py-3 text-center">Get Started Today</button>
             </div>
         </section>
     );

@@ -1,9 +1,12 @@
+"use client";
 import Button from '@/components/Common/Button/Button';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import { HiArrowSmRight } from 'react-icons/hi';
 import { HiCheckCircle } from 'react-icons/hi2';
 
 const GetStartedSection = () => {
+    const router = useRouter();
     return (
         <section className='app-container md:w-3/4 mx-auto pt-20 my-10'>
             <div className=' text-center bg-opacity-20 rounded-xl w-full h-auto flex flex-col items-center px-5 py-14 max-sm:py-7'
@@ -18,7 +21,7 @@ const GetStartedSection = () => {
                 <p className='text-primary mb-10 md:w-3/5 mx-auto'>
                     Sign up now to start chatting with our virtual assistants and get personalized advice for your animals health and wellness.
                 </p>
-                <Button variant={"primary"} size={"large"} classNames={" text-sm rounded-lg text-white w-[14rem] !h-12"}>Get Vet Appointment <HiArrowSmRight /></Button>
+                <Button variant={"primary"} size={"large"} onClick={() => router.push("/appointments")} classNames={" text-sm rounded-lg text-white w-[14rem] !h-12"}>Get Vet Appointment <HiArrowSmRight /></Button>
                 <ul className='flex items-center gap-7 mt-10'>
                     <li className='flex items-center gap-1 text-gray-600 text-sm'><HiCheckCircle className='text-green-300' /> Fast & convenient</li>
                     <li className='flex items-center gap-1 text-gray-600 text-sm'><HiCheckCircle className='text-green-300' /> 24/7 services</li>

@@ -5,13 +5,16 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper/modules";
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
 
 const HeroSection = () => {
+    const router = useRouter();
     const slides = [
         {
             title: "Expert Online Vet Services",
             description: "Get instant virtual consultations from licensed veterinarians. Available 24/7 for your pet's health and wellness.",
             buttonText: "Consult Now",
+            url: "/appointments",
             image: "/images/cat-vet.jpg",
             services: [
                 "24/7 online vet consultations",
@@ -23,6 +26,7 @@ const HeroSection = () => {
             title: "Premium Pet Supplies",
             description: "Shop high-quality pet food, toys, and accessories. Enjoy fast, reliable doorstep delivery.",
             buttonText: "Shop Now",
+            url: "/shop",
             image: "/images/dog-white-yellow.jpg",
             services: [
                 "Top-rated pet food brands",
@@ -34,6 +38,7 @@ const HeroSection = () => {
             title: "One-stop Pet Solution",
             description: "All-in-one platform for pet care, grooming, veterinary services, and pet adoption. We bring pawsitivity to every home!",
             buttonText: "Learn More",
+            url: "/dashboard",
             image: "/images/pet-dog-yellow.jpg",
             services: [
                 "Find professional pet groomers",
@@ -82,7 +87,7 @@ const HeroSection = () => {
                                         ))}
                                     </ul>
                                 </div>
-                                <button className="mt-auto w-44 h-11 bg-[#481d3f] font-semibold hover:bg-primary  text-white duration-150 rounded-md flex items-center gap-2 justify-center text-sm md:text-[15px]">
+                                <button onClick={() => router.push(slide.url)} className="mt-auto w-44 h-11 bg-[#481d3f] font-semibold hover:bg-primary  text-white duration-150 rounded-md flex items-center gap-2 justify-center text-sm md:text-[15px]">
                                     {slide.buttonText} <HiArrowSmallRight />
                                 </button>
                             </div>

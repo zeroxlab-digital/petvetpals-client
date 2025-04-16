@@ -7,7 +7,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Image from "next/image";
-import TinySpinner from "../Loader/tinySpinner";
+import TinySpinner from "../Loader/TinySpinner";
 
 const SignUpPage = () => {
     const notify = (message, type) => {
