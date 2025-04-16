@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Search from "./Search";
 import { useSelector } from "react-redux";
 import CartCount from "@/e-commerce/Cart/CartCount";
+import { PawPrint } from "lucide-react";
 
 const Header = () => {
 
@@ -44,7 +45,10 @@ const Header = () => {
 
                         {/* Menu Header */}
                         <div className="flex items-center justify-between mb-5 border-b pb-5">
-                            <h2 className="text-primary font-bold text-2xl">PetVetPals</h2>
+                            <Link href="/" className="flex items-center gap-2 text-primary">
+                                <PawPrint className="w-7 h-7" />
+                                <span className="text-2xl  font-bold">PetVetPals</span>
+                            </Link>
                             <button onClick={() => setResponsiveMenu(false)}>
                                 <HiXMark className="text-3xl text-primary" />
                             </button>
@@ -79,8 +83,9 @@ const Header = () => {
                     </div>
 
                     {/* Logo */}
-                    <Link href="/">
-                        <h2 className="text-primary font-bold text-2xl">PetVetPals</h2>
+                    <Link href="/" className="flex items-center gap-2 text-primary">
+                        <PawPrint className="w-7 h-7 max-sm:w-6 max-sm:h-6" />
+                        <span className="text-2xl max-sm:text-[22px] font-bold">PetVetPals</span>
                     </Link>
 
                     {/* Desktop Navbar */}
