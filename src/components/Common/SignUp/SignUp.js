@@ -1,13 +1,12 @@
 "use client";
-import { FaFacebookF, FaGoogle } from "react-icons/fa6";
 import Link from "next/link";
 import Input from "../Form/Input";
 import { useState } from "react";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Image from "next/image";
 import TinySpinner from "../Loader/TinySpinner";
+import { useRegisterUserMutation } from "@/redux/services/userApi";
 
 const SignUpPage = () => {
     const notify = (message, type) => {
@@ -20,25 +19,19 @@ const SignUpPage = () => {
         password: "",
         confirmPassword: ""
     })
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [registerUser, { isLoading, error }] = useRegisterUserMutation();
+
     const handleRegistration = async (e) => {
         e.preventDefault();
-        setIsLoading(true);
         try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/user/register`, user, {
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-            if (response.status === 200) {
+            const response = await registerUser(user);
+            console.log(response);
+            if (response.data?.status === "success") {
                 notify("User registration successful! Please sign in.", "success");
                 router.push("/signin");
             }
         } catch (error) {
             console.log(error);
-            setError(error.response?.data?.message)
-            setIsLoading(false);
         }
     }
 
@@ -68,7 +61,7 @@ const SignUpPage = () => {
                             onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
                             value={user.confirmPassword}
                         />
-                        {error && <p className="text-red-400">{error}</p>}
+                        {error && <p className="text-red-400">{error?.data?.message}</p>}
                         <button type="submit" className={`bg-primary p-3 rounded-md cursor-pointer text-white mt-5 ${error && '!mt-0'}`}>{isLoading ? <TinySpinner /> : 'Sign Up'}</button>
                     </form>
                     <div className="my-5">
