@@ -5,19 +5,17 @@ import Button from "@/components/Common/Button/Button";
 import { HiMiniVideoCamera } from "react-icons/hi2";
 import VetDetailsTabs from "@/components/PetOwners/Appointment/VetDetailsTabs";
 import BookingPopup from "@/components/PetOwners/Appointment/BookingPopup";
-import { HiCalendar, HiOutlineClock, HiXMark } from "react-icons/hi2";
 import { DayPicker } from 'react-day-picker';
 import { format, addDays } from 'date-fns';
-import { useSelector } from "react-redux";
 import useFetchVets from "../../../../hooks/useFetchVets";
 import Link from "next/link";
 import FAQs from "@/components/Common/FAQs/FAQs";
 import { PetSpinner } from "../../Common/Loader/PetSpinner";
 import { useGetAppointmentsQuery } from "@/redux/services/appointmentApi";
+import { useIsAuthenticated } from "../../../../hooks/useIsAuthenticated";
 
 const VetDetails = ({ params }) => {
-    const { authUser } = useSelector((state) => state.userRedu.user);
-
+    const {isAuthenticated: authUser } = useIsAuthenticated();
     const { vets, isLoading, error } = useFetchVets();
     const foundVet = vets.find(vet => vet._id === params._id);
 

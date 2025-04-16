@@ -1,48 +1,35 @@
 "use client";
-import { FaFacebookF, FaGoogle } from "react-icons/fa6";
 import Link from "next/link";
 import Input from "../Form/Input";
 import { useState } from "react";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { setAuthUser } from "@/redux/features/userSlice";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Image from "next/image";
 import TinySpinner from "../Loader/TinySpinner";
+import { useSignInUserMutation } from "@/redux/services/userApi";
 
 const SignInPage = () => {
     const notify = (message, type) => {
         toast(message, { type: type, autoClose: 1000 });
     }
     const router = useRouter();
-    const dispatch = useDispatch();
     const [user, setUser] = useState({
         email: "",
         password: ""
     })
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+
+    const [signInUser, { isLoading, error }] = useSignInUserMutation();
     const handleUserLogin = async (e) => {
         e.preventDefault();
-        setIsLoading(true);
         try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/user/login`, user, {
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                withCredentials: true
-            })
-
-            if (response.status === 200) {
-                dispatch(setAuthUser(response?.data?.userDetails));
+            const response = await signInUser(user);
+            console.log(response)
+            if (response.data?.success === "true") {
                 notify("User login successfull!", "success");
                 router.push("/");
             }
         } catch (error) {
             console.log(error);
-            setError(error.response?.data?.message)
-            setIsLoading(false);
         }
     }
     return (
@@ -64,7 +51,7 @@ const SignInPage = () => {
                         <div className="flex">
                             <Link className="text-primary" href="">Forgot password?</Link>
                         </div>
-                        {error && <p className="text-red-400">{error}</p>}
+                        {error && <p className="text-red-400">{error.data?.message}</p>}
                         <button type="submit" className={`bg-primary p-3 rounded-md cursor-pointer text-white mt-5 ${error && '!mt-0'}`}>{isLoading ? <TinySpinner /> : 'Sign In'}</button>
                     </form>
                     <div className="my-5">

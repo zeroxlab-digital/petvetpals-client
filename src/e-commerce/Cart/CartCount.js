@@ -1,10 +1,11 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { HiOutlineShoppingBag, HiOutlineShoppingCart } from "react-icons/hi2";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { useSelector } from "react-redux";
 
 const CartCount = () => {
-    const cart = useSelector((state) => state.userRedu.cart.cart)
+    const cart = useSelector((state) => state.cartRedu.cart);
+
     const router = useRouter()
     return (
         <button type="button" onClick={() => router.push("/cart")} className="text-primary relative"><HiOutlineShoppingBag className="text-xl" />

@@ -1,12 +1,12 @@
 "use client";
 import Link from 'next/link';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useIsAuthenticated } from '../../../hooks/useIsAuthenticated';
 
 const FeaturesSection = () => {
-    const authUser = useSelector((state) => state.userRedu.user);
+    const {isAuthenticated: authUser} = useIsAuthenticated();
     const features = [
-        { title: authUser ? "My account" : "Register today", background: "/images/dogs-banner.jpg", link: authUser ? "/dashboard" : "/register", link_title: authUser ? "User Dashboard" : "/Sign up" },
+        { title: authUser ? "My account" : "Register today", background: "/images/dogs-banner.jpg", link: authUser ? "/dashboard" : "/signup", link_title: authUser ? "User Dashboard" : "/Sign up" },
         { title: "Foods & accessories", background: "/images/pets-banner.jpg", link: "/shop", link_title: "Shop now" },
         { title: "Buy medications", background: "/images/dog-medicines.jfif", link: "/pharmacy", link_title: "Pharmacy" },
         { title: "Online vet", background: "/images/dog-banner.jpg", link: "/appointments", link_title: "Get appointment" }
