@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import { setAuthUser } from "@/redux/features/userSlice";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import Image from "next/image";
+import TinySpinner from "../Loader/tinySpinner";
 
 const SignInPage = () => {
     const notify = (message, type) => {
@@ -44,10 +46,10 @@ const SignInPage = () => {
         }
     }
     return (
-        <div className="max-w-96 text-center flex justify-center items-center h-screen mx-auto p-3">
+        <div className="w-full sm:w-[22rem] text-center flex justify-center items-center h-screen mx-auto p-3">
             <div className="w-full">
                 <>
-                    <h2 className="text-2xl font-bold text-primary mb-10">Welcome back</h2>
+                    <h2 className="text-2xl font-bold text-primary mb-7">Welcome back</h2>
                     <form onSubmit={handleUserLogin} action="#" className="flex flex-col gap-3">
                         <Input type="email" placeholder="Email Address"
                             name="email"
@@ -63,20 +65,20 @@ const SignInPage = () => {
                             <Link className="text-primary" href="">Forgot password?</Link>
                         </div>
                         {error && <p className="text-red-400">{error}</p>}
-                        <button type="submit" className={`bg-primary p-3 rounded-md cursor-pointer text-white mt-5 ${error && '!mt-0'}`}>{isLoading ? 'Loading...' : 'Sign In'}</button>
+                        <button type="submit" className={`bg-primary p-3 rounded-md cursor-pointer text-white mt-5 ${error && '!mt-0'}`}>{isLoading ? <TinySpinner /> : 'Sign In'}</button>
                     </form>
                     <div className="my-5">
-                        <p>Dont have an account? <Link href="/signup" className="text-primary">Sign Up</Link></p>
+                        <p className="text-sm">Dont have an account? <Link href="/signup" className="text-primary">Sign Up</Link></p>
                     </div>
                 </>
-                <div className="flex items-center justify-between">
-                    <hr />
-                    <p>OR</p>
-                    <hr />
+                <div className="flex items-center justify-between gap-4">
+                    <hr className="flex-grow border-t border-gray-600" />
+                    <p className="text-sm text-gray-700">OR</p>
+                    <hr className="flex-grow border-t border-gray-600" />
                 </div>
                 <div className="text-left flex flex-col gap-2 mt-5">
-                    <button className="w-full hover:bg-[#e5e5e5d5] duration-200 text-gray-800 border border-gray-400 p-2 rounded-md  flex items-center gap-2"><FaGoogle /> Google Sign-in</button>
-                    <button className="w-full hover:bg-[#e5e5e5d5] duration-200 text-gray-800 border border-gray-400 p-2 rounded-md flex items-center gap-2"><FaFacebookF /> Facebook Sign-in</button>
+                    <button className="w-full hover:bg-[#e5e5e5a5] duration-200 text-gray-800 border border-gray-400 p-3 rounded-md  flex items-center gap-3"><Image src="/images/google.webp" alt="google-icon" width={20} height={20} /> Continue with Google</button>
+                    <button className="w-full hover:bg-[#e5e5e5a5] duration-200 text-gray-800 border border-gray-400 p-3 rounded-md flex items-center gap-3"><Image src="/images/facebook-icon.png" alt="google-icon" width={20} height={20} /> Continue with Facebook</button>
                 </div>
             </div>
         </div>

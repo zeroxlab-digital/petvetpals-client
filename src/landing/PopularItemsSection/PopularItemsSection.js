@@ -85,7 +85,7 @@ const PopularItemsSection = () => {
                                 >
                                     <div className="bg-gray-300 bg-opacity-10 w-full h-32 md:h-40 mb-1">
                                         <Image
-                                            src="/images/med1.webp"
+                                            src="/images/no-image.jpg"
                                             alt="product-img"
                                             width={70}
                                             height={70}
@@ -173,7 +173,7 @@ const PopularItemsSection = () => {
                                 >
                                     <div className="bg-gray-300 bg-opacity-10 w-full h-32 md:h-40 mb-1">
                                         <Image
-                                            src="/images/med1.webp"
+                                            src="/images/no-image.jpg"
                                             alt="product-img"
                                             width={70}
                                             height={70}
@@ -261,7 +261,7 @@ const PopularItemsSection = () => {
                                 >
                                     <div className="bg-gray-300 bg-opacity-10 w-full h-32 md:h-40 mb-1">
                                         <Image
-                                            src="/images/med1.webp"
+                                            src="/images/no-image.jpg"
                                             alt="product-img"
                                             width={70}
                                             height={70}
