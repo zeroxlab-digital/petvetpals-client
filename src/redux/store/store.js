@@ -7,6 +7,7 @@ import messageReducer from "../features/messageSlice";
 import { appointmentApi } from "../services/appointmentApi";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { petApi } from "../services/petApi";
+import { userApi } from "../services/userApi";
 
 // Redux Persist configuration
 const persistConfig = {
@@ -21,6 +22,7 @@ const store = configureStore({
     reducer: {
         userRedu: persistedReducer,
         messageRedu: messageReducer,
+        [userApi.reducerPath]: userApi.reducer,
         [appointmentApi.reducerPath]: appointmentApi.reducer,
         [petApi.reducerPath]: petApi.reducer,
     },
@@ -30,6 +32,7 @@ const store = configureStore({
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
         })
+        .concat(userApi.middleware)
         .concat(appointmentApi.middleware)
         .concat(petApi.middleware)
 })

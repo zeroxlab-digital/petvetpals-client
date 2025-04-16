@@ -1,16 +1,17 @@
 "use client"
-import { useState } from "react"
-import { Bell, Camera, CreditCard, Edit, Eye, EyeOff, Key, Lock, LogOut, Mail, Phone, PlusCircle, Save, Settings, Shield, User, UserCircle, } from "lucide-react"
+import { useEffect, useState } from "react"
+import { Bell, Camera, CreditCard, Edit, Eye, EyeOff, Key, Lock, Mail, Phone, PlusCircle, Save, Settings, Shield, User, } from "lucide-react"
 import Image from "next/image"
-import useUserProfile from "../../../../../hooks/useUserProfile"
-import axios from "axios"
-import { HiUserCircle } from "react-icons/hi2"
 import { PetSpinner } from "@/components/Common/Loader/PetSpinner"
 import { toast, ToastContainer } from "react-toastify"
+import { useGetUserDetailsQuery, useUpdateUserDetailsMutation } from "@/redux/services/userApi"
 
 const UserAccount = () => {
-  const { userProfile, setUserProfile, loading, error } = useUserProfile();
-  console.log(userProfile);
+  const [userProfile, setUserProfile] = useState(null);
+  const { data, isLoading, isError, error } = useGetUserDetailsQuery();
+  useEffect(() => {
+    setUserProfile(data?.user)
+  }, [data])
   const [showPassword, setShowPassword] = useState(false)
   const [activeTab, setActiveTab] = useState("profile")
   const [editMode, setEditMode] = useState(false)
@@ -19,25 +20,22 @@ const UserAccount = () => {
     toast(message, { type: type, autoClose: 1500 });
   }
 
+  const [updateUserDetails] = useUpdateUserDetailsMutation();
+
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE}/api/user/user-details`, userProfile, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
-      if (res.status === 200) {
+      const res = await updateUserDetails(userProfile);
+      console.log(res);
+      if (res.data?.success) {
         notify("Profile updated successfull!", "success");
-        // console.log("Profile updated successfull!")
       }
     } catch (error) {
       console.log(error)
     }
   }
 
-  if (loading) {
+  if (isLoading) {
     return <PetSpinner />
   }
   return (
@@ -80,7 +78,7 @@ const UserAccount = () => {
                 <div className="sm:flex items-start justify-between mb-6">
                   <div className="flex items-center gap-4">
                     <div className="relative">
-                      <Image src={userProfile?.image || "/images/user-man.png" } alt="user-image" width={80} height={80} className="rounded-full" />
+                      <Image src={userProfile?.image || "/images/user-man.png"} alt="user-image" width={80} height={80} className="rounded-full" />
                       {/* <HiUserCircle className="w-16 h-16 text-gray-600" /> */}
                       <button type="button" className="absolute bottom-0 right-0 p-1 bg-blue-500 rounded-full text-white hover:bg-blue-600 transition-colors">
                         <Camera className="h-4 w-4" />
@@ -88,7 +86,7 @@ const UserAccount = () => {
                     </div>
                     <div>
                       <h2 className="text-xl font-semibold">{userProfile?.fullName}</h2>
-                      <p className="text-sm text-gray-500">Member since { new Date(userProfile?.createdAt).toLocaleString("en-US", { month: "long", year: "numeric" }) }</p>
+                      <p className="text-sm text-gray-500">Member since {new Date(userProfile?.createdAt).toLocaleString("en-US", { month: "long", year: "numeric" })}</p>
                       <p className="text-sm text-blue-500">Premium Member</p>
                     </div>
                   </div>
