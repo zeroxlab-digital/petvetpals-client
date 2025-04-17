@@ -54,7 +54,7 @@ const Sidebar = () => {
     return (
         <div className='col-span-2 bg-white border-r p-5 rounded-md flex flex-col items-start justify-between'>
             <div className='w-full'>
-                <h2 className="text-primary font-extrabold text-3xl mb-4 pb-4 border-b">Petsoli</h2>
+                <h2 className="text-primary font-extrabold text-3xl mb-3 pb-3 border-b">Petsoli</h2>
                 <ul className='flex flex-col gap-1  '>
                     {links.map((link, index) => <Link href={link.link} key={index}><li className={`${link.link === pathname && 'bg-primary text-white'} hover:bg-[#8a417ad5] hover:text-white duration-150 px-3 py-3 rounded-md flex items-center gap-3`}>
                         <span>{link.icon}</span>{link.title}

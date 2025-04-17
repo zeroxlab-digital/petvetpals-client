@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "framer-motion";
 import { Brain, Bone, Fish, Heart, Star, Shield, Activity, Search } from "lucide-react";
 import React from "react";

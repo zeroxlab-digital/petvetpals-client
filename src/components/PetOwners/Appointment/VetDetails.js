@@ -102,7 +102,7 @@ const VetDetails = ({ params }) => {
                         </div>
                     </div>
                     <div className="text-center">
-                        <h1 className='mb-3 text-xl font-bold text-primary text-center flex items-center md:justify-center gap-1'>${fees?.toFixed(2)} USD <span className='text-xs  font-semibold'>/ Appt. fee</span></h1>
+                        <h1 className='mb-3 text-xl font-bold text-primary text-center flex items-center justify-center gap-1'>${fees?.toFixed(2)} USD <span className='text-xs  font-semibold'>/ Appt. fee</span></h1>
                         {pendingAppts && pendingAppts.length > 0 && <div className="mb-2">
                             <h4 className="text-sm text-gray-700">You have {pendingAppts.length} pending appointment, to pay and confirm <Link href="/dashboard/appointments" className="underline text-primary ">click here</Link></h4>
                         </div>}

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React from 'react';
 import useFetchVets from '../../../../../hooks/useFetchVets';
 import { HiDotsVertical } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,7 +37,7 @@ const Participants = () => {
             <ul className='flex justify-start items-start flex-col '>
                 {participants.map(participant => <li key={participant._id} onClick={() => dispatch(setClickedParticipant(participant))} className={`border-b last:border-none py-2 text-center w-full flex  items-center gap-3 cursor-pointer hover:bg-gray-100 duration-200 rounded-md  ${clickedParticipant?._id === participant._id && 'md:bg-gray-200'}`}>
                     <Image src="/images/vet.png" alt="participant-profile" width={30} height={30} className='rounded-full w-10 h-10 max-md:w-14 max-md:h-14' />
-                    <span className='font-medium text-gray-800 max-md:text-lg'>{participant.fullName}</span>
+                    <span className=' text-gray-800 '>{participant.fullName}</span>
                 </li>)}
             </ul>
         </div>
