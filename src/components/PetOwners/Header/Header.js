@@ -30,7 +30,7 @@ const Header = () => {
                 <div className="flex items-center gap-16 max-lg:gap-3">
                     {/* Menu Button */}
                     <button onClick={() => setResponsiveMenu(true)} className="lg:hidden">
-                        <HiBars3CenterLeft className="text-2xl text-primary" />
+                        <HiBars3CenterLeft className="text-[26px] text-primary" />
                     </button>
 
                     {/* Responsive Menu with Animation */}
@@ -44,13 +44,13 @@ const Header = () => {
                     ${responsiveMenu ? "translate-x-0" : "-translate-x-full"}`}>
 
                         {/* Menu Header */}
-                        <div className="flex items-center justify-between mb-5 border-b pb-5">
+                        <div className="flex items-center justify-between border-b pb-5">
                             <Link href="/" className="flex items-center gap-2 text-primary">
                                 <PawPrint className="w-7 h-7" />
                                 <span className="text-2xl  font-bold">PetVetPals</span>
                             </Link>
                             <button onClick={() => setResponsiveMenu(false)}>
-                                <HiXMark className="text-3xl text-primary" />
+                                <HiXMark className="text-[26px] text-primary" />
                             </button>
                         </div>
 
@@ -84,8 +84,8 @@ const Header = () => {
 
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 text-primary">
-                        <PawPrint className="w-7 h-7 max-sm:w-6 max-sm:h-6" />
-                        <span className="text-2xl max-sm:text-[22px] font-bold">PetVetPals</span>
+                        <PawPrint className="w-7 h-7 max-lg:hidden" />
+                        <span className="text-2xl font-bold">PetVetPals</span>
                     </Link>
 
                     {/* Desktop Navbar */}

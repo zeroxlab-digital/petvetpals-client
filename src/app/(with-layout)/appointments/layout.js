@@ -7,9 +7,9 @@ export const metadata = {
 
 const AppointmentsLayout = ({ children }) => {
     return (
-        <div>
+        <>
             {children}
-        </div>
+        </>
     );
 };
 

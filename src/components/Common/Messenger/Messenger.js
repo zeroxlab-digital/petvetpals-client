@@ -1,14 +1,14 @@
 "use client";
-import React, { useState } from 'react';
+import React from 'react';
 import Participants from './TopBar/Participants';
 import ConversationContainer from './MessagesContainer/ConversationContainer';
 import { useSelector } from 'react-redux';
 import Image from 'next/image';
+import { useIsAuthenticated } from '../../../../hooks/useIsAuthenticated';
 
 const Messenger = () => {
-    const authUser = useSelector((state) => state.userRedu.user.authUser);
+    const { isAuthenticated: authUser } = useIsAuthenticated();
     const clickedParticipant = useSelector((state) => state.messageRedu.clickedParticipant);
-    console.log("Clicked Participant:", clickedParticipant);
     return (
         <div className='md:grid md:grid-cols-[5fr_2fr] max-md:grid-cols-1 gap-5 h-full'>
             {clickedParticipant ?

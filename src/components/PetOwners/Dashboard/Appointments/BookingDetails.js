@@ -168,7 +168,7 @@ const BookingDetails = ({ apptId, setBookingState }) => {
                                     >
                                         <div className="aspect-square relative">
                                             <Image
-                                                src={pet.image || "/images/no-image.jpg"}
+                                                src={pet.image || "/images/no-image.png"}
                                                 alt={`${pet.name}'s photo`}
                                                 fill
                                                 className="object-cover"

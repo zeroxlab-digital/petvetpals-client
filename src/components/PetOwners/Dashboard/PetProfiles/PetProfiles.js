@@ -37,7 +37,7 @@ const PetProfiles = () => {
             <div className='grid grid-cols-3 max-xl:grid-cols-2 max-sm:grid-cols-1 gap-7 auto-rows-fr'>
                 {data?.pets.map(pet => (
                     <div key={pet._id} className=' rounded-lg bg-white shadow-xl hover:shadow-2xl duration-200'>
-                        <Image src={pet.image || "/images/no-image.jpg"} alt="pet's-img" width={200} height={200} className='object-cover w-full h-56 rounded-lg' />
+                        <Image src={pet.image || "/images/no-image.png"} alt="pet's-img" width={200} height={200} className='object-cover w-full h-56 rounded-lg' />
                         <div className='p-4'>
                             <ul className='text-gray-600 flex flex-col gap-3 mb-5'>
                                 <li className='flex items-center justify-between text-sm capitalize'><span>Type</span>{pet.type}</li>

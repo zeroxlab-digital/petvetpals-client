@@ -16,10 +16,10 @@ const Navbar = ({ setResponsiveMenu = () => { } }) => {
     return (
         <ul className='flex items-center lg:gap-7 max-lg:flex-col max-lg:items-start text-primary'>
             {
-                navs.map((nav, index) => <li key={index} className='max-lg:w-full' onClick={() => setResponsiveMenu(false)}>
-                    <Link href={nav.path} className='flex gap-1 max-lg:gap-3 items-center max-lg:border-b  max-lg:py-6'>
-                        <span className='text-lg max-lg:text-xl'>{nav.icon}</span>
-                        <span className='max-lg:text-xl'>{nav.title}</span>
+                navs.map((nav, index) => <li key={index} className='max-lg:w-full max-lg:border-b last:border-none' onClick={() => setResponsiveMenu(false)}>
+                    <Link href={nav.path} className='flex gap-1 max-lg:gap-3 items-center max-lg:py-6'>
+                        <span className='text-lg'>{nav.icon}</span>
+                        <span className='text-base'>{nav.title}</span>
                     </Link>
                 </li>)
             }
