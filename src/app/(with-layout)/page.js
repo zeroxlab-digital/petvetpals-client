@@ -9,7 +9,7 @@ import PopularItemsSection from "@/landing/PopularItemsSection/PopularItemsSecti
 import HowItWorksSection from "@/landing/HowItWorksSection/HowItWorksSection";
 import AllInOne from "@/landing/AllServicesSection/AllServicesSection";
 import PetHealthTrackerSection from "../../landing/PetHealthTrackerSection/PetHealthTrackerSection";
-import AISyndromeCheckerSection from "@/landing/AISyndromeCheckerSection/AISyndromeCheckerSection";
+// import AISyndromeCheckerSection from "@/landing/AISyndromeCheckerSection/AISyndromeCheckerSection";
 import Footer from "@/components/PetOwners/Footer/Footer";
 
 const Home = () => {
@@ -24,7 +24,7 @@ const Home = () => {
         <PopularItemsSection />
         <BestDealSection />
         <PetHealthTrackerSection />
-        <AISyndromeCheckerSection />
+        {/* <AISyndromeCheckerSection /> */}
         <AllInOne />
         <GetStartedSection />
         <BlogsSection />
