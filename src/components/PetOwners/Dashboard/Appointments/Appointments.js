@@ -23,14 +23,26 @@ const Appointments = () => {
             console.error("Failed to update appointment:", error);
         }
     };
+    const handleMakeCancelledAppointment = async (id) => {
+        try {
+            const res = await updateAppointment({ id, status: "cancelled" }).unwrap();
+            console.log("Updated appointment:", res);
+        } catch (error) {
+            console.error("Failed to update appointment:", error);
+        }
+    };
 
     useEffect(() => {
         if (!isLoading && !isError && data?.appointments?.length) {
             data.appointments.forEach(element => {
                 const startTime = new Date(element.date);
                 const endTime = new Date(startTime.getTime() + 30 * 60 * 1000);
-                if (new Date().getTime() >= endTime.getTime() && element.status !== "past") {
-                    handleMakePastAppointment(element._id);
+                if (new Date().getTime() >= endTime.getTime()) {
+                    if (element.status === "confirmed") {
+                        handleMakePastAppointment(element._id);
+                    } else if (element.status === "pending") {
+                        handleMakeCancelledAppointment(element._id);
+                    }
                 }
             });
         }
@@ -149,9 +161,9 @@ const Appointments = () => {
                                         <button onClick={() => handleAppointmentDlt(appointment._id)} className='bg-white w-12 max-md:w-full h-12 rounded-lg text-blue-500 border flex items-center justify-center '><HiOutlineTrash className='text-xl' /></button>
                                         {showModal && <ConfirmBookingModal apptId={clickedAppointment._id} setShowModal={setShowModal} />}
                                     </div>
-                                ) : (
-                                    <button className='bg-primary px-5 py-3 rounded-lg text-white text-sm flex items-center gap-2'>Give Feedback <HiOutlineStar /></button>
-                                )}
+                                ) : active_status_tab === 'cancelled' ? (
+                                    <button className='bg-primary px-5 py-3 rounded-lg text-white text-sm flex items-center gap-2'>Reschedule Now <HiArrowRight /></button>
+                                ) : <button className='bg-primary px-5 py-3 rounded-lg text-white text-sm flex items-center gap-2'>Give Feedback <HiOutlineStar /></button>}
                             </div>
                         </div>
                     ))}
