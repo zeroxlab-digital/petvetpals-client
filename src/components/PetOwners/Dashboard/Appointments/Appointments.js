@@ -1,6 +1,6 @@
 "use client";
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NoPhoto from '/public/images/vet.png';
 import { HiArrowRight, HiChevronDown, HiClock, HiOutlineClock, HiOutlineCurrencyDollar, HiOutlineMapPin, HiOutlineStar, HiOutlineTrash, HiPencilSquare, HiVideoCamera } from 'react-icons/hi2';
 import { LuDog } from 'react-icons/lu';
@@ -9,10 +9,33 @@ import ConfirmBookingModal from './ConfirmBookingModal';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 import { toast } from 'react-toastify';
 import Countdown from './Countdown';
-import { appointmentApi, useDeleteAppointmentMutation, useGetAppointmentsQuery } from '@/redux/services/appointmentApi';
+import { useDeleteAppointmentMutation, useGetAppointmentsQuery, useUpdateAppointmentMutation } from '@/redux/services/appointmentApi';
 
 const Appointments = () => {
     const { data, isLoading, isError } = useGetAppointmentsQuery();
+    const [updateAppointment] = useUpdateAppointmentMutation();
+
+    const handleMakePastAppointment = async (id) => {
+        try {
+            const res = await updateAppointment({ id, status: "past" }).unwrap();
+            console.log("Updated appointment:", res);
+        } catch (error) {
+            console.error("Failed to update appointment:", error);
+        }
+    };
+
+    useEffect(() => {
+        if (!isLoading && !isError && data?.appointments?.length) {
+            data.appointments.forEach(element => {
+                const startTime = new Date(element.date);
+                const endTime = new Date(startTime.getTime() + 30 * 60 * 1000);
+                if (new Date().getTime() >= endTime.getTime() && element.status !== "past") {
+                    handleMakePastAppointment(element._id);
+                }
+            });
+        }
+    }, [data, isLoading, isError]);
+
     const status_tabs = ["confirmed", "pending", "cancelled", "past"];
     const [active_status_tab, set_active_status_tab] = useState(status_tabs[0]);
     const [showModal, setShowModal] = useState(false);
@@ -34,6 +57,8 @@ const Appointments = () => {
         setClickedAppointment(appointment);
         setShowModal(true);
     };
+
+
     if (isLoading) {
         return <PetSpinner />
     }
@@ -90,6 +115,9 @@ const Appointments = () => {
                                     {(() => {
                                         const startDate = new Date(appointment.date);
                                         const endDate = new Date(startDate.getTime() + 30 * 60 * 1000);
+                                        // if (new Date().getTime() >= endDate.getTime()) {
+                                        //     handleMakePastAppointment();
+                                        // }
                                         return `${startDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })} - ${endDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;
                                     })()}
                                 </p>
