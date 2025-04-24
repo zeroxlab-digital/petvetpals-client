@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setClickedParticipant } from '@/redux/features/messageSlice';
 import { Search } from 'lucide-react';
 import { PetSpinner } from '../../Loader/PetSpinner';
+import TinySpinner from '../../Loader/TinySpinner';
 
 const Participants = () => {
     
@@ -13,7 +14,7 @@ const Participants = () => {
     const dispatch = useDispatch();
     const { vets, isLoading, error } = useFetchVets();
     if (isLoading) {
-        return <PetSpinner />
+        return <TinySpinner />
     }
     const participants = vets;
 
@@ -36,7 +37,7 @@ const Participants = () => {
             </div>
             <ul className='flex justify-start items-start flex-col '>
                 {participants.map(participant => <li key={participant._id} onClick={() => dispatch(setClickedParticipant(participant))} className={`border-b last:border-none py-2 text-center w-full flex  items-center gap-3 cursor-pointer hover:bg-gray-100 duration-200 rounded-md  ${clickedParticipant?._id === participant._id && 'md:bg-gray-200'}`}>
-                    <Image src="/images/vet.png" alt="participant-profile" width={30} height={30} className='rounded-full w-10 h-10 max-md:w-14 max-md:h-14' />
+                    <Image src="/images/user.jpg" alt="participant-profile" width={30} height={30} className='rounded-full w-10 h-10 max-md:w-14 max-md:h-14 border' />
                     <span className=' text-gray-800 '>{participant.fullName}</span>
                 </li>)}
             </ul>

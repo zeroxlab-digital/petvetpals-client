@@ -118,7 +118,7 @@ const Appointments = () => {
                             </div>
 
                             <div className='flex items-center gap-3 lg:col-span-3 px-3'>
-                                <Image src={NoPhoto} alt='vet_img' width={200} height={200} className='w-16 h-auto rounded-full' />
+                                <Image src={"/images/user.jpg"} alt='vet_img' width={200} height={200} className='w-16 h-auto rounded-full border-2' />
                                 <div>
                                     <h5 className='font-semibold text-lg mb-1'>{appointment.vet?.fullName}</h5>
                                     <p className='text-sm text-gray-500'>{appointment.vet?.degrees[0]}</p>
