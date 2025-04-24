@@ -27,9 +27,9 @@ const Countdown = ({ date_time }) => {
     }, [date_time]);
 
     return (
-        <button className='bg-primary rounded-md text-white text-base flex items-center gap-2 justify-center w-44 max-md:w-full h-12'>
+        <div className='bg-primary rounded-md text-white text-base flex items-center gap-2 justify-center w-44 max-md:w-full h-12'>
             In {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
-        </button>
+        </div>
     );
 };
 
