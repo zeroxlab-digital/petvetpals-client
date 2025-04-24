@@ -10,7 +10,6 @@ import { useIsAuthenticated } from "../../../../hooks/useIsAuthenticated";
 
 const Header = () => {
     const {isAuthenticated: authUser} = useIsAuthenticated();
-    console.log(authUser);
 
     const [responsiveMenu, setResponsiveMenu] = useState(false)
 

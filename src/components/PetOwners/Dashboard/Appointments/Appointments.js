@@ -70,6 +70,10 @@ const Appointments = () => {
         setShowModal(true);
     };
 
+    const handleJoinNow = (appointment) => {
+        console.log("Trigger join appointment:", appointment._id);
+        window.open(`https://meet.jit.si/petvetpals-appointment/${appointment._id}`, '_blank');
+    }
 
     if (isLoading) {
         return <PetSpinner />
@@ -148,7 +152,7 @@ const Appointments = () => {
                                             <HiPencilSquare className='text-xl ' />
                                         </button>
                                         {new Date() >= new Date(appointment.date) ? (
-                                            <button className='bg-primary rounded-lg text-white text-base flex items-center gap-2 justify-center  w-44 max-md:w-full h-12'>
+                                            <button onClick={() => handleJoinNow(appointment)} className='bg-primary rounded-lg text-white text-base flex items-center gap-2 justify-center  w-44 max-md:w-full h-12'>
                                                 Join Now <HiVideoCamera />
                                             </button>
                                         ) : (
@@ -161,9 +165,9 @@ const Appointments = () => {
                                         <button onClick={() => handleAppointmentDlt(appointment._id)} className='bg-white w-12 max-md:w-full h-12 rounded-lg text-blue-500 border flex items-center justify-center '><HiOutlineTrash className='text-xl' /></button>
                                         {showModal && <ConfirmBookingModal apptId={clickedAppointment._id} setShowModal={setShowModal} />}
                                     </div>
-                                ) : active_status_tab === 'cancelled' ? (
-                                    <button className='bg-primary px-5 py-3 rounded-lg text-white text-sm flex items-center gap-2'>Reschedule Now <HiArrowRight /></button>
-                                ) : <button className='bg-primary px-5 py-3 rounded-lg text-white text-sm flex items-center gap-2'>Give Feedback <HiOutlineStar /></button>}
+                                ) : active_status_tab === 'past' ? (
+                                    <button className='bg-primary px-5 py-3 rounded-lg text-white text-sm flex items-center gap-2'>Give Feedback <HiOutlineStar /></button>
+                                ) : <button className='bg-primary px-5 py-3 rounded-lg text-white text-sm flex items-center gap-2'>Reschedule Now <HiArrowRight /></button>}
                             </div>
                         </div>
                     ))}
