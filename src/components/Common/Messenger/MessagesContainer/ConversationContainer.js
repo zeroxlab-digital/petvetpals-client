@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { setClickedParticipant } from '@/redux/features/messageSlice';
 import { PetSpinner } from '../../Loader/PetSpinner';
 import { useRouter } from 'next/navigation';
+import TinySpinner from '../../Loader/TinySpinner';
 
 const ConversationContainer = ({ clickedParticipant, authUser }) => {
     const [showMenu, setShowMenu] = useState(false);
@@ -48,7 +49,7 @@ const ConversationContainer = ({ clickedParticipant, authUser }) => {
                     <button onClick={() => dispatch(setClickedParticipant(null))} className='md:hidden'>
                         <HiArrowLeft className='text-gray-200 text-xl' />
                     </button>
-                    <Image src="/images/vet.png" alt="participant-profile" width={20} height={20} className='rounded-full w-10 h-10' />
+                    <Image src="/images/user.jpg" alt="participant-profile" width={20} height={20} className='rounded-full w-10 h-10' />
                     <span className='font-medium text-gray-200'>{clickedParticipant.fullName}</span>
                 </div>
                 <button onClick={() => setShowMenu(!showMenu)} className='text-gray-200 text-2xl'>
@@ -56,12 +57,12 @@ const ConversationContainer = ({ clickedParticipant, authUser }) => {
                 </button>
                 {showMenu && <div className='absolute top-10 right-0 w-52 h-max border shadow-lg bg-white rounded-md '>
                     <ul>
-                        <li onClick={() => { router.push(`/appointments/${clickedParticipant._id}`), setShowMenu(false) }} className='py-3 px-3 text-gray-800 cursor-pointer hover:bg-gray-100 duration-150 rounded-t-md font-medium'>View profile</li>
+                        <li onClick={() => { router.push(`/appointments/${clickedParticipant._id}`), setShowMenu(false) }} className='py-3 px-3 text-gray-800 cursor-pointer hover:bg-gray-100 duration-150 rounded-t-md font-medium border-b'>View profile</li>
                         <li onClick={() => setShowMenu(false)} className='py-3 px-3 text-gray-800 cursor-pointer hover:bg-gray-100 duration-150 rounded-b-md font-medium'>View media & links</li>
                     </ul>
                 </div>}
             </div>
-            {loading && <PetSpinner />}
+            {loading && <TinySpinner />}
             {messages.length < 1 && error ?
                 <div className='flex items-center justify-center h-full'>
                     <h3 className='font-bold text-lg text-gray-800'>No convo found</h3>
