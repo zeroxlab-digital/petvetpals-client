@@ -1,21 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client"
 import { useEffect, useState } from "react"
-import { Activity, AlertCircle, Bell, Calendar, Check, ChevronDown, Clock, Clipboard, FileText, Heart, MapPin, MessageSquare, PawPrint, PillIcon as Pills, Plus, Settings, Syringe, Thermometer, User, Weight, X, Zap, Menu, Search, Filter, MoreHorizontal, ChevronUp } from "lucide-react"
+import { Activity, AlertCircle, Calendar, Check, ChevronDown, FileText, Heart, MessageSquare, PawPrint, PillIcon as Pills, Plus, Syringe, Thermometer, Weight, Zap, Filter, MoreHorizontal, ChevronUp } from "lucide-react"
 import Image from "next/image"
-import {
-  Line,
-  LineChart as RechartsLineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-  BarChart,
-  Bar,
-} from "recharts"
+import { Line, LineChart as RechartsLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, BarChart, Bar } from "recharts"
 import InitialDashboard from "./InitialDashboard"
 import useFetchPets from "../../../../../hooks/useFetchPets"
-import { format } from "date-fns"
 import { PetSpinner } from "@/components/Common/Loader/PetSpinner"
 import { useRouter } from "next/navigation"
 
@@ -37,13 +27,6 @@ const foodIntakeData = [
   { name: "Fri", amount: 330 },
   { name: "Sat", amount: 350 },
   { name: "Sun", amount: 340 },
-]
-
-const activityBreakdown = [
-  { name: "Walking", value: 45 },
-  { name: "Running", value: 20 },
-  { name: "Playing", value: 25 },
-  { name: "Resting", value: 10 },
 ]
 
 const medications = [
@@ -108,42 +91,6 @@ const vaccinations = [
     nextDue: "2024-05-05",
     status: "Up to date",
     provider: "Dr. Smith",
-  },
-]
-
-const appointments = [
-  {
-    id: 1,
-    type: "Regular Check-up",
-    date: "2024-02-28",
-    time: "10:00 AM",
-    doctor: "Dr. Smith",
-    clinic: "Happy Paws Veterinary",
-    address: "123 Pet Street, Pawville",
-    notes: "Annual wellness exam",
-    status: "Confirmed",
-  },
-  {
-    id: 2,
-    type: "Vaccination",
-    date: "2024-03-15",
-    time: "2:30 PM",
-    doctor: "Dr. Johnson",
-    clinic: "Pet Care Center",
-    address: "456 Animal Avenue, Furtown",
-    notes: "Bordetella vaccination due",
-    status: "Scheduled",
-  },
-  {
-    id: 3,
-    type: "Dental Cleaning",
-    date: "2024-04-10",
-    time: "9:00 AM",
-    doctor: "Dr. Williams",
-    clinic: "Happy Paws Veterinary",
-    address: "123 Pet Street, Pawville",
-    notes: "Fasting required 12 hours before procedure",
-    status: "Pending",
   },
 ]
 
@@ -243,16 +190,6 @@ const DashboardPage = () => {
   const [showPetMenu, setShowPetMenu] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [activeTab, setActiveTab] = useState("overview")
-
-  // Appointment related states
-  // const [date, setDate] = useState(new Date())
-  // const [showAppointmentDialog, setShowAppointmentDialog] = useState(false)
-  // const [showMedicationDialog, setShowMedicationDialog] = useState(false)
-  // const [showNotifications, setShowNotifications] = useState(false)
-  // const [selectedAppointmentType, setSelectedAppointmentType] = useState("checkup")
-  // const [selectedAppointmentTime, setSelectedAppointmentTime] = useState("10:00")
-  // const [selectedVet, setSelectedVet] = useState("smith")
-  // const [appointmentNotes, setAppointmentNotes] = useState("")
 
   const router = useRouter();
 
@@ -821,94 +758,6 @@ const DashboardPage = () => {
             </div>
           )}
 
-          {/* Appointments Tab */}
-          {/* {activeTab === "appointments" && (
-            <div className="space-y-6 mt-8">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Appointments</h2>
-                <button
-                  onClick={() => setShowAppointmentDialog(true)}
-                  className="flex items-center bg-primary text-white px-3 py-1.5 rounded-lg hover:bg-primaryOutline transition-colors"
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  New Appointment
-                </button>
-              </div>
-
-              <div className="border-b">
-                <div className="flex -mb-px space-x-6 overflow-x-auto">
-                  <button className="py-2 px-1 border-b-2 border-primary text-primary font-medium text-sm whitespace-nowrap">
-                    Upcoming
-                  </button>
-                  <button className="py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium text-sm whitespace-nowrap">
-                    Past Appointments
-                  </button>
-                  <button className="py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium text-sm whitespace-nowrap">
-                    Calendar View
-                  </button>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-xl border shadow-sm">
-                {appointments.map((appointment) => (
-                  <div key={appointment.id} className="border-b last:border-0 p-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                      <div className="flex gap-4">
-                        <div className="bg-blue-100 rounded-full p-3 h-12 w-12 flex items-center justify-center">
-                          {appointment.type === "Regular Check-up" && <Clipboard className="h-6 w-6 text-blue-500" />}
-                          {appointment.type === "Vaccination" && <Syringe className="h-6 w-6 text-blue-500" />}
-                          {appointment.type === "Dental Cleaning" && <Clipboard className="h-6 w-6 text-blue-500" />}
-                        </div>
-                        <div>
-                          <h3 className="font-medium">{appointment.type}</h3>
-                          <div className="flex items-center gap-2 text-sm text-gray-500">
-                            <Calendar className="h-4 w-4" />
-                            <span>{appointment.date}</span>
-                            <Clock className="h-4 w-4 ml-2" />
-                            <span>{appointment.time}</span>
-                          </div>
-                          <div className="flex items-center gap-2 text-sm text-gray-500 mt-1">
-                            <User className="h-4 w-4" />
-                            <span>{appointment.doctor}</span>
-                            <MapPin className="h-4 w-4 ml-2" />
-                            <span>{appointment.clinic}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs ${appointment.status === "Confirmed"
-                              ? "bg-green-50 text-green-700"
-                              : appointment.status === "Scheduled"
-                                ? "bg-blue-50 text-blue-700"
-                                : "bg-amber-50 text-amber-700"
-                            }`}
-                        >
-                          {appointment.status}
-                        </span>
-                        <div className="flex gap-2">
-                          <button className="border border-gray-300 px-3 py-1 rounded-lg text-sm hover:bg-gray-100 transition-colors">
-                            Reschedule
-                          </button>
-                          <button className="border border-gray-300 px-3 py-1 rounded-lg text-sm text-red-500 hover:bg-gray-100 transition-colors">
-                            Cancel
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    {appointment.notes && (
-                      <div className="mt-3 ml-16">
-                        <p className="text-sm text-gray-600">
-                          <span className="font-medium">Notes:</span> {appointment.notes}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )} */}
-
           {/* Medications Tab */}
           {activeTab === "medications" && (
             <div className="space-y-6 mt-8">
@@ -1081,108 +930,8 @@ const DashboardPage = () => {
           )}
         </div>
       </main>
-
-      {/* Appointment Dialog */}
-      {/* {showAppointmentDialog && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Book a Veterinary Appointment</h2>
-              <button onClick={() => setShowAppointmentDialog(false)} className="text-gray-500 hover:text-gray-700">
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-            <p className="text-gray-500 mb-6">Schedule a new appointment for {selectedPet.name}</p>
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">Appointment Type</label>
-                <select
-                  className="w-full p-2 border rounded-md"
-                  value={selectedAppointmentType}
-                  onChange={(e) => setSelectedAppointmentType(e.target.value)}
-                >
-                  <option value="checkup">Regular Check-up</option>
-                  <option value="vaccination">Vaccination</option>
-                  <option value="dental">Dental Cleaning</option>
-                  <option value="grooming">Grooming</option>
-                  <option value="emergency">Emergency</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-1">Date</label>
-                <button className="w-full flex items-center justify-between border p-2 rounded-md">
-                  <div className="flex items-center">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    {format(date, "PPP")}
-                  </div>
-                  <ChevronDown className="h-4 w-4" />
-                </button>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-1">Time</label>
-                <select
-                  className="w-full p-2 border rounded-md"
-                  value={selectedAppointmentTime}
-                  onChange={(e) => setSelectedAppointmentTime(e.target.value)}
-                >
-                  <option value="9:00">9:00 AM</option>
-                  <option value="10:00">10:00 AM</option>
-                  <option value="11:00">11:00 AM</option>
-                  <option value="13:00">1:00 PM</option>
-                  <option value="14:00">2:00 PM</option>
-                  <option value="15:00">3:00 PM</option>
-                  <option value="16:00">4:00 PM</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-1">Veterinarian</label>
-                <select
-                  className="w-full p-2 border rounded-md"
-                  value={selectedVet}
-                  onChange={(e) => setSelectedVet(e.target.value)}
-                >
-                  <option value="smith">Dr. Smith</option>
-                  <option value="johnson">Dr. Johnson</option>
-                  <option value="williams">Dr. Williams</option>
-                  <option value="any">Any Available</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-1">Notes</label>
-                <input
-                  className="w-full p-2 border rounded-md"
-                  placeholder="Any special instructions or concerns"
-                  value={appointmentNotes}
-                  onChange={(e) => setAppointmentNotes(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className="flex justify-end gap-2 mt-6">
-              <button
-                onClick={() => setShowAppointmentDialog(false)}
-                className="px-4 py-2 border rounded-md hover:bg-gray-100"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => setShowAppointmentDialog(false)}
-                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primaryOutline"
-              >
-                Book Appointment
-              </button>
-            </div>
-          </div>
-        </div>
-      )} */}
     </div>
   )
 }
 
 export default DashboardPage
-
