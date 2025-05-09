@@ -76,7 +76,7 @@ const ConversationContainer = ({ clickedParticipant, authUser }) => {
                                     <div className="w-10 rounded-full">
                                         <img
                                             alt="Tailwind CSS chat bubble component"
-                                            src={message.senderType === "user" ? "/images/cute-dog.jpg" : "/images/vet.png"} />
+                                            src={message.senderType === "user" ? "/images/user-man.png" : "/images/vet.png"} />
                                     </div>
                                 </div>
                                 <div className="chat-header">

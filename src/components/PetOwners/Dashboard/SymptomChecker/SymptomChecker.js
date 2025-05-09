@@ -375,7 +375,7 @@ export default function SymptomChecker() {
                             alt={selectedPet.name}
                             width={40}
                             height={40}
-                            className="object-cover"
+                            className="object-cover w-full h-full"
                           />
                         </div>
                         <p className="font-medium">
@@ -426,7 +426,7 @@ export default function SymptomChecker() {
                                   alt={pet.name}
                                   width={40}
                                   height={40}
-                                  className="object-cover"
+                                  className="object-cover w-full h-full"
                                 />
                               </div>
                               <div className="text-left">
