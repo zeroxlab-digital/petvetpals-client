@@ -59,7 +59,7 @@ const TopProducts = () => {
                                     <Image src="/images/no-image.png" alt="product-img" width={100} height={100} className="w-full h-full object-cover rounded" />
                                 </div>
                                 <div className='px-3'>
-                                    <h2 className="text-gray-900 hover:underline cursor-pointer mb-2">{product.name}</h2>
+                                    <h2 className="text-gray-900 font-medium hover:underline cursor-pointer mb-2">{product.name}</h2>
                                     <div className="flex items-center justify-between">
                                         <h4 className="font-semibold text-gray-800">${product.price}</h4>
                                         <div className="flex gap-1 items-center">
