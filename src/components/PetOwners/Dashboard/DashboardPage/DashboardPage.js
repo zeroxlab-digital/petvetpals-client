@@ -459,27 +459,27 @@ const DashboardPage = () => {
                     <div className="grid gap-4 grid-cols-1 md:grid-cols-7 overflow-hidden">
                         {/* Medical History */}
                         <div className="bg-white rounded-xl border shadow-sm md:col-span-4 flex flex-col">
-                            <div className="p-4 border-b">
+                            <div className="p-4">
                                 <h3 className="text-lg font-semibold">Medical History</h3>
                                 <p className="text-sm text-gray-500">Recent medical records</p>
                             </div>
-                            <div className="p-4 overflow-x-auto">
+                            <div className="overflow-x-auto">
                                 <table className="w-full border-collapse">
                                     <thead>
-                                        <tr className="text-left text-xs md:text-sm text-gray-500 border-b bg-gray-50">
-                                            <th className="p-3">Date</th>
-                                            <th className="p-3">Type</th>
-                                            <th className="p-3">Doctor</th>
-                                            <th className="p-3">Notes</th>
+                                        <tr className="text-left text-xs md:text-sm text-gray-500 border-b py-2">
+                                            <th className="p-4">Date</th>
+                                            <th className="p-4">Type</th>
+                                            <th className="p-4">Doctor</th>
+                                            <th className="p-4">Diagnosis</th>
                                         </tr>
                                     </thead>
                                     <tbody className="">
                                         {medicalRecords.slice(0, 3).map((record, index) => (
-                                            <tr key={record.id} className="border-b hover:bg-gray-50 ">
-                                                <td className="p-3 text-sm">{record.date}</td>
-                                                <td className="p-3 text-sm">{record.type}</td>
-                                                <td className="p-3 text-sm">{record.doctor}</td>
-                                                <td className="p-3 text-sm">{record.notes}</td>
+                                            <tr key={record.id} className="border-b last:border-none hover:bg-gray-50 ">
+                                                <td className="p-4 text-sm">{record.date}</td>
+                                                <td className="p-4 text-sm">{record.type}</td>
+                                                <td className="p-4 text-sm">{record.doctor}</td>
+                                                <td className="p-4 text-sm">{record.diagnosis}</td>
                                             </tr>
                                         ))}
                                     </tbody>

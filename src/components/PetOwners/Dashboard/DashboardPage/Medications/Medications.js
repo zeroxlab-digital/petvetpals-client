@@ -39,7 +39,7 @@ const Medications = ({ }) => {
             <div className='flex items-center justify-between'>
                 <h2 className='font-semibold text-lg'>Medications & Treatment</h2>
                 <div>
-                    <Button variant={'primary'} ><HiPlus /> Add Medication</Button>
+                    <Button variant={'primaryOutline'} classNames={'text-sm'}><HiPlus className='text-lg' /> Add Medication</Button>
                 </div>
             </div>
             <div className='health-records-tabs flex space-x-5 overflow-x-auto border-b'>

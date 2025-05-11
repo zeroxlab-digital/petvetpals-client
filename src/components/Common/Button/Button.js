@@ -18,7 +18,7 @@ const Button = ({ children, variant, size, classNames, onClick, ...props }) => {
             case 'large':
                 return 'px-10 py-5'
             default:
-                return 'px-6 py-3'
+                return 'px-5 py-2'
         }
     }
     

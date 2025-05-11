@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from '@/components/Common/Button/Button';
-import { HiDocument, HiEllipsisHorizontal, HiOutlineDocument, HiOutlineDocumentText, HiPlus } from 'react-icons/hi2';
+import { HiEllipsisHorizontal, HiOutlineDocumentText, HiOutlineTrash, HiPlus } from 'react-icons/hi2';
+import { HiOutlinePencilAlt, HiPencilAlt, HiTrash } from 'react-icons/hi';
 
 const HealthRecords = ({ }) => {
     const medicalRecords = [
@@ -83,13 +84,20 @@ const HealthRecords = ({ }) => {
             provider: "Dr. Smith",
         },
     ]
+    const allergies = [
+        { title: "Chicken", description: "Food allergy - Causes mild skin irritation" },
+        { title: "Certain Grasses", description: "Environmental - Seasonal symptoms" },
+    ]
+    const medical_conditions = [
+        { title: "Mild Hip Dysplasia", description: "Diagnosed on 2023-05-10 - Managed with supplements" }
+    ]
     const [activeHealthRecordsTab, setActiveHealthRecordTab] = useState("medical-records");
     return (
         <div className='space-y-5'>
             <div className='flex items-center justify-between'>
                 <h2 className='font-semibold text-lg'>Health Records</h2>
                 <div>
-                    <Button variant={'primary'} ><HiPlus /> Add Record</Button>
+                    <Button variant={'primaryOutline'} classNames={'text-sm'}><HiPlus className='text-lg' /> Add Record</Button>
                 </div>
             </div>
             <div className='health-records-tabs flex space-x-5 overflow-x-auto border-b'>
@@ -112,52 +120,43 @@ const HealthRecords = ({ }) => {
                     Vaccinations
                 </button>
                 <button
-                    onClick={() => setActiveHealthRecordTab("vital-history")}
-                    className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeHealthRecordsTab === "vital-history"
-                        ? "border-primary text-primary"
-                        : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                        }`}
-                >
-                    Vital History
-                </button>
-                <button
                     onClick={() => setActiveHealthRecordTab("allergies-conditions")}
                     className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeHealthRecordsTab === "allergies-conditions"
                         ? "border-primary text-primary"
                         : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
                 >
-                    Allergies Conditions
+                    Allergies & Conditions
                 </button>
             </div>
             {activeHealthRecordsTab === "medical-records" && (
-                <div className='border p-4 rounded-md bg-white overflow-x-auto'>
-                    <h3 className='font-medium text-lg mb-5'>Medical Records</h3>
-                    <table className="w-full border-collapse ">
+                <div className='border rounded-md bg-white overflow-x-auto'>
+                    {/* <h3 className='font-medium text-lg mb-5'>Medical Records</h3> */}
+                    <table className="w-full border-collapse p-5">
                         <thead>
-                            <tr className="text-left text-xs md:text-sm text-gray-500 border-b bg-gray-50">
-                                <th className="p-3">Date</th>
-                                <th className="p-3">Type</th>
-                                <th className="p-3">Doctor</th>
-                                <th className="p-3">Diagnosis</th>
-                                <th className="p-3">Treatment</th>
-                                <th className="p-3">Files</th>
-                                <th className="p-3 text-right">Actions</th>
+                            <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
+                                <th className="p-5">Date</th>
+                                <th className="p-5">Type</th>
+                                <th className="p-5">Doctor</th>
+                                <th className="p-5">Diagnosis</th>
+                                <th className="p-5">Treatment</th>
+                                <th className="p-5">Files</th>
+                                <th className="p-5 text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="">
                             {medicalRecords.slice(0, 3).map((record, index) => (
-                                <tr key={record.index} className="border-b hover:bg-gray-50 ">
-                                    <td className="p-3 text-sm">{record.date}</td>
-                                    <td className="p-3 text-sm">{record.type}</td>
-                                    <td className="p-3 text-sm">{record.doctor}</td>
-                                    <td className="p-3 text-sm">{record.diagnosis}</td>
-                                    <td className="p-3 text-sm">{record.treatment}</td>
-                                    <td className="p-3 text-sm">
+                                <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
+                                    <td className="p-5 text-sm">{record.date}</td>
+                                    <td className="p-5 text-sm">{record.type}</td>
+                                    <td className="p-5 text-sm">{record.doctor}</td>
+                                    <td className="p-5 text-sm">{record.diagnosis}</td>
+                                    <td className="p-5 text-sm">{record.treatment}</td>
+                                    <td className="p-5 text-sm">
                                         {/* {record.files.map(file => file)} */}
                                         <HiOutlineDocumentText className='text-base' />
                                     </td>
-                                    <td className="p-3 text-sm flex justify-end"><button><HiEllipsisHorizontal className='text-xl' /></button></td>
+                                    <td className="p-5 text-sm flex justify-end"><button><HiEllipsisHorizontal className='text-xl' /></button></td>
                                 </tr>
                             ))}
                         </tbody>
@@ -165,42 +164,76 @@ const HealthRecords = ({ }) => {
                 </div>
             )}
             {activeHealthRecordsTab === "vaccinations" && (
-                <div className='border p-4 rounded-md bg-white overflow-x-auto'>
-                    <h3 className='font-medium text-lg mb-5'>Vaccinations</h3>
+                <div className='border rounded-md bg-white overflow-x-auto'>
+                    {/* <h3 className='font-medium text-lg mb-5'>Vaccinations</h3> */}
                     <table className="w-full border-collapse ">
                         <thead>
-                            <tr className="text-left text-xs md:text-sm text-gray-500 border-b bg-gray-50">
-                                <th className="p-3">Vaccine</th>
-                                <th className="p-3">Date Given</th>
-                                <th className="p-3">Next Due</th>
-                                <th className="p-3">Status</th>
-                                <th className="p-3">Provider</th>
-                                <th className="p-3 text-right">Actions</th>
+                            <tr className="text-left text-xs md:text-sm text-gray-500 border-b">
+                                <th className="p-5">Vaccine</th>
+                                <th className="p-5">Date Given</th>
+                                <th className="p-5">Next Due</th>
+                                <th className="p-5">Status</th>
+                                <th className="p-5">Provider</th>
+                                <th className="p-5 text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="">
                             {vaccinations.slice(0, 3).map((vaccine, index) => (
-                                <tr key={index} className="border-b hover:bg-gray-50 ">
-                                    <td className="p-3 text-sm">{vaccine.name}</td>
-                                    <td className="p-3 text-sm">{vaccine.lastDate}</td>
-                                    <td className="p-3 text-sm">{vaccine.nextDue}</td>
-                                    <td className="p-3 text-sm">{vaccine.status}</td>
-                                    <td className="p-3 text-sm">{vaccine.provider}</td>
-                                    <td className="p-3 text-sm flex justify-end"><button><HiEllipsisHorizontal className='text-xl' /></button></td>
+                                <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
+                                    <td className="p-5 text-sm">{vaccine.name}</td>
+                                    <td className="p-5 text-sm">{vaccine.lastDate}</td>
+                                    <td className="p-5 text-sm">{vaccine.nextDue}</td>
+                                    <td className="p-5 text-sm">{vaccine.status}</td>
+                                    <td className="p-5 text-sm">{vaccine.provider}</td>
+                                    <td className="p-5 text-sm flex justify-end"><button><HiEllipsisHorizontal className='text-xl' /></button></td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
             )}
-            {activeHealthRecordsTab === "vital-history" && (
-                <div>Vital History</div>
-            )}
             {activeHealthRecordsTab === "allergies-conditions" && (
-                <div>Allergies & Conditions</div>
+                <div className='bg-white rounded-md border p-4'>
+                    <h2 className='text-xl mb-1 font-medium'>Allergies & Medical Conditions</h2>
+                    <p className='text-gray-600 text-sm'>Manage your pet&apos;s allergies and ongoing conditions</p>
+                    <div className='mt-8 space-y-5'>
+                        <div>
+                            <h4 className='font-medium mb-2'>Known Allergies</h4>
+                            <ul className='space-y-3 mb-5'>
+                                {allergies.map((allergy, index) => <li key={index} className='border p-3 rounded-md flex items-center justify-between'>
+                                    <div>
+                                        <h6 className='font-semibold text-sm'>{allergy.title}</h6>
+                                        <p className='text-gray-600 text-sm'>{allergy.description}</p>
+                                    </div>
+                                    <div className='flex item-center gap-2 max-sm:gap-0'>
+                                        <Button size={'small'}><HiOutlinePencilAlt className='text-primary text-xl' /></Button>
+                                        <Button size={'small'}><HiOutlineTrash className='text-primary text-xl' /></Button>
+                                    </div>
+                                </li>)}
+                            </ul>
+                            <Button variant={'primary'} size={'small'} classNames={'text-sm border !px-3 !py-2 rounded-md font-medium'}><HiPlus className='text-lg' /> Add Allergy</Button>
+                        </div>
+                        <hr />
+                        <div>
+                            <h4 className='font-medium mb-2'>Medical Conditions</h4>
+                            <ul className='space-y-3 mb-5'>
+                                {medical_conditions.map((condition, index) => <li key={index} className='border p-3 rounded-md flex items-center justify-between'>
+                                    <div>
+                                        <h6 className='font-semibold text-sm'>{condition.title}</h6>
+                                        <p className='text-gray-600 text-sm'>{condition.description}</p>
+                                    </div>
+                                    <div className='flex item-center gap-2 max-sm:gap-0'>
+                                        <Button size={'small'}><HiOutlinePencilAlt className='text-primary text-xl' /></Button>
+                                        <Button size={'small'}><HiOutlineTrash className='text-primary text-xl' /></Button>
+                                    </div>
+                                </li>)}
+                            </ul>
+                            <Button variant={'primary'} size={'small'} classNames={'text-sm border !px-3 !py-2 rounded-md font-medium'}><HiPlus className='text-lg' /> Add Condition</Button>
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
-
     );
 };
 
