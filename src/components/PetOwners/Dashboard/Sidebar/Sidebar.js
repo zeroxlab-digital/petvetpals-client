@@ -41,18 +41,18 @@ const DashboardSidebar = ({ setResponsiveToggle }) => {
     }
 
     return (
-        <div className=' flex flex-col  border bg-white p-3 rounded-md rounded-r-none sticky top-20 h-full overflow-auto '>
+        <div className=' flex flex-col  border border-r-0 bg-white p-3 rounded-md rounded-r-none sticky top-20 h-full overflow-auto '>
             {/* <h2 className="lg:hidden text-primary font-bold text-xl mb-3 border-b pb-3">User Profile</h2> */}
             <div className="flex items-center gap-2 lg:hidden text-primary mb-4 border-b pb-4">
                 <PawPrint className="w-6 h-6" />
                 <span className="text-[22px]  font-bold">PetVetPals</span>
             </div>
             <ul className='flex flex-col gap-1'>
-                {links.map((link, index) => <Link href={link.link} key={index} onClick={() => setResponsiveToggle(false)}><li className={`${link.link === pathname && 'bg-primary text-white'} hover:bg-[#7b376ce0] hover:text-white duration-150 px-3 py-3 rounded-md flex items-center gap-3`}>
+                {links.map((link, index) => <Link href={link.link} key={index} onClick={() => setResponsiveToggle(false)}><li className={`${link.link === pathname && 'bg-gray-100'} hover:bg-gray-50/70 duration-150 px-3 py-3 rounded-md flex items-center gap-3`}>
                     <span>{link.icon}</span>{link.title}
                 </li></Link>)}
             </ul>
-            <button onClick={handleUserLogout} className="mt-auto w-full rounded-md border border-red-500 text-left  h-12 px-3 text-red-500  font-medium hover:bg-red-500 hover:bg-opacity-10 duration-200 flex items-center gap-2 "><HiArrowRightOnRectangle className='text-xl' /> Log out</button>
+            <button onClick={handleUserLogout} className="mt-auto w-full  text-left  rounded-md h-12 px-3 text-red-500  font-medium hover:bg-red-500/5 duration-200 flex items-center gap-2 "><HiArrowRightOnRectangle className='text-xl' /> Log out</button>
         </div>
     );
 };
