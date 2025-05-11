@@ -18,7 +18,7 @@ const DietActivity = () => {
             <div className='flex items-center justify-between'>
                 <h2 className='font-semibold text-lg'>Diet & Activity</h2>
                 <div>
-                    <Button variant={'primary'}><HiPlus /> Log Entry</Button>
+                    <Button variant={'primaryOutline'} classNames={'text-sm'}><HiPlus className='text-lg' /> Log Entry</Button>
                 </div>
             </div>
 
