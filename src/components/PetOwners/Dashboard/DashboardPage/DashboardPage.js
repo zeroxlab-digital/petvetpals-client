@@ -203,7 +203,7 @@ const DashboardPage = () => {
             </div>
 
             {/* Dashboard Tabs */}
-            <div className="fle space-x-6 overflow-x-auto mb-7 border-b">
+            <div className="flex space-x-6 overflow-x-auto mb-7 border-b">
                 <button
                     onClick={() => setActiveTab("overview")}
                     className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === "overview"
@@ -458,7 +458,7 @@ const DashboardPage = () => {
 
                     <div className="grid gap-4 grid-cols-1 md:grid-cols-7 overflow-hidden">
                         {/* Medical History */}
-                        <div className="bg-white rounded-xl border shadow-sm md:col-span-4">
+                        <div className="bg-white rounded-xl border shadow-sm md:col-span-4 flex flex-col">
                             <div className="p-4 border-b">
                                 <h3 className="text-lg font-semibold">Medical History</h3>
                                 <p className="text-sm text-gray-500">Recent medical records</p>
@@ -485,7 +485,7 @@ const DashboardPage = () => {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="p-4 border-t ">
+                            <div className="p-4 border-t mt-auto">
                                 <button className="text-sm text-blue-500 hover:text-blue-600 transition-colors">
                                     View Complete History →
                                 </button>

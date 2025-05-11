@@ -1,8 +1,54 @@
 import React, { useState } from 'react';
 import Button from '@/components/Common/Button/Button';
-import { HiPlus } from 'react-icons/hi2';
+import { HiDocument, HiEllipsisHorizontal, HiOutlineDocument, HiOutlineDocumentText, HiPlus } from 'react-icons/hi2';
 
 const HealthRecords = ({ }) => {
+    const medicalRecords = [
+        {
+            id: 1,
+            date: "2024-02-15",
+            type: "Check-up",
+            doctor: "Dr. Smith",
+            clinic: "Happy Paws Veterinary",
+            diagnosis: "Healthy",
+            treatment: "None required",
+            notes: "Regular health check - All normal",
+            files: ["health_report_feb2024.pdf"],
+        },
+        {
+            id: 2,
+            date: "2024-02-01",
+            type: "Vaccination",
+            doctor: "Dr. Johnson",
+            clinic: "Pet Care Center",
+            diagnosis: "N/A",
+            treatment: "Annual boosters",
+            notes: "Annual boosters completed",
+            files: ["vaccination_record_feb2024.pdf"],
+        },
+        {
+            id: 3,
+            date: "2024-01-20",
+            type: "Dental",
+            doctor: "Dr. Williams",
+            clinic: "Happy Paws Veterinary",
+            diagnosis: "Mild tartar buildup",
+            treatment: "Dental cleaning",
+            notes: "Teeth cleaning and check",
+            files: ["dental_report_jan2024.pdf", "dental_xrays_jan2024.zip"],
+        },
+        {
+            id: 4,
+            date: "2023-12-05",
+            type: "Illness",
+            doctor: "Dr. Smith",
+            clinic: "Happy Paws Veterinary",
+            diagnosis: "Mild digestive upset",
+            treatment: "Prescription diet for 7 days",
+            notes: "Likely caused by dietary indiscretion",
+            files: ["treatment_plan_dec2023.pdf"],
+        },
+    ]
     const vaccinations = [
         {
             id: 1,
@@ -85,10 +131,67 @@ const HealthRecords = ({ }) => {
                 </button>
             </div>
             {activeHealthRecordsTab === "medical-records" && (
-                <div>Medical Records</div>
+                <div className='border p-4 rounded-md bg-white overflow-x-auto'>
+                    <h3 className='font-medium text-lg mb-5'>Medical Records</h3>
+                    <table className="w-full border-collapse ">
+                        <thead>
+                            <tr className="text-left text-xs md:text-sm text-gray-500 border-b bg-gray-50">
+                                <th className="p-3">Date</th>
+                                <th className="p-3">Type</th>
+                                <th className="p-3">Doctor</th>
+                                <th className="p-3">Diagnosis</th>
+                                <th className="p-3">Treatment</th>
+                                <th className="p-3">Files</th>
+                                <th className="p-3 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody className="">
+                            {medicalRecords.slice(0, 3).map((record, index) => (
+                                <tr key={record.index} className="border-b hover:bg-gray-50 ">
+                                    <td className="p-3 text-sm">{record.date}</td>
+                                    <td className="p-3 text-sm">{record.type}</td>
+                                    <td className="p-3 text-sm">{record.doctor}</td>
+                                    <td className="p-3 text-sm">{record.diagnosis}</td>
+                                    <td className="p-3 text-sm">{record.treatment}</td>
+                                    <td className="p-3 text-sm">
+                                        {/* {record.files.map(file => file)} */}
+                                        <HiOutlineDocumentText className='text-base' />
+                                    </td>
+                                    <td className="p-3 text-sm flex justify-end"><button><HiEllipsisHorizontal className='text-xl' /></button></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             )}
             {activeHealthRecordsTab === "vaccinations" && (
-                <div>Vaccinations</div>
+                <div className='border p-4 rounded-md bg-white overflow-x-auto'>
+                    <h3 className='font-medium text-lg mb-5'>Vaccinations</h3>
+                    <table className="w-full border-collapse ">
+                        <thead>
+                            <tr className="text-left text-xs md:text-sm text-gray-500 border-b bg-gray-50">
+                                <th className="p-3">Vaccine</th>
+                                <th className="p-3">Date Given</th>
+                                <th className="p-3">Next Due</th>
+                                <th className="p-3">Status</th>
+                                <th className="p-3">Provider</th>
+                                <th className="p-3 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody className="">
+                            {vaccinations.slice(0, 3).map((vaccine, index) => (
+                                <tr key={index} className="border-b hover:bg-gray-50 ">
+                                    <td className="p-3 text-sm">{vaccine.name}</td>
+                                    <td className="p-3 text-sm">{vaccine.lastDate}</td>
+                                    <td className="p-3 text-sm">{vaccine.nextDue}</td>
+                                    <td className="p-3 text-sm">{vaccine.status}</td>
+                                    <td className="p-3 text-sm">{vaccine.provider}</td>
+                                    <td className="p-3 text-sm flex justify-end"><button><HiEllipsisHorizontal className='text-xl' /></button></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             )}
             {activeHealthRecordsTab === "vital-history" && (
                 <div>Vital History</div>
