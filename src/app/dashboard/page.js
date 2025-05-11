@@ -1,5 +1,5 @@
-import DashboardPage from '@/components/PetOwners/Dashboard/DashboardPage/DashboardPage';
 import React from 'react';
+import DashboardPage from '@/components/PetOwners/Dashboard/DashboardPage/DashboardPage';
 
 const Dashboard = () => {
     return (

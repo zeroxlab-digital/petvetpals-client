@@ -4,9 +4,9 @@ const Button = ({ children, variant, size, classNames, onClick, ...props }) => {
     const variantClass = () => {
         switch (variant) {
             case 'primary':
-                return 'bg-primary text-white font-semibold rounded-full'
+                return 'bg-primary hover:bg-primaryHover duration-200 text-white rounded-full'
             case 'primaryOutline':
-                return 'bg-transparent hover:bg-primary text-primary border border-[#58294ec7] hover:text-white duration-300 font-semibold  rounded-full'
+                return 'bg-transparent hover:bg-primary text-primary border border-[#58294ec7] hover:text-white duration-200  rounded-full'
             default:
                 return ''
         }
@@ -14,11 +14,11 @@ const Button = ({ children, variant, size, classNames, onClick, ...props }) => {
     const sizeClass = () => {
         switch (size) {
             case 'small':
-                return ''
+                return 'px-3 py-1'
             case 'large':
-                return 'w-60 h-14 text-lg'
+                return 'px-10 py-5'
             default:
-                return 'w-44 h-12 text-base'
+                return 'px-6 py-3'
         }
     }
     
