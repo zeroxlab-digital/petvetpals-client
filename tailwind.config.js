@@ -15,6 +15,7 @@ module.exports = {
       },
       backgroundColor: {
         primary: 'var(--primary-color)',
+        primaryHover: 'var(--primary-color-hover)',
         secondary: 'var(--secondary-color)'
       },
       textColor: {

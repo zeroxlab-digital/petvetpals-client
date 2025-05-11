@@ -14,7 +14,8 @@ html {
 }
 
 :root {
-    --primary-color: #58294E;
+    --primary-color: #672e5b;
+    --primary-color-hover: #58294E;
     --secondary-color: #ffb330;
 }
 

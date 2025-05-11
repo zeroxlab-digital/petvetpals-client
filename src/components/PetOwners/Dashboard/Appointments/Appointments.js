@@ -166,8 +166,8 @@ const Appointments = () => {
                                         {showModal && <ConfirmBookingModal apptId={clickedAppointment._id} setShowModal={setShowModal} />}
                                     </div>
                                 ) : active_status_tab === 'past' ? (
-                                    <button className='bg-primary px-5 py-3 rounded-lg text-white text-sm flex items-center gap-2'>Give Feedback <HiOutlineStar /></button>
-                                ) : <button className='bg-primary px-5 py-3 rounded-lg text-white text-sm flex items-center gap-2'>Reschedule Now <HiArrowRight /></button>}
+                                    <button className='bg-primary px-5 py-3 rounded-lg text-white text-sm flex items-center gap-2 max-sm:w-full justify-center'>Give Feedback <HiOutlineStar /></button>
+                                ) : <button className='bg-primary px-5 py-3 rounded-lg text-white text-sm flex items-center gap-2 max-sm:w-full justify-center'>Reschedule Now <HiArrowRight /></button>}
                             </div>
                         </div>
                     ))}
