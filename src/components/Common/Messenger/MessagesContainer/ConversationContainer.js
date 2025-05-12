@@ -44,21 +44,21 @@ const ConversationContainer = ({ clickedParticipant, authUser }) => {
 
     return (
         <div className={`max-md:order-2 ${clickedParticipant ? '' : 'max-md:hidden'} flex flex-col h-[calc(100vh-10.2rem)] max-md:!min-h-full`}>
-            <div className='relative flex items-center justify-between rounded-md bg-primary p-2'>
+            <div className='relative flex items-center justify-between rounded-md bg-gray-100 p-2'>
                 <div className='flex items-center gap-3'>
                     <button onClick={() => dispatch(setClickedParticipant(null))} className='md:hidden'>
-                        <HiArrowLeft className='text-gray-200 text-xl' />
+                        <HiArrowLeft className='text-gray-900 text-xl' />
                     </button>
                     <Image src="/images/user.jpg" alt="participant-profile" width={20} height={20} className='rounded-full w-10 h-10' />
-                    <span className='font-medium text-gray-200'>{clickedParticipant.fullName}</span>
+                    <span className='font-medium text-gray-900'>{clickedParticipant.fullName}</span>
                 </div>
-                <button onClick={() => setShowMenu(!showMenu)} className='text-gray-200 text-2xl'>
+                <button onClick={() => setShowMenu(!showMenu)} className='text-gray-900 text-2xl'>
                     {showMenu ? <HiInformationCircle /> : <HiOutlineInformationCircle />}
                 </button>
-                {showMenu && <div className='absolute top-10 right-0 w-52 h-max border shadow-lg bg-white rounded-md '>
+                {showMenu && <div className='absolute top-10 right-0 w-52 h-max border shadow-lg bg-white rounded-md z-10'>
                     <ul>
-                        <li onClick={() => { router.push(`/appointments/${clickedParticipant._id}`), setShowMenu(false) }} className='py-3 px-3 text-gray-800 cursor-pointer hover:bg-gray-100 duration-150 rounded-t-md font-medium border-b'>View profile</li>
-                        <li onClick={() => setShowMenu(false)} className='py-3 px-3 text-gray-800 cursor-pointer hover:bg-gray-100 duration-150 rounded-b-md font-medium'>View media & links</li>
+                        <li onClick={() => { router.push(`/appointments/${clickedParticipant._id}`), setShowMenu(false) }} className='py-3 px-3 text-gray-800 cursor-pointer hover:bg-gray-100 duration-150 rounded-t-md font-medium text-sm border-b'>View profile</li>
+                        <li onClick={() => setShowMenu(false)} className='py-3 px-3 text-gray-800 cursor-pointer hover:bg-gray-100 duration-150 rounded-b-md font-medium text-sm'>View media & links</li>
                     </ul>
                 </div>}
             </div>

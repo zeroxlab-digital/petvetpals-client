@@ -190,12 +190,12 @@ const DashboardPage = () => {
                 <div className="flex gap-2 flex-wrap">
                     <button
                         onClick={() => router.push("/appointments")}
-                        className="flex items-center bg-primary text-white px-4 max-sm:px-2 py-2 rounded-lg hover:bg-primaryOutline transition-colors"
+                        className="flex items-center bg-primary hover:bg-primaryHover duration-200 text-white px-4 max-sm:px-2 py-2 rounded-lg transition-colors"
                     >
                         <Calendar className="mr-2 h-4 w-4" />
                         Book Appointment
                     </button>
-                    <button onClick={() => router.push("/dashboard/messages")} className="flex items-center border border-gray-300 px-4 max-sm:px-2 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+                    <button onClick={() => router.push("/dashboard/messages")} className="flex items-center border border-gray-300 px-4 max-sm:px-2 py-2 rounded-lg hover:bg-gray-100 duration-200 transition-colors">
                         <MessageSquare className="mr-2 h-4 w-4" />
                         Chat with Vet
                     </button>
