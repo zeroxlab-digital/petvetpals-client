@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Button from '@/components/Common/Button/Button';
-import { HiPlus } from 'react-icons/hi2';
+import { HiEllipsisHorizontal, HiPlus } from 'react-icons/hi2';
 
 const Medications = ({ }) => {
     const medications = [
@@ -81,10 +81,65 @@ const Medications = ({ }) => {
                 </button>
             </div>
             {activeMedicationsTab === "current-medications" && (
-                <div>Current Medications</div>
+                <div className='border rounded-md bg-white overflow-x-auto'>
+                    {/* <h3 className='font-medium text-lg mb-5'>Current Medications</h3> */}
+                    <table className="w-full border-collapse p-5">
+                        <thead>
+                            <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
+                                <th className="p-5">Medication</th>
+                                <th className="p-5">Dosage</th>
+                                <th className="p-5">Freequency</th>
+                                <th className="p-5">Next Due</th>
+                                <th className="p-5">Remaining</th>
+                                <th className="p-5 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody className="">
+                            {medications.slice(0, 3).map((medication, index) => (
+                                <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
+                                    <td className="p-5 text-sm">{medication.name}</td>
+                                    <td className="p-5 text-sm">{medication.dosage}</td>
+                                    <td className="p-5 text-sm">{medication.frequency}</td>
+                                    <td className="p-5 text-sm">{medication.nextDue}</td>
+                                    <td className="p-5 text-sm">{medication.remainingDoses}</td>
+                                    <td className="p-5 text-sm flex justify-end"><button><HiEllipsisHorizontal className='text-xl' /></button></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             )}
             {activeMedicationsTab === "medication-history" && (
-                <div>Medication History</div>
+                <div className='border rounded-md bg-white overflow-x-auto'>
+                    {/* <h3 className='font-medium text-lg mb-5'>Current Medications</h3> */}
+                    <table className="w-full border-collapse p-5">
+                        <thead>
+                            <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
+                                <th className="p-5">Medication</th>
+                                <th className="p-5">Dosage</th>
+                                <th className="p-5">Freequency</th>
+                                <th className="p-5">Start Date</th>
+                                <th className="p-5">End Date</th>
+                                <th className="p-5">Reason</th>
+                                <th className="p-5 text-right">Prescribed By</th>
+                            </tr>
+                        </thead>
+                        <tbody className="">
+                            {medications.slice(0, 3).map((medication, index) => (
+                                <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
+                                    <td className="p-5 text-sm">{medication.name}</td>
+                                    <td className="p-5 text-sm">{medication.dosage}</td>
+                                    <td className="p-5 text-sm">{medication.frequency}</td>
+                                    <td className="p-5 text-sm">{medication.startDate || "N/A"}</td>
+                                    <td className="p-5 text-sm">{medication.endDate || "N/A"}</td>
+                                    <td className="p-5 text-sm">{medication.reason || "N/A"}</td>
+                                    <td className="p-5 text-sm flex justify-end">{medication.prescribedBy || "N/A"}</td>
+                                    {/* <td className="p-5 text-sm flex justify-end"><button><HiEllipsisHorizontal className='text-xl' /></button></td> */}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             )}
             {activeMedicationsTab === "medication-schedule" && (
                 <div>Medication Schedule</div>
