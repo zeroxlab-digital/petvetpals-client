@@ -36,10 +36,10 @@ const SignUpPage = () => {
     }
 
     return (
-        <div className="w-full sm:w-[22rem] text-center flex justify-center items-center h-screen mx-auto p-3">
+        <div className="w-full sm:w-[22rem] max-md:px-7 text-center flex justify-center items-center h-screen mx-auto">
             <div className="w-full">
                 <>
-                    <h2 className="text-2xl font-bold text-primary mb-7">Create an account</h2>
+                    <h2 className="text-2xl font-bold text-primary mb-7">Create an Account</h2>
                     <form onSubmit={handleRegistration} action="#" className="flex flex-col gap-3">
                         <Input type="text" placeholder="Enter full name"
                             name="fullname"
