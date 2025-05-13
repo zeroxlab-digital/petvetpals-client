@@ -33,10 +33,10 @@ const SignInPage = () => {
         }
     }
     return (
-        <div className="w-full sm:w-[22rem] text-center flex justify-center items-center h-screen mx-auto p-3">
+        <div className="w-full sm:w-[22rem] max-md:px-7 text-center flex justify-center items-center h-screen mx-auto ">
             <div className="w-full">
                 <>
-                    <h2 className="text-2xl font-bold text-primary mb-7">Welcome back</h2>
+                    <h2 className="text-2xl font-bold text-primary mb-7">Welcome Back</h2>
                     <form onSubmit={handleUserLogin} action="#" className="flex flex-col gap-3">
                         <Input type="email" placeholder="Email Address"
                             name="email"
