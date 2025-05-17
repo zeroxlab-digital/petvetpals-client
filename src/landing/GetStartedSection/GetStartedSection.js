@@ -21,7 +21,7 @@ const GetStartedSection = () => {
                 <p className='text-primary mb-10 md:w-3/5 mx-auto'>
                     Sign up now to start chatting with our virtual assistants and get personalized advice for your animals health and wellness.
                 </p>
-                <Button variant={"primary"} size={"large"} onClick={() => router.push("/appointments")} classNames={" text-sm rounded-lg text-white w-[14rem] !h-12"}>Get Vet Appointment <HiArrowSmRight /></Button>
+                <Button variant={"primary"} size={"large"} onClick={() => router.push("/appointments")} classNames={" rounded-lg text-white w-[12rem] !h-11 font-bold"}>See a Vet <HiArrowSmRight className='text-xl' /></Button>
                 <ul className='flex items-center gap-7 mt-10'>
                     <li className='flex items-center gap-1 text-gray-600 text-sm'><HiCheckCircle className='text-green-300' /> Fast & convenient</li>
                     <li className='flex items-center gap-1 text-gray-600 text-sm'><HiCheckCircle className='text-green-300' /> 24/7 services</li>

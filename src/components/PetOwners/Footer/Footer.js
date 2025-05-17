@@ -54,7 +54,7 @@ export default function Footer() {
                   placeholder="Enter your email"
                   className="bg-transparent bg-white text-gray-800 outline-none placeholder:text-gray-500 rounded-md p-3"
                 />
-                <button className="bg-pink-900 bg-opacity-70 hover:bg-opacity-100 duration-100 text-white font-semibold p-3 rounded-md flex items-center gap-0">
+                <button className="bg-primary border duration-100 text-white font-semibold p-3 rounded-md flex items-center gap-0">
                   Subscribe
                   <Send className="w-4 h-4 ml-2 max-sm:hidden" />
                 </button>
