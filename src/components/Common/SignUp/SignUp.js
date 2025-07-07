@@ -41,7 +41,7 @@ const SignUpPage = () => {
                 <>
                     <h2 className="text-2xl font-bold text-primary mb-7">Create an Account</h2>
                     <form onSubmit={handleRegistration} action="#" className="flex flex-col gap-3">
-                        <Input type="text" placeholder="Enter full name"
+                        <Input type="text" placeholder="Full name"
                             name="fullname"
                             onChange={(e) => setUser({ ...user, fullName: e.target.value })}
                             value={user.fullName}

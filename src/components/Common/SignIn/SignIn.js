@@ -38,7 +38,7 @@ const SignInPage = () => {
                 <>
                     <h2 className="text-2xl font-bold text-primary mb-7">Welcome Back</h2>
                     <form onSubmit={handleUserLogin} action="#" className="flex flex-col gap-3">
-                        <Input type="email" placeholder="Email Address"
+                        <Input type="email" placeholder="Email address"
                             name="email"
                             onChange={(e) => setUser({ ...user, email: e.target.value })}
                             value={user.email}
