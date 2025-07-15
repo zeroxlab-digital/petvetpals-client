@@ -50,7 +50,7 @@ const UserAccount = () => {
         {/* Navigation Tabs */}
         <div className="mb-8 border-b">
           <nav className="-mb-px flex space-x-6">
-            {["profile", "billing", "security", "notifications"].map((tab) => (
+            {["profile", "billing", "notifications"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -190,39 +190,55 @@ const UserAccount = () => {
                 </div>
               </form>
 
-              {/* Recent Activity */}
+              {/* Security Settings */}
+              <div className="grid gap-6">
               <div className="bg-white rounded-xl border shadow-sm p-6">
-                <h3 className="text-lg font-semibold mb-4">Recent Activity</h3>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg transition-colors">
-                    <div className="p-2 bg-blue-100 rounded-lg">
-                      <CreditCard className="h-5 w-5 text-blue-600" />
+                <h3 className="text-lg font-semibold mb-6">Security Settings</h3>
+                <div className="space-y-6">
+                  <div className="pb-6 border-b">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-2">
+                        <Lock className="h-5 w-5 text-gray-500" />
+                        <h4 className="font-medium">Password</h4>
+                      </div>
+                      <button className="text-sm text-blue-500 hover:text-blue-600">Change</button>
                     </div>
-                    <div>
-                      <p className="text-sm font-medium">Updated payment method</p>
-                      <p className="text-xs text-gray-500">Yesterday at 2:30 PM</p>
+                    <div className="flex items-center gap-4">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        value={userProfile?.password || "12345678"}
+
+                        className="px-3 py-2 border rounded-lg bg-gray-50 text-gray-500"
+                      />
+                      <button
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="p-2 text-gray-500 hover:text-gray-700"
+                      >
+                        {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                      </button>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg transition-colors">
-                    <div className="p-2 bg-green-100 rounded-lg">
-                      <Settings className="h-5 w-5 text-green-600" />
+
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-2">
+                        <Key className="h-5 w-5 text-gray-500" />
+                        <h4 className="font-medium">Active Sessions</h4>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm font-medium">Changed notification settings</p>
-                      <p className="text-xs text-gray-500">2 days ago</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg transition-colors">
-                    <div className="p-2 bg-purple-100 rounded-lg">
-                      <User className="h-5 w-5 text-purple-600" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium">Profile information updated</p>
-                      <p className="text-xs text-gray-500">5 days ago</p>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 border rounded-lg">
+                        <div>
+                          <p className="text-sm font-medium">Current Session</p>
+                          <p className="text-xs text-gray-500">Windows • Chrome • New York, USA</p>
+                        </div>
+                        <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">Active Now</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
             </div>
           )}
 
@@ -288,7 +304,7 @@ const UserAccount = () => {
           )}
 
           {/* Security Section */}
-          {activeTab === "security" && (
+          {/* {activeTab === "security" && (
             <div className="grid gap-6">
               <div className="bg-white rounded-xl border shadow-sm p-6">
                 <h3 className="text-lg font-semibold mb-6">Security Settings</h3>
@@ -350,7 +366,7 @@ const UserAccount = () => {
                 </div>
               </div>
             </div>
-          )}
+          )} */}
 
           {/* Notifications Section */}
           {activeTab === "notifications" && (
