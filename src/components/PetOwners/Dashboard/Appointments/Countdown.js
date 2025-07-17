@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { HiClock, HiOutlineClock } from 'react-icons/hi2';
 
 const Countdown = ({ date_time }) => {
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -27,8 +28,8 @@ const Countdown = ({ date_time }) => {
     }, [date_time]);
 
     return (
-        <div className='bg-primary rounded-md text-white text-base flex items-center gap-2 justify-center w-44 max-md:w-full h-12'>
-            In {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
+        <div className='bg-gray-50 border rounded-md text-gray-900 text-base flex items-center gap-2 justify-center w-44 max-md:w-full h-12'>
+            <HiOutlineClock size={20} /> In {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m
         </div>
     );
 };
