@@ -4,12 +4,12 @@ import { HiChat, HiLocationMarker } from 'react-icons/hi';
 import { HiAcademicCap, HiBriefcase, HiCalendar, HiHeart, HiOutlineBriefcase, HiStar } from 'react-icons/hi2';
 
 const VetDetailsTabs = ({ foundVet }) => {
-    const { _id, image, banner, fullName, degrees, works_at, experience_years, specialities, fees, languages, based_in } = foundVet || {};
+    const { _id, image, banner, fullName, degrees, works_at, experience_years, specialities, fees, languages, based_in, experiences } = foundVet || {};
     const tabList = ["About Vet", "Experiences", "Reviews"];
     const [selectedTab, setSelectedTab] = useState("About Vet");
 
     // Experiences
-    const work_experience = [
+    const work_experiences = [
         { title: "Senior Veterinarian", work_place: "PetCare Plus Clinic", start_date: "July 2018", end_date: "February 2019", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet" },
         { title: "Senior Veterinarian", work_place: "PetCare Plus Clinic", start_date: "July 2018", end_date: "February 2019", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus! Lorem ipsum dolor sit amet" }
     ]
@@ -61,7 +61,7 @@ const VetDetailsTabs = ({ foundVet }) => {
                             <div className='experiences'>
                                 <h3 className='font-bold text-xl mb-2'>Work Experience</h3>
                                 {
-                                    work_experience.length < 1 ?
+                                    work_experiences.length < 1 ?
                                         <>
                                             <h2 className='font-bold text-gray-600 text-2xl'>This vet does not have any work experience!</h2>
                                         </>
@@ -69,7 +69,7 @@ const VetDetailsTabs = ({ foundVet }) => {
                                         <>
                                             <p className='text-gray-700 '>{fullName}&apos;s proffessional journey</p>
                                             <div className='experience-list mt-5 flex flex-col gap-6'>
-                                                {work_experience.map((item, index) => <div key={index} className='flex items-start gap-3'>
+                                                {work_experiences.map((item, index) => <div key={index} className='flex items-start gap-3'>
                                                     <div className='bg-black p-1 text-white rounded-full relative top-[2px]'><HiOutlineBriefcase /></div>
                                                     <div>
                                                         <h4 className='font-semibold text-lg mb-1'>{item.title}</h4>
