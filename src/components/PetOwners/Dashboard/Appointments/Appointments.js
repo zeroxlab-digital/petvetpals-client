@@ -1,15 +1,15 @@
 "use client";
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import NoPhoto from '/public/images/vet.png';
-import { HiArrowRight, HiChevronDown, HiClock, HiOutlineClock, HiOutlineCurrencyDollar, HiOutlineMapPin, HiOutlineStar, HiOutlineTrash, HiPencilSquare, HiVideoCamera } from 'react-icons/hi2';
-import { LuDog } from 'react-icons/lu';
-import axios from 'axios';
+import { HiArrowRight, HiOutlineCalendar, HiOutlineClock, HiOutlineCurrencyDollar, HiOutlineMapPin, HiOutlineTrash, HiPencilSquare, HiVideoCamera } from 'react-icons/hi2';
+import { LuCat, LuDog } from 'react-icons/lu';
 import ConfirmBookingModal from './ConfirmBookingModal';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 import { toast } from 'react-toastify';
 import Countdown from './Countdown';
 import { useDeleteAppointmentMutation, useGetAppointmentsQuery, useUpdateAppointmentMutation } from '@/redux/services/appointmentApi';
+import GiveFeedback from './GiveFeedback';
+import { HiOutlineThumbUp } from 'react-icons/hi';
 
 const Appointments = () => {
     const { data, isLoading, isError } = useGetAppointmentsQuery();
@@ -75,6 +75,14 @@ const Appointments = () => {
         window.open(`https://meet.jit.si/petvetpals-appointment/${appointment._id}`, '_blank');
     }
 
+    // Give Feedback
+    const [giveFeedback, setGiveFeedback] = useState(false);
+    const [appointmentToGiveFeedback, setAppointmentToGiveFeedback] = useState(null);
+    const handleGiveFeedback = (appointment) => {
+        setGiveFeedback(true);
+        setAppointmentToGiveFeedback(appointment);
+    }
+
     if (isLoading) {
         return <PetSpinner />
     }
@@ -127,7 +135,7 @@ const Appointments = () => {
 
                             <div className='lg:col-span-3 px-3'>
                                 <p className='text-gray-600 flex items-center gap-2 mb-2'>
-                                    <HiOutlineClock className='text-lg' />
+                                    <HiOutlineClock className='text-lg text-blue-500' />
                                     {(() => {
                                         const startDate = new Date(appointment.date);
                                         const endDate = new Date(startDate.getTime() + 30 * 60 * 1000);
@@ -137,22 +145,24 @@ const Appointments = () => {
                                         return `${startDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })} - ${endDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;
                                     })()}
                                 </p>
-                                <p className='text-gray-600 flex items-center gap-2'><HiOutlineMapPin className='text-lg' /> Online</p>
+                                <p className='text-amber-300 flex items-center gap-2'><HiOutlineMapPin className='text-lg' /> Online</p>
                             </div>
 
                             <div className='lg:col-span-2 px-3'>
-                                <p className='text-gray-600 flex items-center gap-2 mb-2'><LuDog className='text-lg' /> {appointment?.pet?.name || 'Unavailable'} ({appointment?.pet?.type || ''})</p>
-                                <p className='text-gray-600 flex items-center gap-2'><HiOutlineCurrencyDollar className='text-lg' /> {appointment.payment_status ? 'Paid' : 'Unpaid'}</p>
+                                <p className='text-purple-600 flex items-center gap-2 mb-2'>
+                                    {appointment?.pet?.type == 'Dog' ? <LuDog className='text-lg' /> : <LuCat className='text-lg' />}
+                                    {appointment?.pet?.name || 'Unavailable'} ({appointment?.pet?.type || ''})</p>
+                                <p className={`${appointment.payment_status ? 'text-green-500' : 'text-red-500'} flex items-center gap-2`}><HiOutlineCurrencyDollar className='text-lg' /> {appointment.payment_status ? 'Paid' : 'Unpaid'}</p>
                             </div>
 
                             <div className='flex flex-wrap gap-4 lg:col-span-3 justify-end p-3'>
                                 {active_status_tab === 'confirmed' ? (
                                     <div className='w-full flex items-center max-md:flex-col gap-3'>
-                                        <button className='bg-white rounded-lg border text-blue-500 flex items-center justify-center  w-12 max-md:w-full h-12'>
-                                            <HiPencilSquare className='text-xl ' />
+                                        <button className='bg-white hover:bg-primary hover:border-none hover:text-white duration-150 rounded-md border text-primary flex items-center justify-center  w-12 max-md:w-full h-12'>
+                                            <HiPencilSquare className='text-lg' />
                                         </button>
                                         {new Date() >= new Date(appointment.date) ? (
-                                            <button onClick={() => handleJoinNow(appointment)} className='bg-primary rounded-lg text-white text-base flex items-center gap-2 justify-center  w-44 max-md:w-full h-12'>
+                                            <button onClick={() => handleJoinNow(appointment)} className='bg-primary hover:bg-primaryHover rounded-md text-white text-base flex items-center gap-2 justify-center  w-44 max-md:w-full h-12'>
                                                 Join Now <HiVideoCamera />
                                             </button>
                                         ) : (
@@ -161,13 +171,16 @@ const Appointments = () => {
                                     </div>
                                 ) : active_status_tab === 'pending' ? (
                                     <div className='w-full flex items-center max-md:flex-col-reverse gap-3 '>
-                                        <button onClick={() => handleConfirmBooking(appointment)} className='bg-primary rounded-lg text-white w-44 max-md:w-full h-12 flex items-center gap-2  justify-center'>Confirm <HiArrowRight /></button>
-                                        <button onClick={() => handleAppointmentDlt(appointment._id)} className='bg-white w-12 max-md:w-full h-12 rounded-lg text-blue-500 border flex items-center justify-center '><HiOutlineTrash className='text-xl' /></button>
+                                        <button onClick={() => handleConfirmBooking(appointment)} className='bg-primary hover:bg-primaryHover rounded-md text-white w-44 max-md:w-full h-12 flex items-center gap-2  justify-center'>Confirm <HiArrowRight /></button>
+                                        <button onClick={() => handleAppointmentDlt(appointment._id)} className='bg-white hover:bg-red-500 hover:text-white duration-150 w-12 max-md:w-full h-12 rounded-lg text-red-500 border border-red-500 flex items-center justify-center '><HiOutlineTrash className='text-lg' /></button>
                                         {showModal && <ConfirmBookingModal apptId={clickedAppointment._id} setShowModal={setShowModal} />}
                                     </div>
                                 ) : active_status_tab === 'past' ? (
-                                    <button className='bg-primary px-5 py-3 rounded-lg text-white text-sm flex items-center gap-2 max-sm:w-full justify-center'>Give Feedback <HiOutlineStar /></button>
-                                ) : <button className='bg-primary px-5 py-3 rounded-lg text-white text-sm flex items-center gap-2 max-sm:w-full justify-center'>Reschedule Now <HiArrowRight /></button>}
+                                    <>
+                                    <button onClick={() => handleGiveFeedback(appointment)} className=' hover:bg-primaryHover bg-primary duration-150 px-5 py-3 rounded-md text-white text-sm font-medium flex items-center gap-2 max-sm:w-full justify-center'>Give Feedback <HiOutlineThumbUp size={18} /></button>
+                                    {giveFeedback && <GiveFeedback setGiveFeedback={setGiveFeedback} appointment={appointmentToGiveFeedback} />}
+                                    </>
+                                ) : <button className='bg-primary hover:bg-primaryHover px-5 py-3 rounded-md text-white text-sm font-medium flex items-center gap-2 max-sm:w-full justify-center'>Reschedule Now <HiOutlineCalendar size={18} /></button>}
                             </div>
                         </div>
                     ))}
