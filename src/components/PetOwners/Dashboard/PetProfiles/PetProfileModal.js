@@ -112,9 +112,9 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
     }
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
-            <div className="relative w-[95%] max-w-[50rem]  bg-white shadow-lg rounded-lg overflow-hidden">
-                <div className='h-[30rem] overflow-auto hide-scrollbar p-4'>
+        <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+            <div className="relative w-[95%] max-w-[30rem]  bg-white shadow-lg rounded-lg overflow-hidden">
+                <div className='h-[35rem] overflow-auto hide-scrollbar p-4'>
                     {modalType == "update" ?
                         <div className="bg-gray-50 rounded-xl p-4">
                             <h3 className="text-lg font-bold text-gray-800 mb-5">Update pet profile</h3>
@@ -350,10 +350,10 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
                     }
                 </div>
                 <button
-                    className="absolute top-2 right-2 sm:right-2 sm:top-2 max-sm:right-2 max-sm:top-2 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-red-700"
+                    className="absolute top-2 right-2 sm:right-2 sm:top-2 max-sm:right-2 max-sm:top-2 w-7 h-7 flex items-center justify-center bg-red-500 bg-opacity-80 hover:bg-opacity-100 duration-200 text-white rounded-full"
                     onClick={() => setModalType(null)}
                 >
-                    <HiXMark size={25} />
+                    <HiXMark size={20} />
                 </button>
             </div>
         </div>

@@ -94,16 +94,16 @@ const GiveFeedback = ({ setGiveFeedback, appointment }) => {
                             setGiveFeedback(false);
                             // Submission logic
                         }}>
-                        Submit Feedback
+                            Submit Feedback
                         </Button>
                     </div>
                 </div>
 
                 <button
-                    className="absolute top-2 right-2 sm:right-2 sm:top-2 max-sm:right-2 max-sm:top-2 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-red-700"
+                    className="absolute top-2 right-2 sm:right-2 sm:top-2 max-sm:right-2 max-sm:top-2 w-7 h-7 flex items-center justify-center bg-red-500 bg-opacity-80 hover:bg-opacity-100 duration-200 text-white rounded-full"
                     onClick={() => setGiveFeedback(false)}
                 >
-                    <HiXMark size={25} />
+                    <HiXMark size={20} />
                 </button>
             </div>
         </div>
