@@ -29,7 +29,7 @@ const SelectOptions = ({ options, name, default: defaultValue, placeholder, onCh
                         <div 
                             key={index} 
                             onClick={() => handleSelectOption(option)} 
-                            className="py-2 cursor-pointer px-2 hover:bg-gray-100 duration-100 rounded capitalize"
+                            className="py-2 cursor-pointer px-2 hover:bg-gray-100 duration-100 rounded capitalize text-sm"
                         >
                             {option}
                         </div>

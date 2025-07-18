@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import axios from "axios"
-import { Check, Paperclip, PawPrint, Plus } from "lucide-react"
+import { Check, CheckCircle, Paperclip, PawPrint, Plus } from "lucide-react"
 
 import Label from "@/components/Common/Form/Label"
 import Input from "@/components/Common/Form/Input"
@@ -14,6 +14,7 @@ import { PetSpinner } from "@/components/Common/Loader/PetSpinner"
 import { HiDocument } from "react-icons/hi2"
 import FileUpload from "@/components/Common/FileUpload/FileUpload"
 import { toast } from "react-toastify"
+import { HiOutlineCheckCircle } from "react-icons/hi"
 
 const BookingDetails = ({ apptId, setBookingState }) => {
     console.log("appointment id from details:", apptId)
@@ -50,7 +51,7 @@ const BookingDetails = ({ apptId, setBookingState }) => {
             )
             console.log(res)
             if (res.status === 200) {
-                setBookingState("payment-details")
+                setBookingState("confirmation")
             }
         } catch (error) {
             console.log(error)
@@ -123,18 +124,18 @@ const BookingDetails = ({ apptId, setBookingState }) => {
     }
 
     return (
-        <div className="bg-white rounded-xl p-3 shadow-sm">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Booking Details</h2>
+        <div className="bg-white rounded-xl">
+            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2"><div className="rounded-md bg-primary p-2 text-white"><CheckCircle size={18} /></div> Confirm your appointment</h2>
 
             <div className="md:w-4/5 mx-auto mb-8">
-                <div className="flex items-center justify-between gap-5 max-sm:gap-1 p-1 bg-gray-100 rounded-lg">
+                <div className="flex items-center justify-between gap-1 max-sm:gap-1 p-1 bg-gray-100 rounded-lg">
                     <button
                         onClick={() => setPetDetailsOption("selector")}
                         className={`${petDetailsOption === "selector"
                             ? "bg-primary text-white shadow-md"
                             : "bg-transparent text-gray-700 hover:bg-gray-200"
                             } 
-                            w-full py-3 px-4 max-sm:px-3 max-sm:text-sm rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2`}
+                            w-full py-2 max-sm:text-sm rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2`}
                     >
                         <PawPrint size={18} />
                         Select pet
@@ -145,7 +146,7 @@ const BookingDetails = ({ apptId, setBookingState }) => {
                             ? "bg-primary text-white shadow-md"
                             : "bg-transparent text-gray-700 hover:bg-gray-200"
                             } 
-                            w-full py-3  px-4 max-sm:px-3 max-sm:text-sm rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 max-sm:gap-1`}
+                            w-full py-2 max-sm:text-sm rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 max-sm:gap-1`}
                     >
                         <Plus size={18} />
                         Add new pet
@@ -157,8 +158,8 @@ const BookingDetails = ({ apptId, setBookingState }) => {
                 <div className="flex flex-col">
                     {pets.length > 0 ? (
                         <div className="mb-8">
-                            <h3 className="text-lg font-semibold text-gray-700 mb-4">Select your pet</h3>
-                            <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            <h3 className="text-lg font-semibold text-gray-800 mb-4">Select your pet</h3>
+                            <ul className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                 {pets.map((pet) => (
                                     <li
                                         key={pet._id}
@@ -175,7 +176,7 @@ const BookingDetails = ({ apptId, setBookingState }) => {
                                             />
                                         </div>
                                         <div className="p-3 bg-white">
-                                            <p className="font-semibold text-gray-800 text-center">{pet.name}</p>
+                                            <p className="font-semibold text-sm text-gray-800 text-center">{pet.name}</p>
                                             <p className="text-xs text-gray-500 text-center">{pet.breed || pet.type}</p>
                                         </div>
                                         {selectedPet?._id === pet._id && (
@@ -201,26 +202,48 @@ const BookingDetails = ({ apptId, setBookingState }) => {
                         </div>
                     )}
 
-                    <div className="bg-gray-50 rounded-xl p-3 md:p-4 mb-6">
-                        <Label htmlFor="purpose" className="text-gray-800 font-medium mb-3 block">
-                            Purpose of consultation
-                        </Label>
-                        <Textarea
-                            classNames="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
-                            id="purpose"
-                            name="purpose"
-                            onChange={(e) => set_consultation_purpose({ ...consultation_purpose, purpose: e.target.value })}
-                            placeholder="Describe your pet's symptoms or reason for visit..."
-                            rows={4}
-                        />
+                    <div className="mb-6">
+                        <div className="mb-3">
+                            <Label htmlFor="reason" className="text-gray-800 font-semibold mb-3">
+                                Reason for consultation
+                            </Label>
+                            <SelectOptions
+                                options={[
+                                    "General health check or follow-up",
+                                    "Skin issues or itching",
+                                    "Vomiting or diarrhea",
+                                    "Limping or minor injuries",
+                                    "Behavior or anxiety problems",
+                                    "Other concerns"
+                                ]}
+                                id="reason"
+                                name="reason"
+                                // default={petProfile.type}
+                                // onChange={(e) => setPetProfile({ ...petProfile, type: e.target.value })}
+                                className="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+                            />
+                        </div>
+                        <div>
+                            <Label htmlFor="purpose" className="text-gray-800 font-semibold mb-3">
+                                Additional Notes
+                            </Label>
+                            <Textarea
+                                classNames="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+                                id="purpose"
+                                name="purpose"
+                                onChange={(e) => set_consultation_purpose({ ...consultation_purpose, purpose: e.target.value })}
+                                placeholder="Any additional note for the vet or describe the purpose of consultation..."
+                                rows={4}
+                            />
+                        </div>
                     </div>
 
                     <button
                         onClick={handleContinue}
-                        className="bg-primary hover:bg-primary/90 rounded-lg text-white font-medium py-4 w-full transition-colors duration-200 flex items-center justify-center gap-2"
+                        className={`bg-primary hover:bg-primaryHover rounded-lg text-white font-medium py-4 w-full transition-colors duration-200 flex items-center justify-center gap-2 ${selectedPet ? "cursor-pointer" : "cursor-not-allowed opacity-50"}`}
                         disabled={!selectedPet}
                     >
-                        Continue to Payment
+                        Continue to confirm
                     </button>
                 </div>
             ) : (

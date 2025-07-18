@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { HiXMark } from 'react-icons/hi2';
 import BookingDetails from './BookingDetails';
 import BookingPayment from './BookingPayment';
+import Confirmation from './Confirmation';
 
-const ConfirmBookingModal = ({ setShowModal, apptId }) => {
+const ConfirmBookingModal = ({ setShowModal, appt }) => {
     const [bookingStage, setBookingState] = useState("pet-details")
     useEffect(() => {
         document.body.classList.add("overflow-hidden");
@@ -13,17 +14,20 @@ const ConfirmBookingModal = ({ setShowModal, apptId }) => {
     }, [])
     return (
         <div className="fixed inset-0 bg-black bg-opacity-20 flex items-center justify-center z-50">
-            <div className="relative w-[95%] max-w-[50rem] bg-white shadow-lg rounded-lg overflow-hidden hide-scrollbar">
+            <div className="relative w-[95%] max-w-[30rem] bg-white shadow-lg rounded-lg overflow-hidden hide-scrollbar">
 
                 <div className='overflow-auto hide-scrollbar h-[30rem] p-4'>
                     {
                         bookingStage == "pet-details" ?
-                            <BookingDetails apptId={apptId} setBookingState={setBookingState} />
+                            <BookingDetails apptId={appt._id} setBookingState={setBookingState} />
                             :
-                            bookingStage == "payment-details" ?
-                                <BookingPayment apptId={apptId} setShowModal={setShowModal} />
+                            bookingStage == "confirmation" ?
+                                <Confirmation appt={appt} setBookingState={setBookingState} />
                                 :
-                                null
+                                bookingStage == "payment-details" ?
+                                    <BookingPayment apptId={appt._id} setShowModal={setShowModal} />
+                                    :
+                                    null
                     }
                 </div>
 
