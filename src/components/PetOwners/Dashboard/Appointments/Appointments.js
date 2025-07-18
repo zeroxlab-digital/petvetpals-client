@@ -173,7 +173,7 @@ const Appointments = () => {
                                     <div className='w-full flex items-center max-md:flex-col-reverse gap-3 '>
                                         <button onClick={() => handleConfirmBooking(appointment)} className='bg-primary hover:bg-primaryHover rounded-md text-white w-44 max-md:w-full h-12 flex items-center gap-2  justify-center'>Confirm <HiArrowRight /></button>
                                         <button onClick={() => handleAppointmentDlt(appointment._id)} className='bg-white hover:bg-red-500 hover:text-white duration-150 w-12 max-md:w-full h-12 rounded-lg text-red-500 border border-red-500 flex items-center justify-center '><HiOutlineTrash className='text-lg' /></button>
-                                        {showModal && <ConfirmBookingModal apptId={clickedAppointment._id} setShowModal={setShowModal} />}
+                                        {showModal && <ConfirmBookingModal appt={clickedAppointment} setShowModal={setShowModal} />}
                                     </div>
                                 ) : active_status_tab === 'past' ? (
                                     <>
