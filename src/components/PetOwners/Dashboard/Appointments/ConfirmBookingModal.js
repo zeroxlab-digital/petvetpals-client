@@ -5,7 +5,8 @@ import BookingPayment from './BookingPayment';
 import Confirmation from './Confirmation';
 
 const ConfirmBookingModal = ({ setShowModal, appt }) => {
-    const [bookingStage, setBookingState] = useState("pet-details")
+    const [bookingStage, setBookingState] = useState("pet-details");
+    const [selectedPet, setSelectedPet] = useState(null);
     useEffect(() => {
         document.body.classList.add("overflow-hidden");
         return () => {
@@ -19,13 +20,13 @@ const ConfirmBookingModal = ({ setShowModal, appt }) => {
                 <div className='overflow-auto hide-scrollbar h-[35rem] p-4'>
                     {
                         bookingStage == "pet-details" ?
-                            <BookingDetails apptId={appt._id} setBookingState={setBookingState} />
+                            <BookingDetails apptId={appt._id} setBookingState={setBookingState} selectedPet={selectedPet} setSelectedPet={setSelectedPet} />
                             :
                             bookingStage == "confirmation" ?
-                                <Confirmation appt={appt} setBookingState={setBookingState} />
+                                <Confirmation appt={appt} setBookingState={setBookingState} selectedPet={selectedPet} />
                                 :
                                 bookingStage == "payment-details" ?
-                                    <BookingPayment apptId={appt._id} setShowModal={setShowModal} />
+                                    <BookingPayment apptId={appt._id} setShowModal={setShowModal} selectedPet={selectedPet} />
                                     :
                                     null
                     }

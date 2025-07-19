@@ -1,35 +1,28 @@
 "use client"
-
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import Image from "next/image"
 import axios from "axios"
-import { Check, CheckCircle, Paperclip, PawPrint, Plus } from "lucide-react"
-
+import { Check, CheckCircle, PawPrint, Plus } from "lucide-react"
 import Label from "@/components/Common/Form/Label"
 import Input from "@/components/Common/Form/Input"
 import Textarea from "@/components/Common/Form/Textarea"
 import SelectOptions from "@/components/Common/SelectOptions/SelectOptions"
 import useFetchPets from "../../../../../hooks/useFetchPets"
 import { PetSpinner } from "@/components/Common/Loader/PetSpinner"
-import { HiDocument } from "react-icons/hi2"
 import FileUpload from "@/components/Common/FileUpload/FileUpload"
 import { toast } from "react-toastify"
-import { HiOutlineCheckCircle } from "react-icons/hi"
 
-const BookingDetails = ({ apptId, setBookingState }) => {
+const BookingDetails = ({ apptId, setBookingState, selectedPet, setSelectedPet }) => {
     console.log("appointment id from details:", apptId)
     const [petDetailsOption, setPetDetailsOption] = useState("selector")
     const { pets, isLoading } = useFetchPets()
-    const [selectedPet, setSelectedPet] = useState(null)
 
     const [consultation_purpose, set_consultation_purpose] = useState({
-        pet: selectedPet,
         purpose: "",
     })
 
     useEffect(() => {
         set_consultation_purpose({
-            pet: selectedPet,
             purpose: consultation_purpose.purpose || null,
         })
     }, [consultation_purpose.purpose, selectedPet])
