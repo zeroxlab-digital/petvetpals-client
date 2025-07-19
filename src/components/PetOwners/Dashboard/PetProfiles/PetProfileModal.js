@@ -116,8 +116,8 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
             <div className="relative w-[95%] max-w-[30rem]  bg-white shadow-lg rounded-lg overflow-hidden">
                 <div className='h-[35rem] overflow-auto hide-scrollbar p-4'>
                     {modalType == "update" ?
-                        <div className="bg-gray-50 rounded-xl p-4">
-                            <h3 className="text-lg font-bold text-gray-800 mb-5">Update pet profile</h3>
+                        <div className="">
+                            <h3 className="text-lg font-bold text-gray-800 mb-5">Update Pet Profile</h3>
                             <form onSubmit={handleUpdatePet} className="space-y-5">
                                 <div>
                                     <Label htmlFor="petname" className="text-gray-800 font-medium mb-1 block">
@@ -232,8 +232,8 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
                             </form>
                         </div>
                         :
-                        <div className="bg-gray-50 rounded-xl p-4">
-                            <h3 className="text-lg font-bold text-gray-800 mb-5">Add a new pet</h3>
+                        <div className="">
+                            <h3 className="text-lg font-bold text-gray-800 mb-5">Add New Profile</h3>
                             <form onSubmit={handleAddPet} className="space-y-5">
                                 <div>
                                     <Label htmlFor="petname" className="text-gray-800 font-medium mb-1 block">
@@ -350,7 +350,7 @@ const PetProfileModal = ({ modalType, setModalType, petProfile, setPetProfile, u
                     }
                 </div>
                 <button
-                    className="absolute top-2 right-2 sm:right-2 sm:top-2 max-sm:right-2 max-sm:top-2 w-7 h-7 flex items-center justify-center bg-red-500 bg-opacity-80 hover:bg-opacity-100 duration-200 text-white rounded-full"
+                    className="absolute top-2 right-2 sm:right-2 sm:top-2 max-sm:right-2 max-sm:top-2 w-7 h-7 flex items-center justify-center bg-gray-200 hover:bg-gray-300 duration-200 text-gray-700 hover:text-gray-800 rounded-full"
                     onClick={() => setModalType(null)}
                 >
                     <HiXMark size={20} />
