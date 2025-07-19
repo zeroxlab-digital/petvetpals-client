@@ -12,7 +12,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useUpdateAppointmentMutation } from '@/redux/services/appointmentApi';
 
-const BookingPayment = ({ apptId, setShowModal }) => {
+const BookingPayment = ({ apptId, setShowModal, selectedPet }) => {
     const expirationMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const expirationYear = ['2024', '2025', '2026', '2027', '2028', '2029']
     const paymentOptions = [
@@ -31,7 +31,7 @@ const BookingPayment = ({ apptId, setShowModal }) => {
     const handleCompleteBooking = async (e) => {
         e.preventDefault();
         try {
-            const res = await updateAppointment({ id: apptId, payment_status: true, status: "confirmed" }).unwrap();
+            const res = await updateAppointment({ id: apptId, pet: selectedPet, payment_status: true, status: "confirmed" }).unwrap();
             console.log(res);
             notify("Update completed!", "success");
             setShowModal(false);

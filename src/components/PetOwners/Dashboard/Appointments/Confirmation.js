@@ -1,26 +1,24 @@
-import { CheckCircle, CheckSquare2Icon } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
-import { HiOutlineCalendar, HiOutlineClock, HiOutlineCreditCard, HiOutlineSparkles, HiSparkles } from 'react-icons/hi2';
+import { HiOutlineCalendar, HiOutlineClock, HiOutlineCreditCard, HiOutlineSparkles } from 'react-icons/hi2';
 
-const Confirmation = ({ setBookingState, appt }) => {
-    console.log(appt);
+const Confirmation = ({ setBookingState, appt, selectedPet }) => {
     const handleContinue = () => {
         setBookingState("payment-details");
     }
     return (
         <div className=''>
             <div className='flex flex-col items-center justify-center text-center mt-10 mb-5'>
-                <CheckCircle size={40} className='text-primary text-2xl mb-3' />
+                <span className='text-7xl mb-5'>🎉</span>
                 <p className='text-gray-700'>You&apos;re almost there! Just confirm your appointment details below.</p>
             </div>
             <div className='rounded-lg border border-[#672e5b79] bg-[#672e5b48] py-5 px-10 mb-5'>
                 <h4 className='flex items-center gap-2 text-primary text-lg font-bold mb-4'><HiOutlineSparkles className='text-2xl' /> Appointment Details</h4>
                 <div className='mt-7 border rounded-lg p-3 mb-3 bg-white border-[#672e5b67] flex items-center gap-4'>
-                    <Image src={appt.pet?.image || '/images/user.jpg'} alt={`pet image`} height={70} width={70} className='rounded-full w-16 h-16 object-cover' />
+                    <Image src={selectedPet?.image || '/images/user.jpg'} alt={`pet image`} height={70} width={70} className='rounded-full w-16 h-16 object-cover' />
                     <div>
-                        <h3 className='text-base font-semibold'>{appt.pet?.name}</h3>
-                        <p className='text-sm text-gray-700'>{appt.pet?.breed} • {appt.pet?.age} years old • {appt.pet?.gender}</p>
+                        <h3 className='text-base font-semibold'>{selectedPet?.name}</h3>
+                        <p className='text-sm text-gray-700'>{selectedPet?.breed} • {selectedPet?.age} years old • {selectedPet?.gender}</p>
                     </div>
                 </div>
                 <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
