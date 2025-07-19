@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from '@/components/Common/Button/Button';
-import { HiEllipsisHorizontal, HiPlus, HiPencil, HiTrash } from 'react-icons/hi2';
+import { HiEllipsisHorizontal, HiPlus, HiPencil, HiTrash, HiOutlineTrash } from 'react-icons/hi2';
+import { HiOutlinePencilAlt } from 'react-icons/hi';
 
 const Medications = () => {
     const [activeTab, setActiveTab] = useState("current-medications");
@@ -208,7 +209,7 @@ const Medications = () => {
                                     <td className="p-5 text-sm">{dose.medicationName}</td>
                                     <td className="p-5 text-sm">{dose.dosage}</td>
                                     <td className="p-5 text-sm">{dose.instructions}</td>
-                                    <td className="p-5 text-sm flex justify-end space-x-2">
+                                    <td className="p-5 text-sm flex justify-end space-x-4">
                                         <button
                                             onClick={() => toggleGiven(dose.id)}
                                             className={`px-3 py-1 text-xs rounded-full font-medium ${dose.isGiven ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}
@@ -216,10 +217,10 @@ const Medications = () => {
                                             {dose.isGiven ? 'Given' : 'Mark as Given'}
                                         </button>
                                         <button onClick={() => openForm(dose)}>
-                                            <HiPencil className='text-gray-500 hover:text-gray-800 text-lg' />
+                                            <HiOutlinePencilAlt className='text-blue-500 hover:text-blue-600 text-2xl' />
                                         </button>
                                         <button onClick={() => handleDelete(dose.id)}>
-                                            <HiTrash className='text-red-500 hover:text-red-700 text-lg' />
+                                            <HiOutlineTrash className='text-red-500 hover:text-red-600 text-2xl' />
                                         </button>
                                     </td>
                                 </tr>

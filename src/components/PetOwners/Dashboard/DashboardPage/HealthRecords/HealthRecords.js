@@ -97,7 +97,17 @@ const HealthRecords = ({ }) => {
             <div className='flex items-center justify-between'>
                 <h2 className='font-semibold text-lg'>Health Records</h2>
                 <div>
-                    <Button variant={'primaryOutline'} classNames={'text-sm'}><HiPlus className='text-lg' /> Add Record</Button>
+                    {activeHealthRecordsTab === 'medical-records' ? (
+                        <Button variant={'primaryOutline'} classNames={'text-sm'}>
+                            <HiPlus className='text-lg' /> Add Medical Record
+                        </Button>
+                    )
+                        :
+                        activeHealthRecordsTab === 'vaccinations' && (
+                            <Button variant={'primaryOutline'} classNames={'text-sm'}>
+                                <HiPlus className='text-lg' /> Add Vaccination
+                            </Button>
+                        )}
                 </div>
             </div>
             <div className='health-records-tabs flex space-x-5 overflow-x-auto border-b'>
@@ -108,7 +118,7 @@ const HealthRecords = ({ }) => {
                         : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
                 >
-                    Medical Records
+                    Medical History
                 </button>
                 <button
                     onClick={() => setActiveHealthRecordTab("vaccinations")}
