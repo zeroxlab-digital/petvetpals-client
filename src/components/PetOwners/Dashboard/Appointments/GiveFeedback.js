@@ -100,7 +100,7 @@ const GiveFeedback = ({ setGiveFeedback, appointment }) => {
                 </div>
 
                 <button
-                    className="absolute top-2 right-2 sm:right-2 sm:top-2 max-sm:right-2 max-sm:top-2 w-7 h-7 flex items-center justify-center bg-red-500 bg-opacity-80 hover:bg-opacity-100 duration-200 text-white rounded-full"
+                    className="absolute top-2 right-2 sm:right-2 sm:top-2 max-sm:right-2 max-sm:top-2 w-7 h-7 flex items-center justify-center bg-gray-200 hover:bg-gray-300 duration-200 text-gray-700 hover:text-gray-800 rounded-full"
                     onClick={() => setGiveFeedback(false)}
                 >
                     <HiXMark size={20} />
