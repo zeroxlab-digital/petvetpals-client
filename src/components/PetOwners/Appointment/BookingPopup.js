@@ -3,12 +3,11 @@ import { HiCalendar, HiOutlineClock, HiXMark } from "react-icons/hi2";
 import { format, addDays } from 'date-fns';
 import BookingCalendar from './BookingCalendar';
 import Button from '@/components/Common/Button/Button';
-import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useBookAppointmentMutation } from '@/redux/services/appointmentApi';
+import { useBookAppointmentMutation, useUpdateAppointmentMutation } from '@/redux/services/appointmentApi';
+import { usePathname } from 'next/navigation';
 
-const BookingPopup = ({ setShowModal, foundVet }) => {
-
+const BookingPopup = ({ appointment = () => { }, setShowModal = () => { }, setApptReschedule = () => { }, foundVet }) => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
 
@@ -46,18 +45,25 @@ const BookingPopup = ({ setShowModal, foundVet }) => {
         toast(message, { type, autoClose: 1000 })
     }
 
+    const pathname = usePathname();
     const [bookAppointment] = useBookAppointmentMutation();
+    const [updateAppointment] = useUpdateAppointmentMutation();
     const handleBookingConfirm = async () => {
         try {
-            const response = await bookAppointment({ id: foundVet._id, date: selectedDate.toISOString() }).unwrap();
-            notify("Appointment booked!", "success");
+            if (pathname.startsWith('/dashboard')) {
+                const response = await updateAppointment({ id: appointment._id, date: selectedDate.toISOString(), status: 'pending' }).unwrap();
+                notify("Appointment rescheduled!", "success");
+            } else if (pathname.startsWith('/appointments')) {
+                const response = await bookAppointment({ id: foundVet?._id, date: selectedDate.toISOString() }).unwrap();
+                notify("Appointment booked!", "success");
+            }
             setShowModal(false);
+            setApptReschedule(false);
         } catch (error) {
             console.log(error);
             notify("error");
         }
     }
-
 
     useEffect(() => {
         document.body.classList.add('overflow-hidden');
@@ -68,10 +74,10 @@ const BookingPopup = ({ setShowModal, foundVet }) => {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="relative w-[90%] max-w-[50rem] h-[80%] lg:h-[30rem] bg-white shadow-lg rounded-lg overflow-hidden grid grid-cols-1 lg:grid-cols-[2fr_5fr] ">
+            <div className="relative w-[90%] max-w-[50rem] h-[80%] lg:h-[30rem] bg-white shadow-lg rounded-lg overflow-hidden grid grid-cols-1 lg:grid-cols-[3fr_6fr] ">
 
                 <div className="bg-primary p-4 lg:rounded-s-lg text-left">
-                    <h3 className="text-white font-bold text-xl lg:text-2xl mb-4">Book Your Appointment</h3>
+                    <h3 className="text-white font-bold text-xl lg:text-2xl mb-4">{pathname.startsWith('/dashboard') ? 'Reschedule' : 'Book'} Your Appointment</h3>
                     <p className="text-gray-200 text-sm lg:text-base mb-6">Select a date and time for your session.</p>
                     <ul>
                         <li className="flex items-center gap-2 text-white mb-2 text-sm lg:text-base">
@@ -106,10 +112,10 @@ const BookingPopup = ({ setShowModal, foundVet }) => {
                 </div>
 
                 <button
-                    className="absolute sm:top-2 right-2 max-sm:right-0 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700"
-                    onClick={() => setShowModal(false)}
+                    className="absolute sm:top-2 right-2 max-sm:right-0 w-8 h-8 flex items-center justify-center bg-gray-200 hover:bg-gray-300 duration-200 text-gray-700 hover:text-gray-800 rounded-full"
+                    onClick={() => setShowModal(false) || setApptReschedule(false)}
                 >
-                    <HiXMark size={25} />
+                    <HiXMark size={20} />
                 </button>
             </div>
         </div>

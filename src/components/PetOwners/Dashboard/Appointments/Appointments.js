@@ -10,6 +10,8 @@ import Countdown from './Countdown';
 import { useDeleteAppointmentMutation, useGetAppointmentsQuery, useUpdateAppointmentMutation } from '@/redux/services/appointmentApi';
 import GiveFeedback from './GiveFeedback';
 import { HiOutlineThumbUp } from 'react-icons/hi';
+import Reschedule from './Reschedule';
+import BookingPopup from '../../Appointment/BookingPopup';
 
 const Appointments = () => {
     const { data, isLoading, isError } = useGetAppointmentsQuery();
@@ -73,6 +75,15 @@ const Appointments = () => {
     const handleJoinNow = (appointment) => {
         console.log("Trigger join appointment:", appointment._id);
         window.open(`https://meet.jit.si/petvetpals-appointment/${appointment._id}`, '_blank');
+    }
+
+    // Appointment Reschedule
+    const [apptReschedule, setApptReschedule] = useState(false);
+    const [appointmentToReschedule, setAppointmentToReschedule] = useState(null);
+    const handleApptReschedule = (appointment) => {
+        // console.log(appointment);
+        setApptReschedule(true);
+        setAppointmentToReschedule(appointment);
     }
 
     // Give Feedback
@@ -177,10 +188,14 @@ const Appointments = () => {
                                     </div>
                                 ) : active_status_tab === 'past' ? (
                                     <>
-                                    <button onClick={() => handleGiveFeedback(appointment)} className=' hover:bg-primaryHover bg-primary duration-150 px-5 py-3 rounded-md text-white text-sm font-medium flex items-center gap-2 max-sm:w-full justify-center'>Give Feedback <HiOutlineThumbUp size={18} /></button>
-                                    {giveFeedback && <GiveFeedback setGiveFeedback={setGiveFeedback} appointment={appointmentToGiveFeedback} />}
+                                        <button onClick={() => handleGiveFeedback(appointment)} className=' hover:bg-primaryHover bg-primary duration-150 px-5 py-3 rounded-md text-white text-sm font-medium flex items-center gap-2 max-sm:w-full justify-center'>Give Feedback <HiOutlineThumbUp size={18} /></button>
+                                        {giveFeedback && <GiveFeedback setGiveFeedback={setGiveFeedback} appointment={appointmentToGiveFeedback} />}
                                     </>
-                                ) : <button className='bg-primary hover:bg-primaryHover px-5 py-3 rounded-md text-white text-sm font-medium flex items-center gap-2 max-sm:w-full justify-center'>Reschedule Now <HiOutlineCalendar size={18} /></button>}
+                                ) : <>
+                                    <button onClick={() => handleApptReschedule(appointment)} className='bg-primary hover:bg-primaryHover px-5 py-3 rounded-md text-white text-sm font-medium flex items-center gap-2 max-sm:w-full justify-center'>Reschedule Now <HiOutlineCalendar size={18} /></button>
+                                    {apptReschedule && <BookingPopup setApptReschedule={setApptReschedule} appointment={appointmentToReschedule} />}
+                                </>
+                                }
                             </div>
                         </div>
                     ))}
