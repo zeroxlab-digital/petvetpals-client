@@ -120,7 +120,7 @@ const Appointments = () => {
             </ul>
 
             {filtered_appointments?.length > 0 ? (
-                <div className='space-y-4 max-md:space-y-8'>
+                <div className='space-y-5 max-md:space-y-8 max-h-screen overflow-y-auto'>
                     {filtered_appointments.map((appointment, index) => (
                         <div key={index} className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 items-center gap-5  md:p-3 shadow-sm max-md:shadow-xl max-md:hover:shadow-2xl duration-200 bg-white rounded-md'>
                             <div className='text-center lg:col-span-1 max-md:bg-primary max-md:rounded-md max-md:p-3'>
@@ -162,15 +162,16 @@ const Appointments = () => {
                             <div className='lg:col-span-2 px-3'>
                                 <p className='text-purple-600 flex items-center gap-2 mb-2'>
                                     {appointment?.pet?.type == 'Dog' ? <LuDog className='text-lg' /> : <LuCat className='text-lg' />}
-                                    {appointment?.pet?.name || 'Unavailable'} ({appointment?.pet?.type || ''})</p>
+                                    {appointment?.pet?.name || 'Unknown'} ({appointment?.pet?.type || ''})</p>
                                 <p className={`${appointment.payment_status ? 'text-green-500' : 'text-red-500'} flex items-center gap-2`}><HiOutlineCurrencyDollar className='text-lg' /> {appointment.payment_status ? 'Paid' : 'Unpaid'}</p>
                             </div>
 
                             <div className='flex flex-wrap gap-4 lg:col-span-3 justify-end p-3'>
                                 {active_status_tab === 'confirmed' ? (
                                     <div className='w-full flex items-center max-md:flex-col gap-3'>
-                                        <button className='bg-white hover:bg-primary hover:border-none hover:text-white duration-150 rounded-md border text-primary flex items-center justify-center  w-12 max-md:w-full h-12'>
+                                        <button className='bg-white hover:bg-primary hover:border-none hover:text-white duration-150 rounded-md border text-primary flex items-center justify-center  w-12 max-md:w-full h-12 gap-2'>
                                             <HiPencilSquare className='text-lg' />
+                                            <span className='sm:hidden'>Edit</span>
                                         </button>
                                         {new Date() >= new Date(appointment.date) ? (
                                             <button onClick={() => handleJoinNow(appointment)} className='bg-primary hover:bg-primaryHover rounded-md text-white text-base flex items-center gap-2 justify-center  w-44 max-md:w-full h-12'>
@@ -183,7 +184,7 @@ const Appointments = () => {
                                 ) : active_status_tab === 'pending' ? (
                                     <div className='w-full flex items-center max-md:flex-col-reverse gap-3 '>
                                         <button onClick={() => handleConfirmBooking(appointment)} className='bg-primary hover:bg-primaryHover rounded-md text-white w-44 max-md:w-full h-12 flex items-center gap-2  justify-center'>Confirm <HiArrowRight /></button>
-                                        <button onClick={() => handleAppointmentDlt(appointment._id)} className='bg-white hover:bg-red-500 hover:text-white duration-150 w-12 max-md:w-full h-12 rounded-lg text-red-500 border border-red-500 flex items-center justify-center '><HiOutlineTrash className='text-lg' /></button>
+                                        <button onClick={() => handleAppointmentDlt(appointment._id)} className='bg-white hover:bg-red-500 hover:text-white duration-150 w-12 max-md:w-full h-12 rounded-lg text-red-500 border border-red-500 flex items-center justify-center max-sm:gap-2'><HiOutlineTrash className='text-lg' /> <span className='sm:hidden'>Cancel</span></button>
                                         {showModal && <ConfirmBookingModal appt={clickedAppointment} setShowModal={setShowModal} />}
                                     </div>
                                 ) : active_status_tab === 'past' ? (
