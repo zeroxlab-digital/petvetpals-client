@@ -131,7 +131,7 @@ const BookingDetails = ({ apptId, setBookingState, selectedPet, setSelectedPet }
                             w-full py-2 max-sm:text-sm rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2`}
                     >
                         <PawPrint size={18} />
-                        Select pet
+                        Select Pet
                     </button>
                     <button
                         onClick={() => setPetDetailsOption("manual")}
@@ -142,7 +142,7 @@ const BookingDetails = ({ apptId, setBookingState, selectedPet, setSelectedPet }
                             w-full py-2 max-sm:text-sm rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 max-sm:gap-1`}
                     >
                         <Plus size={18} />
-                        Add new pet
+                        Add New Pet
                     </button>
                 </div>
             </div>
@@ -151,7 +151,7 @@ const BookingDetails = ({ apptId, setBookingState, selectedPet, setSelectedPet }
                 <div className="flex flex-col">
                     {pets.length > 0 ? (
                         <div className="mb-8">
-                            <h3 className="text-lg font-semibold text-gray-800 mb-4">Select your pet</h3>
+                            {/* <h3 className="text-lg font-semibold text-gray-800 mb-4">Select Your Pet</h3> */}
                             <ul className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                 {pets.map((pet) => (
                                     <li
@@ -240,8 +240,8 @@ const BookingDetails = ({ apptId, setBookingState, selectedPet, setSelectedPet }
                     </button>
                 </div>
             ) : (
-                <div className="bg-gray-50 rounded-xl p-4">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-4">Add a new pet</h3>
+                <div className="">
+                    {/* <h3 className="text-lg font-semibold text-gray-800 mb-4">Add New Profile</h3> */}
                     <form onSubmit={handleManualPetAdd} className="space-y-5">
                         <div>
                             <Label htmlFor="petname" className="text-gray-800 font-medium mb-1 block">

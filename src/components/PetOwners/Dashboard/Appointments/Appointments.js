@@ -120,9 +120,9 @@ const Appointments = () => {
             </ul>
 
             {filtered_appointments?.length > 0 ? (
-                <div className='space-y-5 max-md:space-y-8 max-h-screen overflow-y-auto'>
+                <div className='space-y-5 max-md:space-y-8 sm:max-h-screen sm:overflow-y-auto'>
                     {filtered_appointments.map((appointment, index) => (
-                        <div key={index} className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 items-center gap-5  md:p-3 shadow-sm max-md:shadow-xl max-md:hover:shadow-2xl duration-200 bg-white rounded-md'>
+                        <div key={index} className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 items-center gap-5  md:p-3 shadow-sm max-md:shadow-lg max-md:hover:shadow-xl duration-200 bg-white rounded-md'>
                             <div className='text-center lg:col-span-1 max-md:bg-primary max-md:rounded-md max-md:p-3'>
                                 {(() => {
                                     const date = new Date(appointment.date);

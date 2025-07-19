@@ -62,7 +62,7 @@ const GiveFeedback = ({ setGiveFeedback, appointment }) => {
                     <div className='mt-7'>
                         <h3 className='font-semibold text-base'>Would you recommend Dr. {appointment.vet?.fullName} to other pet parents?</h3>
                         <div className='grid grid-cols-2 gap-4 text-center mt-4'>
-                            <Button onClick={() => setRecommend(true)} classNames={`border rounded-md text-base py-3 ${recommend ? 'bg-green-500 text-white' : 'border hover:border-green-400 hover:border-opacity-50 hover:bg-green-400 hover:bg-opacity-20 duration-200'}`}><HiOutlineThumbUp /> Yes, absolutely!</Button>
+                            <Button onClick={() => setRecommend(true)} classNames={`border rounded-md text-base py-3 ${recommend ? 'bg-green-500 text-white' : 'border hover:border-green-400 hover:border-opacity-50 hover:bg-green-400 hover:bg-opacity-20 duration-200'}`}><HiOutlineThumbUp /> Yes, sure!</Button>
                             <Button onClick={() => setRecommend(false)} classNames={`border rounded-md text-base py-3 ${!recommend ? 'bg-red-500 text-white' : 'border hover:border-red-400 hover:border-opacity-50 hover:bg-red-400 hover:bg-opacity-20 duration-200'}`}><HiOutlineThumbDown /> Not really</Button>
                         </div>
                     </div>
