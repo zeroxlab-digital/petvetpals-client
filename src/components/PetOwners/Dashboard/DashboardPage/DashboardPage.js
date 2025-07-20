@@ -528,7 +528,7 @@ const DashboardPage = () => {
                 <HealthRecords />
             )}
             {activeTab === "medications" && (
-                <Medications />
+                <Medications petId={selectedPet?._id} />
             )}
             {activeTab === "diet" && (
                 <DietActivity />

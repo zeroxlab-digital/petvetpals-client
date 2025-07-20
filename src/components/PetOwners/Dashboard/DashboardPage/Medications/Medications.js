@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@/components/Common/Button/Button';
 import { HiEllipsisHorizontal, HiPlus, HiPencil, HiTrash, HiOutlineTrash } from 'react-icons/hi2';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
+import axios from 'axios';
 
-const Medications = () => {
+const Medications = ({ petId }) => {
     const [activeTab, setActiveTab] = useState("current-medications");
 
     const medications = [
@@ -89,6 +90,21 @@ const Medications = () => {
     const toggleGiven = (id) => {
         setScheduledDoses(prev => prev.map(d => d.id === id ? { ...d, isGiven: !d.isGiven } : d));
     };
+
+    useEffect(() => {
+        const handleShowMedications = async () => {
+            try {
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/api/pet/medications/get-medications`, {
+                    params: { petId },
+                    withCredentials: true
+                });
+                console.log("Medications response:", res);
+            } catch (error) {
+                console.error("Error fetching medications:", error);
+            }
+        }
+        handleShowMedications();
+    }, [petId])
 
     return (
         <div className='space-y-5'>
