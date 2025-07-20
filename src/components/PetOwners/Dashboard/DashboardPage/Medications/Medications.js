@@ -95,7 +95,6 @@ const Medications = ({ petId }) => {
     };
 
     const { data, isLoading, error } = useGetMedicationsQuery({ petId });
-    console.log("data:", data);
     const [medications, setMedications] = useState([]);
     useEffect(() => {
         try {
@@ -106,6 +105,10 @@ const Medications = ({ petId }) => {
             console.error("Error fetching medications:", error);
         }
     }, [data]);
+
+    // Filter out the medications that are currently ongoing vs not
+    const ongoingMedications = medications.filter(med => med.is_ongoing === true);
+    const notOngoingMedications = medications.filter(med => med.is_ongoing === false);
 
     return (
         <div className='space-y-5'>
@@ -148,7 +151,7 @@ const Medications = ({ petId }) => {
                     <div><PetSpinner /></div>
                 )
                     :
-                    medications.length > 0 ?
+                    ongoingMedications.length > 0 ?
                         (
                             <div className='border rounded-md bg-white overflow-x-auto'>
                                 <table className="w-full border-collapse p-5">
@@ -163,7 +166,7 @@ const Medications = ({ petId }) => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {medications.map((med, index) => (
+                                        {ongoingMedications.map((med, index) => (
                                             <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
                                                 <td className="p-5 text-sm">{med.medication || 'N/A'}</td>
                                                 <td className="p-5 text-sm">{med.dosage || 'N/A'}</td>
@@ -192,7 +195,7 @@ const Medications = ({ petId }) => {
                         <PetSpinner />
                     </div>
                 ) :
-                    medications.length > 0 ? (
+                    notOngoingMedications.length > 0 ? (
                         <div className='border rounded-md bg-white overflow-x-auto'>
                             <table className="w-full border-collapse p-5">
                                 <thead>
@@ -207,7 +210,7 @@ const Medications = ({ petId }) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {medications.map((med, index) => (
+                                    {notOngoingMedications.map((med, index) => (
                                         <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
                                             <td className="p-5 text-sm">{med.medication}</td>
                                             <td className="p-5 text-sm">{med.dosage}</td>
