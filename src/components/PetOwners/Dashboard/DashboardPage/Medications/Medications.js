@@ -3,39 +3,42 @@ import Button from '@/components/Common/Button/Button';
 import { HiEllipsisHorizontal, HiPlus, HiPencil, HiTrash, HiOutlineTrash } from 'react-icons/hi2';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 import axios from 'axios';
+import { useGetMedicationsQuery } from '@/redux/services/petApi';
+import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
+import TinySpinner from '@/components/Common/Loader/TinySpinner';
 
 const Medications = ({ petId }) => {
     const [activeTab, setActiveTab] = useState("current-medications");
 
-    const medications = [
-        {
-            id: 1,
-            name: "Heartworm Prevention",
-            dosage: "1 tablet",
-            frequency: "Monthly",
-            nextDue: "2024-03-15",
-            instructions: "Give with food",
-            remainingDoses: 5,
-        },
-        {
-            id: 2,
-            name: "Joint Supplement",
-            dosage: "2 tablets",
-            frequency: "Daily",
-            nextDue: "2024-02-28",
-            instructions: "Morning and evening with meals",
-            remainingDoses: 14,
-        },
-        {
-            id: 3,
-            name: "Flea & Tick",
-            dosage: "1 application",
-            frequency: "Monthly",
-            nextDue: "2024-03-10",
-            instructions: "Apply to back of neck",
-            remainingDoses: 2,
-        },
-    ];
+    // const medications = [
+    //     {
+    //         id: 1,
+    //         name: "Heartworm Prevention",
+    //         dosage: "1 tablet",
+    //         frequency: "Monthly",
+    //         nextDue: "2024-03-15",
+    //         instructions: "Give with food",
+    //         remainingDoses: 5,
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "Joint Supplement",
+    //         dosage: "2 tablets",
+    //         frequency: "Daily",
+    //         nextDue: "2024-02-28",
+    //         instructions: "Morning and evening with meals",
+    //         remainingDoses: 14,
+    //     },
+    //     {
+    //         id: 3,
+    //         name: "Flea & Tick",
+    //         dosage: "1 application",
+    //         frequency: "Monthly",
+    //         nextDue: "2024-03-10",
+    //         instructions: "Apply to back of neck",
+    //         remainingDoses: 2,
+    //     },
+    // ];
 
     const [scheduledDoses, setScheduledDoses] = useState([
         {
@@ -91,20 +94,18 @@ const Medications = ({ petId }) => {
         setScheduledDoses(prev => prev.map(d => d.id === id ? { ...d, isGiven: !d.isGiven } : d));
     };
 
+    const { data, isLoading, error } = useGetMedicationsQuery({ petId });
+    console.log("data:", data);
+    const [medications, setMedications] = useState([]);
     useEffect(() => {
-        const handleShowMedications = async () => {
-            try {
-                const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/api/pet/medications/get-medications`, {
-                    params: { petId },
-                    withCredentials: true
-                });
-                console.log("Medications response:", res);
-            } catch (error) {
-                console.error("Error fetching medications:", error);
+        try {
+            if (data?.success) {
+                setMedications(data.medications);
             }
+        } catch (error) {
+            console.error("Error fetching medications:", error);
         }
-        handleShowMedications();
-    }, [petId])
+    }, [data]);
 
     return (
         <div className='space-y-5'>
@@ -143,64 +144,88 @@ const Medications = ({ petId }) => {
 
             {/* ---------------- Current Medications ---------------- */}
             {activeTab === "current-medications" && (
-                <div className='border rounded-md bg-white overflow-x-auto'>
-                    <table className="w-full border-collapse p-5">
-                        <thead>
-                            <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
-                                <th className="p-5">Medication</th>
-                                <th className="p-5">Dosage</th>
-                                <th className="p-5">Frequency</th>
-                                <th className="p-5">Next Due</th>
-                                <th className="p-5">Remaining</th>
-                                <th className="p-5 text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {medications.map((med, index) => (
-                                <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
-                                    <td className="p-5 text-sm">{med.name}</td>
-                                    <td className="p-5 text-sm">{med.dosage}</td>
-                                    <td className="p-5 text-sm">{med.frequency}</td>
-                                    <td className="p-5 text-sm">{med.nextDue}</td>
-                                    <td className="p-5 text-sm">{med.remainingDoses}</td>
-                                    <td className="p-5 text-sm flex justify-end"><HiEllipsisHorizontal className='text-xl' /></td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                isLoading ? (
+                    <div><PetSpinner /></div>
+                )
+                    :
+                    medications.length > 0 ?
+                        (
+                            <div className='border rounded-md bg-white overflow-x-auto'>
+                                <table className="w-full border-collapse p-5">
+                                    <thead>
+                                        <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
+                                            <th className="p-5">Medication</th>
+                                            <th className="p-5">Dosage</th>
+                                            <th className="p-5">Frequency</th>
+                                            <th className="p-5">Next Due</th>
+                                            <th className="p-5">Remaining</th>
+                                            <th className="p-5 text-right">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {medications.map((med, index) => (
+                                            <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
+                                                <td className="p-5 text-sm">{med.medication || 'N/A'}</td>
+                                                <td className="p-5 text-sm">{med.dosage || 'N/A'}</td>
+                                                <td className="p-5 text-sm">{med.frequency || 'N/A'}</td>
+                                                <td className="p-5 text-sm">{new Date(med.next_due).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }) || 'N/A'}</td>
+                                                <td className="p-5 text-sm">{med.remaining || 'N/A'}</td>
+                                                <td className="p-5 text-sm flex justify-end"><HiEllipsisHorizontal className='text-xl' /></td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )
+                        :
+                        (
+                            <div>
+                                No Medications Found!
+                            </div>
+                        )
             )}
 
             {/* ---------------- Medication History ---------------- */}
             {activeTab === "medication-history" && (
-                <div className='border rounded-md bg-white overflow-x-auto'>
-                    <table className="w-full border-collapse p-5">
-                        <thead>
-                            <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
-                                <th className="p-5">Medication</th>
-                                <th className="p-5">Dosage</th>
-                                <th className="p-5">Frequency</th>
-                                <th className="p-5">Start Date</th>
-                                <th className="p-5">End Date</th>
-                                <th className="p-5">Reason</th>
-                                <th className="p-5 text-right">Prescribed By</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {medications.map((med, index) => (
-                                <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
-                                    <td className="p-5 text-sm">{med.name}</td>
-                                    <td className="p-5 text-sm">{med.dosage}</td>
-                                    <td className="p-5 text-sm">{med.frequency}</td>
-                                    <td className="p-5 text-sm">N/A</td>
-                                    <td className="p-5 text-sm">N/A</td>
-                                    <td className="p-5 text-sm">N/A</td>
-                                    <td className="p-5 text-sm flex justify-end">N/A</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                isLoading ? (
+                    <div>
+                        <PetSpinner />
+                    </div>
+                ) :
+                    medications.length > 0 ? (
+                        <div className='border rounded-md bg-white overflow-x-auto'>
+                            <table className="w-full border-collapse p-5">
+                                <thead>
+                                    <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
+                                        <th className="p-5">Medication</th>
+                                        <th className="p-5">Dosage</th>
+                                        <th className="p-5">Frequency</th>
+                                        <th className="p-5">Start Date</th>
+                                        <th className="p-5">End Date</th>
+                                        <th className="p-5">Reason</th>
+                                        <th className="p-5 text-right">Prescribed By</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {medications.map((med, index) => (
+                                        <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
+                                            <td className="p-5 text-sm">{med.medication}</td>
+                                            <td className="p-5 text-sm">{med.dosage}</td>
+                                            <td className="p-5 text-sm">{med.frequency}</td>
+                                            <td className="p-5 text-sm">{new Date(med.start_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }) || 'N/A'}</td>
+                                            <td className="p-5 text-sm">{new Date(med.end_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }) || 'N/A'}</td>
+                                            <td className="p-5 text-sm">{med.reason || 'N/A'}</td>
+                                            <td className="p-5 text-sm flex justify-end">{med.prescribed_by.fullName || 'N/A'}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : (
+                        <div>
+                            No Medication History Found!
+                        </div>
+                    )
             )}
 
             {/* ---------------- Schedule & Reminders ---------------- */}
