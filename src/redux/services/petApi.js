@@ -34,8 +34,15 @@ export const petApi = createApi({
                 body: formData
             }),
             invalidatesTags: ["Pet"]
+        }),
+        getMedications: build.query({
+            query: ({ petId }) => ({
+                url: '/medications/get-medications',
+                params: { petId }
+            }),
+            providesTags: ["Pet"]
         })
     })
 })
 
-export const { useGetPetsQuery, useAddPetMutation, useUpdateAPetMutation } = petApi;
+export const { useGetPetsQuery, useAddPetMutation, useUpdateAPetMutation, useGetMedicationsQuery } = petApi;
