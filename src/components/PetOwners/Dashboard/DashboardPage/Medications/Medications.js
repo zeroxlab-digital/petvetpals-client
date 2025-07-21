@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@/components/Common/Button/Button';
-import { HiEllipsisHorizontal, HiPlus, HiPencil, HiTrash, HiOutlineTrash } from 'react-icons/hi2';
+import { HiEllipsisHorizontal, HiPlus, HiPencil, HiTrash, HiOutlineTrash, HiSparkles, HiClock } from 'react-icons/hi2';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 import axios from 'axios';
 import { useGetMedicationsQuery } from '@/redux/services/petApi';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 import TinySpinner from '@/components/Common/Loader/TinySpinner';
+import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
+import AddMedication from './AddMedication';
+import { MessageCircle } from 'lucide-react';
+import { LuPill } from 'react-icons/lu';
+import ScheduleMedication from './ScheduleMedication';
 
 const Medications = ({ petId }) => {
     const [activeTab, setActiveTab] = useState("current-medications");
@@ -110,19 +115,31 @@ const Medications = ({ petId }) => {
     const ongoingMedications = medications.filter(med => med.is_ongoing === true);
     const notOngoingMedications = medications.filter(med => med.is_ongoing === false);
 
+    const [openPopup, setOpenPopup] = useState(false);
+
     return (
         <div className='space-y-5'>
             <div className='flex items-center justify-between'>
                 <h2 className='font-semibold text-lg'>Medications & Treatment</h2>
                 {activeTab === 'schedule-reminders' && (
-                    <Button onClick={() => openForm()} variant={'primaryOutline'} classNames={'text-sm'}>
-                        <HiPlus className='text-lg' /> Add to Schedule
-                    </Button>
+                    <>
+                        <Button onClick={() => setOpenPopup(true)} variant={'primaryOutline'} classNames={'text-sm'}>
+                            <HiPlus className='text-lg' /> Add to Schedule
+                        </Button>
+                        <ModalPopup isOpen={openPopup} onClose={() => setOpenPopup(false)} title={"Schedule Medication"} icon={<HiClock />}>
+                            <ScheduleMedication onClose={() => setOpenPopup(false)} />
+                        </ModalPopup>
+                    </>
                 )}
                 {activeTab === 'current-medications' && (
-                    <Button variant={'primaryOutline'} classNames={'text-sm'}>
-                        <HiPlus className='text-lg' /> Add Medication
-                    </Button>
+                    <>
+                        <Button onClick={() => setOpenPopup(true)} variant={'primaryOutline'} classNames={'text-sm'}>
+                            <HiPlus className='text-lg' /> Add Medication
+                        </Button>
+                        <ModalPopup isOpen={openPopup} onClose={() => setOpenPopup(false)} title={"Add Medication"} icon={<LuPill />}>
+                            <AddMedication onClose={() => setOpenPopup(false)} />
+                        </ModalPopup>
+                    </>
                 )}
             </div>
 
