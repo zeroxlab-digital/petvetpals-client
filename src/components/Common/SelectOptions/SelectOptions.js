@@ -19,17 +19,17 @@ const SelectOptions = ({ options, name, default: defaultValue, placeholder, onCh
         <div className="relative w-full">
             <div 
                 onClick={() => setSelected(!selected)} 
-                className="cursor-pointer text-gray-800 font-light border border-gray-300 p-2 rounded outline-[#5d3855a3] flex justify-between items-center bg-white"
+                className="cursor-pointer text-gray-800 font-light border border-gray-300 p-2 rounded outline-[#5d3855a3] flex justify-between items-center bg-white text-sm"
             >
                 {selectedOption} {selected ? <HiChevronUp /> : <HiChevronDown />}
             </div>
             {selected && (
-                <div className="bg-white p-2 rounded shadow-md absolute top-full left-0 w-full z-10">
+                <div className="bg-white p-2 rounded shadow-lg absolute top-full left-0 w-full z-10 mt-1">
                     {options.map((option, index) => (
                         <div 
                             key={index} 
                             onClick={() => handleSelectOption(option)} 
-                            className="py-2 cursor-pointer px-2 hover:bg-gray-100 duration-100 rounded capitalize text-sm"
+                            className="py-2 cursor-pointer px-2 hover:bg-gray-50 duration-100 rounded capitalize text-sm"
                         >
                             {option}
                         </div>
