@@ -70,7 +70,7 @@ const MedicationDetails = ({ med, setViewDetails, setOpenPopup }) => {
             </div>
             <div className='flex justify-end'>
                 {med.is_ongoing ?
-                    <Button onClick={() => handleMarkComplete(med._id)} classNames={'py-2 cursor-pointer text-white rounded bg-primary hover:bg-primaryHover duration-200'}>{isLoading ? 'Loading...' : 'Mark as Completed'}</Button>
+                    <Button onClick={() => handleMarkComplete(med._id)} classNames={'py-2 cursor-pointer text-white rounded-md bg-primary hover:bg-primaryHover duration-200'}>{isLoading ? 'Loading...' : 'Mark as Completed'}</Button>
                     :
                     <Button onClick={() => handleDelete(med._id)} classNames={'py-2 cursor-pointer text-white rounded-md bg-red-500 hover:bg-red-600 duration-200'}>{isLoading ? 'Loading...' : 'Remove History'}</Button>
                 }
