@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import Button from '@/components/Common/Button/Button';
-import { HiEllipsisHorizontal, HiOutlineDocumentText, HiOutlineTrash, HiPlus } from 'react-icons/hi2';
+import { HiEllipsisHorizontal, HiEllipsisVertical, HiOutlineDocumentText, HiOutlineInformationCircle, HiOutlineTrash, HiPlus } from 'react-icons/hi2';
 import { HiOutlinePencilAlt, HiPencilAlt, HiTrash } from 'react-icons/hi';
+import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
+import { Stethoscope, Syringe } from 'lucide-react';
+import Actions from '@/components/Common/Actions/Actions';
 
 const HealthRecords = ({ }) => {
     const medicalRecords = [
@@ -92,21 +95,40 @@ const HealthRecords = ({ }) => {
         { title: "Mild Hip Dysplasia", description: "Diagnosed on 2023-05-10 - Managed with supplements" }
     ]
     const [activeHealthRecordsTab, setActiveHealthRecordTab] = useState("medical-records");
+
+    const [medicalRecordPopup, setMedicalRecordPopup] = useState(false);
+    const [vaccinationPopup, setVaccinationPopup] = useState(false);
+    const [allergyPopup, setAllergyPopup] = useState(false);
+    const [conditionPopup, setConditionPopup] = useState(false);
     return (
         <div className='space-y-5'>
             <div className='flex items-center justify-between'>
                 <h2 className='font-semibold text-lg'>Health Records</h2>
                 <div>
                     {activeHealthRecordsTab === 'medical-records' ? (
-                        <Button variant={'primaryOutline'} classNames={'text-sm'}>
-                            <HiPlus className='text-lg' /> Add Medical Record
-                        </Button>
+                        <>
+                            <Button onClick={() => setMedicalRecordPopup(true)} variant={'primaryOutline'} classNames={'text-sm'}>
+                                <HiPlus className='text-lg' /> Add Medical Record
+                            </Button>
+                            {medicalRecordPopup && (
+                                <ModalPopup isOpen={medicalRecordPopup} onClose={() => setMedicalRecordPopup(false)} title={"Add Medical Record"} icon={<Stethoscope />}>
+
+                                </ModalPopup>
+                            )}
+                        </>
                     )
                         :
                         activeHealthRecordsTab === 'vaccinations' && (
-                            <Button variant={'primaryOutline'} classNames={'text-sm'}>
-                                <HiPlus className='text-lg' /> Add Vaccination
-                            </Button>
+                            <>
+                                <Button onClick={() => setVaccinationPopup(true)} variant={'primaryOutline'} classNames={'text-sm'}>
+                                    <HiPlus className='text-lg' /> Add Vaccination
+                                </Button>
+                                {vaccinationPopup && (
+                                    <ModalPopup isOpen={vaccinationPopup} onClose={() => setVaccinationPopup(false)} title={"Add Vaccination"} icon={<Syringe />}>
+
+                                    </ModalPopup>
+                                )}
+                            </>
                         )}
                 </div>
             </div>
@@ -166,7 +188,29 @@ const HealthRecords = ({ }) => {
                                         {/* {record.files.map(file => file)} */}
                                         <HiOutlineDocumentText className='text-base' />
                                     </td>
-                                    <td className="p-5 text-sm flex justify-end"><button><HiEllipsisHorizontal className='text-xl' /></button></td>
+                                    <td className="p-5 text-sm flex justify-end">
+                                        <span className='relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiEllipsisVertical className='text-xl text-gray-800' />
+                                            <Actions
+                                                actions={[
+                                                    {
+                                                        label: "View Details",
+                                                        icon: <HiOutlineInformationCircle />,
+                                                        // onClick: () => handleView(med),
+                                                    },
+                                                    {
+                                                        label: "Edit",
+                                                        icon: <HiOutlinePencilAlt />,
+                                                        // onClick: () => handleEdit(med),
+                                                    },
+                                                    {
+                                                        label: "Delete",
+                                                        icon: <HiOutlineTrash />,
+                                                        // onClick: () => handleDelete(med._id),
+                                                    }
+                                                ]}
+                                            />
+                                        </span>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
@@ -195,7 +239,29 @@ const HealthRecords = ({ }) => {
                                     <td className="p-5 text-sm">{vaccine.nextDue}</td>
                                     <td className="p-5 text-sm">{vaccine.status}</td>
                                     <td className="p-5 text-sm">{vaccine.provider}</td>
-                                    <td className="p-5 text-sm flex justify-end"><button><HiEllipsisHorizontal className='text-xl' /></button></td>
+                                    <td className="p-5 text-sm flex justify-end">
+                                        <span className='relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiEllipsisVertical className='text-xl text-gray-800' />
+                                            <Actions
+                                                actions={[
+                                                    {
+                                                        label: "View Details",
+                                                        icon: <HiOutlineInformationCircle />,
+                                                        // onClick: () => handleView(med),
+                                                    },
+                                                    {
+                                                        label: "Edit",
+                                                        icon: <HiOutlinePencilAlt />,
+                                                        // onClick: () => handleEdit(med),
+                                                    },
+                                                    {
+                                                        label: "Delete",
+                                                        icon: <HiOutlineTrash />,
+                                                        // onClick: () => handleDelete(med._id),
+                                                    }
+                                                ]}
+                                            />
+                                        </span>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
@@ -221,7 +287,12 @@ const HealthRecords = ({ }) => {
                                     </div>
                                 </li>)}
                             </ul>
-                            <Button variant={'primary'} size={'small'} classNames={'text-sm border !px-3 !py-2 rounded-md font-medium'}><HiPlus className='text-lg' /> Add Allergy</Button>
+                            <Button onClick={() => setAllergyPopup(true)} variant={'primary'} size={'small'} classNames={'text-sm border !px-3 !py-2 rounded-md font-medium'}><HiPlus className='text-lg' /> Add Allergy</Button>
+                            {allergyPopup && (
+                                <ModalPopup isOpen={allergyPopup} onClose={() => setAllergyPopup(false)} title={"Add Allergy"} icon={<Stethoscope />}>
+
+                                </ModalPopup>
+                            )}
                         </div>
                         <hr />
                         <div>
@@ -238,7 +309,12 @@ const HealthRecords = ({ }) => {
                                     </div>
                                 </li>)}
                             </ul>
-                            <Button variant={'primary'} size={'small'} classNames={'text-sm border !px-3 !py-2 rounded-md font-medium'}><HiPlus className='text-lg' /> Add Condition</Button>
+                            <Button onClick={() => setConditionPopup(true)} variant={'primary'} size={'small'} classNames={'text-sm border !px-3 !py-2 rounded-md font-medium'}><HiPlus className='text-lg' /> Add Condition</Button>
+                            {conditionPopup && (
+                                <ModalPopup isOpen={conditionPopup} onClose={() => setConditionPopup(false)} title={"Add Condition"} icon={<Stethoscope />}>
+
+                                </ModalPopup>
+                            )}
                         </div>
                     </div>
                 </div>
