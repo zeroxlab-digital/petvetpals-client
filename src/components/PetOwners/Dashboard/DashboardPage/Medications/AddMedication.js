@@ -28,7 +28,7 @@ const AddMedication = ({ onClose, petId }) => {
         frequency: '',
         start_date: new Date().toISOString().split('T')[0], // Default to today's date
         timeOfDay: '',
-        prescribed_by: '',
+        prescribed_by: null,
         reason: '',
         instructions: ''
     });
@@ -66,20 +66,20 @@ const AddMedication = ({ onClose, petId }) => {
             <form onSubmit={(e) => handleSubmitMedication(e)} className=''>
                 <div>
                     <Label htmlFor="medication">Medication</Label>
-                    <Input id="medication" type="text" placeholder="Medication name" name="medication"
+                    <Input id="medication" type="text" placeholder="Medication name" name="medication" required
                         onChange={(e) => setMedicationData({ ...medicationData, medication: e.target.value })}
                     />
                 </div>
                 <div className='grid grid-cols-2 gap-3 max-md:grid-cols-1 my-3'>
                     <div>
                         <Label htmlFor="dosage">Dosage</Label>
-                        <Input id="dosage" type="text" placeholder="Medication dosage" name="dosage"
+                        <Input id="dosage" type="text" placeholder="Medication dosage" name="dosage" required
                             onChange={(e) => setMedicationData({ ...medicationData, dosage: e.target.value })}
                         />
                     </div>
                     <div>
                         <Label htmlFor="frequency">Frequency</Label>
-                        <Input id="frequency" type="text" placeholder="e.g. Daily, Weekly, Monthly" name="frequency"
+                        <Input id="frequency" type="text" placeholder="e.g. Daily, Weekly, Monthly" name="frequency" required
                             onChange={(e) => setMedicationData({ ...medicationData, frequency: e.target.value })}
                         />
                     </div>
@@ -91,7 +91,7 @@ const AddMedication = ({ onClose, petId }) => {
                     </div>
                     <div>
                         <Label htmlFor="timeOfDay">Time of day</Label>
-                        <Input id="timeOfDay" type="text" placeholder="e.g. Morning, Afternoon, Evening" name="timeOfDay"
+                        <Input id="timeOfDay" type="text" placeholder="e.g. Morning, Afternoon, Evening" name="timeOfDay" required
                             onChange={(e) => setMedicationData({ ...medicationData, timeOfDay: e.target.value })}
                         />
                     </div>
@@ -109,7 +109,7 @@ const AddMedication = ({ onClose, petId }) => {
                     </div>
                     <div>
                         <Label htmlFor="reason">Reason of medication</Label>
-                        <Input id="reason" type="text" placeholder="e.g. Itching" name="reason"
+                        <Input id="reason" type="text" placeholder="e.g. Itching" name="reason" required
                             onChange={(e) => setMedicationData({ ...medicationData, reason: e.target.value })}
                         />
                     </div>
@@ -121,10 +121,10 @@ const AddMedication = ({ onClose, petId }) => {
                     />
                 </div>
                 <div className='mt-7 flex gap-2 items-center justify-end'>
-                    <button onClick={onClose} className='bg-transparent border border-red-400 text-red-400 hover:text-white px-4 py-2 rounded-md hover:bg-red-400 duration-200'>
+                    <button onClick={onClose} className='w-24 h-11 text-center bg-transparent border border-red-400 text-red-400 hover:text-white px-4 py-2 rounded-md hover:bg-red-400 duration-200'>
                         Cancel
                     </button>
-                    <button type="submit" className='bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryHover duration-200'>
+                    <button type="submit" className={`bg-primary text-white w-40 h-11 text-center rounded-md hover:bg-primaryHover duration-200 ${!medicationData.prescribed_by ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={!medicationData.prescribed_by}>
                         {isLoading ? 'Loading...' : 'Add Medication'}
                     </button>
                 </div>
