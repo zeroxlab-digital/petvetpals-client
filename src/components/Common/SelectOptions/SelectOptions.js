@@ -2,17 +2,31 @@ import { useState, useEffect } from "react";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi2";
 
 const SelectOptions = ({ options, name, default: defaultValue, placeholder, onChange }) => {
-    const [selectedOption, setSelectedOption] = useState(defaultValue || placeholder || "Select option");
+    const getLabel = (option) => typeof option === 'object' ? option.label : option;
+    const getValue = (option) => typeof option === 'object' ? option.value : option;
+
+    const [selectedOption, setSelectedOption] = useState(
+        defaultValue ? getLabel(defaultValue) : placeholder || "Select option"
+    );
     const [selected, setSelected] = useState(false);
 
     useEffect(() => {
-        if (defaultValue) setSelectedOption(defaultValue);
+        if (defaultValue) {
+            setSelectedOption(getLabel(defaultValue));
+        }
     }, [defaultValue]);
 
     const handleSelectOption = (option) => {
-        setSelectedOption(option);
+        setSelectedOption(getLabel(option));
         setSelected(false);
-        if (onChange) onChange({ target: { name, value: option } });
+        if (onChange) {
+            onChange({
+                target: {
+                    name,
+                    value: getValue(option)
+                }
+            });
+        }
     };
 
     return (
@@ -24,14 +38,14 @@ const SelectOptions = ({ options, name, default: defaultValue, placeholder, onCh
                 {selectedOption} {selected ? <HiChevronUp /> : <HiChevronDown />}
             </div>
             {selected && (
-                <div className="bg-white p-2 rounded shadow-lg absolute top-full left-0 w-full z-10 mt-1">
+                <div className="max-h-52 overflow-auto bg-white p-2 rounded shadow-lg absolute top-full left-0 w-full z-10 mt-1">
                     {options.map((option, index) => (
                         <div 
                             key={index} 
                             onClick={() => handleSelectOption(option)} 
                             className="py-2 cursor-pointer px-2 hover:bg-gray-50 duration-100 rounded capitalize text-sm"
                         >
-                            {option}
+                            {getLabel(option)}
                         </div>
                     ))}
                 </div>

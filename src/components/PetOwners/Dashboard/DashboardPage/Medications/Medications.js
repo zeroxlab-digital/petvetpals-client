@@ -137,7 +137,7 @@ const Medications = ({ petId }) => {
                             <HiPlus className='text-lg' /> Add Medication
                         </Button>
                         <ModalPopup isOpen={openPopup} onClose={() => setOpenPopup(false)} title={"Add Medication"} icon={<LuPill />}>
-                            <AddMedication onClose={() => setOpenPopup(false)} />
+                            <AddMedication onClose={() => setOpenPopup(false)} petId={petId} />
                         </ModalPopup>
                     </>
                 )}
