@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@/components/Common/Button/Button';
 import { HiPlus, HiOutlineTrash, HiClock, HiOutlineInformationCircle, HiEllipsisVertical, HiOutlineCheckCircle } from 'react-icons/hi2';
-import { HiOutlinePencilAlt } from 'react-icons/hi';
+import { HiOutlineDownload, HiOutlinePencilAlt } from 'react-icons/hi';
 import { useDeleteMedicationMutation, useGetMedicationsQuery, useUpdateMedicationMutation } from '@/redux/services/petApi';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
@@ -11,6 +11,7 @@ import ScheduleMedication from './ScheduleMedication';
 import Actions from '@/components/Common/Actions/Actions';
 import MedicationDetails from './MedicationDetails';
 import { toast } from 'react-toastify';
+import ScheduleAndReminders from './ScheduleAndReminders';
 
 const Medications = ({ petId }) => {
     const [activeTab, setActiveTab] = useState("current-medications");
@@ -117,11 +118,16 @@ const Medications = ({ petId }) => {
                 <h2 className='font-semibold text-lg'>Medications & Treatment</h2>
                 {activeTab === 'schedule-reminders' && (
                     <>
-                        <Button onClick={() => setOpenPopup(true)} variant={'primaryOutline'} classNames={'text-sm'}>
-                            <HiPlus className='text-lg' /> Add to Schedule
-                        </Button>
+                        <div className='flex items-center gap-2'>
+                            <Button variant={'primaryOutline'} classNames={'text-sm !hover:bg-gray-200'}>
+                                <HiOutlineDownload className='text-lg' /> Export Calendar
+                            </Button>
+                            <Button onClick={() => setOpenPopup(true)} variant={'primary'} classNames={'text-sm '}>
+                                <HiPlus className='text-lg' /> Add to Schedule
+                            </Button>
+                        </div>
                         <ModalPopup isOpen={openPopup} onClose={() => setOpenPopup(false)} title={"Schedule Medication"} icon={<HiClock />}>
-                            <ScheduleMedication onClose={() => setOpenPopup(false)} />
+                            <ScheduleMedication onClose={() => setOpenPopup(false)} ongoingMedications={ongoingMedications} />
                         </ModalPopup>
                     </>
                 )}
@@ -140,8 +146,8 @@ const Medications = ({ petId }) => {
             <div className='health-records-tabs flex space-x-5 overflow-x-auto border-b'>
                 {[
                     { key: "current-medications", label: "Current Medications" },
-                    { key: "medication-history", label: "Medication History" },
                     { key: "schedule-reminders", label: "Schedule & Reminders" },
+                    { key: "medication-history", label: "Medication History" }
                 ].map(tab => (
                     <button
                         key={tab.key}
@@ -283,53 +289,8 @@ const Medications = ({ petId }) => {
                         </div>
                     )
             )}
-
             {/* ---------------- Schedule & Reminders ---------------- */}
-            {activeTab === "schedule-reminders" && (
-                <div className='border rounded-md bg-white overflow-x-auto'>
-                    <table className="w-full border-collapse p-5">
-                        <thead>
-                            <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
-                                <th className="p-5">Date</th>
-                                <th className="p-5">Time</th>
-                                <th className="p-5">Medication</th>
-                                <th className="p-5">Dosage</th>
-                                <th className="p-5">Instructions</th>
-                                <th className="p-5 text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {scheduledDoses.map(dose => (
-                                <tr key={dose.id} className="border-b last:border-none hover:bg-gray-50">
-                                    <td className="p-5 text-sm">{dose.date}</td>
-                                    <td className="p-5 text-sm">{dose.timeOfDay}</td>
-                                    <td className="p-5 text-sm">{dose.medicationName}</td>
-                                    <td className="p-5 text-sm">{dose.dosage}</td>
-                                    <td className="p-5 text-sm">{dose.instructions}</td>
-                                    <td className="p-5 text-sm flex justify-end space-x-4">
-                                        <button
-                                            // onClick={() => toggleGiven(dose.id)}
-                                            className={`px-3 py-1 text-xs rounded-full font-medium ${dose.isGiven ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}
-                                        >
-                                            {dose.isGiven ? 'Given' : 'Mark as Given'}
-                                        </button>
-                                        <button
-                                        // onClick={() => openForm(dose)}
-                                        >
-                                            <HiOutlinePencilAlt className='text-blue-500 hover:text-blue-600 text-2xl' />
-                                        </button>
-                                        <button
-                                        // onClick={() => handleDelete(dose.id)}
-                                        >
-                                            <HiOutlineTrash className='text-red-500 hover:text-red-600 text-2xl' />
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
+            <ScheduleAndReminders activeTab={activeTab} scheduledDoses={scheduledDoses} />
         </div>
     );
 };
