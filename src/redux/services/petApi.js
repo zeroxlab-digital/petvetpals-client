@@ -44,15 +44,23 @@ export const petApi = createApi({
         }),
         addMedication: build.mutation({
             query: ({ petId, medicationData }) => ({
-                // console.log(medicationData),
                 url: '/medications/add-medication',
                 method: "POST",
                 params: { petId },
                 body: { ...medicationData }
             }),
             invalidatesTags: ["Pet"]
-        })
+        }),
+        updateMedication: build.mutation({
+            query: ({ medicationId, medicationData }) => ({
+                url: `/medications/update-medication`,
+                method: "PATCH",
+                params: { id: medicationId },
+                body: { ...medicationData }
+            }),
+            invalidatesTags: ["Pet"]
+        }),
     })
 })
 
-export const { useGetPetsQuery, useAddPetMutation, useUpdateAPetMutation, useGetMedicationsQuery, useAddMedicationMutation } = petApi;
+export const { useGetPetsQuery, useAddPetMutation, useUpdateAPetMutation, useGetMedicationsQuery, useAddMedicationMutation, useUpdateMedicationMutation } = petApi;

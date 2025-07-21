@@ -1,49 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@/components/Common/Button/Button';
-import { HiEllipsisHorizontal, HiPlus, HiPencil, HiTrash, HiOutlineTrash, HiSparkles, HiClock } from 'react-icons/hi2';
+import { HiPlus, HiOutlineTrash, HiClock, HiOutlineInformationCircle, HiEllipsisVertical, HiOutlineCheckCircle } from 'react-icons/hi2';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
-import axios from 'axios';
-import { useGetMedicationsQuery } from '@/redux/services/petApi';
+import { useGetMedicationsQuery, useUpdateMedicationMutation } from '@/redux/services/petApi';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
-import TinySpinner from '@/components/Common/Loader/TinySpinner';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import AddMedication from './AddMedication';
-import { MessageCircle } from 'lucide-react';
 import { LuPill } from 'react-icons/lu';
 import ScheduleMedication from './ScheduleMedication';
+import Actions from '@/components/Common/Actions/Actions';
+import MedicationDetails from './MedicationDetails';
+import { toast } from 'react-toastify';
 
 const Medications = ({ petId }) => {
     const [activeTab, setActiveTab] = useState("current-medications");
 
-    // const medications = [
-    //     {
-    //         id: 1,
-    //         name: "Heartworm Prevention",
-    //         dosage: "1 tablet",
-    //         frequency: "Monthly",
-    //         nextDue: "2024-03-15",
-    //         instructions: "Give with food",
-    //         remainingDoses: 5,
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "Joint Supplement",
-    //         dosage: "2 tablets",
-    //         frequency: "Daily",
-    //         nextDue: "2024-02-28",
-    //         instructions: "Morning and evening with meals",
-    //         remainingDoses: 14,
-    //     },
-    //     {
-    //         id: 3,
-    //         name: "Flea & Tick",
-    //         dosage: "1 application",
-    //         frequency: "Monthly",
-    //         nextDue: "2024-03-10",
-    //         instructions: "Apply to back of neck",
-    //         remainingDoses: 2,
-    //     },
-    // ];
+    const notify = (message, type) => {
+        toast(message, { type: type, autoClose: 1000 });
+    }
 
     const [scheduledDoses, setScheduledDoses] = useState([
         {
@@ -56,48 +30,6 @@ const Medications = ({ petId }) => {
             isGiven: false
         }
     ]);
-
-    const [isFormOpen, setIsFormOpen] = useState(false);
-    const [formData, setFormData] = useState({
-        id: null,
-        medicationName: '',
-        date: '',
-        timeOfDay: '',
-        dosage: '',
-        instructions: '',
-    });
-
-    const openForm = (data = null) => {
-        if (data) {
-            setFormData(data);
-        } else {
-            setFormData({ id: null, medicationName: '', date: '', timeOfDay: '', dosage: '', instructions: '' });
-        }
-        setIsFormOpen(true);
-    };
-
-    const closeForm = () => {
-        setIsFormOpen(false);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (formData.id) {
-            setScheduledDoses(prev => prev.map(dose => dose.id === formData.id ? { ...formData, isGiven: dose.isGiven } : dose));
-        } else {
-            const newId = Date.now();
-            setScheduledDoses(prev => [...prev, { ...formData, id: newId, isGiven: false }]);
-        }
-        closeForm();
-    };
-
-    const handleDelete = (id) => {
-        setScheduledDoses(prev => prev.filter(d => d.id !== id));
-    };
-
-    const toggleGiven = (id) => {
-        setScheduledDoses(prev => prev.map(d => d.id === id ? { ...d, isGiven: !d.isGiven } : d));
-    };
 
     const { data, isLoading, error } = useGetMedicationsQuery({ petId });
     const [medications, setMedications] = useState([]);
@@ -116,6 +48,39 @@ const Medications = ({ petId }) => {
     const notOngoingMedications = medications.filter(med => med.is_ongoing === false);
 
     const [openPopup, setOpenPopup] = useState(false);
+    const [viewDetails, setViewDetails] = useState(false);
+
+    const handleView = (med) => {
+        // setSelectedMed(med);
+        setViewDetails(true);
+    };
+
+    const handleEdit = (med) => {
+        setEditingMed(med);
+        setShowEditModal(true);
+    };
+
+    const handleDelete = (medicationId) => {
+        // Show confirm dialog or trigger delete API
+        console.log("Delete medication:", medId);
+    };
+
+    const [updateMedication, { isError, isSuccess }] = useUpdateMedicationMutation();
+    const handleMarkComplete = async (medicationId) => {
+        try {
+            console.log(medicationId)
+            const response = await updateMedication({
+                medicationId, medicationData: {
+                    is_ongoing: false
+                }
+            }).unwrap();
+            if (response.success) {
+                notify("Medication marked as completed successfully", "success");
+            }
+        } catch (error) {
+            console.error("Error marking medication as complete:", error);
+        }
+    };
 
     return (
         <div className='space-y-5'>
@@ -177,8 +142,10 @@ const Medications = ({ petId }) => {
                                             <th className="p-5">Medication</th>
                                             <th className="p-5">Dosage</th>
                                             <th className="p-5">Frequency</th>
-                                            <th className="p-5">Next Due</th>
+                                            <th className="p-5">Next due</th>
                                             <th className="p-5">Remaining</th>
+                                            <th className="p-5">Reason</th>
+                                            <th className="p-5">Prescribed by</th>
                                             <th className="p-5 text-right">Actions</th>
                                         </tr>
                                     </thead>
@@ -190,7 +157,41 @@ const Medications = ({ petId }) => {
                                                 <td className="p-5 text-sm">{med.frequency || 'N/A'}</td>
                                                 <td className="p-5 text-sm">{new Date(med.next_due).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }) || 'N/A'}</td>
                                                 <td className="p-5 text-sm">{med.remaining || 'N/A'}</td>
-                                                <td className="p-5 text-sm flex justify-end"><HiEllipsisHorizontal className='text-xl' /></td>
+                                                <td className="p-5 text-sm">{med.reason || 'N/A'}</td>
+                                                <td className="p-5 text-sm">{med.prescribed_by.fullName || 'N/A'}</td>
+                                                <td className="p-5 text-sm flex justify-end  "><span className='relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiEllipsisVertical className='text-xl text-gray-800' />
+                                                    <Actions
+                                                        actions={[
+                                                            {
+                                                                label: "View Details",
+                                                                icon: <HiOutlineInformationCircle />,
+                                                                onClick: () => handleView(med),
+                                                            },
+                                                            {
+                                                                label: "Edit",
+                                                                icon: <HiOutlinePencilAlt />,
+                                                                onClick: () => handleEdit(med),
+                                                            },
+                                                            {
+                                                                label: "Delete",
+                                                                icon: <HiOutlineTrash />,
+                                                                onClick: () => handleDelete(med._id),
+                                                            },
+                                                            {
+                                                                label: "Mark Completed",
+                                                                icon: <HiOutlineCheckCircle />,
+                                                                onClick: () => handleMarkComplete(med._id),
+                                                            },
+                                                        ]}
+                                                    />
+                                                </span>
+                                                    {viewDetails &&
+                                                        <ModalPopup isOpen={viewDetails} onClose={() => setViewDetails(false)} title={med.medication + " Medication Details"} icon={<HiOutlineInformationCircle />}>
+                                                            {/* Medication Details */}
+                                                            <MedicationDetails med={med} setViewDetails={setViewDetails} />
+                                                        </ModalPopup>
+                                                    }
+                                                </td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -220,10 +221,11 @@ const Medications = ({ petId }) => {
                                         <th className="p-5">Medication</th>
                                         <th className="p-5">Dosage</th>
                                         <th className="p-5">Frequency</th>
-                                        <th className="p-5">Start Date</th>
-                                        <th className="p-5">End Date</th>
+                                        <th className="p-5">Start date</th>
+                                        <th className="p-5">End date</th>
                                         <th className="p-5">Reason</th>
-                                        <th className="p-5 text-right">Prescribed By</th>
+                                        <th className="p-5">Prescribed by</th>
+                                        <th className="p-5 text-right">Details</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -235,7 +237,14 @@ const Medications = ({ petId }) => {
                                             <td className="p-5 text-sm">{new Date(med.start_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }) || 'N/A'}</td>
                                             <td className="p-5 text-sm">{new Date(med.end_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }) || 'N/A'}</td>
                                             <td className="p-5 text-sm">{med.reason || 'N/A'}</td>
-                                            <td className="p-5 text-sm flex justify-end">{med.prescribed_by.fullName || 'N/A'}</td>
+                                            <td className="p-5 text-sm">{med.prescribed_by.fullName || 'N/A'}</td>
+                                            <td className="p-5 text-sm flex justify-end"><button onClick={() => setOpenPopup(true)} className='cursor-pointer border hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiOutlineInformationCircle className='text-xl text-gray-800' /></button></td>
+                                            {openPopup &&
+                                                <ModalPopup isOpen={openPopup} onClose={() => setOpenPopup(false)} title={med.medication + " Medication Details"} icon={<HiOutlineInformationCircle />}>
+                                                    {/* Medication Details */}
+                                                    <MedicationDetails med={med} />
+                                                </ModalPopup>
+                                            }
                                         </tr>
                                     ))}
                                 </tbody>
@@ -272,15 +281,19 @@ const Medications = ({ petId }) => {
                                     <td className="p-5 text-sm">{dose.instructions}</td>
                                     <td className="p-5 text-sm flex justify-end space-x-4">
                                         <button
-                                            onClick={() => toggleGiven(dose.id)}
+                                            // onClick={() => toggleGiven(dose.id)}
                                             className={`px-3 py-1 text-xs rounded-full font-medium ${dose.isGiven ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}
                                         >
                                             {dose.isGiven ? 'Given' : 'Mark as Given'}
                                         </button>
-                                        <button onClick={() => openForm(dose)}>
+                                        <button
+                                        // onClick={() => openForm(dose)}
+                                        >
                                             <HiOutlinePencilAlt className='text-blue-500 hover:text-blue-600 text-2xl' />
                                         </button>
-                                        <button onClick={() => handleDelete(dose.id)}>
+                                        <button
+                                        // onClick={() => handleDelete(dose.id)}
+                                        >
                                             <HiOutlineTrash className='text-red-500 hover:text-red-600 text-2xl' />
                                         </button>
                                     </td>
@@ -288,61 +301,6 @@ const Medications = ({ petId }) => {
                             ))}
                         </tbody>
                     </table>
-                </div>
-            )}
-
-            {/* ---------------- Form Modal ---------------- */}
-            {isFormOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50">
-                    <div className="bg-white p-6 rounded-md shadow-md w-full max-w-md">
-                        <h3 className="text-lg font-semibold mb-4">{formData.id ? "Edit" : "Add"} Schedule</h3>
-                        <form onSubmit={handleSubmit} className="space-y-4">
-                            <input
-                                type="text"
-                                className="w-full border px-3 py-2 rounded"
-                                placeholder="Medication Name"
-                                value={formData.medicationName}
-                                onChange={(e) => setFormData({ ...formData, medicationName: e.target.value })}
-                                required
-                            />
-                            <input
-                                type="text"
-                                className="w-full border px-3 py-2 rounded"
-                                placeholder="Dosage"
-                                value={formData.dosage}
-                                onChange={(e) => setFormData({ ...formData, dosage: e.target.value })}
-                            />
-                            <input
-                                type="date"
-                                className="w-full border px-3 py-2 rounded"
-                                value={formData.date}
-                                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                                required
-                            />
-                            <input
-                                type="text"
-                                className="w-full border px-3 py-2 rounded"
-                                placeholder="Time of Day (e.g. Morning, Evening)"
-                                value={formData.timeOfDay}
-                                onChange={(e) => setFormData({ ...formData, timeOfDay: e.target.value })}
-                            />
-                            <input
-                                type="text"
-                                className="w-full border px-3 py-2 rounded"
-                                placeholder="Instructions"
-                                value={formData.instructions}
-                                onChange={(e) => setFormData({ ...formData, instructions: e.target.value })}
-                            />
-                            <div className="flex justify-end space-x-3 pt-4">
-                                <button type="button" onClick={closeForm} className="px-4 py-2 bg-gray-100 rounded hover:bg-gray-200">
-                                    Cancel
-                                </button>
-                                <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                                    {formData.id ? "Update" : "Add"}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
                 </div>
             )}
         </div>
