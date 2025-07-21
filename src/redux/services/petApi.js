@@ -60,7 +60,15 @@ export const petApi = createApi({
             }),
             invalidatesTags: ["Pet"]
         }),
+        deleteMedication: build.mutation({
+            query: ({ medicationId }) => ({
+                url: '/medications/delete-medication',
+                method: "DELETE",
+                params: { id: medicationId }
+            }),
+            invalidatesTags: ["Pet"]
+        })
     })
 })
 
-export const { useGetPetsQuery, useAddPetMutation, useUpdateAPetMutation, useGetMedicationsQuery, useAddMedicationMutation, useUpdateMedicationMutation } = petApi;
+export const { useGetPetsQuery, useAddPetMutation, useUpdateAPetMutation, useGetMedicationsQuery, useAddMedicationMutation, useUpdateMedicationMutation, useDeleteMedicationMutation } = petApi;

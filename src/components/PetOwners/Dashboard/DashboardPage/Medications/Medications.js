@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from '@/components/Common/Button/Button';
 import { HiPlus, HiOutlineTrash, HiClock, HiOutlineInformationCircle, HiEllipsisVertical, HiOutlineCheckCircle } from 'react-icons/hi2';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
-import { useGetMedicationsQuery, useUpdateMedicationMutation } from '@/redux/services/petApi';
+import { useDeleteMedicationMutation, useGetMedicationsQuery, useUpdateMedicationMutation } from '@/redux/services/petApi';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import AddMedication from './AddMedication';
@@ -18,18 +18,6 @@ const Medications = ({ petId }) => {
     const notify = (message, type) => {
         toast(message, { type: type, autoClose: 1000 });
     }
-
-    const [scheduledDoses, setScheduledDoses] = useState([
-        {
-            id: 101,
-            medicationName: "Heartworm Prevention",
-            date: "2024-03-15",
-            timeOfDay: "Morning",
-            dosage: "1 tablet",
-            instructions: "Give with food",
-            isGiven: false
-        }
-    ]);
 
     const { data, isLoading, error } = useGetMedicationsQuery({ petId });
     const [medications, setMedications] = useState([]);
@@ -50,8 +38,10 @@ const Medications = ({ petId }) => {
     const [openPopup, setOpenPopup] = useState(false);
     const [viewDetails, setViewDetails] = useState(false);
 
+    const [selectedMed, setSelectedMed] = useState(null);
+
     const handleView = (med) => {
-        // setSelectedMed(med);
+        setSelectedMed(med);
         setViewDetails(true);
     };
 
@@ -60,9 +50,17 @@ const Medications = ({ petId }) => {
         setShowEditModal(true);
     };
 
-    const handleDelete = (medicationId) => {
-        // Show confirm dialog or trigger delete API
-        console.log("Delete medication:", medId);
+    const [deleteMedication, { }] = useDeleteMedicationMutation();
+    const handleDelete = async (medicationId) => {
+        try {
+            const response = await deleteMedication({ medicationId }).unwrap();
+            if (response.success) {
+                notify("Medication deleted successfully!", "success");
+            }
+        } catch (error) {
+            console.log("Error deleting medication:", error);
+            notify("Failed to delete medication", "error");
+        }
     };
 
     const [updateMedication, { isError, isSuccess }] = useUpdateMedicationMutation();
@@ -75,15 +73,46 @@ const Medications = ({ petId }) => {
                 }
             }).unwrap();
             if (response.success) {
-                notify("Medication marked as completed successfully", "success");
+                notify("Medication marked as completed successfully!", "success");
             }
         } catch (error) {
             console.error("Error marking medication as complete:", error);
+            notify("Failed to mark medication as completed", "error");
         }
     };
 
+    const [scheduledDoses, setScheduledDoses] = useState([
+        {
+            id: 101,
+            medicationName: "Heartworm Prevention",
+            date: "2024-03-15",
+            timeOfDay: "Morning",
+            dosage: "1 tablet",
+            instructions: "Give with food",
+            isGiven: false
+        },
+        {
+            id: 102,
+            medicationName: "Heartworm Prevention",
+            date: "2024-03-15",
+            timeOfDay: "Morning",
+            dosage: "1 tablet",
+            instructions: "Give with food",
+            isGiven: false
+        },
+        {
+            id: 103,
+            medicationName: "Heartworm Prevention",
+            date: "2024-03-15",
+            timeOfDay: "Morning",
+            dosage: "1 tablet",
+            instructions: "Give with food",
+            isGiven: false
+        },
+    ]);
+
     return (
-        <div className='space-y-5'>
+        <div className='space-y-5 h-screen'>
             <div className='flex items-center justify-between'>
                 <h2 className='font-semibold text-lg'>Medications & Treatment</h2>
                 {activeTab === 'schedule-reminders' && (
@@ -135,7 +164,7 @@ const Medications = ({ petId }) => {
                     :
                     ongoingMedications.length > 0 ?
                         (
-                            <div className='border rounded-md bg-white overflow-x-auto'>
+                            <div className='min-h-full border rounded-md bg-white overflow-x-auto'>
                                 <table className="w-full border-collapse p-5">
                                     <thead>
                                         <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
@@ -185,17 +214,16 @@ const Medications = ({ petId }) => {
                                                         ]}
                                                     />
                                                 </span>
-                                                    {viewDetails &&
-                                                        <ModalPopup isOpen={viewDetails} onClose={() => setViewDetails(false)} title={med.medication + " Medication Details"} icon={<HiOutlineInformationCircle />}>
-                                                            {/* Medication Details */}
-                                                            <MedicationDetails med={med} setViewDetails={setViewDetails} />
-                                                        </ModalPopup>
-                                                    }
                                                 </td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
+                                {viewDetails &&
+                                    <ModalPopup isOpen={viewDetails} onClose={() => setViewDetails(false)} title={selectedMed.medication + " Medication Details"} icon={<HiOutlineInformationCircle />}>
+                                        <MedicationDetails med={selectedMed} setViewDetails={setViewDetails} />
+                                    </ModalPopup>
+                                }
                             </div>
                         )
                         :
@@ -214,7 +242,7 @@ const Medications = ({ petId }) => {
                     </div>
                 ) :
                     notOngoingMedications.length > 0 ? (
-                        <div className='border rounded-md bg-white overflow-x-auto'>
+                        <div className='min-h-screen border rounded-md bg-white overflow-x-auto'>
                             <table className="w-full border-collapse p-5">
                                 <thead>
                                     <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
@@ -238,17 +266,16 @@ const Medications = ({ petId }) => {
                                             <td className="p-5 text-sm">{new Date(med.end_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }) || 'N/A'}</td>
                                             <td className="p-5 text-sm">{med.reason || 'N/A'}</td>
                                             <td className="p-5 text-sm">{med.prescribed_by.fullName || 'N/A'}</td>
-                                            <td className="p-5 text-sm flex justify-end"><button onClick={() => setOpenPopup(true)} className='cursor-pointer border hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiOutlineInformationCircle className='text-xl text-gray-800' /></button></td>
-                                            {openPopup &&
-                                                <ModalPopup isOpen={openPopup} onClose={() => setOpenPopup(false)} title={med.medication + " Medication Details"} icon={<HiOutlineInformationCircle />}>
-                                                    {/* Medication Details */}
-                                                    <MedicationDetails med={med} />
-                                                </ModalPopup>
-                                            }
+                                            <td className="p-5 text-sm flex justify-end"><span onClick={() => { setOpenPopup(true), setSelectedMed(med) }} className='cursor-pointer border hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiOutlineInformationCircle className='text-xl text-gray-800' /></span></td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
+                            {openPopup &&
+                                <ModalPopup isOpen={openPopup} onClose={() => setOpenPopup(false)} title={selectedMed.medication + " Medication Details"} icon={<HiOutlineInformationCircle />}>
+                                    <MedicationDetails med={selectedMed} setOpenPopup={setOpenPopup} />
+                                </ModalPopup>
+                            }
                         </div>
                     ) : (
                         <div>
