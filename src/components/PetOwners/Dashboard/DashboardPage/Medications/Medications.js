@@ -187,14 +187,14 @@ const Medications = ({ petId }) => {
                                     <tbody>
                                         {ongoingMedications.map((med, index) => (
                                             <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
-                                                <td className="p-5 text-sm">{med.medication || 'N/A'}</td>
-                                                <td className="p-5 text-sm">{med.dosage || 'N/A'}</td>
-                                                <td className="p-5 text-sm">{med.frequency || 'N/A'}</td>
-                                                <td className="p-5 text-sm">{new Date(med.next_due).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }) || 'N/A'}</td>
-                                                <td className="p-5 text-sm">{med.remaining || 'N/A'}</td>
-                                                <td className="p-5 text-sm">{med.reason || 'N/A'}</td>
-                                                <td className="p-5 text-sm">{med.prescribed_by.fullName || 'N/A'}</td>
-                                                <td className="p-5 text-sm flex justify-end  "><span className='relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiEllipsisVertical className='text-xl text-gray-800' />
+                                                <td className="px-5 py-3 text-sm">{med.medication || 'N/A'}</td>
+                                                <td className="px-5 py-3 text-sm">{med.dosage || 'N/A'}</td>
+                                                <td className="px-5 py-3 text-sm">{med.frequency || 'N/A'}</td>
+                                                <td className="px-5 py-3 text-sm">{new Date(med.next_due).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }) || 'N/A'}</td>
+                                                <td className="px-5 py-3 text-sm">{med.remaining || 'N/A'}</td>
+                                                <td className="px-5 py-3 text-sm">{med.reason || 'N/A'}</td>
+                                                <td className="px-5 py-3 text-sm">{med.prescribed_by.fullName || 'N/A'}</td>
+                                                <td className="px-5 py-3 text-sm flex justify-end  "><span className='relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiEllipsisVertical className='text-xl text-gray-800' />
                                                     <Actions
                                                         actions={[
                                                             {
@@ -265,14 +265,14 @@ const Medications = ({ petId }) => {
                                 <tbody>
                                     {notOngoingMedications.map((med, index) => (
                                         <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
-                                            <td className="p-5 text-sm">{med.medication}</td>
-                                            <td className="p-5 text-sm">{med.dosage}</td>
-                                            <td className="p-5 text-sm">{med.frequency}</td>
-                                            <td className="p-5 text-sm">{new Date(med.start_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }) || 'N/A'}</td>
-                                            <td className="p-5 text-sm">{new Date(med.end_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }) || 'N/A'}</td>
-                                            <td className="p-5 text-sm">{med.reason || 'N/A'}</td>
-                                            <td className="p-5 text-sm">{med.prescribed_by.fullName || 'N/A'}</td>
-                                            <td className="p-5 text-sm flex justify-end"><span onClick={() => { setOpenPopup(true), setSelectedMed(med) }} className='cursor-pointer border hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiOutlineInformationCircle className='text-xl text-gray-800' /></span></td>
+                                            <td className="px-5 py-3 text-sm">{med.medication}</td>
+                                            <td className="px-5 py-3 text-sm">{med.dosage}</td>
+                                            <td className="px-5 py-3 text-sm">{med.frequency}</td>
+                                            <td className="px-5 py-3 text-sm">{new Date(med.start_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }) || 'N/A'}</td>
+                                            <td className="px-5 py-3 text-sm">{new Date(med.end_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }) || 'N/A'}</td>
+                                            <td className="px-5 py-3 text-sm">{med.reason || 'N/A'}</td>
+                                            <td className="px-5 py-3 text-sm">{med.prescribed_by.fullName || 'N/A'}</td>
+                                            <td className="px-5 py-3 text-sm flex justify-end"><span onClick={() => { setOpenPopup(true), setSelectedMed(med) }} className='cursor-pointer border hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiOutlineInformationCircle className='text-xl text-gray-800' /></span></td>
                                         </tr>
                                     ))}
                                 </tbody>
