@@ -525,7 +525,7 @@ const DashboardPage = () => {
                 </div>
             )}
             {activeTab === "health" && (
-                <HealthRecords />
+                <HealthRecords petId={selectedPet?._id} />
             )}
             {activeTab === "medications" && (
                 <Medications petId={selectedPet?._id} />

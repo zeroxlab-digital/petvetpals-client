@@ -4,89 +4,12 @@ import { HiEllipsisHorizontal, HiEllipsisVertical, HiOutlineDocumentText, HiOutl
 import { HiOutlinePencilAlt, HiPencilAlt, HiTrash } from 'react-icons/hi';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import { Stethoscope, Syringe } from 'lucide-react';
-import Actions from '@/components/Common/Actions/Actions';
+import MedicalHistory from './MedicalHistory';
+import Vaccinations from './Vaccinations';
+import AddMedicalRecord from './AddMedicalRecord';
+import AddVaccination from './AddVaccination';
 
-const HealthRecords = ({ }) => {
-    const medicalRecords = [
-        {
-            id: 1,
-            date: "2024-02-15",
-            type: "Check-up",
-            doctor: "Dr. Smith",
-            clinic: "Happy Paws Veterinary",
-            diagnosis: "Healthy",
-            treatment: "None required",
-            notes: "Regular health check - All normal",
-            files: ["health_report_feb2024.pdf"],
-        },
-        {
-            id: 2,
-            date: "2024-02-01",
-            type: "Vaccination",
-            doctor: "Dr. Johnson",
-            clinic: "Pet Care Center",
-            diagnosis: "N/A",
-            treatment: "Annual boosters",
-            notes: "Annual boosters completed",
-            files: ["vaccination_record_feb2024.pdf"],
-        },
-        {
-            id: 3,
-            date: "2024-01-20",
-            type: "Dental",
-            doctor: "Dr. Williams",
-            clinic: "Happy Paws Veterinary",
-            diagnosis: "Mild tartar buildup",
-            treatment: "Dental cleaning",
-            notes: "Teeth cleaning and check",
-            files: ["dental_report_jan2024.pdf", "dental_xrays_jan2024.zip"],
-        },
-        {
-            id: 4,
-            date: "2023-12-05",
-            type: "Illness",
-            doctor: "Dr. Smith",
-            clinic: "Happy Paws Veterinary",
-            diagnosis: "Mild digestive upset",
-            treatment: "Prescription diet for 7 days",
-            notes: "Likely caused by dietary indiscretion",
-            files: ["treatment_plan_dec2023.pdf"],
-        },
-    ]
-    const vaccinations = [
-        {
-            id: 1,
-            name: "Rabies",
-            lastDate: "2023-08-15",
-            nextDue: "2024-08-15",
-            status: "Up to date",
-            provider: "Dr. Smith",
-        },
-        {
-            id: 2,
-            name: "DHPP",
-            lastDate: "2023-06-10",
-            nextDue: "2024-06-10",
-            status: "Up to date",
-            provider: "Dr. Johnson",
-        },
-        {
-            id: 3,
-            name: "Bordetella",
-            lastDate: "2023-11-20",
-            nextDue: "2024-03-15",
-            status: "Due soon",
-            provider: "Dr. Williams",
-        },
-        {
-            id: 4,
-            name: "Leptospirosis",
-            lastDate: "2023-05-05",
-            nextDue: "2024-05-05",
-            status: "Up to date",
-            provider: "Dr. Smith",
-        },
-    ]
+const HealthRecords = ({ petId }) => {
     const allergies = [
         { title: "Chicken", description: "Food allergy - Causes mild skin irritation" },
         { title: "Certain Grasses", description: "Environmental - Seasonal symptoms" },
@@ -112,7 +35,7 @@ const HealthRecords = ({ }) => {
                             </Button>
                             {medicalRecordPopup && (
                                 <ModalPopup isOpen={medicalRecordPopup} onClose={() => setMedicalRecordPopup(false)} title={"Add Medical Record"} icon={<Stethoscope />}>
-
+                                    <AddMedicalRecord petId={petId} onClose={() => setMedicalRecordPopup(false)} />
                                 </ModalPopup>
                             )}
                         </>
@@ -125,7 +48,7 @@ const HealthRecords = ({ }) => {
                                 </Button>
                                 {vaccinationPopup && (
                                     <ModalPopup isOpen={vaccinationPopup} onClose={() => setVaccinationPopup(false)} title={"Add Vaccination"} icon={<Syringe />}>
-
+                                        <AddVaccination petId={petId} onClose={() => setVaccinationPopup(false)} />
                                     </ModalPopup>
                                 )}
                             </>
@@ -162,111 +85,10 @@ const HealthRecords = ({ }) => {
                 </button>
             </div>
             {activeHealthRecordsTab === "medical-records" && (
-                <div className='border rounded-md bg-white overflow-x-auto'>
-                    {/* <h3 className='font-medium text-lg mb-5'>Medical Records</h3> */}
-                    <table className="w-full border-collapse p-5">
-                        <thead>
-                            <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
-                                <th className="p-5">Date</th>
-                                <th className="p-5">Type</th>
-                                <th className="p-5">Doctor</th>
-                                <th className="p-5">Diagnosis</th>
-                                <th className="p-5">Treatment</th>
-                                <th className="p-5">Files</th>
-                                <th className="p-5 text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody className="">
-                            {medicalRecords.slice(0, 3).map((record, index) => (
-                                <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
-                                    <td className="p-5 text-sm">{record.date}</td>
-                                    <td className="p-5 text-sm">{record.type}</td>
-                                    <td className="p-5 text-sm">{record.doctor}</td>
-                                    <td className="p-5 text-sm">{record.diagnosis}</td>
-                                    <td className="p-5 text-sm">{record.treatment}</td>
-                                    <td className="p-5 text-sm">
-                                        {/* {record.files.map(file => file)} */}
-                                        <HiOutlineDocumentText className='text-base' />
-                                    </td>
-                                    <td className="p-5 text-sm flex justify-end">
-                                        <span className='relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiEllipsisVertical className='text-xl text-gray-800' />
-                                            <Actions
-                                                actions={[
-                                                    {
-                                                        label: "View Details",
-                                                        icon: <HiOutlineInformationCircle />,
-                                                        // onClick: () => handleView(med),
-                                                    },
-                                                    {
-                                                        label: "Edit",
-                                                        icon: <HiOutlinePencilAlt />,
-                                                        // onClick: () => handleEdit(med),
-                                                    },
-                                                    {
-                                                        label: "Delete",
-                                                        icon: <HiOutlineTrash />,
-                                                        // onClick: () => handleDelete(med._id),
-                                                    }
-                                                ]}
-                                            />
-                                        </span>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                <MedicalHistory petId={petId} />
             )}
             {activeHealthRecordsTab === "vaccinations" && (
-                <div className='border rounded-md bg-white overflow-x-auto'>
-                    {/* <h3 className='font-medium text-lg mb-5'>Vaccinations</h3> */}
-                    <table className="w-full border-collapse ">
-                        <thead>
-                            <tr className="text-left text-xs md:text-sm text-gray-500 border-b">
-                                <th className="p-5">Vaccine</th>
-                                <th className="p-5">Date Given</th>
-                                <th className="p-5">Next Due</th>
-                                <th className="p-5">Status</th>
-                                <th className="p-5">Provider</th>
-                                <th className="p-5 text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody className="">
-                            {vaccinations.slice(0, 3).map((vaccine, index) => (
-                                <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
-                                    <td className="p-5 text-sm">{vaccine.name}</td>
-                                    <td className="p-5 text-sm">{vaccine.lastDate}</td>
-                                    <td className="p-5 text-sm">{vaccine.nextDue}</td>
-                                    <td className="p-5 text-sm">{vaccine.status}</td>
-                                    <td className="p-5 text-sm">{vaccine.provider}</td>
-                                    <td className="p-5 text-sm flex justify-end">
-                                        <span className='relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiEllipsisVertical className='text-xl text-gray-800' />
-                                            <Actions
-                                                actions={[
-                                                    {
-                                                        label: "View Details",
-                                                        icon: <HiOutlineInformationCircle />,
-                                                        // onClick: () => handleView(med),
-                                                    },
-                                                    {
-                                                        label: "Edit",
-                                                        icon: <HiOutlinePencilAlt />,
-                                                        // onClick: () => handleEdit(med),
-                                                    },
-                                                    {
-                                                        label: "Delete",
-                                                        icon: <HiOutlineTrash />,
-                                                        // onClick: () => handleDelete(med._id),
-                                                    }
-                                                ]}
-                                            />
-                                        </span>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                <Vaccinations petId={petId} />
             )}
             {activeHealthRecordsTab === "allergies-conditions" && (
                 <div className='bg-white rounded-md border p-4'>
