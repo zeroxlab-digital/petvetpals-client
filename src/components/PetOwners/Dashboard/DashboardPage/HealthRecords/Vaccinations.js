@@ -25,7 +25,7 @@ const Vaccinations = ({ petId }) => {
                     </tr>
                 </thead>
                 <tbody className="">
-                    {vaccinations.slice(0, 3).map((vaccine, index) => (
+                    {vaccinations.map((vaccine, index) => (
                         <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
                             <td className="px-5 py-3 text-sm">{displayValue(vaccine.vaccine)}</td>
                             <td className="px-5 py-3 text-sm">{displayValue(new Date(vaccine.date_given).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }))}</td>
