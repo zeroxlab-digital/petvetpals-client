@@ -262,7 +262,7 @@ const Medications = ({ petId }) => {
                     )
             )}
             {/* ---------------- Schedule & Reminders ---------------- */}
-            <ScheduleAndReminders activeTab={activeTab} />
+            <ScheduleAndReminders activeTab={activeTab} petId={petId} />
         </div>
     );
 };

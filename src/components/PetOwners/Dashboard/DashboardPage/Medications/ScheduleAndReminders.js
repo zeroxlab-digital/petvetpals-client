@@ -1,38 +1,15 @@
+import React from 'react';
 import Actions from '@/components/Common/Actions/Actions';
-import React, { useState } from 'react';
+import { useGetScheduledRemindersQuery } from '@/redux/services/petApi';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { HiEllipsisVertical, HiOutlineCheckCircle, HiOutlineTrash } from 'react-icons/hi2';
+import { displayValue } from '@/utils/displayValue';
+import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 
-const ScheduleAndReminders = ({ activeTab }) => {
-    const [scheduledDoses, setScheduledDoses] = useState([
-        {
-            id: 101,
-            medicationName: "Heartworm Prevention",
-            date: "2024-03-15",
-            timeOfDay: "1:00 PM",
-            dosage: "1 tablet",
-            instructions: "Give with food so much that it starts to cry",
-            isGiven: false
-        },
-        {
-            id: 102,
-            medicationName: "Heartworm Prevention",
-            date: "2024-03-15",
-            timeOfDay: "9:30 AM",
-            dosage: "1 tablet",
-            instructions: "Give with food",
-            isGiven: false
-        },
-        {
-            id: 103,
-            medicationName: "Heartworm Prevention",
-            date: "2024-03-15",
-            timeOfDay: "7:00 PM",
-            dosage: "1 tablet",
-            instructions: "Give with food",
-            isGiven: false
-        },
-    ]);
+const ScheduleAndReminders = ({ activeTab, petId }) => {
+    const { data, isLoading, isError } = useGetScheduledRemindersQuery({ petId });
+    const scheduledMedications = data?.scheduledReminders || [];
+    if (isLoading) return <div><PetSpinner /></div>
     return (
         <>
             {activeTab === "schedule-reminders" && (
@@ -49,56 +26,41 @@ const ScheduleAndReminders = ({ activeTab }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {scheduledDoses.map(dose => (
-                                <tr key={dose.id} className="border-b last:border-none hover:bg-gray-50">
-                                    <td className="p-5 text-sm">{dose.medicationName}</td>
-                                    <td className="p-5 text-sm">{dose.timeOfDay} <span className='text-xs text-gray-800'>/ daily</span></td>
-                                    <td className="p-5 text-sm">{dose.dosage}</td>
-                                    <td className="p-5 text-sm">{new Date(dose.date).toLocaleDateString('en-US', { month: '2-digit', day: 'numeric' })}-{new Date(dose.date).toLocaleDateString('en-US', { month: '2-digit', day: 'numeric' })}</td>
-                                    <td className="p-5 text-sm">{dose.instructions}</td>
-                                    {/* <td className="p-5 text-sm flex justify-end space-x-4"> */}
-                                        {/* <button
-                                            className={`px-3 py-1 text-xs rounded-full font-medium ${dose.isGiven ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}
-                                        >
-                                            {dose.isGiven ? 'Given' : 'Mark as Given'}
-                                        </button>
-                                        <button
-                                        >
-                                            <HiOutlinePencilAlt className='text-blue-500 hover:text-blue-600 text-2xl' />
-                                        </button>
-                                        <button
-                                        >
-                                            <HiOutlineTrash className='text-red-500 hover:text-red-600 text-2xl' />
-                                        </button> */}
-                                        <td className="px-5 py-3 text-sm flex justify-end  "><span className='relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiEllipsisVertical className='text-xl text-gray-800' />
-                                            <Actions
-                                                actions={[
-                                                    // {
-                                                    //     label: "View Details",
-                                                    //     icon: <HiOutlineInformationCircle />,
-                                                    //     onClick: () => handleView(med),
-                                                    // },
-                                                    {
-                                                        label: "Mark as Given",
-                                                        icon: <HiOutlineCheckCircle />,
-                                                        // onClick: () => handleMarkComplete(med._id),
-                                                    },
-                                                    {
-                                                        label: "Edit",
-                                                        icon: <HiOutlinePencilAlt />,
-                                                        // onClick: () => handleEdit(med),
-                                                    },
-                                                    {
-                                                        label: "Delete",
-                                                        icon: <HiOutlineTrash />,
-                                                        // onClick: () => handleDelete(med._id),
-                                                    },
-                                                    
-                                                ]}
-                                            />
-                                        </span>
-                                        </td>
-                                    {/* </td> */}
+                            {scheduledMedications.map(dose => (
+                                <tr key={dose._id} className="border-b last:border-none hover:bg-gray-50">
+                                    <td className="p-5 text-sm">{displayValue(dose.medication.medication)}</td>
+                                    <td className="p-5 text-sm">{displayValue(dose.reminder_time)} <span className='text-xs text-gray-800'>/ daily</span></td>
+                                    <td className="p-5 text-sm">{displayValue(dose.medication.dosage)}</td>
+                                    <td className="p-5 text-sm">{new Date(dose.starting_date).toLocaleDateString('en-US', { month: '2-digit', day: 'numeric' })}-{new Date(dose.end_date).toLocaleDateString('en-US', { month: '2-digit', day: 'numeric' })}</td>
+                                    <td className="p-5 text-sm">{displayValue(dose.instructions)}</td>
+                                    <td className="px-5 py-3 text-sm flex justify-end  "><span className='relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiEllipsisVertical className='text-xl text-gray-800' />
+                                        <Actions
+                                            actions={[
+                                                // {
+                                                //     label: "View Details",
+                                                //     icon: <HiOutlineInformationCircle />,
+                                                //     onClick: () => handleView(med),
+                                                // },
+                                                {
+                                                    label: "Mark as Given",
+                                                    icon: <HiOutlineCheckCircle />,
+                                                    // onClick: () => handleMarkComplete(med._id),
+                                                },
+                                                {
+                                                    label: "Edit",
+                                                    icon: <HiOutlinePencilAlt />,
+                                                    // onClick: () => handleEdit(med),
+                                                },
+                                                {
+                                                    label: "Delete",
+                                                    icon: <HiOutlineTrash />,
+                                                    // onClick: () => handleDelete(med._id),
+                                                },
+
+                                            ]}
+                                        />
+                                    </span>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
