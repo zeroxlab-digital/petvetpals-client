@@ -20,19 +20,20 @@ const AllergiesConditions = ({ petId }) => {
 
     const [deleteAllergyCondition, { }] = useDeleteAllergyConditionMutation();
     const handleDelete = async (id, type) => {
-        try {
-            const res = await deleteAllergyCondition({ id, type }).unwrap();
-            if (res.success) {
-                refetch();
-                if (type === 'allergy') {
-                    toast.success('Allergy deleted successfully', { autoClose: 1000 });
-                } else {
-                    toast.success('Condition deleted successfully', { autoClose: 1000 });
+        if (window.confirm(`Are you sure you want to delete this ${type}`))
+            try {
+                const res = await deleteAllergyCondition({ id, type }).unwrap();
+                if (res.success) {
+                    refetch();
+                    if (type === 'allergy') {
+                        toast.success('Allergy deleted successfully', { autoClose: 1000 });
+                    } else {
+                        toast.success('Condition deleted successfully', { autoClose: 1000 });
+                    }
                 }
+            } catch (err) {
+                console.error("Error deleting allergy/condition:", err);
             }
-        } catch (err) {
-            console.error("Error deleting allergy/condition:", err);
-        }
     }
 
     if (isLoading) return <PetSpinner />;

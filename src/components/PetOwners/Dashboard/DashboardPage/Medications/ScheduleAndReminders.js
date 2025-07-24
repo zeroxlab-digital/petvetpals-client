@@ -4,9 +4,9 @@ import { HiOutlineTrash } from 'react-icons/hi2';
 
 const ScheduleAndReminders = ({ activeTab, scheduledDoses }) => {
     return (
-        <div>
+        <>
             {activeTab === "schedule-reminders" && (
-                <div className='border rounded-md bg-white overflow-x-auto'>
+                <div className='h-screen border rounded-md bg-white overflow-x-auto'>
                     <table className="w-full border-collapse p-5">
                         <thead>
                             <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
@@ -47,7 +47,7 @@ const ScheduleAndReminders = ({ activeTab, scheduledDoses }) => {
                     </table>
                 </div>
             )}
-        </div>
+        </>
     );
 };
 
