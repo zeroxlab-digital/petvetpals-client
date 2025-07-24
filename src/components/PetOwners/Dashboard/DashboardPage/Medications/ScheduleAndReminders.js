@@ -1,6 +1,7 @@
+import Actions from '@/components/Common/Actions/Actions';
 import React, { useState } from 'react';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
-import { HiOutlineTrash } from 'react-icons/hi2';
+import { HiEllipsisVertical, HiOutlineCheckCircle, HiOutlineTrash } from 'react-icons/hi2';
 
 const ScheduleAndReminders = ({ activeTab }) => {
     const [scheduledDoses, setScheduledDoses] = useState([
@@ -10,7 +11,7 @@ const ScheduleAndReminders = ({ activeTab }) => {
             date: "2024-03-15",
             timeOfDay: "1:00 PM",
             dosage: "1 tablet",
-            instructions: "Give with food",
+            instructions: "Give with food so much that it starts to cry",
             isGiven: false
         },
         {
@@ -55,8 +56,8 @@ const ScheduleAndReminders = ({ activeTab }) => {
                                     <td className="p-5 text-sm">{dose.dosage}</td>
                                     <td className="p-5 text-sm">{new Date(dose.date).toLocaleDateString('en-US', { month: '2-digit', day: 'numeric' })}-{new Date(dose.date).toLocaleDateString('en-US', { month: '2-digit', day: 'numeric' })}</td>
                                     <td className="p-5 text-sm">{dose.instructions}</td>
-                                    <td className="p-5 text-sm flex justify-end space-x-4">
-                                        <button
+                                    {/* <td className="p-5 text-sm flex justify-end space-x-4"> */}
+                                        {/* <button
                                             className={`px-3 py-1 text-xs rounded-full font-medium ${dose.isGiven ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}
                                         >
                                             {dose.isGiven ? 'Given' : 'Mark as Given'}
@@ -68,8 +69,36 @@ const ScheduleAndReminders = ({ activeTab }) => {
                                         <button
                                         >
                                             <HiOutlineTrash className='text-red-500 hover:text-red-600 text-2xl' />
-                                        </button>
-                                    </td>
+                                        </button> */}
+                                        <td className="px-5 py-3 text-sm flex justify-end  "><span className='relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiEllipsisVertical className='text-xl text-gray-800' />
+                                            <Actions
+                                                actions={[
+                                                    // {
+                                                    //     label: "View Details",
+                                                    //     icon: <HiOutlineInformationCircle />,
+                                                    //     onClick: () => handleView(med),
+                                                    // },
+                                                    {
+                                                        label: "Mark as Given",
+                                                        icon: <HiOutlineCheckCircle />,
+                                                        // onClick: () => handleMarkComplete(med._id),
+                                                    },
+                                                    {
+                                                        label: "Edit",
+                                                        icon: <HiOutlinePencilAlt />,
+                                                        // onClick: () => handleEdit(med),
+                                                    },
+                                                    {
+                                                        label: "Delete",
+                                                        icon: <HiOutlineTrash />,
+                                                        // onClick: () => handleDelete(med._id),
+                                                    },
+                                                    
+                                                ]}
+                                            />
+                                        </span>
+                                        </td>
+                                    {/* </td> */}
                                 </tr>
                             ))}
                         </tbody>
