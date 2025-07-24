@@ -74,8 +74,16 @@ export const petApi = createApi({
                 params: { petId }
             }),
             providesTags: ["Pet"]
-        })
-        ,
+        }),
+        addMedScheduleReminder: build.mutation({
+            query: ({ petId, formData }) => ({
+                url: '/medications/add-schedule-reminder',
+                method: 'POST',
+                params: { petId },
+                body: { ...formData },
+            }),
+            invalidatesTags: ['Pet'],
+        }),
         getMedicalHistory: build.query({
             query: ({ petId }) => ({
                 url: '/health-record/get-medical-history',
@@ -152,4 +160,4 @@ export const petApi = createApi({
     })
 })
 
-export const { useGetPetsQuery, useAddPetMutation, useUpdateAPetMutation, useGetMedicationsQuery, useAddMedicationMutation, useUpdateMedicationMutation, useDeleteMedicationMutation, useGetScheduledRemindersQuery, useGetMedicalHistoryQuery, useAddMedicalHistoryMutation, useDeleteMedicalHistoryMutation, useGetVaccinationsQuery, useAddVaccinationMutation, useDeleteVaccinationMutation, useAddAllergyConditionMutation, useGetAllergiesConditionsQuery, useDeleteAllergyConditionMutation } = petApi;
+export const { useGetPetsQuery, useAddPetMutation, useUpdateAPetMutation, useGetMedicationsQuery, useAddMedicationMutation, useUpdateMedicationMutation, useDeleteMedicationMutation, useGetScheduledRemindersQuery, useAddMedScheduleReminderMutation, useGetMedicalHistoryQuery, useAddMedicalHistoryMutation, useDeleteMedicalHistoryMutation, useGetVaccinationsQuery, useAddVaccinationMutation, useDeleteVaccinationMutation, useAddAllergyConditionMutation, useGetAllergiesConditionsQuery, useDeleteAllergyConditionMutation } = petApi;
