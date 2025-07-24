@@ -32,7 +32,7 @@ const ScheduleAndReminders = ({ activeTab, petId }) => {
                                     <td className="p-5 text-sm">{displayValue(dose.reminder_time)} <span className='text-xs text-gray-800'>/ daily</span></td>
                                     <td className="p-5 text-sm">{displayValue(dose.medication.dosage)}</td>
                                     <td className="p-5 text-sm">{new Date(dose.starting_date).toLocaleDateString('en-US', { month: '2-digit', day: 'numeric' })}-{new Date(dose.end_date).toLocaleDateString('en-US', { month: '2-digit', day: 'numeric' })}</td>
-                                    <td className="p-5 text-sm">{displayValue(dose.instructions)}</td>
+                                    <td className="p-5 text-sm">{displayValue(dose.medication.instructions)}</td>
                                     <td className="px-5 py-3 text-sm flex justify-end  "><span className='relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiEllipsisVertical className='text-xl text-gray-800' />
                                         <Actions
                                             actions={[

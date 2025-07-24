@@ -99,7 +99,7 @@ const Medications = ({ petId }) => {
                             </Button>
                         </div>
                         <ModalPopup isOpen={openPopup} onClose={() => setOpenPopup(false)} title={"Schedule Medication"} icon={<HiClock />}>
-                            <ScheduleMedication onClose={() => setOpenPopup(false)} ongoingMedications={ongoingMedications} />
+                            <ScheduleMedication onClose={() => setOpenPopup(false)} ongoingMedications={ongoingMedications} petId={petId} />
                         </ModalPopup>
                     </>
                 )}
