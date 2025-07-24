@@ -1,14 +1,25 @@
 import React from 'react';
 import Actions from '@/components/Common/Actions/Actions';
-import { useGetScheduledRemindersQuery } from '@/redux/services/petApi';
+import { useDeleteMedScheduledReminderMutation, useGetScheduledRemindersQuery } from '@/redux/services/petApi';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { HiEllipsisVertical, HiOutlineCheckCircle, HiOutlineTrash } from 'react-icons/hi2';
 import { displayValue } from '@/utils/displayValue';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
+import { toast } from 'react-toastify';
 
 const ScheduleAndReminders = ({ activeTab, petId }) => {
     const { data, isLoading, isError } = useGetScheduledRemindersQuery({ petId });
+    const [deleteMedScheduledReminder, {  }] = useDeleteMedScheduledReminderMutation();
     const scheduledMedications = data?.scheduledReminders || [];
+    const handleDelete = async (id) => {
+        try {
+            const res = await deleteMedScheduledReminder({ id});
+            toast.success("Reminder deleted successfully!", { autoClose: 1000 });
+        } catch(error) {
+            console.log(error)
+            toast.error("Reminder did not delete!", { autoClose: 1000 });
+        }
+    }
     if (isLoading) return <div><PetSpinner /></div>
     return (
         <>
@@ -54,7 +65,7 @@ const ScheduleAndReminders = ({ activeTab, petId }) => {
                                                 {
                                                     label: "Delete",
                                                     icon: <HiOutlineTrash />,
-                                                    // onClick: () => handleDelete(med._id),
+                                                    onClick: () => handleDelete(dose._id),
                                                 },
 
                                             ]}
