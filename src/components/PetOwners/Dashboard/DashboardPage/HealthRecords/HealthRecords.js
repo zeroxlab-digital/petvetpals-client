@@ -8,21 +8,15 @@ import MedicalHistory from './MedicalHistory';
 import Vaccinations from './Vaccinations';
 import AddMedicalRecord from './AddMedicalRecord';
 import AddVaccination from './AddVaccination';
+import AllergiesConditions from './AllergiesConditions';
 
 const HealthRecords = ({ petId }) => {
-    const allergies = [
-        { title: "Chicken", description: "Food allergy - Causes mild skin irritation" },
-        { title: "Certain Grasses", description: "Environmental - Seasonal symptoms" },
-    ]
-    const medical_conditions = [
-        { title: "Mild Hip Dysplasia", description: "Diagnosed on 2023-05-10 - Managed with supplements" }
-    ]
+    
     const [activeHealthRecordsTab, setActiveHealthRecordTab] = useState("medical-records");
 
     const [medicalRecordPopup, setMedicalRecordPopup] = useState(false);
     const [vaccinationPopup, setVaccinationPopup] = useState(false);
-    const [allergyPopup, setAllergyPopup] = useState(false);
-    const [conditionPopup, setConditionPopup] = useState(false);
+
     return (
         <div className='space-y-5'>
             <div className='flex items-center justify-between'>
@@ -91,55 +85,7 @@ const HealthRecords = ({ petId }) => {
                 <Vaccinations petId={petId} />
             )}
             {activeHealthRecordsTab === "allergies-conditions" && (
-                <div className='bg-white rounded-md border p-4'>
-                    <h2 className='text-xl mb-1 font-medium'>Allergies & Medical Conditions</h2>
-                    <p className='text-gray-600 text-sm'>Manage your pet&apos;s allergies and ongoing conditions</p>
-                    <div className='mt-8 space-y-5'>
-                        <div>
-                            <h4 className='font-medium mb-2'>Known Allergies</h4>
-                            <ul className='space-y-3 mb-5'>
-                                {allergies.map((allergy, index) => <li key={index} className='border p-3 rounded-md flex items-center justify-between'>
-                                    <div>
-                                        <h6 className='font-semibold text-sm'>{allergy.title}</h6>
-                                        <p className='text-gray-600 text-sm'>{allergy.description}</p>
-                                    </div>
-                                    <div className='flex item-center gap-2 max-sm:gap-0'>
-                                        <Button size={'small'}><HiOutlinePencilAlt className='text-primary text-xl' /></Button>
-                                        <Button size={'small'}><HiOutlineTrash className='text-primary text-xl' /></Button>
-                                    </div>
-                                </li>)}
-                            </ul>
-                            <Button onClick={() => setAllergyPopup(true)} variant={'primary'} size={'small'} classNames={'text-sm border !px-3 !py-2 rounded-md font-medium'}><HiPlus className='text-lg' /> Add Allergy</Button>
-                            {allergyPopup && (
-                                <ModalPopup isOpen={allergyPopup} onClose={() => setAllergyPopup(false)} title={"Add Allergy"} icon={<Stethoscope />}>
-
-                                </ModalPopup>
-                            )}
-                        </div>
-                        <hr />
-                        <div>
-                            <h4 className='font-medium mb-2'>Medical Conditions</h4>
-                            <ul className='space-y-3 mb-5'>
-                                {medical_conditions.map((condition, index) => <li key={index} className='border p-3 rounded-md flex items-center justify-between'>
-                                    <div>
-                                        <h6 className='font-semibold text-sm'>{condition.title}</h6>
-                                        <p className='text-gray-600 text-sm'>{condition.description}</p>
-                                    </div>
-                                    <div className='flex item-center gap-2 max-sm:gap-0'>
-                                        <Button size={'small'}><HiOutlinePencilAlt className='text-primary text-xl' /></Button>
-                                        <Button size={'small'}><HiOutlineTrash className='text-primary text-xl' /></Button>
-                                    </div>
-                                </li>)}
-                            </ul>
-                            <Button onClick={() => setConditionPopup(true)} variant={'primary'} size={'small'} classNames={'text-sm border !px-3 !py-2 rounded-md font-medium'}><HiPlus className='text-lg' /> Add Condition</Button>
-                            {conditionPopup && (
-                                <ModalPopup isOpen={conditionPopup} onClose={() => setConditionPopup(false)} title={"Add Condition"} icon={<Stethoscope />}>
-
-                                </ModalPopup>
-                            )}
-                        </div>
-                    </div>
-                </div>
+                <AllergiesConditions petId={petId} />
             )}
         </div>
     );

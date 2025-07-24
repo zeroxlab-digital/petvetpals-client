@@ -99,8 +99,31 @@ export const petApi = createApi({
                 body: {...vaccinationData}
             }),
             invalidatesTags: ["Pet"]
+        }),
+        getAllergiesConditions: build.query({
+            query: ({ petId}) => ({
+                url: '/health-record/get-allergies-conditions',
+                params: { petId }
+            }),
+            providesTags: ["Pet"]
+        }),
+        addAllergyCondition: build.mutation({
+            query: ({ petId, data}) => ({
+                url: '/health-record/add-allergy-condition',
+                method: "POST",
+                params: { petId },
+                body: data
+            })
+        }),
+        deleteAllergyCondition: build.mutation({
+            query: ({ id, type }) => ({
+                url: `/health-record/delete-allergy-condition`,
+                params: { id },
+                method: "DELETE",
+                body: { type } // type can be 'allergy' or 'condition'
+            })
         })
     })
 })
 
-export const { useGetPetsQuery, useAddPetMutation, useUpdateAPetMutation, useGetMedicationsQuery, useAddMedicationMutation, useUpdateMedicationMutation, useDeleteMedicationMutation, useGetMedicalHistoryQuery, useAddMedicalHistoryMutation, useGetVaccinationsQuery, useAddVaccinationMutation } = petApi;
+export const { useGetPetsQuery, useAddPetMutation, useUpdateAPetMutation, useGetMedicationsQuery, useAddMedicationMutation, useUpdateMedicationMutation, useDeleteMedicationMutation, useGetMedicalHistoryQuery, useAddMedicalHistoryMutation, useGetVaccinationsQuery, useAddVaccinationMutation, useAddAllergyConditionMutation, useGetAllergiesConditionsQuery, useDeleteAllergyConditionMutation } = petApi;
