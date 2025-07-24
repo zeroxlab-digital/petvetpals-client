@@ -25,7 +25,7 @@ const Vaccinations = ({ petId }) => {
     if (isLoading) return <div><PetSpinner /></div>
     if (vaccinations.length < 1) return <div>No vaccination found!</div>
     return (
-        <div className='border rounded-md bg-white overflow-x-auto'>
+        <div className='h-screen border rounded-md bg-white overflow-x-auto'>
             <table className="w-full border-collapse ">
                 <thead>
                     <tr className="text-left text-xs md:text-sm text-gray-500 border-b">
