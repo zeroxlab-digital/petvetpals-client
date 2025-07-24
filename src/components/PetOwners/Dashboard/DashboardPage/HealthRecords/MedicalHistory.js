@@ -1,14 +1,27 @@
 import Actions from '@/components/Common/Actions/Actions';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
-import { useGetMedicalHistoryQuery } from '@/redux/services/petApi';
+import { useDeleteMedicalHistoryMutation, useGetMedicalHistoryQuery } from '@/redux/services/petApi';
 import { displayValue } from '@/utils/displayValue';
+import { Download } from 'lucide-react';
 import React from 'react';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { HiEllipsisVertical, HiOutlineDocumentText, HiOutlineInformationCircle, HiOutlineTrash } from 'react-icons/hi2';
+import { toast } from 'react-toastify';
 
 const MedicalHistory = ({ petId }) => {
     const { data, isLoading, error } = useGetMedicalHistoryQuery({ petId });
     const medicalHistory = data?.medicalHistory || [];
+    const [deleteMedicalHistory, {}] = useDeleteMedicalHistoryMutation();
+    const handleDelete = async (medicalHistoryId) => {
+        if(window.confirm("Are you sure you want to delete this medical history?"))
+            try {
+                await deleteMedicalHistory({medicalHistoryId}).unwrap();
+                toast.success("Medical history is deleted successfully!", { autoClose: 1000 });
+            } catch (error) {
+                console.log(error);
+                toast.error("There was an error while deleting this record!", { autoClose: 1000 })
+            }
+    }
     if (isLoading) return <div><PetSpinner /></div>
     if (medicalHistory.length < 1) return <div>No medical history found!</div>
     return (
@@ -36,7 +49,8 @@ const MedicalHistory = ({ petId }) => {
                             <td className="px-5 py-3 text-sm">
                                 <HiOutlineDocumentText className='text-base' />
                             </td>
-                            <td className="px-5 py-3 text-sm flex justify-end">
+                            <td className="px-5 py-3 text-sm flex gap-1 justify-end">
+                                <span className='relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><Download size={16} className=' text-gray-800' /></span>
                                 <span className='relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center'><HiEllipsisVertical className='text-xl text-gray-800' />
                                     <Actions
                                         actions={[
@@ -53,7 +67,7 @@ const MedicalHistory = ({ petId }) => {
                                             {
                                                 label: "Delete",
                                                 icon: <HiOutlineTrash />,
-                                                // onClick: () => handleDelete(med._id),
+                                                onClick: () => handleDelete(record._id),
                                             }
                                         ]}
                                     />
