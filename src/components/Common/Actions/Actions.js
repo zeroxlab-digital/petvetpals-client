@@ -37,7 +37,7 @@ const Actions = ({ actions = [] }) => {
                 action.onClick();
                 setOpen(false); // close menu after action
               }}
-              className="flex items-center gap-2 w-full text-left px-3 py-[10px] text-sm hover:bg-gray-100 transition"
+              className="flex items-center gap-2 w-full text-left px-3 py-3 text-sm hover:bg-gray-100 transition font-medium text-gray-900"
             >
                 {action.icon && <span className="text-lg text-primary">{action.icon}</span>}
               {action.label}
