@@ -82,35 +82,7 @@ const Medications = ({ petId }) => {
         }
     };
 
-    const [scheduledDoses, setScheduledDoses] = useState([
-        {
-            id: 101,
-            medicationName: "Heartworm Prevention",
-            date: "2024-03-15",
-            timeOfDay: "Morning",
-            dosage: "1 tablet",
-            instructions: "Give with food",
-            isGiven: false
-        },
-        {
-            id: 102,
-            medicationName: "Heartworm Prevention",
-            date: "2024-03-15",
-            timeOfDay: "Morning",
-            dosage: "1 tablet",
-            instructions: "Give with food",
-            isGiven: false
-        },
-        {
-            id: 103,
-            medicationName: "Heartworm Prevention",
-            date: "2024-03-15",
-            timeOfDay: "Morning",
-            dosage: "1 tablet",
-            instructions: "Give with food",
-            isGiven: false
-        },
-    ]);
+    
 
     return (
         <div className='space-y-5 h-screen'>
@@ -290,7 +262,7 @@ const Medications = ({ petId }) => {
                     )
             )}
             {/* ---------------- Schedule & Reminders ---------------- */}
-            <ScheduleAndReminders activeTab={activeTab} scheduledDoses={scheduledDoses} />
+            <ScheduleAndReminders activeTab={activeTab} />
         </div>
     );
 };

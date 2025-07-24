@@ -41,7 +41,7 @@ const ScheduleMedication = ({ onClose, ongoingMedications }) => {
                 <div className='grid grid-cols-2 gap-3 max-md:grid-cols-1 my-3'>
                     <div>
                         <Label htmlFor="startDate">Starting date</Label>
-                        <Input id="startDate" type="date" placeholder="Date of start" required
+                        <Input id="startDate" type="date" placeholder="Date of start"
                         // name="startDate"
                         // onChange={(e) => setMedicationData({ ...medicationData, start_date: e.target.value })}
                         />
@@ -56,7 +56,7 @@ const ScheduleMedication = ({ onClose, ongoingMedications }) => {
                 </div>
                 <div>
                     <Label htmlFor="time">Reminder time</Label>
-                    <Input id="time" type="time" placeholder="Reminder time" required
+                    <Input id="time" type="time" placeholder="Reminder time"
                     // name="reminder_time"
                     // onChange={(e) => setMedicationData({ ...medicationData, reminder_time: e.target.value })}
                     />
