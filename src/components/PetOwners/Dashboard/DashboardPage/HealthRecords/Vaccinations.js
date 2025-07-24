@@ -1,14 +1,27 @@
 import Actions from '@/components/Common/Actions/Actions';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
-import { useGetVaccinationsQuery } from '@/redux/services/petApi';
+import { useDeleteVaccinationMutation, useGetVaccinationsQuery } from '@/redux/services/petApi';
 import { displayValue } from '@/utils/displayValue';
 import React from 'react';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { HiEllipsisVertical, HiOutlineDocumentText, HiOutlineInformationCircle, HiOutlineTrash } from 'react-icons/hi2';
+import { toast } from 'react-toastify';
 
 const Vaccinations = ({ petId }) => {
     const { data, isLoading, error } = useGetVaccinationsQuery({ petId });
+    const [deleteVaccination, { isError }] = useDeleteVaccinationMutation();
     const vaccinations = data?.vaccinations || [];
+    const handleDelete = async (vaccinationId) => {
+        if (window.confirm("Are you sure you want to delete this vaccination?")) {
+            try {
+                await deleteVaccination({ vaccinationId }).unwrap();
+                toast.success("Vaccination deleted successfully.", { autoClose: 1000 });
+            } catch (error) {
+                console.error("Failed to delete vaccination:", error);
+                toast.error("Failed to delete vaccination. Please try again.", { autoClose: 1000 });
+            }
+        }
+    }
     if (isLoading) return <div><PetSpinner /></div>
     if (vaccinations.length < 1) return <div>No vaccination found!</div>
     return (
@@ -49,7 +62,7 @@ const Vaccinations = ({ petId }) => {
                                             {
                                                 label: "Delete",
                                                 icon: <HiOutlineTrash />,
-                                                // onClick: () => handleDelete(med._id),
+                                                onClick: () => handleDelete(vaccine._id),
                                             }
                                         ]}
                                     />

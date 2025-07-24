@@ -80,10 +80,19 @@ export const petApi = createApi({
                 url: '/health-record/add-medical-history',
                 method: "POST",
                 params: { petId },
-                body: {...medicalHistoryData}
+                body: { ...medicalHistoryData }
             }),
             invalidatesTags: ["Pet"]
         }),
+        deleteMedicalHistory: build.mutation({
+            query: ({ medicalHistoryId }) => ({
+                url: '/health-record/delete-medical-history',
+                method: "DELETE",
+                params: { id: medicalHistoryId }
+            }),
+            invalidatesTags: ["Pet"]
+        })
+        ,
         getVaccinations: build.query({
             query: ({ petId }) => ({
                 url: '/health-record/get-vaccinations',
@@ -96,19 +105,28 @@ export const petApi = createApi({
                 url: '/health-record/add-vaccination',
                 method: "POST",
                 params: { petId },
-                body: {...vaccinationData}
+                body: { ...vaccinationData }
             }),
             invalidatesTags: ["Pet"]
         }),
+        deleteVaccination: build.mutation({
+            query: ({ vaccinationId }) => ({
+                url: '/health-record/delete-vaccination',
+                method: "DELETE",
+                params: { id: vaccinationId }
+            }),
+            invalidatesTags: ["Pet"]
+        })
+        ,
         getAllergiesConditions: build.query({
-            query: ({ petId}) => ({
+            query: ({ petId }) => ({
                 url: '/health-record/get-allergies-conditions',
                 params: { petId }
             }),
             providesTags: ["Pet"]
         }),
         addAllergyCondition: build.mutation({
-            query: ({ petId, data}) => ({
+            query: ({ petId, data }) => ({
                 url: '/health-record/add-allergy-condition',
                 method: "POST",
                 params: { petId },
@@ -120,10 +138,10 @@ export const petApi = createApi({
                 url: `/health-record/delete-allergy-condition`,
                 params: { id },
                 method: "DELETE",
-                body: { type } // type can be 'allergy' or 'condition'
+                body: { type }
             })
         })
     })
 })
 
-export const { useGetPetsQuery, useAddPetMutation, useUpdateAPetMutation, useGetMedicationsQuery, useAddMedicationMutation, useUpdateMedicationMutation, useDeleteMedicationMutation, useGetMedicalHistoryQuery, useAddMedicalHistoryMutation, useGetVaccinationsQuery, useAddVaccinationMutation, useAddAllergyConditionMutation, useGetAllergiesConditionsQuery, useDeleteAllergyConditionMutation } = petApi;
+export const { useGetPetsQuery, useAddPetMutation, useUpdateAPetMutation, useGetMedicationsQuery, useAddMedicationMutation, useUpdateMedicationMutation, useDeleteMedicationMutation, useGetMedicalHistoryQuery, useAddMedicalHistoryMutation, useDeleteMedicalHistoryMutation, useGetVaccinationsQuery, useAddVaccinationMutation, useDeleteVaccinationMutation, useAddAllergyConditionMutation, useGetAllergiesConditionsQuery, useDeleteAllergyConditionMutation } = petApi;
