@@ -11,11 +11,27 @@ import { toast } from 'react-toastify';
 const MedicalHistory = ({ petId }) => {
     const { data, isLoading, error } = useGetMedicalHistoryQuery({ petId });
     const medicalHistory = data?.medicalHistory || [];
-    const [deleteMedicalHistory, {}] = useDeleteMedicalHistoryMutation();
+    const [deleteMedicalHistory, { }] = useDeleteMedicalHistoryMutation();
+    const handleView = async (medicalHistory) => {
+        try {
+            toast.info("This feature is coming soon!", { autoClose: 1000 })
+        } catch (error) {
+            console.log(error);
+            toast.error("There was an error while trying to edit this!", { autoClose: 1000 })
+        }
+    }
+    const handleEdit = async (id) => {
+        try {
+            toast.info("This feature is coming soon!", { autoClose: 1000 })
+        } catch (error) {
+            console.log(error);
+            toast.error("There was an error while trying to edit this!", { autoClose: 1000 })
+        }
+    }
     const handleDelete = async (medicalHistoryId) => {
-        if(window.confirm("Are you sure you want to delete this medical history?"))
+        if (window.confirm("Are you sure you want to delete this medical history?"))
             try {
-                await deleteMedicalHistory({medicalHistoryId}).unwrap();
+                await deleteMedicalHistory({ medicalHistoryId }).unwrap();
                 toast.success("Medical history is deleted successfully!", { autoClose: 1000 });
             } catch (error) {
                 console.log(error);
@@ -57,12 +73,12 @@ const MedicalHistory = ({ petId }) => {
                                             {
                                                 label: "View Details",
                                                 icon: <HiOutlineInformationCircle />,
-                                                // onClick: () => handleView(med),
+                                                onClick: () => handleView(record),
                                             },
                                             {
                                                 label: "Edit",
                                                 icon: <HiOutlinePencilAlt />,
-                                                // onClick: () => handleEdit(med),
+                                                onClick: () => handleEdit(record._id),
                                             },
                                             {
                                                 label: "Delete",

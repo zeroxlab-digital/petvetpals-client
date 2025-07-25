@@ -46,10 +46,18 @@ const Medications = ({ petId }) => {
         setViewDetails(true);
     };
 
-    const handleEdit = (med) => {
-        setEditingMed(med);
-        setShowEditModal(true);
-    };
+    // const handleEdit = (med) => {
+    //     setEditingMed(med);
+    //     setShowEditModal(true);
+    // };
+    const handleEdit = async (id) => {
+        try {
+            toast.info("This feature is coming soon!", { autoClose: 1000 })
+        } catch (error) {
+            console.log(error);
+            toast.error("There was an error while trying to edit this!", { autoClose: 1000 })
+        }
+    }
 
     const [deleteMedication, { }] = useDeleteMedicationMutation();
     const handleDelete = async (medicationId) => {
@@ -172,12 +180,12 @@ const Medications = ({ petId }) => {
                                                             {
                                                                 label: "View Details",
                                                                 icon: <HiOutlineInformationCircle />,
-                                                                onClick: () => handleView(med),
+                                                                onClick: () => handleView(med._id),
                                                             },
                                                             {
                                                                 label: "Edit",
                                                                 icon: <HiOutlinePencilAlt />,
-                                                                onClick: () => handleEdit(med),
+                                                                onClick: () => handleEdit(med._id),
                                                             },
                                                             {
                                                                 label: "Delete",

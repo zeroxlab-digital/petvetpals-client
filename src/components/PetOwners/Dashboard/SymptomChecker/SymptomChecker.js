@@ -315,11 +315,11 @@ export default function SymptomChecker() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 ">
+    <div className="min-h-screen ">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900 mb-2 flex items-center">
-            Pet Symptom Checker
+            Vet GPT
             <Badge className="ml-3 bg-primary">
               BETA
             </Badge>

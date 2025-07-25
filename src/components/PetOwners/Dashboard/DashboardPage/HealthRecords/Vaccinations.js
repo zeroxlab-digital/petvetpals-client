@@ -11,6 +11,22 @@ const Vaccinations = ({ petId }) => {
     const { data, isLoading, error } = useGetVaccinationsQuery({ petId });
     const [deleteVaccination, { isError }] = useDeleteVaccinationMutation();
     const vaccinations = data?.vaccinations || [];
+    const handleView = async (vaccine) => {
+        try {
+            toast.info("This feature is coming soon!", { autoClose: 1000 })
+        } catch (error) {
+            console.log(error);
+            toast.error("There was an error while trying to edit this!", { autoClose: 1000 })
+        }
+    }
+    const handleEdit = async (id) => {
+        try {
+            toast.info("This feature is coming soon!", { autoClose: 1000 })
+        } catch (error) {
+            console.log(error);
+            toast.error("There was an error while trying to edit this!", { autoClose: 1000 })
+        }
+    }
     const handleDelete = async (vaccinationId) => {
         if (window.confirm("Are you sure you want to delete this vaccination?")) {
             try {
@@ -52,12 +68,12 @@ const Vaccinations = ({ petId }) => {
                                             {
                                                 label: "View Details",
                                                 icon: <HiOutlineInformationCircle />,
-                                                // onClick: () => handleView(med),
+                                                onClick: () => handleView(vaccine),
                                             },
                                             {
                                                 label: "Edit",
                                                 icon: <HiOutlinePencilAlt />,
-                                                // onClick: () => handleEdit(med),
+                                                onClick: () => handleEdit(vaccine._id),
                                             },
                                             {
                                                 label: "Delete",
