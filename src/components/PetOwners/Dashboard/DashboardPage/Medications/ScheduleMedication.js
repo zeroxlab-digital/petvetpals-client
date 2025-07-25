@@ -10,7 +10,7 @@ const ScheduleMedication = ({ onClose, ongoingMedications, petId, refetch }) => 
     const [formData, setFormData] = useState({
         medId: '',
         frequency: '',
-        starting_date: new Date(),
+        starting_date: null,
         end_date: '',
         reminder_time: '',
         remind_before: '10',
@@ -131,7 +131,7 @@ const ScheduleMedication = ({ onClose, ongoingMedications, petId, refetch }) => 
                                 { label: '30 minutes before', value: '30' },
                                 { label: '1 hour before', value: '60' }
                             ]}
-                            default={{ label: '10 minutes before', value: '10' }}
+                            // default={{ label: '10 minutes before', value: '10' }}
                             onChange={(e) => handleChange('remind_before', e.target.value)}
                         />
                     </div>
