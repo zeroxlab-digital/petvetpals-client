@@ -82,18 +82,27 @@ const ScheduleAndReminders = ({ activeTab, petId }) => {
     const handleMarkGiven = async (id) => {
         try {
             const res = await markGivenMedScheduledReminder({ id });
-            toast.success("Medication marked as given!", { autoClose: 100 });
+            toast.success("Medication marked as given!", { autoClose: 1000 });
         } catch (error) {
-            toast.error("Could not mark medication as given!", { autoClose: 100 });
+            toast.error("Could not mark medication as given!", { autoClose: 1000 });
         }
     };
-
-    const handleDelete = async (id) => {
+    const handleEdit = async (id) => {
         try {
-            await deleteMedScheduledReminder({ id });
-            toast.success('Reminder deleted successfully!', { autoClose: 1000 });
+            toast.info("This feature is coming soon!", { autoClose: 1000 })
         } catch (error) {
-            toast.error('Reminder did not delete!', { autoClose: 1000 });
+            console.log(error);
+            toast.error("There was an error while trying to edit this!", { autoClose: 1000 })
+        }
+    }
+    const handleDelete = async (id) => {
+        if (window.confirm("Are you sure you want to remove this reminder?")) {
+            try {
+                await deleteMedScheduledReminder({ id });
+                toast.success('Reminder deleted successfully!', { autoClose: 1000 });
+            } catch (error) {
+                toast.error('Reminder did not delete!', { autoClose: 1000 });
+            }
         }
     };
 
@@ -173,11 +182,12 @@ const ScheduleAndReminders = ({ activeTab, petId }) => {
                                                         onClick: () => handleMarkGiven(dose._id),
                                                     },
                                                     {
-                                                        label: 'Edit',
+                                                        label: 'Edit Reminder',
                                                         icon: <HiOutlinePencilAlt />,
+                                                        onClick: () => handleEdit(dose._id)
                                                     },
                                                     {
-                                                        label: 'Delete',
+                                                        label: 'Delete Reminder',
                                                         icon: <HiOutlineTrash />,
                                                         onClick: () => handleDelete(dose._id),
                                                     },

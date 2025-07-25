@@ -12,9 +12,9 @@ const DashboardSidebar = ({ setResponsiveToggle }) => {
     const links = [
         { title: "Dashboard", link: "/dashboard", icon: <FaHouse /> },
         { title: "Pet Profiles", link: "/dashboard/pets", icon: <FaPaw /> },
+        { title: "Vet GPT", link: "/dashboard/symptom-checker", icon: <FaPills /> },
         { title: "Appointments", link: "/dashboard/appointments", icon: <FaCalendar /> },
         { title: "Messages", link: "/dashboard/messages", icon: <FaRegMessage /> },
-        { title: "Symptom Checker", link: "/dashboard/symptom-checker", icon: <FaPills /> },
         { title: "Wishlist", link: "/dashboard/wishlist", icon: <FaRegHeart /> },
         { title: "Order History", link: "/dashboard/orders", icon: <FaCartShopping /> },
         { title: "User Profile", link: "/dashboard/account", icon: <FaUser /> }
