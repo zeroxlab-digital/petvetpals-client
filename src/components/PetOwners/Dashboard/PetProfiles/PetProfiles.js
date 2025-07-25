@@ -2,30 +2,30 @@
 import Button from '@/components/Common/Button/Button';
 import Image from 'next/image';
 import React, { useState } from 'react';
-import PetProfileModal from './PetProfileModal';
+import PetProfileModal from './AddUpdatePet';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 import { useGetPetsQuery } from '@/redux/services/petApi';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { Dna, Plus, Scale } from 'lucide-react';
+import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
+import { HiPlus } from 'react-icons/hi2';
+import AddUpdatePet from './AddUpdatePet';
 
 const PetProfiles = () => {
     const { data, isLoading, isError, error } = useGetPetsQuery();
 
-    const [petProfile, setPetProfile] = useState({
-        type: '',
-        name: '',
-        image: null,
-        age: 0,
-        breed: '',
-        gender: '',
-        weight: 0,
-    })
-
-    const [modalType, setModalType] = useState(null);
-    const [updatePet, setUpdatePet] = useState(null);
+    const [popup, setPopup] = useState({
+        show: false,
+        type: null,
+        pet: null,
+    });
     const handleShowModal = (type, pet) => {
-        setModalType(type);
-        setUpdatePet(pet);
+        // setUpdatePet(pet);
+        setPopup({
+            show: true,
+            type: type,
+            pet: pet
+        });
     }
     if (isLoading) {
         return <PetSpinner />
@@ -64,7 +64,7 @@ const PetProfiles = () => {
                             </ul>
                             <div className='flex items-center gap-2'>
                                 <Button onClick={() => handleShowModal("update", pet)} variant={"primaryOutline"} classNames={"!w-full text-sm"}><HiOutlinePencilAlt /> Update pet</Button>
-                                <Button variant={"primary"} classNames={"!w-full text-sm"}>View details</Button>
+                                <Button  onClick={() => handleShowModal("details", pet)} variant={"primary"} classNames={"!w-full text-sm"}>View details</Button>
                             </div>
                         </div>
                     </div>
@@ -76,7 +76,21 @@ const PetProfiles = () => {
                     <p className='text-gray-900 text-lg font-semibold mt-4 mb-2'>Add New Pet</p>
                     <p className='text-gray-600'>Create a profile for your new furry family member</p>
                 </button>
-                {modalType && <PetProfileModal modalType={modalType} setModalType={setModalType} petProfile={petProfile} setPetProfile={setPetProfile} updatePet={updatePet} />}
+                {popup.show &&
+                popup.type == "details" ?
+                <ModalPopup isOpen={popup.show} onClose={() => setPopup({ show: false })} title={"View Pet Details"} icon={<HiPlus />}>
+                    <h2>{popup.pet.name} Profile Details</h2>
+                </ModalPopup>
+                :
+                popup.type == "update" ?
+                <ModalPopup isOpen={popup.show} onClose={() => setPopup({ show: false })} title={"Edit Pet Profile"} icon={<HiPlus />} pet={popup.pet} >
+                    <AddUpdatePet popup={popup} setPopup={setPopup} />
+                </ModalPopup>
+                :
+                <ModalPopup isOpen={popup.show} onClose={() => setPopup({ show: false })} title={"Add Pet Profile"} icon={<HiPlus />}>
+                    <AddUpdatePet popup={popup} setPopup={setPopup} />
+                </ModalPopup>
+                }
             </div>
         </div>
     );
