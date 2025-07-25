@@ -82,7 +82,7 @@ const Medications = ({ petId }) => {
         }
     };
 
-    
+
 
     return (
         <div className='space-y-5 h-screen'>
@@ -262,7 +262,9 @@ const Medications = ({ petId }) => {
                     )
             )}
             {/* ---------------- Schedule & Reminders ---------------- */}
-            <ScheduleAndReminders activeTab={activeTab} petId={petId} />
+            {activeTab === 'schedule-reminders' && (
+                <ScheduleAndReminders activeTab={activeTab} petId={petId} />
+            )}
         </div>
     );
 };
