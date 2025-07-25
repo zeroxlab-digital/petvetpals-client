@@ -10,10 +10,10 @@ const ScheduleMedication = ({ onClose, ongoingMedications, petId, refetch }) => 
     const [formData, setFormData] = useState({
         medId: '',
         frequency: '',
-        starting_date: '',
+        starting_date: new Date(),
         end_date: '',
         reminder_time: '',
-        remind_before: '',
+        remind_before: '10',
         reminder_methods: [],
         repeat_reminder: false,
     });
@@ -148,11 +148,11 @@ const ScheduleMedication = ({ onClose, ongoingMedications, petId, refetch }) => 
                         </div>
                         <div className="flex items-center space-x-1">
                             <Switch
-                                id="inapp-reminder"
-                                checked={formData.reminder_methods.includes("inapp")}
-                                onChange={() => handleMethodToggle("inapp")}
+                                id="in-app-reminder"
+                                checked={formData.reminder_methods.includes("in-app")}
+                                onChange={() => handleMethodToggle("in-app")}
                             />
-                            <Label htmlFor="inapp-reminder">In-app alerts</Label>
+                            <Label htmlFor="in-app-reminder">In-app alerts</Label>
                         </div>
                     </div>
 
