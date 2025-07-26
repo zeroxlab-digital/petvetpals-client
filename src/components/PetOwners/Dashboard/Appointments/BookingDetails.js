@@ -118,7 +118,7 @@ const BookingDetails = ({ apptId, setBookingState, selectedPet, setSelectedPet }
 
     return (
         <div className="bg-white rounded-xl">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2"><div className="rounded-md bg-primary p-2 text-white"><CheckCircle size={18} /></div> Confirm your appointment</h2>
+            {/* <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2"><div className="rounded-md bg-primary p-2 text-white"><CheckCircle size={18} /></div> Confirm your appointment</h2> */}
 
             <div className="md:w-4/5 mx-auto mb-8">
                 <div className="flex items-center justify-between gap-1 max-sm:gap-1 p-1 bg-gray-100 rounded-lg">
