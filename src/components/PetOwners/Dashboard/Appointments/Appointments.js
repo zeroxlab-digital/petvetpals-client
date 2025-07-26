@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { HiArrowRight, HiOutlineCalendar, HiOutlineClock, HiOutlineCurrencyDollar, HiOutlineMapPin, HiOutlineTrash, HiPencilSquare, HiVideoCamera } from 'react-icons/hi2';
 import { LuCat, LuDog } from 'react-icons/lu';
-import ConfirmBookingModal from './ConfirmBookingModal';
+import ConfirmBookingModal from './ConfirmBooking';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 import { toast } from 'react-toastify';
 import Countdown from './Countdown';
@@ -12,6 +12,9 @@ import GiveFeedback from './GiveFeedback';
 import { HiOutlineThumbUp } from 'react-icons/hi';
 import Reschedule from './Reschedule';
 import BookingPopup from '../../Appointment/BookingPopup';
+import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
+import { CheckCircle, MessageCircle } from 'lucide-react';
+import ConfirmBooking from './ConfirmBooking';
 
 const Appointments = () => {
     const { data, isLoading, isError } = useGetAppointmentsQuery();
@@ -63,14 +66,27 @@ const Appointments = () => {
 
     const [deleteAppointment] = useDeleteAppointmentMutation();
     const handleAppointmentDlt = (id) => {
-        deleteAppointment(id);
-        notify("Appointment deleted successfully!", "success");
+        if (window.confirm("Are you sure you want to delete this appointment?")) {
+            deleteAppointment(id);
+            notify("Appointment deleted successfully!", "success");
+        }
     }
 
     const handleConfirmBooking = (appointment) => {
         setClickedAppointment(appointment);
         setShowModal(true);
     };
+
+    const [editConfirmAppt, setEditConfirmAppt] = useState({
+        show: false,
+        appointment: null
+    })
+    const handleEditConfirmAppt = (appointment) => {
+        setEditConfirmAppt({
+            show: true,
+            appointment: appointment
+        })
+    }
 
     const handleJoinNow = (appointment) => {
         console.log("Trigger join appointment:", appointment._id);
@@ -81,7 +97,6 @@ const Appointments = () => {
     const [apptReschedule, setApptReschedule] = useState(false);
     const [appointmentToReschedule, setAppointmentToReschedule] = useState(null);
     const handleApptReschedule = (appointment) => {
-        // console.log(appointment);
         setApptReschedule(true);
         setAppointmentToReschedule(appointment);
     }
@@ -169,10 +184,13 @@ const Appointments = () => {
                             <div className='flex flex-wrap gap-4 lg:col-span-3 justify-end p-3'>
                                 {active_status_tab === 'confirmed' ? (
                                     <div className='w-full flex items-center max-md:flex-col gap-3'>
-                                        <button className='bg-white hover:bg-primary hover:border-none hover:text-white duration-150 rounded-md border text-primary flex items-center justify-center  w-12 max-md:w-full h-12 gap-2'>
+                                        <button onClick={() => handleEditConfirmAppt(appointment)} className='bg-white hover:bg-primary hover:border-none hover:text-white duration-150 rounded-md border text-primary flex items-center justify-center  w-12 max-md:w-full h-12 gap-2'>
                                             <HiPencilSquare className='text-lg' />
                                             <span className='sm:hidden'>Edit</span>
                                         </button>
+                                        {editConfirmAppt.show && <ModalPopup isOpen={editConfirmAppt.show} onClose={() => setEditConfirmAppt({ show: false })} title={"Edit Appointment"} icon={<HiPencilSquare />}>
+                                        <div>Show Edit Form</div>    
+                                        </ModalPopup>}
                                         {new Date() >= new Date(appointment.date) ? (
                                             <button onClick={() => handleJoinNow(appointment)} className='bg-primary hover:bg-primaryHover rounded-md text-white text-base flex items-center gap-2 justify-center  w-44 max-md:w-full h-12'>
                                                 Join Now <HiVideoCamera />
@@ -185,12 +203,16 @@ const Appointments = () => {
                                     <div className='w-full flex items-center max-md:flex-col-reverse gap-3 '>
                                         <button onClick={() => handleConfirmBooking(appointment)} className='bg-primary hover:bg-primaryHover rounded-md text-white w-44 max-md:w-full h-12 flex items-center gap-2  justify-center'>Confirm <HiArrowRight /></button>
                                         <button onClick={() => handleAppointmentDlt(appointment._id)} className='bg-white hover:bg-red-500 hover:text-white duration-150 w-12 max-md:w-full h-12 rounded-lg text-red-500 border border-red-500 flex items-center justify-center max-sm:gap-2'><HiOutlineTrash className='text-lg' /> <span className='sm:hidden'>Cancel</span></button>
-                                        {showModal && <ConfirmBookingModal appt={clickedAppointment} setShowModal={setShowModal} />}
+                                        {showModal && <ModalPopup isOpen={showModal} onClose={() => setShowModal(false)} title={"Confirm your appointment"} icon={<CheckCircle />}>
+                                            <ConfirmBooking setShowModal={setShowModal} appt={clickedAppointment} />
+                                        </ModalPopup>}
                                     </div>
                                 ) : active_status_tab === 'past' ? (
                                     <>
                                         <button onClick={() => handleGiveFeedback(appointment)} className=' hover:bg-primaryHover bg-primary duration-150 px-5 py-3 rounded-md text-white text-sm font-medium flex items-center gap-2 max-sm:w-full justify-center'>Give Feedback <HiOutlineThumbUp size={18} /></button>
-                                        {giveFeedback && <GiveFeedback setGiveFeedback={setGiveFeedback} appointment={appointmentToGiveFeedback} />}
+                                        {giveFeedback && appointmentToGiveFeedback?._id === appointment._id && <ModalPopup isOpen={giveFeedback} onClose={() => setGiveFeedback(false)} title={"Share Your Experience"} icon={<MessageCircle />}>
+                                            <GiveFeedback setGiveFeedback={setGiveFeedback} appointment={appointmentToGiveFeedback} />
+                                        </ModalPopup>}
                                     </>
                                 ) : <>
                                     <button onClick={() => handleApptReschedule(appointment)} className='bg-primary hover:bg-primaryHover px-5 py-3 rounded-md text-white text-sm font-medium flex items-center gap-2 max-sm:w-full justify-center'>Reschedule Now <HiOutlineCalendar size={18} /></button>
