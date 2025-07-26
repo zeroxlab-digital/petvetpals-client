@@ -4,7 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { FaCalendar, FaCartShopping, FaHouse, FaPaw, FaPills, FaRegHeart, FaRegMessage, FaUser } from 'react-icons/fa6';
 import { HiArrowRightOnRectangle } from 'react-icons/hi2';
 import { toast } from 'react-toastify';
-import { PawPrint } from 'lucide-react';
+import { PawPrint, Stethoscope } from 'lucide-react';
 import { useLogoutUserMutation } from '@/redux/services/userApi';
 
 const DashboardSidebar = ({ setResponsiveToggle }) => {
@@ -12,7 +12,7 @@ const DashboardSidebar = ({ setResponsiveToggle }) => {
     const links = [
         { title: "Dashboard", link: "/dashboard", icon: <FaHouse /> },
         { title: "Pet Profiles", link: "/dashboard/pets", icon: <FaPaw /> },
-        { title: "Vet GPT", link: "/dashboard/symptom-checker", icon: <FaPills /> },
+        { title: "Vet GPT", link: "/dashboard/symptom-checker", icon: <Stethoscope size={20} /> },
         { title: "Appointments", link: "/dashboard/appointments", icon: <FaCalendar /> },
         { title: "Messages", link: "/dashboard/messages", icon: <FaRegMessage /> },
         { title: "Wishlist", link: "/dashboard/wishlist", icon: <FaRegHeart /> },
