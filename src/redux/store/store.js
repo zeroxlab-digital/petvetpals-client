@@ -5,6 +5,7 @@ import { appointmentApi } from "../services/appointmentApi";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { petApi } from "../services/petApi";
 import { userApi } from "../services/userApi";
+import { symptomApi } from "../services/symptomApi";
 
 const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
         [userApi.reducerPath]: userApi.reducer,
         [appointmentApi.reducerPath]: appointmentApi.reducer,
         [petApi.reducerPath]: petApi.reducer,
+        [symptomApi.reducerPath]: symptomApi.reducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
@@ -20,6 +22,7 @@ const store = configureStore({
             .concat(userApi.middleware)
             .concat(appointmentApi.middleware)
             .concat(petApi.middleware)
+            .concat(symptomApi.middleware)
 })
 
 setupListeners(store.dispatch)
