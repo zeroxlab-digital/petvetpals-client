@@ -15,7 +15,7 @@ const BottomNavigation = () => {
   const pathname = usePathname();
 
   const links = [
-    { title: "Pet Profiles", link: "/dashboard/pets", icon: <FaPaw /> },
+    { title: "My Pets", link: "/dashboard/pets", icon: <FaPaw /> },
     { title: "Vet GPT", link: "/dashboard/symptom-checker", icon: <FaPills /> },
     { title: "Dashboard", link: "/dashboard", icon: <FaHouse /> },
     { title: "Appointments", link: "/dashboard/appointments", icon: <FaCalendar /> },
@@ -27,7 +27,7 @@ const BottomNavigation = () => {
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-      className='lg:hidden bg-white absolute bottom-0 left-0 w-full px-3 py-3 z-10 border border-t-2 rounded-t-xl shadow-xl'
+      className='lg:hidden bg-white fixed bottom-0 left-0 w-full px-2 py-3 z-20 border-t border-gray-200 rounded-t-2xl shadow-2xl shadow-black'
     >
       <ul className='grid grid-cols-5 items-center justify-between text-center'>
         {links.map((link, index) => {
