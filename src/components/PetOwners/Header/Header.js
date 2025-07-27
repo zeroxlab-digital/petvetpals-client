@@ -7,8 +7,10 @@ import Search from "./Search";
 import CartCount from "@/e-commerce/Cart/CartCount";
 import { PawPrint } from "lucide-react";
 import { useIsAuthenticated } from "../../../../hooks/useIsAuthenticated";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
+    const pathname = usePathname();
     const {isAuthenticated: authUser} = useIsAuthenticated();
 
     const [responsiveMenu, setResponsiveMenu] = useState(false)
@@ -24,7 +26,7 @@ const Header = () => {
     }, [responsiveMenu]);
 
     return (
-        <header className="py-5 shadow-md sticky top-0 bg-white z-20 ">
+        <header className={`py-5 shadow-md ${!pathname.startsWith('/dashboard') && 'sticky top-0 bg-white z-20'}`}>
             <div className="flex items-center justify-between app-container ">
                 <div className="flex items-center gap-16 max-lg:gap-3">
                     {/* Menu Button */}

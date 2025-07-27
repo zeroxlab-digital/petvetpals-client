@@ -45,7 +45,7 @@ const DashboardLayout = ({ children }) => {
                 <BottomNavigation />
 
                 {/* Main Content */}
-                <div className='col-span-8 max-lg:col-span-12 p-3 lg:p-5 bg-gray-50/40 lg:border border-l-0 rounded-md rounded-l-none overflow-auto hide-scrollbar'>
+                <div className='col-span-8 max-lg:col-span-12 p-3 lg:p-5 bg-gray-50/40 lg:border border-l-0 rounded-md rounded-l-none sm:overflow-auto sm:hide-scrollbar'>
                     {children}
                 </div>
             </div>
