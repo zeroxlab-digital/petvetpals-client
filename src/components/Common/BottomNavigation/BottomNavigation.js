@@ -3,16 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  FaCalendar,
-  FaHouse,
-  FaPaw,
-  FaPills,
-  FaStethoscope,
-  FaUser
-} from 'react-icons/fa6';
-import { LucideStethoscope, Stethoscope, StethoscopeIcon } from 'lucide-react';
-import { HiOutlineCalendar, HiOutlineHome, HiOutlineUser, HiOutlineUserCircle, HiUser } from 'react-icons/hi2';
+import { HiOutlineCalendar, HiOutlineHome, HiOutlineUserCircle } from 'react-icons/hi2';
 import { LuStethoscope } from 'react-icons/lu';
 import Image from 'next/image';
 
@@ -55,11 +46,11 @@ const BottomNavigation = () => {
       transition={{ type: 'spring', stiffness: 200, damping: 25 }}
       className='lg:hidden bg-white fixed bottom-0 left-0 w-full z-20 border-t border-gray-200 rounded-t-2xl shadow-2xl shadow-black'
     >
-      <ul className='h-14 grid grid-cols-5 items-center justify-between text-center'>
+      <ul className='h-16 grid grid-cols-5 items-center text-center'>
         {links.map((link, index) => {
           const isActive = pathname === link.link;
           return (
-            <Link href={link.link} key={index} className="text-xl cursor-pointer ">
+            <Link href={link.link} key={index} className="text-xl cursor-pointer">
               <li className="flex flex-col gap-1 items-center">
                 <motion.span
                   whileTap={{ scale: 0.95 }}
