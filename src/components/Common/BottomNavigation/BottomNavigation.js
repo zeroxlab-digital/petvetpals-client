@@ -44,7 +44,7 @@ const BottomNavigation = () => {
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-      className='lg:hidden bg-white fixed bottom-0 left-0 w-full z-20 border-t border-gray-200 rounded-t-2xl shadow-2xl shadow-black'
+      className='lg:hidden bg-white fixed bottom-0 left-0 w-full px-[5px] z-20 border-t border-gray-200 rounded-t-2xl shadow-2xl shadow-black'
     >
       <ul className='h-16 grid grid-cols-5 items-center text-center'>
         {links.map((link, index) => {
@@ -61,7 +61,7 @@ const BottomNavigation = () => {
                     damping: 20,
                     mass: 0.5,
                   }}
-                  className={`text-xl ${isActive ? "text-primary" : "text-gray-600"}`}
+                  className={`text-[22px] ${isActive ? "text-primary" : "text-gray-600"}`}
                 >
                   {link.icon ? (
                     link.icon
@@ -69,8 +69,8 @@ const BottomNavigation = () => {
                     <Image
                       src={`${isActive ? '/images/paw-primary.svg' : '/images/paw-gray.svg'}`}
                       alt={'paw'}
-                      width={25}
-                      height={25}
+                      width={27}
+                      height={27}
                     />
                   )}
                 </motion.span>

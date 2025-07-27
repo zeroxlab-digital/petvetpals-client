@@ -455,7 +455,7 @@ export default function AdvancedSymptomChecker() {
                         <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 flex items-center justify-center">
                           <Heart className="h-6 w-6 text-blue-600" />
                         </div>
-                        <span className="text-gray-500 font-medium">Choose your beloved pet</span>
+                        <span className="text-gray-500 font-medium">Choose your pet</span>
                       </div>
                     )}
                     <motion.div animate={{ rotate: showPetMenu ? 180 : 0 }} transition={{ duration: 0.3 }}>
