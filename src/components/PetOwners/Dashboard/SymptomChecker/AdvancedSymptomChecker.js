@@ -1,30 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import {
-  AlertTriangle,
-  ArrowRight,
-  Brain,
-  Calendar,
-  Check,
-  ChevronDown,
-  Heart,
-  Loader2,
-  MessageSquare,
-  PawPrintIcon as Paw,
-  Search,
-  Stethoscope,
-  StickerIcon as Stomach,
-  ThumbsUp,
-  Download,
-  Sparkles,
-  Activity,
-  Eye,
-  Zap,
-  Clock,
-  FileText,
-  Palette,
-} from "lucide-react"
+import {AlertTriangle, ArrowRight, Brain, Calendar, Check, ChevronDown, Heart, Loader2, MessageSquare, PawPrintIcon as Paw, Search, Stethoscope, StickerIcon as Stomach, ThumbsUp, Download, Sparkles, Activity, Eye, Zap, Clock, FileText, Palette,} from "lucide-react"
 import Image from "next/image"
 import {
   useGetSymptomHistoryQuery,
@@ -64,9 +41,9 @@ const Button = ({
   }
 
   const sizes = {
-    default: "h-12 px-6 py-3 text-sm",
-    sm: "h-10 px-4 py-2 text-xs",
-    lg: "h-14 px-8 py-4 text-base",
+    default: "h-12 px-3 py-2 text-sm",
+    sm: "h-10 px-2 py-1 text-xs",
+    lg: "h-14 px-4 py-3 text-base",
   }
 
   return (
@@ -102,7 +79,7 @@ const CardHeader = ({ className, children, gradient = false, ...props }) => {
   return (
     <div
       className={cn(
-        "flex flex-col space-y-1.5 p-6",
+        "flex flex-col space-y-1.5 p-5",
         gradient && "bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-2xl border-b border-gray-100",
         className,
       )}
@@ -115,7 +92,7 @@ const CardHeader = ({ className, children, gradient = false, ...props }) => {
 
 const CardTitle = ({ className, children, ...props }) => {
   return (
-    <h3 className={cn("text-xl font-bold leading-none tracking-tight text-gray-800", className)} {...props}>
+    <h3 className={cn("text-lg font-bold leading-none tracking-tight text-gray-800", className)} {...props}>
       {children}
     </h3>
   )
@@ -123,7 +100,7 @@ const CardTitle = ({ className, children, ...props }) => {
 
 const CardContent = ({ className, children, ...props }) => {
   return (
-    <div className={cn("p-6 pt-0", className)} {...props}>
+    <div className={cn("p-5 pt-0", className)} {...props}>
       {children}
     </div>
   )
@@ -205,7 +182,7 @@ const StepIndicator = ({ currentStep, totalSteps }) => {
   ]
 
   return (
-    <div className="flex items-center justify-center mb-8">
+    <div className="flex items-center justify-center mb-8 max-sm:hidden">
       <div className="flex items-center space-x-4">
         {steps.map((step, index) => (
           <div key={step.number} className="flex items-center">
@@ -416,74 +393,19 @@ export default function AdvancedSymptomChecker() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
-          className="text-center mb-8"
+          className=" mb-8"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center justify-center gap-4">
-            <motion.div
-              className="p-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl shadow-xl"
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.6 }}
-            >
-              <Stethoscope className="h-10 w-10 text-white" />
-            </motion.div>
-            <div>
-              <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Vet GPT
-              </h1>
-              <Badge className="mt-2">
-                <Sparkles className="h-3 w-3 mr-1" />
-                AI-Powered
-              </Badge>
-            </div>
+          <div className='mb-5'>
+            <h2 className='font-bold text-2xl mb-2 flex items-center gap-3'><span className="bg-primary rounded-md w-10 h-10 flex items-center justify-center text-white"><Stethoscope /></span>Vet GPT</h2>
+            <p className='text-gray-500'>Advanced AI-powered symptom analysis for your beloved pets</p>
           </div>
-          {/* <p className="text-gray-600 text-xl max-w-3xl mx-auto leading-relaxed">
-            Advanced AI-powered symptom analysis for your beloved pets. Get professional insights in minutes.
-          </p> */}
         </motion.div>
 
         {/* Step Indicator */}
         <StepIndicator currentStep={getCurrentStep()} totalSteps={4} />
-
-        {/* Emergency Warning */}
-        {/* <motion.div
-          className="bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-500 p-6 mb-8 rounded-r-2xl shadow-lg"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <div className="flex items-start">
-            <motion.div
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-            >
-              <AlertTriangle className="h-6 w-6 text-red-500 mt-0.5" />
-            </motion.div>
-            <div className="ml-4">
-              <h3 className="text-lg font-bold text-red-800 mb-2">🚨 Emergency Warning</h3>
-              <p className="text-red-700 mb-3">
-                If your pet is experiencing any of these symptoms, seek immediate veterinary care:
-              </p>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                {[
-                  "Difficulty breathing",
-                  "Severe bleeding",
-                  "Collapse",
-                  "Seizures",
-                  "Severe pain",
-                  "Unconsciousness",
-                ].map((symptom) => (
-                  <div key={symptom} className="flex items-center text-sm text-red-700">
-                    <div className="w-2 h-2 bg-red-500 rounded-full mr-2" />
-                    {symptom}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </motion.div> */}
 
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Main Selection Area */}
@@ -492,7 +414,7 @@ export default function AdvancedSymptomChecker() {
             <Card hover>
               <CardHeader gradient>
                 <CardTitle className="flex items-center">
-                  <Heart className="mr-3 h-6 w-6 text-blue-600" />
+                  {/* <Heart className="mr-3 h-6 w-6 text-blue-600" /> */}
                   Step 1: Select Your Pet
                 </CardTitle>
               </CardHeader>
@@ -525,7 +447,7 @@ export default function AdvancedSymptomChecker() {
                         </div>
                         <div className="text-left">
                           <p className="font-bold text-gray-800">{selectedPet.name}</p>
-                          <p className="text-gray-500 text-sm">{selectedPet.breed}</p>
+                          <p className="text-gray-500 text-sm max-sm:font-normal">{selectedPet.breed} • {selectedPet.age} Years Old</p>
                         </div>
                       </div>
                     ) : (
@@ -548,7 +470,7 @@ export default function AdvancedSymptomChecker() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute top-full left-0 w-full mt-2 bg-white rounded-2xl shadow-2xl border border-gray-100 p-2 z-50 max-h-80 overflow-y-auto"
+                        className="w-full mt-2 bg-white rounded-2xl shadow-2xl border border-gray-100 p-2 z-50 max-h-80 overflow-y-auto"
                       >
                         {petsLoading ? (
                           Array(3)
@@ -615,7 +537,7 @@ export default function AdvancedSymptomChecker() {
                   <Card hover>
                     <CardHeader gradient>
                       <CardTitle className="flex items-center">
-                        <Search className="mr-3 h-6 w-6 text-purple-600" />
+                        {/* <Search className="mr-3 h-6 w-6 text-purple-600" /> */}
                         Step 2: Select Affected Area
                       </CardTitle>
                     </CardHeader>
@@ -626,7 +548,7 @@ export default function AdvancedSymptomChecker() {
                             key={part.id}
                             onClick={() => setSelectedBodyPart(part.id)}
                             className={cn(
-                              "p-6 rounded-2xl border-2 text-left transition-all duration-300 group",
+                              "p-5 rounded-2xl border-2 text-left transition-all duration-300 group",
                               selectedBodyPart === part.id
                                 ? "bg-gradient-to-br from-blue-50 to-purple-50 border-blue-300 shadow-xl scale-105"
                                 : "bg-white border-gray-200 hover:border-blue-200 hover:shadow-lg hover:scale-102",
@@ -634,7 +556,7 @@ export default function AdvancedSymptomChecker() {
                             whileHover={{ y: -4 }}
                             whileTap={{ scale: 0.98 }}
                           >
-                            <div className="flex items-center gap-4 mb-4">
+                            <div className="flex items-center gap-4">
                               <motion.div
                                 className={cn(
                                   "w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300",
@@ -647,11 +569,11 @@ export default function AdvancedSymptomChecker() {
                                 {part.icon}
                               </motion.div>
                               <div>
-                                <h3 className="font-bold text-lg text-gray-800">{part.name}</h3>
+                                <h3 className="font-semibold text-base text-gray-800">{part.name}</h3>
                                 <p className="text-sm text-gray-500">{part.description}</p>
                               </div>
                             </div>
-                            {selectedBodyPart === part.id && (
+                            {/* {selectedBodyPart === part.id && (
                               <motion.div
                                 initial={{ opacity: 0, scale: 0 }}
                                 animate={{ opacity: 1, scale: 1 }}
@@ -662,7 +584,7 @@ export default function AdvancedSymptomChecker() {
                                   Selected
                                 </Badge>
                               </motion.div>
-                            )}
+                            )} */}
                           </motion.button>
                         ))}
                       </div>
@@ -685,7 +607,7 @@ export default function AdvancedSymptomChecker() {
                     <CardHeader gradient>
                       <div className="flex items-center justify-between">
                         <CardTitle className="flex items-center">
-                          <Activity className="mr-3 h-6 w-6 text-green-600" />
+                          {/* <Activity className="mr-3 h-6 w-6 text-green-600" /> */}
                           Step 3: Select Symptoms
                         </CardTitle>
                         <Badge variant="outline" className="bg-white">
@@ -721,7 +643,7 @@ export default function AdvancedSymptomChecker() {
                                 {symptom.name}
                               </span>
                               {symptom.severity && (
-                                <Badge variant={getSeverityBadgeVariant(symptom.severity)} className="ml-2 text-xs">
+                                <Badge variant={getSeverityBadgeVariant(symptom.severity)} className="ml-2 px-2 !py-[2px] font-medium text-xs">
                                   {symptom.severity}
                                 </Badge>
                               )}
@@ -741,15 +663,15 @@ export default function AdvancedSymptomChecker() {
                           animate={{ opacity: 1, y: 0 }}
                           className="mt-8 text-center"
                         >
-                          <Button onClick={analyzeSymptoms} disabled={isGptLoading} size="lg" className="px-12">
+                          <Button onClick={analyzeSymptoms} disabled={isGptLoading} size="lg" className="px-14 text-base">
                             {isGptLoading ? (
                               <>
                                 <Loader2 className="mr-3 h-5 w-5 animate-spin" />
-                                Analyzing {selectedSymptoms.length} Symptoms...
+                                Analyzing Symptoms...
                               </>
                             ) : (
                               <>
-                                <Sparkles className="mr-3 h-5 w-5" />
+                                {/* <Sparkles className="mr-3 h-5 w-5" /> */}
                                 Analyze {selectedSymptoms.length} Symptoms
                                 <ArrowRight className="ml-3 h-5 w-5" />
                               </>
@@ -759,6 +681,42 @@ export default function AdvancedSymptomChecker() {
                       )}
                     </CardContent>
                   </Card>
+
+                  {/* AI Recommendation */}
+                  {showResults && !isGptLoading && selectedSymptoms.length > 0 && (
+                    <Card className={"mt-7"}>
+                      <CardHeader gradient>
+                        <CardTitle className="flex items-center gap-4">
+                          {/* <Brain className="mr-3 h-6 w-6 text-purple-600" /> */}
+                          <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                          >
+                            <Sparkles className="h-6 w-6 text-blue-600 mt-1" />
+                          </motion.div>
+                          AI-Powered Analysis
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="pt-5">
+                        <div className="">
+                          <div className="flex items-start gap-4">
+                            {/* <motion.div
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                            >
+                              <Sparkles className="h-6 w-6 text-blue-600 mt-1" />
+                            </motion.div> */}
+                            <div>
+                              {/* <h3 className="font-bold text-blue-800 mb-2">Professional Recommendation</h3> */}
+                              <p className="text-gray-700 leading-relaxed">
+                                {gptResponse || "Analyzing your pet's symptoms..."}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -800,33 +758,6 @@ export default function AdvancedSymptomChecker() {
                   transition={{ duration: 0.4 }}
                   className="space-y-6"
                 >
-                  {/* AI Recommendation */}
-                  <Card>
-                    <CardHeader gradient>
-                      <CardTitle className="flex items-center">
-                        <Brain className="mr-3 h-6 w-6 text-purple-600" />
-                        AI Analysis
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="pt-6">
-                      <div className="p-6 rounded-2xl bg-gradient-to-r from-blue-50 to-purple-50 border-l-4 border-blue-500">
-                        <div className="flex items-start gap-4">
-                          <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                          >
-                            <Sparkles className="h-6 w-6 text-blue-600 mt-1" />
-                          </motion.div>
-                          <div>
-                            <h3 className="font-bold text-blue-800 mb-2">Professional Recommendation</h3>
-                            <p className="text-blue-700 leading-relaxed">
-                              {gptResponse || "Analyzing your pet's symptoms..."}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
 
                   {/* Matched Conditions */}
                   <Card>
@@ -853,15 +784,15 @@ export default function AdvancedSymptomChecker() {
                               className="p-4 rounded-xl border-2 border-gray-100 hover:border-blue-200 hover:shadow-md transition-all duration-200"
                             >
                               <div className="flex justify-between items-start mb-3">
-                                <h3 className="font-bold text-gray-800">{condition.name}</h3>
+                                <h3 className="font-semibold text-gray-800">{condition.name}</h3>
                                 <Badge
                                   variant={condition.matchPercentage > 70 ? "warning" : "default"}
-                                  className="ml-2"
+                                  className="ml-2 font-medium px-2 py-[2px]"
                                 >
                                   {condition.matchPercentage}% match
                                 </Badge>
                               </div>
-                              <p className="text-gray-600 mb-4 leading-relaxed">{condition.description}</p>
+                              <p className="text-gray-500 text-sm mb-4 leading-relaxed">{condition.description}</p>
 
                               <div className="space-y-2">
                                 <div className="flex justify-between text-sm text-gray-500">
@@ -954,7 +885,7 @@ export default function AdvancedSymptomChecker() {
               <Card>
                 <CardHeader gradient>
                   <CardTitle className="flex items-center">
-                    <Clock className="mr-3 h-6 w-6 text-orange-600" />
+                    <Clock className="mr-3 h-6 w-6 text-primary" />
                     History for {selectedPet.name}
                   </CardTitle>
                 </CardHeader>
