@@ -18,6 +18,7 @@
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.7",
     "framer-motion": "^12.4.3",
+    "html2pdf.js": "^0.9.0",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.475.0",
     "next": "14.2.6",
