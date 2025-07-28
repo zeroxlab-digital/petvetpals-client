@@ -6,6 +6,7 @@ import Button from '@/components/Common/Button/Button';
 import { toast } from 'react-toastify';
 import { useBookAppointmentMutation, useUpdateAppointmentMutation } from '@/redux/services/appointmentApi';
 import { usePathname } from 'next/navigation';
+import TinySpinner from '@/components/Common/Loader/TinySpinner';
 
 const BookingPopup = ({ appointment = () => { }, setShowModal = () => { }, setApptReschedule = () => { }, foundVet }) => {
     const [selectedDate, setSelectedDate] = useState(null);
@@ -46,8 +47,8 @@ const BookingPopup = ({ appointment = () => { }, setShowModal = () => { }, setAp
     }
 
     const pathname = usePathname();
-    const [bookAppointment] = useBookAppointmentMutation();
-    const [updateAppointment] = useUpdateAppointmentMutation();
+    const [bookAppointment, { isLoading }] = useBookAppointmentMutation();
+    const [updateAppointment, {  }] = useUpdateAppointmentMutation();
     const handleBookingConfirm = async () => {
         try {
             if (pathname.startsWith('/dashboard')) {
@@ -106,7 +107,7 @@ const BookingPopup = ({ appointment = () => { }, setShowModal = () => { }, setAp
                             selectedTime={selectedTime}
                         />
                         <div >
-                            <Button onClick={handleBookingConfirm} variant={"primary"} classNames={`w-full mt-5 ${selectedTime ? '' : 'opacity-50 cursor-not-allowed'}`} disabled={!selectedTime}>Continue</Button>
+                            <Button onClick={handleBookingConfirm} variant={"primary"} classNames={`w-full mt-5 ${selectedTime ? '' : 'opacity-50 cursor-not-allowed'}`} disabled={!selectedTime}>{isLoading ? <TinySpinner /> : 'Continue'}</Button>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 import FileUpload from '@/components/Common/FileUpload/FileUpload';
 import Input from '@/components/Common/Form/Input';
 import Label from '@/components/Common/Form/Label';
+import TinySpinner from '@/components/Common/Loader/TinySpinner';
 import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
 import { useAddPetMutation, useUpdateAPetMutation } from '@/redux/services/petApi';
 import React, { useEffect, useState } from 'react';
@@ -21,8 +22,8 @@ const AddUpdatePet = ({ popup, setPopup }) => {
     image: isUpdate ? popup.pet?.image || null : null
   });
 
-  const [addPet] = useAddPetMutation();
-  const [updatePet] = useUpdateAPetMutation();
+  const [addPet, { isLoading: adding }] = useAddPetMutation();
+  const [updatePet, { isLoading: updating }] = useUpdateAPetMutation();
 
   useEffect(() => {
     if (uploadedFile) {
@@ -88,7 +89,7 @@ const AddUpdatePet = ({ popup, setPopup }) => {
           <div>
             <Label htmlFor="type">Pet Type</Label>
             <SelectOptions
-              options={['Cat', 'Dog', 'Rabbit', 'Bird', 'Other']}
+              options={['Cat', 'Dog', 'Other']}
               name="type"
               placeholder={formState.type}
               value={formState.type}
@@ -156,7 +157,7 @@ const AddUpdatePet = ({ popup, setPopup }) => {
             type="submit"
             className="bg-primary hover:bg-primary/90 text-white rounded-lg font-medium py-3 px-6 transition-colors duration-200 flex-1"
           >
-            {isUpdate ? 'Update Pet' : 'Add Pet'}
+            {adding || updating ? <TinySpinner /> : isUpdate ? 'Update Pet' : 'Add Pet'}
           </button>
         </div>
       </form>
