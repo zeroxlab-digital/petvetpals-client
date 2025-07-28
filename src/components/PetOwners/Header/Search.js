@@ -64,7 +64,7 @@ const Search = () => {
                 </div>
             </div>
             <div className="2xl:hidden">
-                <HiMagnifyingGlass className="text-xl text-primary" />
+                <HiMagnifyingGlass className="text-2xl text-primary" />
             </div>
         </form>
     );

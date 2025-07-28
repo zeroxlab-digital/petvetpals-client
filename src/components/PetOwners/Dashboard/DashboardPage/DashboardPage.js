@@ -187,15 +187,15 @@ const DashboardPage = () => {
                         </p>
                     </div>
                 </div>
-                <div className="grid grid-cols-2 items-center gap-2 text-center">
+                <div className="flex items-center gap-2 text-center">
                     <button
                         onClick={() => router.push("/appointments")}
-                        className="max-sm:w-full flex justify-center items-center bg-primary hover:bg-primaryHover duration-200 text-white px-4 max-sm:px-2 py-[9px] rounded-lg transition-colors"
+                        className=" flex justify-center items-center bg-primary hover:bg-primaryHover duration-200 text-white px-4 max-sm:px-2 py-[10px] rounded-lg transition-colors"
                     >
                         <Calendar className="mr-2 h-4 w-4" />
                         Book Appointment
                     </button>
-                    <button onClick={() => router.push("/dashboard/messages")} className="max-sm:w-full flex justify-center items-center border border-gray-300 px-4 max-sm:px-2 py-[9px] rounded-lg hover:bg-gray-100 duration-200 transition-colors">
+                    <button onClick={() => router.push("/dashboard/messages")} className=" flex justify-center items-center border border-gray-300 px-4 max-sm:px-2 py-[10px] rounded-lg hover:bg-gray-100 duration-200 transition-colors">
                         <MessageSquare className="mr-2 h-4 w-4" />
                         Chat with Vet
                     </button>

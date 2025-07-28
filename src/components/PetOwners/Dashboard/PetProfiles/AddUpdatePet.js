@@ -90,6 +90,7 @@ const AddUpdatePet = ({ popup, setPopup }) => {
             <SelectOptions
               options={['Cat', 'Dog', 'Rabbit', 'Bird', 'Other']}
               name="type"
+              placeholder={formState.type}
               value={formState.type}
               onChange={(e) => handleChange('type', e.target.value)}
             />
@@ -99,6 +100,7 @@ const AddUpdatePet = ({ popup, setPopup }) => {
             <SelectOptions
               options={['Male', 'Female']}
               name="gender"
+              placeholder={formState.gender}
               value={formState.gender}
               onChange={(e) => handleChange('gender', e.target.value.toLowerCase())}
             />

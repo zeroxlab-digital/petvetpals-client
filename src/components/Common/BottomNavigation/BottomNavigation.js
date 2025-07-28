@@ -3,8 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LuStethoscope } from 'react-icons/lu';
-import { Calendar1, Home, PawPrint, UserCircle } from 'lucide-react';
+import { Calendar1, Home, PawPrint, Stethoscope, UserCircle } from 'lucide-react';
 
 const BottomNavigation = () => {
   const pathname = usePathname();
@@ -18,7 +17,7 @@ const BottomNavigation = () => {
     {
       title: "Vet GPT",
       link: "/dashboard/symptom-checker",
-      icon: <LuStethoscope />
+      icon: <Stethoscope />
     },
     {
       title: "Dashboard",
@@ -49,18 +48,18 @@ const BottomNavigation = () => {
         {links.map((link, index) => {
           const isActive = pathname === link.link;
           return (
-            <Link href={link.link} key={index} className="text-xl cursor-pointer">
+            <Link href={link.link} key={index} className=" cursor-pointer">
               <li className="flex flex-col gap-1 items-center">
                 <motion.span
-                  whileTap={{ scale: 0.95 }}
-                  animate={{ scale: isActive ? 1.15 : 1 }}
+                  whileTap={{ scale: 0.90 }}
+                  animate={{ scale: isActive ? 0.95 : 0.85 }}
                   transition={{
                     type: "spring",
                     stiffness: 200,
                     damping: 20,
                     mass: 0.5,
                   }}
-                  className={`text-[21px] ${isActive ? "text-primary" : "text-gray-600"}`}
+                  className={` ${isActive ? "text-primary" : "text-gray-600"}`}
                 >
                 {link.icon}
                 </motion.span>
@@ -73,7 +72,7 @@ const BottomNavigation = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 5 }}
                       transition={{ duration: 0.25, ease: "easeInOut" }}
-                      className="text-sm text-primary"
+                      className="text-xs text-primary"
                     >
                       {link.title}
                     </motion.span>

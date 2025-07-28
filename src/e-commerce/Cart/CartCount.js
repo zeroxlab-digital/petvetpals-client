@@ -8,8 +8,8 @@ const CartCount = () => {
 
     const router = useRouter()
     return (
-        <button type="button" onClick={() => router.push("/cart")} className="text-primary relative"><HiOutlineShoppingBag className="text-xl" />
-            <p className={` text-xs text-white bg-primary rounded-full text-center leading-5 w-5 h-5 absolute -top-3 -right-3`}>{cart.length}</p>
+        <button type="button" onClick={() => router.push("/cart")} className="text-primary relative"><HiOutlineShoppingBag className="text-xl max-sm:text-2xl" />
+            <p className={` text-xs text-white bg-primary rounded-full text-center leading-4 w-4 h-4 absolute -top-2 -right-2`}>{cart.length}</p>
         </button>
     );
 };

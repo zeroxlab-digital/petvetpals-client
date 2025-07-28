@@ -174,12 +174,11 @@ const MobileUserOptions = () => {
                                 <Link href={link.link} key={linkIndex}>
                                     <div
                                         className={`
-                    ${link.link === pathname
+                                                ${link.link === pathname
                                                 ? "bg-blue-50 border-blue-200 text-blue-700"
                                                 : "bg-white hover:bg-gray-50 border-gray-200 text-gray-700"
                                             } 
-                    border rounded-xl px-4 py-3 transition-all duration-200 hover:shadow-md group
-                  `}
+                                                border rounded-xl px-4 py-3 transition-all duration-200 hover:shadow-md group`}
                                     >
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-4">
