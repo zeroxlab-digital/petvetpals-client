@@ -11,7 +11,7 @@ import { usePathname } from "next/navigation";
 
 const Header = () => {
     const pathname = usePathname();
-    const {isAuthenticated: authUser} = useIsAuthenticated();
+    const { isAuthenticated: authUser } = useIsAuthenticated();
 
     const [responsiveMenu, setResponsiveMenu] = useState(false)
 
@@ -96,17 +96,25 @@ const Header = () => {
                 </div>
 
                 {/* Right Side Icons */}
-                <div className="flex items-center gap-6">
-                    <Search />
-                    <CartCount />
-                    <div>
+                {pathname.startsWith('/dashboard') ?
+                    <div className={`flex items-center gap-6`}>
+                        <div className="sm:order-1 max-sm:order-3"><Search /></div>
+                        <div className="sm:order-2 max-sm:order-2 relative mt-1"><CartCount /></div>
+                        <button className="sm:order-3  flex items-center gap-1 text-primary max-sm:hidden">
+                            <HiOutlineUserCircle className="text-[21px] " />My account
+                        </button>
+                    </div>
+                    :
+                    <div className={`flex items-center gap-6`}>
+                        <Search />
+                        <CartCount />
                         {authUser ? (
-                            <Link href="/dashboard">
+                            <Link href="/dashboard" >
                                 <button className="flex items-center gap-1 text-primary max-sm:hidden">
                                     <HiOutlineUserCircle className="text-[21px] " />My account
                                 </button>
-                                <button className="flex items-center gap-1 sm:hidden">
-                                    <HiOutlineUserCircle className="text-[24px] text-primary" />
+                                <button className={`flex items-center gap-1 sm:hidden`}>
+                                    <HiOutlineUserCircle className="text-2xl text-primary" />
                                 </button>
                             </Link>
                         ) : (
@@ -131,7 +139,8 @@ const Header = () => {
                             </>
                         )}
                     </div>
-                </div>
+                }
+
             </div>
         </header>
     );
