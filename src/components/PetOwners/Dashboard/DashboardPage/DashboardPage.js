@@ -182,20 +182,20 @@ const DashboardPage = () => {
                                 </div>
                             )}
                         </div>
-                        <p className="text-sm text-gray-500">
-                            {selectedPet.age} years old • {selectedPet.gender} • {selectedPet.weight} kg
+                        <p className="text-sm text-gray-500 capitalize">
+                            {selectedPet.age} years old • {selectedPet.gender} • {selectedPet.weight} lbs
                         </p>
                     </div>
                 </div>
-                <div className="flex gap-2 flex-wrap">
+                <div className="grid grid-cols-2 items-center gap-2 text-center">
                     <button
                         onClick={() => router.push("/appointments")}
-                        className="flex items-center bg-primary hover:bg-primaryHover duration-200 text-white px-4 max-sm:px-2 py-2 rounded-lg transition-colors"
+                        className="max-sm:w-full flex justify-center items-center bg-primary hover:bg-primaryHover duration-200 text-white px-4 max-sm:px-2 py-[9px] rounded-lg transition-colors"
                     >
                         <Calendar className="mr-2 h-4 w-4" />
                         Book Appointment
                     </button>
-                    <button onClick={() => router.push("/dashboard/messages")} className="flex items-center border border-gray-300 px-4 max-sm:px-2 py-2 rounded-lg hover:bg-gray-100 duration-200 transition-colors">
+                    <button onClick={() => router.push("/dashboard/messages")} className="max-sm:w-full flex justify-center items-center border border-gray-300 px-4 max-sm:px-2 py-[9px] rounded-lg hover:bg-gray-100 duration-200 transition-colors">
                         <MessageSquare className="mr-2 h-4 w-4" />
                         Chat with Vet
                     </button>

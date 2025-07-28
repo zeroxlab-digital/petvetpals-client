@@ -26,7 +26,7 @@ const Header = () => {
     }, [responsiveMenu]);
 
     return (
-        <header className={`py-5 max-lg:py-4 shadow-md ${!pathname.startsWith('/dashboard') && 'sticky top-0 bg-white z-20'}`}>
+        <header className={`py-5 max-lg:py-[18px] shadow-md ${!pathname.startsWith('/dashboard') && 'sticky top-0 bg-white z-20'}`}>
             <div className="flex items-center justify-between app-container ">
                 <div className="flex items-center gap-16 max-lg:gap-3">
                     {/* Menu Button */}

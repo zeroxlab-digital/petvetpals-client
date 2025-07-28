@@ -3,9 +3,8 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HiOutlineCalendar, HiOutlineHome, HiOutlineUserCircle } from 'react-icons/hi2';
 import { LuStethoscope } from 'react-icons/lu';
-import Image from 'next/image';
+import { Calendar1, Home, PawPrint, UserCircle } from 'lucide-react';
 
 const BottomNavigation = () => {
   const pathname = usePathname();
@@ -14,7 +13,7 @@ const BottomNavigation = () => {
     {
       title: "My Pets",
       link: "/dashboard/pets",
-      // image: "/images/paw.svg"
+      icon: <PawPrint />
     },
     {
       title: "Vet GPT",
@@ -24,17 +23,17 @@ const BottomNavigation = () => {
     {
       title: "Dashboard",
       link: "/dashboard",
-      icon: <HiOutlineHome />
+      icon: <Home />
     },
     {
       title: "Appointments",
       link: "/dashboard/appointments",
-      icon: <HiOutlineCalendar />
+      icon: <Calendar1 />
     },
     {
       title: "Pet Owner",
-      link: "/dashboard/account",
-      icon: <HiOutlineUserCircle />
+      link: "/dashboard/account-mobile",
+      icon: <UserCircle />
     }
   ];
 
@@ -61,18 +60,9 @@ const BottomNavigation = () => {
                     damping: 20,
                     mass: 0.5,
                   }}
-                  className={`text-[22px] ${isActive ? "text-primary" : "text-gray-600"}`}
+                  className={`text-[21px] ${isActive ? "text-primary" : "text-gray-600"}`}
                 >
-                  {link.icon ? (
-                    link.icon
-                  ) : (
-                    <Image
-                      src={`${isActive ? '/images/paw-primary.svg' : '/images/paw-gray.svg'}`}
-                      alt={'paw'}
-                      width={27}
-                      height={27}
-                    />
-                  )}
+                {link.icon}
                 </motion.span>
 
                 <AnimatePresence>
