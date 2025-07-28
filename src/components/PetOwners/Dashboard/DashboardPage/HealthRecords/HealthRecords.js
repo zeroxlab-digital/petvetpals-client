@@ -6,9 +6,9 @@ import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import { Stethoscope, Syringe } from 'lucide-react';
 import MedicalHistory from './MedicalHistory';
 import Vaccinations from './Vaccinations';
-import AddMedicalRecord from './AddMedicalRecord';
-import AddVaccination from './AddVaccination';
+import AddMedicalRecord from './AddUpdateMedicalRecord';
 import AllergiesConditions from './AllergiesConditions';
+import AddUpdateVaccination from './AddUpdateVaccination';
 
 const HealthRecords = ({ petId }) => {
     
@@ -42,7 +42,7 @@ const HealthRecords = ({ petId }) => {
                                 </Button>
                                 {vaccinationPopup && (
                                     <ModalPopup isOpen={vaccinationPopup} onClose={() => setVaccinationPopup(false)} title={"Add Vaccination"} icon={<Syringe />}>
-                                        <AddVaccination petId={petId} onClose={() => setVaccinationPopup(false)} />
+                                        <AddUpdateVaccination petId={petId} onClose={() => setVaccinationPopup(false)} />
                                     </ModalPopup>
                                 )}
                             </>

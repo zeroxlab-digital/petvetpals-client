@@ -1,28 +1,32 @@
 import Actions from '@/components/Common/Actions/Actions';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
+import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import { useDeleteMedicalHistoryMutation, useGetMedicalHistoryQuery } from '@/redux/services/petApi';
 import { displayValue } from '@/utils/displayValue';
-import { Download } from 'lucide-react';
-import React from 'react';
-import { HiOutlinePencilAlt } from 'react-icons/hi';
+import { Download, Stethoscope } from 'lucide-react';
+import React, { useState } from 'react';
+import { HiOutlinePencilAlt, HiPencilAlt } from 'react-icons/hi';
 import { HiEllipsisVertical, HiOutlineDocumentText, HiOutlineInformationCircle, HiOutlineTrash } from 'react-icons/hi2';
 import { toast } from 'react-toastify';
+import AddUpdateMedicalRecord from './AddUpdateMedicalRecord';
 
 const MedicalHistory = ({ petId }) => {
     const { data, isLoading, error } = useGetMedicalHistoryQuery({ petId });
     const medicalHistory = data?.medicalHistory || [];
     const [deleteMedicalHistory, { }] = useDeleteMedicalHistoryMutation();
+    const [viewMedicalHistory, setViewMedicalHistory] = useState(null);
     const handleView = async (medicalHistory) => {
         try {
-            toast.info("This feature is coming soon!", { autoClose: 1000 })
+            setViewMedicalHistory(medicalHistory);
         } catch (error) {
             console.log(error);
             toast.error("There was an error while trying to edit this!", { autoClose: 1000 })
         }
     }
-    const handleEdit = async (id) => {
+    const [editModal, setEditModal] = useState(null)
+    const handleEdit = async (record) => {
         try {
-            toast.info("This feature is coming soon!", { autoClose: 1000 })
+            setEditModal(record);
         } catch (error) {
             console.log(error);
             toast.error("There was an error while trying to edit this!", { autoClose: 1000 })
@@ -78,7 +82,7 @@ const MedicalHistory = ({ petId }) => {
                                             {
                                                 label: "Edit",
                                                 icon: <HiOutlinePencilAlt />,
-                                                onClick: () => handleEdit(record._id),
+                                                onClick: () => handleEdit(record),
                                             },
                                             {
                                                 label: "Delete",
@@ -93,6 +97,12 @@ const MedicalHistory = ({ petId }) => {
                     ))}
                 </tbody>
             </table>
+            {editModal && <ModalPopup isOpen={editModal} onClose={() => setEditModal(null)} title={"Edit Medical History"} icon={<HiPencilAlt />} >
+                <AddUpdateMedicalRecord petId={petId} onClose={() => setEditModal(null)} record={editModal} />
+            </ModalPopup>}
+            {viewMedicalHistory && <ModalPopup isOpen={viewMedicalHistory} onClose={() => setViewMedicalHistory(null)} title={"View Medical History"} icon={<Stethoscope />} >
+                <h2>View Medical History {viewMedicalHistory.type}</h2>
+            </ModalPopup>}
         </div>
     );
 };

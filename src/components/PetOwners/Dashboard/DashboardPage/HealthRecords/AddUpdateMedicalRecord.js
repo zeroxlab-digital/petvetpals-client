@@ -3,27 +3,36 @@ import Input from '@/components/Common/Form/Input';
 import Label from '@/components/Common/Form/Label';
 import Textarea from '@/components/Common/Form/Textarea';
 import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
-import { useAddMedicalHistoryMutation } from '@/redux/services/petApi';
+import { useAddMedicalHistoryMutation, useUpdateMedicalHistoryMutation } from '@/redux/services/petApi';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-const AddMedicalRecord = ({ petId, onClose }) => {
+const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
+    const isEdit = Boolean(record);
+
     const [vets, setVets] = useState([]);
-    const [addMedicalHistory, { isLoading }] = useAddMedicalHistoryMutation();
+    const [addMedicalHistory, { isLoading: isAdding }] = useAddMedicalHistoryMutation();
+    const [updateMedicalHistory, { isLoading: isUpdating }] = useUpdateMedicalHistoryMutation();
 
-    const [medicalHistoryData, setMedicalHistoryData] = useState({
-        type: '',
-        date: new Date().toISOString().split('T')[0],
-        vetId: '',
-        diagnosis: '',
-        treatment: '',
-        description: '',
-    });
-    console.log(medicalHistoryData.vetId)
+    const initialState = record
+        ? {
+            type: record.type || '',
+            date: record.date?.split('T')[0] || new Date().toISOString().split('T')[0],
+            vetId: record.vetId || '',
+            diagnosis: record.diagnosis || '',
+            treatment: record.treatment || '',
+            description: record.description || ''
+        }
+        : {
+            type: '',
+            date: new Date().toISOString().split('T')[0],
+            vetId: '',
+            diagnosis: '',
+            treatment: '',
+            description: ''
+        };
 
-    const notify = (message, type) => {
-        toast(message, { type, autoClose: 1000 });
-    };
+    const [medicalHistoryData, setMedicalHistoryData] = useState(initialState);
 
     useEffect(() => {
         const fetchAllVets = async () => {
@@ -37,30 +46,40 @@ const AddMedicalRecord = ({ petId, onClose }) => {
         fetchAllVets();
     }, []);
 
+    const notify = (message, type) => {
+        toast(message, { type, autoClose: 1000 });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
-            console.log(petId);
-            const res = await addMedicalHistory({
+            const payload = {
                 petId,
                 medicalHistoryData
-            }).unwrap();
+            };
 
-            if (res.success) {
-                notify("Medical record added successfully!", "success");
-                setMedicalHistoryData({
-                    type: '',
-                    date: new Date().toISOString().split('T')[0],
-                    vetId: '',
-                    diagnosis: '',
-                    treatment: '',
-                    description: ''
-                });
-                onClose();
+            if (isEdit) {
+                const res = await updateMedicalHistory({
+                    petId,
+                    recordId: record._id,
+                    medicalHistoryData
+                }).unwrap();
+                if (res.success) {
+                    notify("Medical record updated successfully!", "success");
+                    onClose();
+                }
+            } else {
+                const res = await addMedicalHistory(payload).unwrap();
+                if (res.success) {
+                    notify("Medical record added successfully!", "success");
+                    setMedicalHistoryData(initialState);
+                    onClose();
+                }
             }
         } catch (err) {
-            console.error("Failed to add medical record:", err);
-            notify("Failed to add record", "error");
+            console.error("Failed to save medical record:", err);
+            notify("Failed to save record", "error");
         }
     };
 
@@ -103,12 +122,14 @@ const AddMedicalRecord = ({ petId, onClose }) => {
                             label: vet.fullName,
                             value: vet._id
                         }))}
+                        value={medicalHistoryData.vetId}
+                        // placeholder={medicalHistoryData}
                         onChange={(e) =>
                             setMedicalHistoryData({ ...medicalHistoryData, vetId: e.target.value })
                         }
                     />
                 </div>
-                <div className=''>
+                <div>
                     <Label htmlFor="diagnosis">Diagnosis</Label>
                     <Input
                         type="text"
@@ -161,7 +182,7 @@ const AddMedicalRecord = ({ petId, onClose }) => {
                         className={`bg-primary text-white w-40 h-11 text-center rounded-md hover:bg-primaryHover duration-200 ${!medicalHistoryData.vetId ? 'opacity-50 cursor-not-allowed' : ''
                             }`}
                     >
-                        {isLoading ? 'Saving...' : 'Add Record'}
+                        {(isAdding || isUpdating) ? 'Saving...' : isEdit ? 'Update Record' : 'Add Record'}
                     </button>
                 </div>
             </form>
@@ -169,4 +190,4 @@ const AddMedicalRecord = ({ petId, onClose }) => {
     );
 };
 
-export default AddMedicalRecord;
+export default AddUpdateMedicalRecord;

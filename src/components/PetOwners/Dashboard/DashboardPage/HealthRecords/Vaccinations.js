@@ -1,32 +1,40 @@
 import Actions from '@/components/Common/Actions/Actions';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
+import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import { useDeleteVaccinationMutation, useGetVaccinationsQuery } from '@/redux/services/petApi';
 import { displayValue } from '@/utils/displayValue';
-import React from 'react';
+import { Syringe } from 'lucide-react';
+import React, { useState } from 'react';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { HiEllipsisVertical, HiOutlineDocumentText, HiOutlineInformationCircle, HiOutlineTrash } from 'react-icons/hi2';
 import { toast } from 'react-toastify';
+import AddUpdateVaccination from './AddUpdateVaccination';
 
 const Vaccinations = ({ petId }) => {
     const { data, isLoading, error } = useGetVaccinationsQuery({ petId });
     const [deleteVaccination, { isError }] = useDeleteVaccinationMutation();
     const vaccinations = data?.vaccinations || [];
+
+    const [viewVaccination, setViewVaccination] = useState(null);
     const handleView = async (vaccine) => {
         try {
-            toast.info("This feature is coming soon!", { autoClose: 1000 })
+            setViewVaccination(vaccine)
         } catch (error) {
             console.log(error);
             toast.error("There was an error while trying to edit this!", { autoClose: 1000 })
         }
     }
-    const handleEdit = async (id) => {
+
+    const [editVaccination, setEditVaccination] = useState(null);
+    const handleEdit = async (vaccination) => {
         try {
-            toast.info("This feature is coming soon!", { autoClose: 1000 })
+            setEditVaccination(vaccination)
         } catch (error) {
             console.log(error);
             toast.error("There was an error while trying to edit this!", { autoClose: 1000 })
         }
     }
+
     const handleDelete = async (vaccinationId) => {
         if (window.confirm("Are you sure you want to delete this vaccination?")) {
             try {
@@ -38,6 +46,7 @@ const Vaccinations = ({ petId }) => {
             }
         }
     }
+    
     if (isLoading) return <div><PetSpinner /></div>
     if (vaccinations.length < 1) return <div>No vaccination found!</div>
     return (
@@ -73,7 +82,7 @@ const Vaccinations = ({ petId }) => {
                                             {
                                                 label: "Edit",
                                                 icon: <HiOutlinePencilAlt />,
-                                                onClick: () => handleEdit(vaccine._id),
+                                                onClick: () => handleEdit(vaccine),
                                             },
                                             {
                                                 label: "Delete",
@@ -88,6 +97,12 @@ const Vaccinations = ({ petId }) => {
                     ))}
                 </tbody>
             </table>
+            {viewVaccination && <ModalPopup isOpen={viewVaccination} onClose={() => setViewVaccination(null)} title={"View Vaccination"} icon={<Syringe />} >
+                <h2>View Vaccination {viewVaccination.vaccine}</h2>
+            </ModalPopup>}
+            {editVaccination && <ModalPopup isOpen={editVaccination} onClose={() => setEditVaccination(null)} title={"Edit Vaccination"} icon={<Syringe />} >
+                <AddUpdateVaccination petId={petId} onClose={() => setEditVaccination(null)} vaccination={editVaccination} />
+            </ModalPopup>}
         </div>
     );
 };
