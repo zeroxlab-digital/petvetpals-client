@@ -10,6 +10,7 @@ import { Dna, Plus, Scale } from 'lucide-react';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import { HiPlus } from 'react-icons/hi2';
 import AddUpdatePet from './AddUpdatePet';
+import { FaPaw } from 'react-icons/fa6';
 
 const PetProfiles = () => {
     const { data, isLoading, isError, error } = useGetPetsQuery();
@@ -33,7 +34,7 @@ const PetProfiles = () => {
     return (
         <div>
             <div className='mb-5'>
-                <h2 className='font-bold text-2xl mb-1'>Pet profiles</h2>
+                <h2 className='font-bold text-2xl mb-2 flex items-center gap-3'><span className="bg-primary rounded-md w-10 h-10 flex items-center justify-center text-white"><FaPaw /></span> Pet profiles</h2>
                 <p className='text-gray-500'>Add and modify your furry pet&apos;s profiles</p>
             </div>
             <div className='grid grid-cols-3 max-xl:grid-cols-2 max-sm:grid-cols-1 gap-7 auto-rows-fr'>
@@ -46,11 +47,11 @@ const PetProfiles = () => {
                                     <span>{pet.gender == 'male' ? '♂' : '♀'}</span>
                                     {pet.gender}
                                 </p>
-                                <p className='text-xl'>
+                                {/* <p className='text-xl'>
                                     {
                                         pet.type == "Dog" ? "🐕" : pet.type == "Cat" ? "🐱" : "🐾"
                                     }
-                                </p>
+                                </p> */}
                             </div>
                         </div>
                         <div className='p-3'>

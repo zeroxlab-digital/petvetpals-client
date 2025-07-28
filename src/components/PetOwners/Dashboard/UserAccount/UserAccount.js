@@ -4,7 +4,9 @@ import { Bell, Camera, CreditCard, Edit, Eye, EyeOff, Key, Lock, Mail, Phone, Pl
 import Image from "next/image"
 import { PetSpinner } from "@/components/Common/Loader/PetSpinner"
 import { toast, ToastContainer } from "react-toastify"
-import { useGetUserDetailsQuery, useUpdateUserDetailsMutation } from "@/redux/services/userApi"
+import { useGetUserDetailsQuery, useLogoutUserMutation, useUpdateUserDetailsMutation } from "@/redux/services/userApi"
+import { HiArrowRightOnRectangle } from "react-icons/hi2"
+import { useRouter } from "next/navigation"
 
 const UserAccount = () => {
   const [userProfile, setUserProfile] = useState(null);
@@ -29,6 +31,22 @@ const UserAccount = () => {
       console.log(res);
       if (res.data?.success) {
         notify("Profile updated successfull!", "success");
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const router = useRouter();
+  const [logoutUser] = useLogoutUserMutation();
+  const handleUserLogout = async () => {
+    try {
+      const res = await logoutUser({});
+      console.log(res);
+      if (res.data?.success) {
+        notify("Logout successfull!", "success");
+        localStorage.clear();
+        router.push("/signin");
       }
     } catch (error) {
       console.log(error)
@@ -192,53 +210,56 @@ const UserAccount = () => {
 
               {/* Security Settings */}
               <div className="grid gap-6">
-              <div className="bg-white rounded-xl border shadow-sm p-6">
-                <h3 className="text-lg font-semibold mb-6">Security Settings</h3>
-                <div className="space-y-6">
-                  <div className="pb-6 border-b">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2">
-                        <Lock className="h-5 w-5 text-gray-500" />
-                        <h4 className="font-medium">Password</h4>
-                      </div>
-                      <button className="text-sm text-blue-500 hover:text-blue-600">Change</button>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        value={userProfile?.password || "12345678"}
-
-                        className="px-3 py-2 border rounded-lg bg-gray-50 text-gray-500"
-                      />
-                      <button
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="p-2 text-gray-500 hover:text-gray-700"
-                      >
-                        {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                      </button>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2">
-                        <Key className="h-5 w-5 text-gray-500" />
-                        <h4 className="font-medium">Active Sessions</h4>
-                      </div>
-                    </div>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between p-3 border rounded-lg">
-                        <div>
-                          <p className="text-sm font-medium">Current Session</p>
-                          <p className="text-xs text-gray-500">Windows • Chrome • New York, USA</p>
+                <div className="bg-white rounded-xl border shadow-sm p-6">
+                  <h3 className="text-lg font-semibold mb-6">Security Settings</h3>
+                  <div className="space-y-6">
+                    <div className="pb-6 border-b">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-2">
+                          <Lock className="h-5 w-5 text-gray-500" />
+                          <h4 className="font-medium">Password</h4>
                         </div>
-                        <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">Active Now</span>
+                        <button className="text-sm text-blue-500 hover:text-blue-600">Change</button>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          value={userProfile?.password || "12345678"}
+
+                          className="px-3 py-2 border rounded-lg bg-gray-50 text-gray-500"
+                        />
+                        <button
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="p-2 text-gray-500 hover:text-gray-700"
+                        >
+                          {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                        </button>
                       </div>
                     </div>
+
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-2">
+                          <Key className="h-5 w-5 text-gray-500" />
+                          <h4 className="font-medium">Active Sessions</h4>
+                        </div>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between p-3 border rounded-lg">
+                          <div>
+                            <p className="text-sm font-medium">Current Session</p>
+                            <p className="text-xs text-gray-500">Windows • Chrome • New York, USA</p>
+                          </div>
+                          <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">Active Now</span>
+                        </div>
+                      </div>
+                    </div>
+                    {/* Logout */}
+                    <button onClick={handleUserLogout} className="lg:hidden mt-auto w-full  text-left  rounded-md h-12 px-3 text-red-500  font-medium bg-red-500/5 hover:bg-red-500/10 duration-200 flex items-center gap-2 "><HiArrowRightOnRectangle className='text-xl' /> Log out</button>
+
                   </div>
                 </div>
               </div>
-            </div>
             </div>
           )}
 

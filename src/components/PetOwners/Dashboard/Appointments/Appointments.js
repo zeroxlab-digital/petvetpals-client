@@ -13,7 +13,7 @@ import { HiOutlineThumbUp } from 'react-icons/hi';
 import Reschedule from './Reschedule';
 import BookingPopup from '../../Appointment/BookingPopup';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
-import { CheckCircle, MessageCircle } from 'lucide-react';
+import { Calendar, CheckCircle, MessageCircle } from 'lucide-react';
 import ConfirmBooking from './ConfirmBooking';
 
 const Appointments = () => {
@@ -115,7 +115,7 @@ const Appointments = () => {
     return (
         <div className=''>
             <div className='mb-5'>
-                <h2 className='font-bold text-2xl mb-1'>Appointments</h2>
+                <h2 className='font-bold text-2xl mb-2 flex items-center gap-3'><span className="bg-primary rounded-md w-10 h-10 flex items-center justify-center text-white"><Calendar /></span> Appointments</h2>
                 <p className='text-gray-500'>See your scheduled and all other appointments</p>
             </div>
 
