@@ -116,6 +116,15 @@ export const petApi = createApi({
             }),
             invalidatesTags: ["Pet"]
         }),
+        updateMedicalHistory: build.mutation({
+            query: ({ recordId, medicalHistoryData }) => ({
+                url: '/health-record/update-medical-history',
+                method: "PATCH",
+                params: { id: recordId },
+                body: { ...medicalHistoryData }
+            }),
+            invalidatesTags: ["Pet"]
+        }),
         deleteMedicalHistory: build.mutation({
             query: ({ medicalHistoryId }) => ({
                 url: '/health-record/delete-medical-history',
@@ -137,6 +146,15 @@ export const petApi = createApi({
                 url: '/health-record/add-vaccination',
                 method: "POST",
                 params: { petId },
+                body: { ...vaccinationData }
+            }),
+            invalidatesTags: ["Pet"]
+        }),
+        updateVaccination: build.mutation({
+            query: ({ vaccinationId, vaccinationData }) => ({
+                url: '/health-record/update-vaccination',
+                method: "PATCH",
+                params: { id: vaccinationId },
                 body: { ...vaccinationData }
             }),
             invalidatesTags: ["Pet"]
@@ -176,4 +194,4 @@ export const petApi = createApi({
     })
 })
 
-export const { useGetPetsQuery, useAddPetMutation, useUpdateAPetMutation, useGetMedicationsQuery, useAddMedicationMutation, useUpdateMedicationMutation, useDeleteMedicationMutation, useGetScheduledRemindersQuery, useAddMedScheduleReminderMutation, useDeleteMedScheduledReminderMutation, useMarkGivenMedScheduledReminderMutation, useGetMedicalHistoryQuery, useAddMedicalHistoryMutation, useDeleteMedicalHistoryMutation, useGetVaccinationsQuery, useAddVaccinationMutation, useDeleteVaccinationMutation, useAddAllergyConditionMutation, useGetAllergiesConditionsQuery, useDeleteAllergyConditionMutation } = petApi;
+export const { useGetPetsQuery, useAddPetMutation, useUpdateAPetMutation, useGetMedicationsQuery, useAddMedicationMutation, useUpdateMedicationMutation, useDeleteMedicationMutation, useGetScheduledRemindersQuery, useAddMedScheduleReminderMutation, useDeleteMedScheduledReminderMutation, useMarkGivenMedScheduledReminderMutation, useGetMedicalHistoryQuery, useAddMedicalHistoryMutation, useUpdateMedicalHistoryMutation, useDeleteMedicalHistoryMutation, useGetVaccinationsQuery, useAddVaccinationMutation, useUpdateVaccinationMutation, useDeleteVaccinationMutation, useAddAllergyConditionMutation, useGetAllergiesConditionsQuery, useDeleteAllergyConditionMutation } = petApi;
