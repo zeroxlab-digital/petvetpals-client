@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@/components/Common/Button/Button';
 import { HiPlus, HiOutlineTrash, HiClock, HiOutlineInformationCircle, HiEllipsisVertical, HiOutlineCheckCircle } from 'react-icons/hi2';
-import { HiOutlineDownload, HiOutlinePencilAlt } from 'react-icons/hi';
+import { HiOutlineDownload, HiOutlinePencilAlt, HiPencilAlt } from 'react-icons/hi';
 import { useDeleteMedicationMutation, useGetMedicationsQuery, useUpdateMedicationMutation } from '@/redux/services/petApi';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
-import AddMedication from './AddMedication';
+import AddMedication from './AddUpdateMedication';
 import { LuPill } from 'react-icons/lu';
 import ScheduleMedication from './ScheduleMedication';
 import Actions from '@/components/Common/Actions/Actions';
 import MedicationDetails from './MedicationDetails';
 import { toast } from 'react-toastify';
 import ScheduleAndReminders from './ScheduleAndReminders';
+import AddUpdateMedication from './AddUpdateMedication';
 
 const Medications = ({ petId }) => {
     const [activeTab, setActiveTab] = useState("current-medications");
@@ -46,13 +47,10 @@ const Medications = ({ petId }) => {
         setViewDetails(true);
     };
 
-    // const handleEdit = (med) => {
-    //     setEditingMed(med);
-    //     setShowEditModal(true);
-    // };
-    const handleEdit = async (id) => {
+    const [editMedication, setEditMedication] = useState(null)
+    const handleEdit = async (medication) => {
         try {
-            toast.info("This feature is coming soon!", { autoClose: 1000 })
+            setEditMedication(medication)
         } catch (error) {
             console.log(error);
             toast.error("There was an error while trying to edit this!", { autoClose: 1000 })
@@ -117,7 +115,7 @@ const Medications = ({ petId }) => {
                             <HiPlus className='text-lg' /> Add Medication
                         </Button>
                         <ModalPopup isOpen={openPopup} onClose={() => setOpenPopup(false)} title={"Add Medication"} icon={<LuPill />}>
-                            <AddMedication onClose={() => setOpenPopup(false)} petId={petId} />
+                            <AddUpdateMedication onClose={() => setOpenPopup(false)} petId={petId} />
                         </ModalPopup>
                     </>
                 )}
@@ -185,7 +183,7 @@ const Medications = ({ petId }) => {
                                                             {
                                                                 label: "Edit",
                                                                 icon: <HiOutlinePencilAlt />,
-                                                                onClick: () => handleEdit(med._id),
+                                                                onClick: () => handleEdit(med),
                                                             },
                                                             {
                                                                 label: "Delete",
@@ -208,6 +206,11 @@ const Medications = ({ petId }) => {
                                 {viewDetails &&
                                     <ModalPopup isOpen={viewDetails} onClose={() => setViewDetails(false)} title={selectedMed.medication + " Medication Details"} icon={<HiOutlineInformationCircle />}>
                                         <MedicationDetails med={selectedMed} setViewDetails={setViewDetails} />
+                                    </ModalPopup>
+                                }
+                                {editMedication &&
+                                    <ModalPopup isOpen={editMedication} onClose={() => setEditMedication(null)} title={"Edit Medication Details"} icon={<HiPencilAlt />}>
+                                        <AddUpdateMedication petId={petId} medication={editMedication} onClose={() => setEditMedication(null)} />
                                     </ModalPopup>
                                 }
                             </div>
@@ -271,7 +274,7 @@ const Medications = ({ petId }) => {
             )}
             {/* ---------------- Schedule & Reminders ---------------- */}
             {activeTab === 'schedule-reminders' && (
-                <ScheduleAndReminders activeTab={activeTab} petId={petId} />
+                <ScheduleAndReminders petId={petId} ongoingMedications={ongoingMedications} />
             )}
         </div>
     );
