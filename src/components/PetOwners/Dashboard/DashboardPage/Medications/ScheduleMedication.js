@@ -1,26 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Input from '@/components/Common/Form/Input';
 import Label from '@/components/Common/Form/Label';
 import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
 import { Switch } from '@mui/material';
-import { useAddMedScheduleReminderMutation } from '@/redux/services/petApi';
+import { useAddMedScheduleReminderMutation, useUpdateMedScheduleReminderMutation } from '@/redux/services/petApi';
 import { toast } from 'react-toastify';
 
-const ScheduleMedication = ({ onClose, ongoingMedications, petId, refetch }) => {
+const ScheduleMedication = ({ onClose, ongoingMedications, petId, schedule = null, refetch }) => {
+    const isEdit = Boolean(schedule);
+
     const [formData, setFormData] = useState({
         medId: '',
         frequency: '',
-        starting_date: null,
+        starting_date: '',
         end_date: '',
         reminder_time: '',
         remind_before: '10',
         reminder_methods: [],
         repeat_reminder: false,
     });
-    console.log("Pet ID:", petId)
-    console.log("Form:", formData)
-    
-    const [addMedScheduleReminder, { isLoading }] = useAddMedScheduleReminderMutation();
+
+    const [addMedScheduleReminder, { isLoading: isAdding }] = useAddMedScheduleReminderMutation();
+    const [updateMedScheduleReminder, { isLoading: isUpdating }] = useUpdateMedScheduleReminderMutation();
+
+    useEffect(() => {
+        if (isEdit && schedule) {
+            setFormData({
+                medId: schedule.medId || ongoingMedications?.[0]?._id || '',
+                frequency: schedule.frequency || '',
+                starting_date: schedule.starting_date?.split('T')[0] || '',
+                end_date: schedule.end_date?.split('T')[0] || '',
+                reminder_time: schedule.reminder_time || '',
+                remind_before: schedule.remind_before || '10',
+                reminder_methods: schedule.reminder_methods || [],
+                repeat_reminder: schedule.repeat_reminder || false,
+            });
+        }
+    }, [schedule, isEdit, ongoingMedications]);
 
     const handleChange = (field, value) => {
         setFormData((prev) => ({ ...prev, [field]: value }));
@@ -36,33 +52,54 @@ const ScheduleMedication = ({ onClose, ongoingMedications, petId, refetch }) => 
     const handleSubmitSchedule = async (e) => {
         e.preventDefault();
         try {
-            const res = await addMedScheduleReminder({petId, formData}).unwrap();
-            if (res.success) {
-                toast.success("Medication scheduled!", { autoClose: 1000 });
-                onClose();
-                if (refetch) refetch();
+            if (!formData.medId) {
+                toast.error("Please select a medication");
+                return;
+            }
+
+            if (isEdit) {
+                const res = await updateMedScheduleReminder({
+                    scheduleId: schedule._id,
+                    scheduleData: formData
+                }).unwrap();
+                if (res.success) {
+                    toast.success("Schedule updated!", { autoClose: 1000 });
+                    onClose();
+                    refetch?.();
+                }
+            } else {
+                const res = await addMedScheduleReminder({ petId, formData }).unwrap();
+                if (res.success) {
+                    toast.success("Medication scheduled!", { autoClose: 1000 });
+                    onClose();
+                    refetch?.();
+                }
             }
         } catch (err) {
-            console.error("Error scheduling medication:", err);
-            toast.error("Failed to schedule medication");
+            console.error("Error saving schedule:", err);
+            toast.error("Failed to save schedule");
         }
     };
 
     return (
         <div>
             <form onSubmit={handleSubmitSchedule}>
-
                 {/* Medication Select */}
                 <div className='mb-3'>
                     <Label htmlFor="medication">Medication</Label>
-                    <SelectOptions
-                        id="medication"
-                        options={ongoingMedications.map(med => ({
-                            label: med.medication,
-                            value: med._id
-                        }))}
-                        onChange={(e) => handleChange('medId', e.target.value)}
-                    />
+                    {ongoingMedications?.length > 0 ? (
+                        <SelectOptions
+                            id="medication"
+                            value={formData.medId}
+                            options={ongoingMedications.map(med => ({
+                                label: med.medication,
+                                value: med._id
+                            }))}
+                            onChange={(e) => handleChange('medId', e.target.value)}
+                        />
+                    ) : (
+                        <div className="text-sm text-gray-500">No medications available</div>
+                    )}
                 </div>
 
                 {/* Frequency */}
@@ -70,6 +107,7 @@ const ScheduleMedication = ({ onClose, ongoingMedications, petId, refetch }) => 
                     <Label htmlFor="frequency">Frequency</Label>
                     <SelectOptions
                         id="frequency"
+                        value={formData.frequency}
                         options={[
                             { label: 'Once Daily', value: 'once_daily' },
                             { label: 'Twice Daily', value: 'twice_daily' },
@@ -123,6 +161,7 @@ const ScheduleMedication = ({ onClose, ongoingMedications, petId, refetch }) => 
                         <Label htmlFor="reminderMinutes">Remind me</Label>
                         <SelectOptions
                             id="reminderMinutes"
+                            value={formData.remind_before}
                             options={[
                                 { label: 'At dose time', value: '0' },
                                 { label: '5 minutes before', value: '5' },
@@ -131,7 +170,6 @@ const ScheduleMedication = ({ onClose, ongoingMedications, petId, refetch }) => 
                                 { label: '30 minutes before', value: '30' },
                                 { label: '1 hour before', value: '60' }
                             ]}
-                            // default={{ label: '10 minutes before', value: '10' }}
                             onChange={(e) => handleChange('remind_before', e.target.value)}
                         />
                     </div>
@@ -168,11 +206,19 @@ const ScheduleMedication = ({ onClose, ongoingMedications, petId, refetch }) => 
 
                 {/* Footer Actions */}
                 <div className='mt-7 flex gap-2 items-center justify-end'>
-                    <button onClick={onClose} type="button" className='bg-transparent border border-red-400 text-red-400 hover:text-white px-4 py-2 rounded-md hover:bg-red-400 duration-200'>
+                    <button
+                        type="button"
+                        onClick={onClose}
+                        className='bg-transparent border border-red-400 text-red-400 hover:text-white px-4 py-2 rounded-md hover:bg-red-400 duration-200'
+                    >
                         Cancel
                     </button>
-                    <button type="submit" disabled={isLoading} className='bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryHover duration-200'>
-                        {isLoading ? 'Scheduling...' : 'Schedule Medication'}
+                    <button
+                        type="submit"
+                        disabled={isAdding || isUpdating}
+                        className='bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryHover duration-200'
+                    >
+                        {(isAdding || isUpdating) ? 'Saving...' : isEdit ? 'Update Schedule' : 'Schedule Medication'}
                     </button>
                 </div>
             </form>
