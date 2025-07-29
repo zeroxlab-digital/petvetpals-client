@@ -115,7 +115,7 @@ const ScheduleAndReminders = ({ petId, ongoingMedications }) => {
 
     return (
         <div>
-
+            {scheduledMedications.length > 0 ?
                 <div className='h-screen border rounded-md bg-white overflow-x-auto'>
                     <table className='w-full border-collapse p-5'>
                         <thead>
@@ -207,7 +207,11 @@ const ScheduleAndReminders = ({ petId, ongoingMedications }) => {
                         </tbody>
                     </table>
                 </div>
-
+            :
+            <div>
+                No Reminders Set!
+            </div>
+            }
             {editReminder && <ModalPopup isOpen={editReminder} onClose={() => setEditReminder(null)} title={"Edit Reminder"} icon={<HiPencilAlt />} >
                 <ScheduleMedication petId={petId} ongoingMedications={ongoingMedications} onClose={() => setEditReminder(null)} schedule={editReminder} />
             </ModalPopup>}
