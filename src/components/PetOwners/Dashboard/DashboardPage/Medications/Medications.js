@@ -92,15 +92,15 @@ const Medications = ({ petId }) => {
 
     return (
         <div className='space-y-5 h-screen'>
-            <div className='flex items-center justify-between'>
+            <div className='flex items-center justify-between max-sm:flex-wrap'>
                 <h2 className='font-semibold text-lg'>Medications & Treatment</h2>
                 {activeTab === 'schedule-reminders' && (
                     <>
-                        <div className='flex items-center gap-2'>
-                            <Button variant={'primaryOutline'} classNames={'text-sm !hover:bg-gray-200'}>
+                        <div className='flex items-center gap-2 max-sm:grid max-sm:grid-cols-2 max-sm:mt-2'>
+                            <Button variant={'primaryOutline'} classNames={'max-sm:px-3 text-sm !hover:bg-gray-200'}>
                                 <HiOutlineDownload className='text-lg' /> Export Calendar
                             </Button>
-                            <Button onClick={() => setOpenPopup(true)} variant={'primary'} classNames={'text-sm '}>
+                            <Button onClick={() => setOpenPopup(true)} variant={'primary'} classNames={'max-sm:px-3 text-sm '}>
                                 <HiPlus className='text-lg' /> Add to Schedule
                             </Button>
                         </div>
@@ -111,7 +111,7 @@ const Medications = ({ petId }) => {
                 )}
                 {activeTab === 'current-medications' && (
                     <>
-                        <Button onClick={() => setOpenPopup(true)} variant={'primaryOutline'} classNames={'text-sm'}>
+                        <Button onClick={() => setOpenPopup(true)} variant={'primaryOutline'} classNames={'max-sm:mt-2 text-sm'}>
                             <HiPlus className='text-lg' /> Add Medication
                         </Button>
                         <ModalPopup isOpen={openPopup} onClose={() => setOpenPopup(false)} title={"Add Medication"} icon={<LuPill />}>
