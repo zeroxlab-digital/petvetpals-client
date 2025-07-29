@@ -189,7 +189,7 @@ const DashboardPage = () => {
                 </div>
                 <div className="flex items-center gap-2 text-center">
                     <button
-                        onClick={() => router.push("/appointments")}
+                        onClick={() => router.push("/vet-appointment")}
                         className=" flex justify-center items-center bg-primary hover:bg-primaryHover duration-200 text-white px-4 max-sm:px-2 py-[10px] rounded-lg transition-colors"
                     >
                         <Calendar className="mr-2 h-4 w-4" />

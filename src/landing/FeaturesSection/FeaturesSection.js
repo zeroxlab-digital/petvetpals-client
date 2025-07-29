@@ -17,16 +17,7 @@ const FeaturesSection = () => {
             glowColor: "shadow-blue-500/25",
         },
         {
-            title: "Foods & Accessories",
-            subtitle: "Premium pet supplies",
-            link: "/shop",
-            link_title: "Shop Now",
-            icon: ShoppingBag,
-            gradient: "from-emerald-500 via-green-600 to-teal-600",
-            glowColor: "shadow-emerald-500/25",
-        },
-        {
-            title: "Smart Pet Health Tools",
+            title: "AI-Powered Pet Health Tools",
             subtitle: "Symptom checker, health tracker & more",
             link: "/dashboard",
             link_title: "Explore Tools",
@@ -43,12 +34,21 @@ const FeaturesSection = () => {
             gradient: "from-orange-500 via-red-500 to-pink-600",
             glowColor: "shadow-orange-500/25",
         },
+        {
+            title: "Foods & Accessories",
+            subtitle: "Premium pet supplies",
+            link: "/shop",
+            link_title: "Shop Now",
+            icon: ShoppingBag,
+            gradient: "from-emerald-500 via-green-600 to-teal-600",
+            glowColor: "shadow-emerald-500/25",
+        }
     ]
 
     return (
         <section className="app-container mx-auto px-4 mt-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {(!authUser ? features: features.slice(1)).map((feature, index) => {
+                {features.map((feature, index) => {
                     const IconComponent = feature.icon
                     return (
                         <Link key={index} href={feature.link} className="group">

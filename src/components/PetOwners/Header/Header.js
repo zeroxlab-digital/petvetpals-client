@@ -26,9 +26,9 @@ const Header = () => {
     }, [responsiveMenu]);
 
     return (
-        <header className={`py-5 shadow-md ${!pathname.startsWith('/dashboard') && 'sticky top-0 bg-white z-20'}`}>
+        <header className={`py-5 shadow-md ${!pathname.startsWith('/dashboard') ? 'sticky top-0 bg-white z-20 max-sm:py-[17px]' : 'max-sm:py-[15px]'}`}>
             <div className="flex items-center justify-between app-container ">
-                <div className="flex items-center gap-16 max-lg:gap-3">
+                <div className="flex items-center gap-10 max-lg:gap-3">
                     {/* Menu Button */}
                     <button onClick={() => setResponsiveMenu(true)} className="lg:hidden">
                         <HiBars3CenterLeft className="text-[26px] text-primary" />
