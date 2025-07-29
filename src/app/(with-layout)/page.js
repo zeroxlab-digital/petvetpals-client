@@ -25,8 +25,8 @@ const Home = () => {
         <BestDealSection />
         <PetHealthTrackerSection />
         {/* <AISyndromeCheckerSection /> */}
-        <AllInOne />
-        <GetStartedSection />
+        {/* <AllInOne /> */}
+        {/* <GetStartedSection /> */}
         <BlogsSection />
       </main>
       <Footer />

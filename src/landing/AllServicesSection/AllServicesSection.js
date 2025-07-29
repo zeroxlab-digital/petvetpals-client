@@ -65,10 +65,10 @@ const AllServicesSection = () => {
                     </div>
                 </div>
             </div>
-            <div className="bg-primary w-full text-center py-10 px-5">
-                <h2 className="text-3xl max-md:text-xl font-bold mb-3 text-white">Your Pet’s Health, Our Priority</h2>
-                <p className="text-gray-300 mb-10 text-lg max-md:text-base">Join us in revolutionizing pet care with top-tier veterinary services, smart tools, and a seamless digital experience.</p>
-                <button onClick={() => router.push("/dashboard")} className="text-white  border rounded-full font-semibold px-7 py-3 text-center">Get Started Today</button>
+            <div className="bg-primary rounded-[2rem] w-full text-center py-10 px-5">
+                <h2 className="text-2xl max-md:text-xl font-semibold mb-3 text-white">Your Pet’s Health, Our Priority</h2>
+                <p className="text-gray-300 mb-10 text-base max-md:text-base">Join us in revolutionizing pet care with top-tier veterinary services, smart tools, and a seamless digital experience.</p>
+                <button onClick={() => router.push("/dashboard")} className="text-white  border rounded-full font-medium text-sm px-6 py-3 text-center">Get started soday</button>
             </div>
         </section>
     );
