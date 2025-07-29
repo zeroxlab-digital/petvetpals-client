@@ -67,12 +67,12 @@ const PetHealthTrackerSection = () => {
           <h2 className="text-3xl font-bold text-indigo-800 mb-4">Ready to Transform Your Pet&apos;s Health Journey?</h2>
           <p className="text-xl text-purple-700 mb-8">Join thousands of happy pet parents using PetVetPals!</p>
           <motion.button
-            className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold py-4 px-8 rounded-full text-lg shadow-lg"
+            className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg"
             whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(79, 70, 229, 0.5)" }}
             whileTap={{ scale: 0.95 }}
             onClick={() => router.push(authUser ? "/dashboard" : "/signup")}
           >
-            Start Your Free Trial
+            Claim Your Pawfile
             <motion.span
               className="inline-block ml-2"
               animate={{ x: [0, 5, 0] }}

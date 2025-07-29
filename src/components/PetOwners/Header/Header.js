@@ -26,7 +26,7 @@ const Header = () => {
     }, [responsiveMenu]);
 
     return (
-        <header className={`py-5 max-lg:py-[18px] shadow-md ${!pathname.startsWith('/dashboard') && 'sticky top-0 bg-white z-20'}`}>
+        <header className={`py-5 shadow-md ${!pathname.startsWith('/dashboard') && 'sticky top-0 bg-white z-20'}`}>
             <div className="flex items-center justify-between app-container ">
                 <div className="flex items-center gap-16 max-lg:gap-3">
                     {/* Menu Button */}
@@ -40,18 +40,18 @@ const Header = () => {
                         onClick={() => setResponsiveMenu(false)}
                     ></div>
 
-                    <div className={`fixed top-0 left-0 w-3/4 h-screen bg-white z-40 px-5 py-5 flex flex-col 
+                    <div className={`fixed top-0 left-0 w-3/4 h-screen bg-white z-40 flex flex-col 
                     transform transition-transform duration-500 ease-in-out 
                     ${responsiveMenu ? "translate-x-0" : "-translate-x-full"}`}>
 
                         {/* Menu Header */}
-                        <div className="flex items-center justify-between border-b pb-5">
-                            <Link href="/" className="flex items-center gap-2 text-primary">
+                        <div className="flex items-center justify-between p-5 bg-primary text-white ">
+                            <Link href="/" className="flex items-center gap-2">
                                 <PawPrint className="w-7 h-7" />
                                 <span className="text-2xl  font-bold">PetVetPals</span>
                             </Link>
                             <button onClick={() => setResponsiveMenu(false)}>
-                                <HiXMark className="text-[26px] text-primary" />
+                                <HiXMark className="text-[26px]" />
                             </button>
                         </div>
 
@@ -59,7 +59,7 @@ const Header = () => {
                         <Navbar setResponsiveMenu={setResponsiveMenu} />
 
                         {/* Auth Buttons */}
-                        <div className="mt-auto mb-10">
+                        <div className="mt-auto mb-10 px-5">
                             {!authUser ?
                                 <div className="flex items-center gap-3 justify-center ">
                                     <Link href="/signin" className="w-full">

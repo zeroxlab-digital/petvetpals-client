@@ -39,7 +39,7 @@ const BestDealSection = () => {
                     <p className='text-gray-200 text-sm md:text-base mb-8 md:mb-14 px-5 md:px-0'>
                         Grab the best deals from PetVetPals Grab the best deals from PetVetPals Grab the best deals from PetVetPals
                     </p>
-                    <Link href="/shop"><Button classNames={"bg-yellow-300 rounded-full font-medium !w-40"} size={"medium"}>Shop Now</Button>
+                    <Link href="/shop"><Button classNames={"bg-yellow-300 rounded-full font-normal text-sm !py-3 !w-40"} size={"medium"}>Shop Now</Button>
                     </Link>
                 </div>
 

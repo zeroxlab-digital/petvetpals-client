@@ -7,7 +7,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-primary text-gray-200 relative overflow-hidden rounded-t-[4rem] max-sm:rounded-t-[3rem]">
+    <footer className="bg-primary text-gray-200 relative overflow-hidden rounded-t-[2rem] max-sm:rounded-t-[1.5rem]">
       {/* Decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div

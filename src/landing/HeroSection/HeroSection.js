@@ -11,42 +11,34 @@ const HeroSection = () => {
     const router = useRouter();
     const slides = [
         {
-            title: "Expert Online Vet Services",
-            description: "Get instant virtual consultations from licensed veterinarians. Available 24/7 for your pet's health and wellness.",
-            buttonText: "Consult Now",
-            url: "/appointments",
+            title: "Smarter Pet Care, All in One Place",
+            description: "PetVetPals helps you care for your pet with 24/7 online vet access, health tracking tools, and personalized AI support — all in one app.",
+            buttonText: "Get Started",
+            url: "/dashboard",
             image: "/images/cat-vet.jpg",
             services: [
-                "24/7 online vet consultations",
-                "Prescription services at affordable rates",
-                "Personalized pet health advice",
+                "Online vet consultations anytime",
+                "AI-powered symptom checker",
+                "Health & vaccination tracking",
+                "Medication reminders & logs",
+                "Full pet history dashboard"
             ]
         },
         {
-            title: "Premium Pet Supplies",
-            description: "Shop high-quality pet food, toys, and accessories. Enjoy fast, reliable doorstep delivery.",
+            title: "Premium Products & Trusted Services",
+            description: "From nutritious food to interactive toys and soon local pet services — shop and connect with what your pet needs, delivered with care.",
             buttonText: "Shop Now",
             url: "/shop",
             image: "/images/dog-white-yellow.jpg",
             services: [
-                "Top-rated pet food brands",
-                "Organic and grain-free options",
-                "Interactive toys and accessories",
+                "Top-rated food and accessories",
+                "Fast & reliable doorstep delivery",
+                "Upcoming: grooming, sitting & more",
+                "All purchases tracked in your pet profile"
             ]
-        },
-        {
-            title: "One-stop Pet Solution",
-            description: "All-in-one platform for pet care, grooming, veterinary services, and pet adoption. We bring pawsitivity to every home!",
-            buttonText: "Learn More",
-            url: "/dashboard",
-            image: "/images/pet-dog-yellow.jpg",
-            services: [
-                "Find professional pet groomers",
-                "Book pet boarding and daycare",
-                "Join our pet community for tips & support",
-            ]
-        },
+        }
     ];
+
 
     const swiperRef = useRef(null);
 
@@ -66,19 +58,18 @@ const HeroSection = () => {
                     {slides.map((slide, index) => (
                         <SwiperSlide
                             key={index}
-                            className="hero-section-hero rounded-md p-5 bg-primary relative overflow-hidden"
+                            className="hero-section-hero rounded-lg p-4 bg-primary relative overflow-hidden"
                             style={{
                                 backgroundImage: `url(${slide.image})`,
                                 backgroundRepeat: "no-repeat",
                                 backgroundSize: "cover",
                                 backgroundPosition: "center center",
-                                // height: "350px",
                             }}
                         >
                             <div className="text-left flex flex-col justify-between h-full">
                                 <div>
-                                    <h2 className="text-2xl md:text-3xl font-bold text-primary">{slide.title}</h2>
-                                    <p className="mt-2 mb-5 text-gray-900 text-sm md:text-base">{slide.description}</p>
+                                    <h2 className="text-2xl md:text-3xl font-bold text-primary max-md:mb-3">{slide.title}</h2>
+                                    <p className="max-md:hidden mt-2 mb-5 text-gray-900 text-sm md:text-base">{slide.description}</p>
                                     <ul>
                                         {slide.services.map((service, index) => (
                                             <li key={index} className="text-gray-800 text-xs md:text-sm flex items-center gap-2 mb-2 last:mb-0">
