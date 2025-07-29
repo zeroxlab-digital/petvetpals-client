@@ -70,8 +70,8 @@ const Cart = () => {
                         </div>
                     </>
                     :
-                    <div className='text-center p-3'>
-                        <h3 className='text-3xl font-semibold text-gray-700 lg:w-3/5 mx-auto'>Your cart is empty! Purchase our products to become a legendary customer, today.</h3>
+                    <div className='flex items-center justify-center text-center p-3'>
+                        <h3 className='text-2xl font-semibold text-gray-700'>Your cart is empty! Purchase our products to become a legendary customer, today.</h3>
                     </div>
             }
         </div>

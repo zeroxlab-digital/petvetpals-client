@@ -255,7 +255,7 @@ const UserAccount = () => {
                       </div>
                     </div>
                     {/* Logout */}
-                    <button onClick={handleUserLogout} className="lg:hidden mt-auto w-full  text-left  rounded-md h-12 px-3 text-red-500  font-medium bg-red-500/5 hover:bg-red-500/10 duration-200 flex items-center gap-2 "><HiArrowRightOnRectangle className='text-xl' /> Log out</button>
+                    <button onClick={handleUserLogout} className="lg:hidden mt-auto w-full  rounded-md h-12 px-3 text-red-500  font-medium bg-red-500/5 hover:bg-red-500/10 duration-200 flex justify-center items-center gap-2 "><HiArrowRightOnRectangle className='text-xl' /> Log out</button>
 
                   </div>
                 </div>
