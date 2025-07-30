@@ -178,7 +178,7 @@ const Medications = ({ petId }) => {
                                                             {
                                                                 label: "View Details",
                                                                 icon: <HiOutlineInformationCircle />,
-                                                                onClick: () => handleView(med._id),
+                                                                onClick: () => handleView(med),
                                                             },
                                                             {
                                                                 label: "Edit",
@@ -204,7 +204,7 @@ const Medications = ({ petId }) => {
                                     </tbody>
                                 </table>
                                 {viewDetails &&
-                                    <ModalPopup isOpen={viewDetails} onClose={() => setViewDetails(false)} title={selectedMed.medication + " Medication Details"} icon={<HiOutlineInformationCircle />}>
+                                    <ModalPopup isOpen={viewDetails} onClose={() => setViewDetails(false)} title={selectedMed.medication + " Details"} icon={<HiOutlineInformationCircle />}>
                                         <MedicationDetails med={selectedMed} setViewDetails={setViewDetails} />
                                     </ModalPopup>
                                 }
