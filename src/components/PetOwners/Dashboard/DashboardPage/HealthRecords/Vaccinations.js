@@ -9,6 +9,7 @@ import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { HiEllipsisVertical, HiOutlineDocumentText, HiOutlineInformationCircle, HiOutlineTrash } from 'react-icons/hi2';
 import { toast } from 'react-toastify';
 import AddUpdateVaccination from './AddUpdateVaccination';
+import VaccinationDetails from './VaccinationDetails';
 
 const Vaccinations = ({ petId }) => {
     const { data, isLoading, error } = useGetVaccinationsQuery({ petId });
@@ -67,7 +68,7 @@ const Vaccinations = ({ petId }) => {
                         <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
                             <td className="px-5 py-3 text-sm">{displayValue(vaccine.vaccine)}</td>
                             <td className="px-5 py-3 text-sm">{displayValue(new Date(vaccine.date_given).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }))}</td>
-                            <td className="px-5 py-3 text-sm">{displayValue(vaccine.next_due)}</td>
+                            <td className="px-5 py-3 text-sm">{displayValue(new Date(vaccine.next_due).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }))}</td>
                             <td className="px-5 py-3 text-sm">{displayValue(vaccine.status)}</td>
                             <td className="px-5 py-3 text-sm">{displayValue(vaccine.provider?.fullName)}</td>
                             <td className="px-5 py-3 text-sm flex justify-end">
@@ -98,7 +99,7 @@ const Vaccinations = ({ petId }) => {
                 </tbody>
             </table>
             {viewVaccination && <ModalPopup isOpen={viewVaccination} onClose={() => setViewVaccination(null)} title={"View Vaccination"} icon={<Syringe />} >
-                <h2>View Vaccination {viewVaccination.vaccine}</h2>
+                <VaccinationDetails vaccination={viewVaccination} onClose={() => setViewVaccination(null)} />
             </ModalPopup>}
             {editVaccination && <ModalPopup isOpen={editVaccination} onClose={() => setEditVaccination(null)} title={"Edit Vaccination"} icon={<Syringe />} >
                 <AddUpdateVaccination petId={petId} onClose={() => setEditVaccination(null)} vaccination={editVaccination} />
