@@ -9,6 +9,7 @@ import { HiOutlinePencilAlt, HiPencilAlt } from 'react-icons/hi';
 import { HiEllipsisVertical, HiOutlineDocumentText, HiOutlineInformationCircle, HiOutlineTrash } from 'react-icons/hi2';
 import { toast } from 'react-toastify';
 import AddUpdateMedicalRecord from './AddUpdateMedicalRecord';
+import MedicalRecordDetails from './MedicalRecordDetails';
 
 const MedicalHistory = ({ petId }) => {
     const { data, isLoading, error } = useGetMedicalHistoryQuery({ petId });
@@ -100,8 +101,8 @@ const MedicalHistory = ({ petId }) => {
             {editModal && <ModalPopup isOpen={editModal} onClose={() => setEditModal(null)} title={"Edit Medical History"} icon={<HiPencilAlt />} >
                 <AddUpdateMedicalRecord petId={petId} onClose={() => setEditModal(null)} record={editModal} />
             </ModalPopup>}
-            {viewMedicalHistory && <ModalPopup isOpen={viewMedicalHistory} onClose={() => setViewMedicalHistory(null)} title={"View Medical History"} icon={<Stethoscope />} >
-                <h2>View Medical History {viewMedicalHistory.type}</h2>
+            {viewMedicalHistory && <ModalPopup isOpen={viewMedicalHistory} onClose={() => setViewMedicalHistory(null)} title={"Medical Record Details"} icon={<Stethoscope />} >
+                <MedicalRecordDetails medicalRecord={viewMedicalHistory} onClose={() => setViewMedicalHistory(null)} />
             </ModalPopup>}
         </div>
     );
