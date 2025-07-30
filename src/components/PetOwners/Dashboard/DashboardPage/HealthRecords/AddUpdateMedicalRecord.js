@@ -135,6 +135,7 @@ const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
                         type="text"
                         id="diagnosis"
                         name="diagnosis"
+                        required
                         placeholder="Describe the diagnosis"
                         value={medicalHistoryData.diagnosis}
                         onChange={(e) =>
@@ -148,6 +149,7 @@ const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
                         type="text"
                         id="treatment"
                         name="treatment"
+                        required
                         placeholder="Describe the treatment"
                         value={medicalHistoryData.treatment}
                         onChange={(e) =>
