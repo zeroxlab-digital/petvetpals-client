@@ -21,7 +21,8 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
             dosage: medication.dosage || '',
             frequency: medication.frequency || '',
             start_date: medication.start_date?.split('T')[0] || new Date().toISOString().split('T')[0],
-            timeOfDay: medication.timeOfDay || '',
+            end_date: '',
+            timeOfDay: medication.time_of_day || '',
             prescribed_by: medication.prescribed_by || '',
             reason: medication.reason || '',
             instructions: medication.instructions || ''
@@ -31,6 +32,7 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
             dosage: '',
             frequency: '',
             start_date: new Date().toISOString().split('T')[0],
+            end_date: '',
             timeOfDay: '',
             prescribed_by: '',
             reason: '',
@@ -127,16 +129,7 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
                             onChange={(e) => setMedicationData({ ...medicationData, frequency: e.target.value })}
                         />
                     </div>
-                    <div>
-                        <Label htmlFor="startDate">Medication start date</Label>
-                        <Input
-                            id="startDate"
-                            type="date"
-                            name="startDate"
-                            value={medicationData.start_date}
-                            onChange={(e) => setMedicationData({ ...medicationData, start_date: e.target.value })}
-                        />
-                    </div>
+
                     <div>
                         <Label htmlFor="timeOfDay">Time of day</Label>
                         <Input
@@ -147,20 +140,6 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
                             required
                             value={medicationData.timeOfDay}
                             onChange={(e) => setMedicationData({ ...medicationData, timeOfDay: e.target.value })}
-                        />
-                    </div>
-                    <div>
-                        <Label htmlFor="prescribedBy">Prescribed by</Label>
-                        <SelectOptions
-                            id="prescribedBy"
-                            name="prescribedBy"
-                            options={vets.map(vet => ({
-                                label: vet.fullName,
-                                value: vet._id
-                            }))}
-                            value={medicationData.prescribed_by}
-                            placeholder={medicationData.prescribed_by.fullName}
-                            onChange={(e) => setMedicationData({ ...medicationData, prescribed_by: e.target.value })}
                         />
                     </div>
                     <div>
@@ -175,6 +154,40 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
                             onChange={(e) => setMedicationData({ ...medicationData, reason: e.target.value })}
                         />
                     </div>
+                    <div>
+                        <Label htmlFor="startDate">Start date</Label>
+                        <Input
+                            id="startDate"
+                            type="date"
+                            name="startDate"
+                            value={medicationData.start_date}
+                            onChange={(e) => setMedicationData({ ...medicationData, start_date: e.target.value })}
+                        />
+                    </div>
+                    <div>
+                        <Label htmlFor="endDate">End date</Label>
+                        <Input
+                            id="endDate"
+                            type="date"
+                            name="endDate"
+                            value={medicationData.end_date}
+                            onChange={(e) => setMedicationData({ ...medicationData, end_date: e.target.value })}
+                        />
+                    </div>
+                </div>
+                <div className='mb-3'>
+                    <Label htmlFor="prescribedBy">Prescribed by</Label>
+                    <SelectOptions
+                        id="prescribedBy"
+                        name="prescribedBy"
+                        options={vets.map(vet => ({
+                            label: vet.fullName,
+                            value: vet._id
+                        }))}
+                        value={medicationData.prescribed_by}
+                        placeholder={medicationData.prescribed_by.fullName}
+                        onChange={(e) => setMedicationData({ ...medicationData, prescribed_by: e.target.value })}
+                    />
                 </div>
                 <div>
                     <Label htmlFor="instructions">Instructions</Label>
