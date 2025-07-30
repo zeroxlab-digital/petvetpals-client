@@ -1,4 +1,5 @@
 import Button from '@/components/Common/Button/Button';
+import TinySpinner from '@/components/Common/Loader/TinySpinner';
 import { useDeleteMedicationMutation, useUpdateMedicationMutation } from '@/redux/services/petApi';
 import React from 'react';
 import { toast } from 'react-toastify';
@@ -7,7 +8,7 @@ const MedicationDetails = ({ med, setViewDetails, setOpenPopup }) => {
     const notify = (message, type) => {
         toast(message, { type: type, autoClose: 1000 });
     }
-    const [updateMedication, { isLoading, isError, isSuccess }] = useUpdateMedicationMutation();
+    const [updateMedication, { isLoading: updating , isError, isSuccess }] = useUpdateMedicationMutation();
     const handleMarkComplete = async (medicationId) => {
         try {
             const response = await updateMedication({
@@ -23,7 +24,7 @@ const MedicationDetails = ({ med, setViewDetails, setOpenPopup }) => {
             console.error("Error marking medication as complete:", error);
         }
     };
-    const [deleteMedication, { }] = useDeleteMedicationMutation();
+    const [deleteMedication, { isLoading: deleting }] = useDeleteMedicationMutation();
     const handleDelete = async (medicationId) => {
         try {
             const response = await deleteMedication({ medicationId }).unwrap();
@@ -86,9 +87,9 @@ const MedicationDetails = ({ med, setViewDetails, setOpenPopup }) => {
             </div>
             <div className='flex justify-end'>
                 {med.is_ongoing ?
-                    <Button onClick={() => handleMarkComplete(med._id)} classNames={'py-2 cursor-pointer text-white rounded-md bg-primary hover:bg-primaryHover duration-200'}>{isLoading ? 'Loading...' : 'Mark as Completed'}</Button>
+                    <Button onClick={() => handleMarkComplete(med._id)} classNames={'py-2 cursor-pointer text-white rounded-md bg-primary hover:bg-primaryHover duration-200'}>{updating ? <TinySpinner /> : 'Mark as Completed'}</Button>
                     :
-                    <Button onClick={() => handleDelete(med._id)} classNames={'py-2 cursor-pointer text-white rounded-md bg-red-500 hover:bg-red-600 duration-200'}>{isLoading ? 'Loading...' : 'Remove History'}</Button>
+                    <Button onClick={() => handleDelete(med._id)} classNames={'py-2 cursor-pointer text-white rounded-md bg-red-500 hover:bg-red-600 duration-200'}>{deleting ? <TinySpinner /> : 'Remove History'}</Button>
                 }
             </div>
         </>
