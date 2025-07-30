@@ -14,31 +14,30 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
     const [addVaccination, { isLoading: isAdding }] = useAddVaccinationMutation();
     const [updateVaccination, { isLoading: isUpdating }] = useUpdateVaccinationMutation();
 
+    const [providerType, setProviderType] = useState(vaccination?.providerType || 'vet');
+    const [customProvider, setCustomProvider] = useState(
+        vaccination?.providerType && vaccination.providerType !== 'vet' ? vaccination.provider || '' : ''
+    );
+
     const initialData = vaccination
         ? {
-            vaccine: vaccination.vaccine || '',
-            date_given: vaccination.date_given?.split('T')[0] || '',
-            next_due: vaccination.next_due?.split('T')[0] || '',
-            status: vaccination.status || '',
-            provider: vaccination.provider || '',
-            notes: vaccination.notes || ''
-        }
+              vaccine: vaccination.vaccine || '',
+              date_given: vaccination.date_given?.split('T')[0] || '',
+              next_due: vaccination.next_due?.split('T')[0] || '',
+              status: vaccination.status || '',
+              provider: vaccination.provider?._id || vaccination.provider || '',
+              notes: vaccination.notes || ''
+          }
         : {
-            vaccine: '',
-            date_given: new Date().toISOString().split('T')[0],
-            next_due: '',
-            status: '',
-            provider: '',
-            notes: ''
-        };
+              vaccine: '',
+              date_given: new Date().toISOString().split('T')[0],
+              next_due: '',
+              status: '',
+              provider: '',
+              notes: ''
+          };
 
     const [vaccinationData, setVaccinationData] = useState(initialData);
-    const [providerType, setProviderType] = useState(
-        vaccination?.providerType || 'vet'
-    );
-    const [customProvider, setCustomProvider] = useState(
-        ['vet'].includes(vaccination?.providerType) ? '' : vaccination?.provider || ''
-    );
 
     useEffect(() => {
         const fetchProviders = async () => {
@@ -48,7 +47,7 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
                     setProviders(res.data.vets);
                 }
             } catch (err) {
-                console.error("Failed to load providers", err);
+                console.error('Failed to load providers', err);
             }
         };
         fetchProviders();
@@ -87,68 +86,75 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
                 }
             }
         } catch (err) {
-            console.error("Error saving vaccination:", err);
-            notify("Failed to save vaccination", "error");
+            console.error('Error saving vaccination:', err);
+            notify('Failed to save vaccination', 'error');
         }
     };
 
-    const isSubmitDisabled = providerType === 'vet'
-        ? !vaccinationData.provider
-        : !customProvider;
+    const isSubmitDisabled =
+        providerType === 'vet' ? !vaccinationData.provider : !customProvider;
 
     return (
         <div>
             <form onSubmit={handleSubmit}>
                 <div className='grid grid-cols-2 gap-4 max-md:grid-cols-1'>
                     <div>
-                        <Label htmlFor="vaccine">Vaccine Name</Label>
+                        <Label htmlFor='vaccine'>Vaccine Name</Label>
                         <Input
-                            id="vaccine"
-                            type="text"
-                            placeholder="e.g. Rabies"
+                            id='vaccine'
+                            type='text'
+                            placeholder='e.g. Rabies'
                             required
                             value={vaccinationData.vaccine}
-                            onChange={(e) => setVaccinationData({ ...vaccinationData, vaccine: e.target.value })}
+                            onChange={(e) =>
+                                setVaccinationData({ ...vaccinationData, vaccine: e.target.value })
+                            }
                         />
                     </div>
                     <div>
-                        <Label htmlFor="date_given">Date Given</Label>
+                        <Label htmlFor='date_given'>Date Given</Label>
                         <Input
-                            id="date_given"
-                            type="date"
+                            id='date_given'
+                            type='date'
                             value={vaccinationData.date_given}
-                            onChange={(e) => setVaccinationData({ ...vaccinationData, date_given: e.target.value })}
+                            onChange={(e) =>
+                                setVaccinationData({ ...vaccinationData, date_given: e.target.value })
+                            }
                         />
                     </div>
                     <div>
-                        <Label htmlFor="next_due">Next Due Date</Label>
+                        <Label htmlFor='next_due'>Next Due Date</Label>
                         <Input
-                            id="next_due"
-                            type="date"
+                            id='next_due'
+                            type='date'
                             value={vaccinationData.next_due}
-                            onChange={(e) => setVaccinationData({ ...vaccinationData, next_due: e.target.value })}
+                            onChange={(e) =>
+                                setVaccinationData({ ...vaccinationData, next_due: e.target.value })
+                            }
                         />
                     </div>
                     <div>
-                        <Label htmlFor="status">Status</Label>
+                        <Label htmlFor='status'>Status</Label>
                         <SelectOptions
-                            id="status"
-                            name="status"
+                            id='status'
+                            name='status'
                             options={[
-                                { label: 'Completed', value: 'completed' },
-                                { label: 'Upcoming', value: 'upcoming' },
-                                { label: 'Missed', value: 'missed' }
+                                { label: 'Up-to-date', value: 'up-to-date' },
+                                { label: 'Due', value: 'due' },
+                                { label: 'Overdue', value: 'overdue' }
                             ]}
-                            placeholder={vaccinationData.status}
+                            placeholder='Select Status'
                             value={vaccinationData.status}
-                            onChange={(e) => setVaccinationData({ ...vaccinationData, status: e.target.value })}
+                            onChange={(e) =>
+                                setVaccinationData({ ...vaccinationData, status: e.target.value })
+                            }
                         />
                     </div>
                     <div>
-                        <Label htmlFor="providerType">Provider Type</Label>
+                        <Label htmlFor='providerType'>Provider Type</Label>
                         <SelectOptions
-                            id="providerType"
-                            name="providerType"
+                            id='providerType'
+                            name='providerType'
                             options={[
                                 { label: 'Vet', value: 'vet' },
                                 { label: 'Pharmacist', value: 'pharmacist' },
@@ -156,33 +162,35 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
                                 { label: 'Hospital', value: 'hospital' },
                                 { label: 'Other', value: 'other' }
                             ]}
-                            placeholder={providerType}
+                            placeholder='Vet'
                             value={providerType}
                             onChange={(e) => setProviderType(e.target.value)}
                         />
                     </div>
-                    {providerType === "vet" ? (
+                    {providerType === 'vet' ? (
                         <div>
-                            <Label htmlFor="provider">Vet</Label>
+                            <Label htmlFor='provider'>Vet</Label>
                             <SelectOptions
-                                id="provider"
-                                name="provider"
+                                id='provider'
+                                name='provider'
                                 options={providers.map((p) => ({
                                     label: p.fullName,
                                     value: p._id
                                 }))}
-                                placeholder={vaccinationData.provider.fullName}
+                                placeholder='Select Vet'
                                 value={vaccinationData.provider}
-                                onChange={(e) => setVaccinationData({ ...vaccinationData, provider: e.target.value })}
+                                onChange={(e) =>
+                                    setVaccinationData({ ...vaccinationData, provider: e.target.value })
+                                }
                             />
                         </div>
                     ) : (
                         <div>
-                            <Label htmlFor="customProvider">Specify</Label>
+                            <Label htmlFor='customProvider'>Specify</Label>
                             <Input
-                                id="customProvider"
-                                name="customProvider"
-                                placeholder="e.g. Local Clinic"
+                                id='customProvider'
+                                name='customProvider'
+                                placeholder='e.g. Local Clinic'
                                 value={customProvider}
                                 onChange={(e) => setCustomProvider(e.target.value)}
                             />
@@ -191,30 +199,38 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
                 </div>
 
                 <div className='mt-4'>
-                    <Label htmlFor="notes">Notes</Label>
+                    <Label htmlFor='notes'>Notes</Label>
                     <Textarea
-                        id="notes"
-                        name="notes"
-                        placeholder="Any special notes about the vaccination"
+                        id='notes'
+                        name='notes'
+                        placeholder='Any special notes about the vaccination'
                         value={vaccinationData.notes}
-                        onChange={(e) => setVaccinationData({ ...vaccinationData, notes: e.target.value })}
+                        onChange={(e) =>
+                            setVaccinationData({ ...vaccinationData, notes: e.target.value })
+                        }
                     />
                 </div>
 
                 <div className='mt-7 flex gap-2 items-center justify-end'>
                     <button
-                        type="button"
+                        type='button'
                         onClick={onClose}
                         className='w-24 h-11 text-center bg-transparent border border-red-400 text-red-400 hover:text-white px-4 py-2 rounded-md hover:bg-red-400 duration-200'
                     >
                         Cancel
                     </button>
                     <button
-                        type="submit"
+                        type='submit'
                         disabled={isSubmitDisabled}
-                        className={`bg-primary text-white w-40 h-11 text-center rounded-md hover:bg-primaryHover duration-200 ${isSubmitDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        className={`bg-primary text-white w-40 h-11 text-center rounded-md hover:bg-primaryHover duration-200 ${
+                            isSubmitDisabled ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
                     >
-                        {isAdding || isUpdating ? 'Saving...' : isEdit ? 'Update Vaccination' : 'Add Vaccination'}
+                        {isAdding || isUpdating
+                            ? 'Saving...'
+                            : isEdit
+                            ? 'Update Vaccination'
+                            : 'Add Vaccination'}
                     </button>
                 </div>
             </form>
