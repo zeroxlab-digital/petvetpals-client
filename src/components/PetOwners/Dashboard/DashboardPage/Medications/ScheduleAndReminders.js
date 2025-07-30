@@ -19,7 +19,12 @@ import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import ScheduleMedication from './ScheduleMedication';
 
 const getReminderDateTime = (dose) => {
-    const [hours, minutes] = dose.reminder_time.split(':').map(Number);
+
+    let hours = 0, minutes = 0;
+    if (dose.reminder_times?.length > 0 && dose.reminder_times[0].time) {
+        [hours, minutes] = dose.reminder_times[0].time.split(':').map(Number);
+    }
+
     const baseDate = new Date(dose.starting_date);
     baseDate.setHours(hours, minutes, 0, 0);
     return baseDate;
@@ -157,8 +162,21 @@ const ScheduleAndReminders = ({ petId, ongoingMedications }) => {
                                 return (
                                     <tr key={dose._id} className={`${bgColor} border-b last:border-none`}>
                                         <td className='p-5 text-sm'>{displayValue(dose?.medication?.medication)}</td>
+
                                         <td className='p-5 text-sm'>
-                                            {displayValue(dose.reminder_time)} <span className='text-xs text-gray-800'>/ daily</span>
+                                            {dose.reminder_times?.map(rt => rt.time).join(', ')}
+                                            <span className='text-xs text-gray-800'> / {dose.reminder_times?.length || 1}x {
+                                                dose.frequency == 'every_other_day' ? 'Every Other Day'
+                                                :
+                                                dose.frequency == 'once_weekly' ? 'Weekly'
+                                                :
+                                                dose.frequency == 'bi-weekly' ? 'Bi-Weekly'
+                                                :
+                                                dose.frequency == 'once_monthly' ? 'Monthly'
+                                                :
+                                                'Daily'
+                                                }
+                                            </span>
                                             <span className={`ml-2 text-xs px-2 py-0.5 rounded-full ${badgeColor}`}>
                                                 {badgeLabel}
                                             </span>
@@ -166,6 +184,7 @@ const ScheduleAndReminders = ({ petId, ongoingMedications }) => {
                                                 <div className='text-xs text-gray-600 mt-1'>{countdowns[dose._id]}</div>
                                             )}
                                         </td>
+
                                         <td className='p-5 text-sm'>{displayValue(dose?.medication?.dosage)}</td>
                                         <td className='p-5 text-sm'>
                                             {new Date(dose.starting_date).toLocaleDateString('en-US', {
@@ -207,10 +226,10 @@ const ScheduleAndReminders = ({ petId, ongoingMedications }) => {
                         </tbody>
                     </table>
                 </div>
-            :
-            <div>
-                No Reminders Set!
-            </div>
+                :
+                <div>
+                    No Reminders Set!
+                </div>
             }
             {editReminder && <ModalPopup isOpen={editReminder} onClose={() => setEditReminder(null)} title={"Edit Reminder"} icon={<HiPencilAlt />} >
                 <ScheduleMedication petId={petId} ongoingMedications={ongoingMedications} onClose={() => setEditReminder(null)} schedule={editReminder} />
