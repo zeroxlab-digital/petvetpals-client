@@ -21,7 +21,7 @@ const getReminderSlots = (frequency) => {
     }
 };
 
-const ScheduleMedication = ({ onClose, ongoingMedications, petId, schedule = null, refetch }) => {
+const ScheduleReminder = ({ onClose, ongoingMedications, petId, schedule = null, refetch }) => {
     const isEdit = Boolean(schedule);
 
     const [formData, setFormData] = useState({
@@ -285,4 +285,4 @@ const ScheduleMedication = ({ onClose, ongoingMedications, petId, schedule = nul
     );
 };
 
-export default ScheduleMedication;
+export default ScheduleReminder;

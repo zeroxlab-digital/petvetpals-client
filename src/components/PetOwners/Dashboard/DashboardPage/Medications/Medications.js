@@ -5,14 +5,13 @@ import { HiOutlineDownload, HiOutlinePencilAlt, HiPencilAlt } from 'react-icons/
 import { useDeleteMedicationMutation, useGetMedicationsQuery, useUpdateMedicationMutation } from '@/redux/services/petApi';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
-import AddMedication from './AddUpdateMedication';
 import { LuPill } from 'react-icons/lu';
-import ScheduleMedication from './ScheduleMedication';
 import Actions from '@/components/Common/Actions/Actions';
 import MedicationDetails from './MedicationDetails';
 import { toast } from 'react-toastify';
 import ScheduledReminders from './ScheduledReminders';
 import AddUpdateMedication from './AddUpdateMedication';
+import ScheduleReminder from './ScheduleReminder';
 
 const Medications = ({ petId }) => {
     const [activeTab, setActiveTab] = useState("current-medications");
@@ -105,7 +104,7 @@ const Medications = ({ petId }) => {
                             </Button>
                         </div>
                         <ModalPopup isOpen={openPopup} onClose={() => setOpenPopup(false)} title={"Schedule Medication"} icon={<HiClock />}>
-                            <ScheduleMedication onClose={() => setOpenPopup(false)} ongoingMedications={ongoingMedications} petId={petId} />
+                            <ScheduleReminder onClose={() => setOpenPopup(false)} ongoingMedications={ongoingMedications} petId={petId} />
                         </ModalPopup>
                     </>
                 )}
