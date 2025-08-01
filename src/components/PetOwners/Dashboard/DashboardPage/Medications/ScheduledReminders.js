@@ -16,7 +16,7 @@ import { displayValue } from '@/utils/displayValue';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 import { toast } from 'react-toastify';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
-import ScheduleMedication from './ScheduleMedication';
+import ScheduleReminder from './ScheduleReminder';
 
 const getReminderDateTime = (dose) => {
     let hours = 0, minutes = 0;
@@ -278,7 +278,7 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
                     title={"Edit Reminder"}
                     icon={<HiPencilAlt />}
                 >
-                    <ScheduleMedication
+                    <ScheduleReminder
                         petId={petId}
                         ongoingMedications={ongoingMedications}
                         onClose={() => setEditReminder(null)}
