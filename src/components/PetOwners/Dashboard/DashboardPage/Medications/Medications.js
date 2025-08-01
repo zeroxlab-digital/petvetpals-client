@@ -11,7 +11,7 @@ import ScheduleMedication from './ScheduleMedication';
 import Actions from '@/components/Common/Actions/Actions';
 import MedicationDetails from './MedicationDetails';
 import { toast } from 'react-toastify';
-import ScheduleAndReminders from './ScheduleAndReminders';
+import ScheduledReminders from './ScheduledReminders';
 import AddUpdateMedication from './AddUpdateMedication';
 
 const Medications = ({ petId }) => {
@@ -101,7 +101,7 @@ const Medications = ({ petId }) => {
                                 <HiOutlineDownload className='text-lg' /> Export Calendar
                             </Button>
                             <Button onClick={() => setOpenPopup(true)} variant={'primary'} classNames={'max-sm:px-3 text-sm '}>
-                                <HiPlus className='text-lg' /> Add to Schedule
+                                <HiPlus className='text-lg' /> Add to Reminder
                             </Button>
                         </div>
                         <ModalPopup isOpen={openPopup} onClose={() => setOpenPopup(false)} title={"Schedule Medication"} icon={<HiClock />}>
@@ -274,7 +274,7 @@ const Medications = ({ petId }) => {
             )}
             {/* ---------------- Schedule & Reminders ---------------- */}
             {activeTab === 'schedule-reminders' && (
-                <ScheduleAndReminders petId={petId} ongoingMedications={ongoingMedications} />
+                <ScheduledReminders petId={petId} ongoingMedications={ongoingMedications} />
             )}
         </div>
     );
