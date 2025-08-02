@@ -5,6 +5,7 @@ import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
 import { Switch } from '@mui/material';
 import { useAddMedScheduleReminderMutation, useUpdateMedScheduleReminderMutation } from '@/redux/services/petApi';
 import { toast } from 'react-toastify';
+import { askNotificationPermission } from '@/utils/askNotificationPermission';
 
 const getReminderSlots = (frequency) => {
     switch (frequency) {
@@ -79,9 +80,14 @@ const ScheduleReminder = ({ onClose, ongoingMedications, petId, schedule = null,
     };
 
     const handleMethodToggle = (method) => {
+        console.log(method);
         const updated = formData.reminder_methods.includes(method)
             ? formData.reminder_methods.filter((m) => m !== method)
             : [...formData.reminder_methods, method];
+        console.log(updated);
+        if(updated.includes('push')) {
+            askNotificationPermission();
+        }
         handleChange('reminder_methods', updated);
     };
 
