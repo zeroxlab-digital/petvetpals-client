@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { PetVetPalsLoader } from "@/components/Common/Loader/PetVetPalsLoader";
 import NotificationCenter from "@/components/Common/Notifications/NotificationCenter";
 import useReminderNotifications from "../../hooks/useReminderNotifications";
+import usePushNotifications from "../../hooks/usePushNotifications";
 
 const StoreProvider = ({ children }) => {
     const [isReady, setIsReady] = useState(false);
@@ -15,6 +16,14 @@ const StoreProvider = ({ children }) => {
         }, 2000);
 
         return () => clearTimeout(timer);
+    }, []);
+
+    useEffect(() => {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').then(reg => {
+                console.log('Service Worker Registered', reg);
+            });
+        }
     }, []);
 
     return (
@@ -30,6 +39,7 @@ const StoreProvider = ({ children }) => {
 // Create a separate component where the Redux context is guaranteed to exist
 const ReminderWrapper = ({ children }) => {
     useReminderNotifications();
+    usePushNotifications();
     return children;
 };
 

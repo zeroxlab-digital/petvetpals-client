@@ -6,7 +6,7 @@ import { removeNotification } from '@/redux/features/notificationSlice';
 const NotificationCenter = () => {
 
     const notifications = useSelector(state => state.notifications);
-    console.log(notifications)
+    // console.log(notifications)
     const dispatch = useDispatch();
 
     useEffect(() => {
