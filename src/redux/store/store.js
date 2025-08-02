@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit"
 import messageReducer from "../features/messageSlice";
 import cartReducer from "../features/cartSlice";
+import notificationReducer from "../features/notificationSlice";
 import { appointmentApi } from "../services/appointmentApi";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { petApi } from "../services/petApi";
@@ -11,6 +12,7 @@ const store = configureStore({
     reducer: {
         cartRedu: cartReducer,
         messageRedu: messageReducer,
+        notifications: notificationReducer,
         [userApi.reducerPath]: userApi.reducer,
         [appointmentApi.reducerPath]: appointmentApi.reducer,
         [petApi.reducerPath]: petApi.reducer,

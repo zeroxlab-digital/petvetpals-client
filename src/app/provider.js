@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import store from "@/redux/store/store";
 import { Provider } from "react-redux";
 import { PetVetPalsLoader } from "@/components/Common/Loader/PetVetPalsLoader";
+import NotificationCenter from "@/components/Common/Notifications/NotificationCenter";
+import useReminderNotifications from "../../hooks/useReminderNotifications";
 
 const StoreProvider = ({ children }) => {
     const [isReady, setIsReady] = useState(false);
@@ -17,13 +19,18 @@ const StoreProvider = ({ children }) => {
 
     return (
         <Provider store={store}>
-            {
-                // isReady ? 
-                children
-                // : <PetVetPalsLoader />
-            }
+            <ReminderWrapper>
+                {children}
+                <NotificationCenter />
+            </ReminderWrapper>
         </Provider>
     );
+};
+
+// Create a separate component where the Redux context is guaranteed to exist
+const ReminderWrapper = ({ children }) => {
+    useReminderNotifications();
+    return children;
 };
 
 export default StoreProvider;
