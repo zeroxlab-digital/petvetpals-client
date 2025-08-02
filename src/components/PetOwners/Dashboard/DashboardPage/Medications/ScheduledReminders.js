@@ -44,21 +44,29 @@ const getNextReminderDate = (dose) => {
     return null;
 };
 
-const getDoseStatus = (dose) => {
+const getDoseStatus = (rt) => {
+    // console.warn("Reminder time object", rt);
+
+    if (!rt || typeof rt.time !== 'string') return 'invalid';
+
     const now = new Date();
-    const reminderDate = getReminderDateTime(dose);
+
+    const [hours, minutes] = rt.time.split(':').map(Number);
+    if (isNaN(hours) || isNaN(minutes)) return 'invalid';
+
+    const reminderDate = new Date();
+    reminderDate.setHours(hours, minutes, 0, 0);
+
     const diff = reminderDate - now;
 
-    if (now > reminderDate) {
-        return dose.is_given ? 'given' : 'overdue';
-    } else if (diff <= 3600000) {
-        return 'countdown';
-    } else if (diff <= 3 * 3600000) {
-        return 'pending';
-    } else {
-        return 'upcoming';
-    }
+    if (rt.is_given) return 'given';
+    if (now > reminderDate) return 'overdue';
+    if (diff <= 3600000) return 'countdown';
+    if (diff <= 3 * 3600000) return 'pending';
+    return 'upcoming';
 };
+
+
 
 const formatCountdown = (targetTime) => {
     const diff = targetTime - new Date();
@@ -100,12 +108,13 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
         return () => clearInterval(interval);
     }, [scheduledMedications]);
 
-    const handleMarkGiven = async (id) => {
+    const handleMarkGiven = async (id, index) => {
         try {
-            await markGivenMedScheduledReminder({ id });
-            toast.success("Medication marked as given!", { autoClose: 1000 });
+            await markGivenMedScheduledReminder({ id, index }).unwrap();
+            toast.success("Marked as given!", { autoClose: 1000 });
         } catch (error) {
-            toast.error("Could not mark medication as given!", { autoClose: 1000 });
+            console.error(error);
+            toast.error("Failed to mark as given.", { autoClose: 1000 });
         }
     };
 
@@ -129,6 +138,8 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
             }
         }
     };
+
+    // console.log(scheduledMedications)
 
     if (isLoading) return <PetSpinner />;
 
@@ -176,7 +187,7 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
                                     <tr key={dose._id} className={`${bgColor} border-b last:border-none`}>
                                         <td className='p-5 text-sm'>{displayValue(dose?.medication?.medication)}</td>
 
-                                        <td className='p-5 text-sm'>
+                                        {/* <td className='p-5 text-sm'>
                                             {dose.reminder_times?.map(rt => rt.time).join(', ')}
                                             <span className='text-xs text-gray-800'> / {dose.reminder_times?.length || 1}x {
                                                 dose.frequency === 'every_other_day' ? 'Every Other Day' :
@@ -187,23 +198,94 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
                                             <span className={`ml-2 text-xs px-2 py-0.5 rounded-full ${badgeColor}`}>
                                                 {badgeLabel}
                                             </span>
+                                        </td> */}
+                                        <td className='p-5 text-sm space-y-1'>
+                                            {dose.reminder_times?.map((rt, idx) => {
+                                                const status = getDoseStatus(rt);
+                                                if (status === 'invalid') return null;
+                                                const badgeColor = {
+                                                    given: 'bg-green-200 text-green-800',
+                                                    overdue: 'bg-red-200 text-red-800',
+                                                    upcoming: 'bg-blue-100 text-blue-700',
+                                                    pending: 'bg-yellow-100 text-yellow-800',
+                                                    countdown: 'bg-purple-100 text-purple-800',
+                                                }[status];
+
+                                                const badgeLabel = {
+                                                    given: 'Given',
+                                                    overdue: 'Overdue',
+                                                    upcoming: 'Upcoming',
+                                                    pending: 'Soon',
+                                                    countdown: 'Almost',
+                                                }[status];
+
+                                                return (
+                                                    <div key={idx} className="flex items-center justify-between gap-2">
+                                                        <span>{rt.time}</span>
+                                                        <span className={`text-xs px-2 py-0.5 rounded-full ${badgeColor}`}>{badgeLabel}</span>
+                                                        {status !== 'given' && (
+                                                            <button
+                                                                onClick={() => handleMarkGiven(dose._id, idx)}
+                                                                className="text-xs text-blue-600 underline hover:text-blue-800"
+                                                            >
+                                                                Mark as Given
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                );
+                                            })}
                                         </td>
 
                                         <td className='p-5 text-sm'>{displayValue(dose?.medication?.dosage)}</td>
 
                                         <td className='p-5 text-sm'>
                                             {(() => {
-                                                const nextReminder = getNextReminderDate(dose);
-                                                if (!nextReminder) {
-                                                    return <span className='text-xs text-gray-500'>No upcoming reminder</span>;
+                                                const now = new Date();
+                                                const frequency = dose.frequency || 'once_daily';
+
+                                                // Step 1: Determine date intervals based on frequency
+                                                const intervalDays = {
+                                                    once_daily: 1,
+                                                    twice_daily: 1,
+                                                    every_other_day: 2,
+                                                    once_weekly: 7,
+                                                    biweekly: 14,
+                                                    once_monthly: 30,
+                                                }[frequency] || 1;
+
+                                                // Step 2: Generate reminder instances over +/- 60 units of interval
+                                                const reminderInstances = [];
+
+                                                for (let i = -60; i <= 60; i++) {
+                                                    const baseDate = new Date(dose.starting_date);
+                                                    baseDate.setDate(baseDate.getDate() + i * intervalDays);
+
+                                                    for (const rt of dose.reminder_times || []) {
+                                                        const [h, m] = rt.time.split(':').map(Number);
+                                                        const reminderDate = new Date(baseDate);
+                                                        reminderDate.setHours(h, m, 0, 0);
+
+                                                        if (reminderDate >= new Date(dose.starting_date) && (!dose.end_date || reminderDate <= new Date(dose.end_date))) {
+                                                            reminderInstances.push(reminderDate);
+                                                        }
+                                                    }
                                                 }
 
-                                                const baseline = dose.last_reset ? new Date(dose.last_reset) : new Date(dose.starting_date);
-                                                const now = new Date();
+                                                // Step 3: Sort and find last & next reminders
+                                                const sorted = reminderInstances.sort((a, b) => a - b);
+                                                let lastReminder = null;
+                                                let nextReminder = null;
+                                                for (const d of sorted) {
+                                                    if (d <= now) lastReminder = d;
+                                                    if (d > now && !nextReminder) nextReminder = d;
+                                                }
 
-                                                const totalDuration = nextReminder - baseline;
-                                                const elapsed = now - baseline;
-                                                const progressPercent = Math.min(100, Math.max(0, (elapsed / totalDuration) * 100)).toFixed(1);
+                                                if (!lastReminder) lastReminder = sorted[0];
+                                                if (!nextReminder) nextReminder = sorted[sorted.length - 1];
+
+                                                const total = nextReminder - lastReminder;
+                                                const elapsed = now - lastReminder;
+                                                const percent = total > 0 ? Math.min(100, Math.max(0, (elapsed / total) * 100)).toFixed(1) : 0;
 
                                                 return (
                                                     <div className="space-y-1">
@@ -211,23 +293,23 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
                                                             {nextReminder.toLocaleString('en-US', {
                                                                 month: '2-digit',
                                                                 day: '2-digit',
-                                                                year: 'numeric',
+                                                                // year: 'numeric',
                                                                 hour: '2-digit',
                                                                 minute: '2-digit',
                                                                 hour12: true,
                                                             })}
                                                         </div>
                                                         <div className="text-xs text-gray-600">
-                                                            {countdowns[dose._id]}
+                                                            {countdowns[dose._id] || 'Upcoming'}
                                                         </div>
                                                         <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden mt-1">
                                                             <div
                                                                 className="h-full bg-blue-500 transition-all duration-300"
-                                                                style={{ width: `${progressPercent}%` }}
+                                                                style={{ width: `${percent}%` }}
                                                             />
                                                         </div>
                                                         <div className="text-[10px] text-right text-gray-500">
-                                                            {progressPercent}% of this cycle passed
+                                                            {percent}% of this cycle passed
                                                         </div>
                                                     </div>
                                                 );
@@ -242,11 +324,12 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
                                                 <HiEllipsisVertical className='text-xl text-gray-800' />
                                                 <Actions
                                                     actions={[
-                                                        {
-                                                            label: 'Mark as Given',
+                                                        ...dose.reminder_times.map((rt, i) => ({
+                                                            label: rt.is_given ? `Reminder ${i + 1} (Given)` : `Mark Time ${i + 1} as Given`,
                                                             icon: <HiOutlineCheckCircle />,
-                                                            onClick: () => handleMarkGiven(dose._id),
-                                                        },
+                                                            disabled: rt.is_given,
+                                                            onClick: () => handleMarkGiven(dose._id, i),
+                                                        })),
                                                         {
                                                             label: 'Edit Reminder',
                                                             icon: <HiOutlinePencilAlt />,

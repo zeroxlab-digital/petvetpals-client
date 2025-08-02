@@ -102,10 +102,10 @@ export const petApi = createApi({
             invalidatesTags: ["Pet"]
         }),
         markGivenMedScheduledReminder: build.mutation({
-            query: ({ id }) => ({
+            query: ({ id, index }) => ({
                 url: '/medications/markgiven-scheduled-reminder',
                 method: "PATCH",
-                params: { id }
+                params: { id, index }
             }),
             invalidatesTags: ["Pet"]
         }),
