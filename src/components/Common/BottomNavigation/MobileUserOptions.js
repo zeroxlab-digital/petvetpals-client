@@ -1,4 +1,5 @@
 "use client"
+import { useGetPetsQuery } from "@/redux/services/petApi"
 import { useGetUserDetailsQuery } from "@/redux/services/userApi"
 import Image from "next/image"
 import Link from "next/link"
@@ -34,7 +35,8 @@ const MobileUserOptions = () => {
     // }
 
     const { data: { user } = {} , isLoading } = useGetUserDetailsQuery();
-
+    const { data: pets = {} } = useGetPetsQuery()
+    console.log(pets);
     const navigationSections = [
         {
             title: "Communication",
@@ -155,10 +157,10 @@ const MobileUserOptions = () => {
                     </div>
                     <div className="flex-1">
                         <h2 className="text-xl font-bold">{user.fullName}</h2>
-                        <p className="text-blue-100 text-sm">{user.email}</p>
+                        <p className="text-gray-200 text-sm">{user.email}</p>
                         <div className="flex items-center gap-2 mt-1">
-                            <FaPaw className="text-blue-400 text-sm" />
-                            <span className="text-sm text-blue-100">{user.petCount || 0} pets</span>
+                            <FaPaw className="text-blue-200 text-sm" />
+                            <span className="text-sm text-gray-200">{pets.pets.length} pets</span>
                         </div>
                     </div>
                 </div>
