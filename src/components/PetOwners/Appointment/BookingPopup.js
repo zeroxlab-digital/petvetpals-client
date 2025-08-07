@@ -54,7 +54,7 @@ const BookingPopup = ({ appointment = () => { }, setShowModal = () => { }, setAp
             if (pathname.startsWith('/dashboard')) {
                 const response = await updateAppointment({ id: appointment._id, date: selectedDate.toISOString(), status: 'pending' }).unwrap();
                 notify("Appointment rescheduled!", "success");
-            } else if (pathname.startsWith('/appointments')) {
+            } else if (pathname.startsWith('/vet-appointment')) {
                 const response = await bookAppointment({ id: foundVet?._id, date: selectedDate.toISOString() }).unwrap();
                 notify("Appointment booked!", "success");
             }
