@@ -3,10 +3,10 @@ import { ToastContainer } from "react-toastify";
 
 const SignIn = () => {
     return (
-        <div>
+        <>
             <SignInPage />
             <ToastContainer />
-        </div>
+        </>
     );
 };
 

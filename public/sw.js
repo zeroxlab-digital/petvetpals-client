@@ -4,7 +4,7 @@ self.addEventListener('push', function (event) {
     const title = data.title || "Reminder";
     const options = {
         body: data.message,
-        icon: "/icons/icon-192x192.png",
+        icon: "./images/pawheart.png",
         badge: "/icons/badge.png",
         requireInteraction: true,
         data: data.data, // Pass the reminderId/index for later use
