@@ -1,5 +1,5 @@
 "use client";
-import { useGetPetDataQuery, useGetPetsQuery } from '@/redux/services/petApi';
+import { useGetMedicalHistoryQuery, useGetPetDataQuery, useGetPetsQuery } from '@/redux/services/petApi';
 import React, { useEffect, useState } from 'react';
 import InitialDashboard from './InitialDashboard';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
@@ -13,16 +13,18 @@ import DietActivity from './DietActivity/DietActivity';
 import { useGetSymptomHistoryQuery } from '@/redux/services/symptomApi';
 import Link from 'next/link';
 import PetWeightBadge from '@/components/Common/PetWeightBadge/PetWeightBadge';
+import { displayValue } from '@/utils/displayValue';
+import TinySpinner from '@/components/Common/Loader/TinySpinner';
 
 // Sample data for charts and displays
-const healthData = [
-    { name: "Week 1", weight: 32.5, activity: 75, heartRate: 72, temperature: 38.2 },
-    { name: "Week 2", weight: 32.8, activity: 82, heartRate: 74, temperature: 38.3 },
-    { name: "Week 3", weight: 32.6, activity: 78, heartRate: 71, temperature: 38.1 },
-    { name: "Week 4", weight: 32.5, activity: 85, heartRate: 73, temperature: 38.2 },
-    { name: "Week 5", weight: 32.4, activity: 88, heartRate: 72, temperature: 38.0 },
-    { name: "Week 6", weight: 32.5, activity: 85, heartRate: 70, temperature: 38.1 },
-]
+// const healthData = [
+//     { name: "Week 1", weight: 32.5, activity: 75, heartRate: 72, temperature: 38.2 },
+//     { name: "Week 2", weight: 32.8, activity: 82, heartRate: 74, temperature: 38.3 },
+//     { name: "Week 3", weight: 32.6, activity: 78, heartRate: 71, temperature: 38.1 },
+//     { name: "Week 4", weight: 32.5, activity: 85, heartRate: 73, temperature: 38.2 },
+//     { name: "Week 5", weight: 32.4, activity: 88, heartRate: 72, temperature: 38.0 },
+//     { name: "Week 6", weight: 32.5, activity: 85, heartRate: 70, temperature: 38.1 },
+// ]
 
 const medicalRecords = [
     {
@@ -134,6 +136,15 @@ const DashboardPage = () => {
     const { data, isLoading: petLoading } = useGetPetDataQuery({ id: selectedPet._id });
 
     const { data: symptom_history = [] } = useGetSymptomHistoryQuery(selectedPet._id)
+
+    const { data: medicalHistory = [], isLoading: medicalHistoryLoading } = useGetMedicalHistoryQuery({ petId: selectedPet._id });
+
+    const healthData = selectedPet?.weight?.map(({ date, value }) => ({
+        name: new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        weight: value,
+        activity: 0, // or 0 if later want to show something but no data now
+        energy: 0
+    }));
 
     if (isLoading) {
         return (
@@ -259,7 +270,7 @@ const DashboardPage = () => {
             {activeTab === "overview" && (
                 <div className="space-y-5">
                     {/* Health Overview Cards */}
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                         <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center justify-between pb-2">
                                 <h3 className="text-sm font-medium text-gray-600">Overall Health</h3>
@@ -269,10 +280,10 @@ const DashboardPage = () => {
                             <div className="mt-2 h-2 rounded-full bg-gray-100 overflow-hidden">
                                 <div
                                     className="h-full rounded-full bg-green-500 transition-all duration-500"
-                                    style={{ width: "92%" }}
+                                    style={{ width: "80%" }}
                                 ></div>
                             </div>
-                            <p className="text-xs text-gray-500 mt-2">Last check-up: 2 weeks ago</p>
+                            <p className="text-xs text-gray-500 mt-2">Based on recent observation</p>
                         </div>
 
                         <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
@@ -310,20 +321,7 @@ const DashboardPage = () => {
 
                         </div>
 
-                        <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
-                            <div className="flex items-center justify-between pb-2">
-                                <h3 className="text-sm font-medium text-gray-600">Activity Level</h3>
-                                <PawPrint className="h-4 w-4 text-gray-500" />
-                            </div>
-                            <div className="text-2xl font-bold">85%</div>
-                            <div className="mt-2 h-2 rounded-full bg-gray-100 overflow-hidden">
-                                <div
-                                    className="h-full rounded-full bg-blue-500 transition-all duration-500"
-                                    style={{ width: "85%" }}
-                                ></div>
-                            </div>
-                            <p className="text-xs text-gray-500 mt-2">Above average for breed</p>
-                        </div>
+
 
                         <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center justify-between pb-2">
@@ -390,25 +388,23 @@ const DashboardPage = () => {
                                         <h2>No Recent Issue</h2>
                                         <p className='font-normal text-xs text-gray-500 mt-2'>Try <Link className='text-blue-600' href="./symptom-checker">Vet GPT</Link> to get professional symptom analysis</p>
                                     </div>
-                                    }
+                                }
                             </div>
                         </div>
 
                         <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center justify-between pb-2">
-                                <h3 className="text-sm font-medium text-gray-600">Behavior Score</h3>
-                                <Thermometer className="h-4 w-4 text-green-500" />
+                                <h3 className="text-sm font-medium text-gray-600">Activity Level</h3>
+                                <PawPrint className="h-4 w-4 text-gray-500" />
                             </div>
-                            <div className="text-2xl font-bold">
-                                Good
-                            </div>
+                            <div className="text-2xl font-bold">85%</div>
                             <div className="mt-2 h-2 rounded-full bg-gray-100 overflow-hidden">
                                 <div
-                                    className="h-full rounded-full bg-green-500 transition-all duration-500"
-                                    style={{ width: "90%" }}
+                                    className="h-full rounded-full bg-blue-500 transition-all duration-500"
+                                    style={{ width: "85%" }}
                                 ></div>
                             </div>
-                            <p className="text-xs text-gray-500 mt-2">Based on recent observations</p>
+                            <p className="text-xs text-gray-500 mt-2">Above average for breed</p>
                         </div>
 
                         <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
@@ -427,67 +423,57 @@ const DashboardPage = () => {
                         </div>
                     </div>
 
-                    {/* Health Trends and Upcoming */}
-                    <div className="grid gap-4 md:grid-cols-7">
-                        <div className="bg-white rounded-xl border shadow-sm md:col-span-4">
-                            <div className="p-4 border-b">
-                                <h3 className="text-lg font-semibold">Health Trends</h3>
-                                <p className="text-sm text-gray-500">Weight and activity level over time</p>
-                            </div>
-                            <div className="p-4">
-                                {mounted && (
-                                    <ResponsiveContainer width="100%" height={300}>
-                                        <RechartsLineChart data={healthData}>
-                                            <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
-                                            <YAxis
-                                                stroke="#888888"
-                                                fontSize={12}
-                                                tickLine={false}
-                                                axisLine={false}
-                                                tickFormatter={(value) => `${value}`}
-                                            />
-                                            <Tooltip
-                                                contentStyle={{
-                                                    backgroundColor: "white",
-                                                    border: "1px solid #e5e7eb",
-                                                    borderRadius: "0.5rem",
-                                                    boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-                                                }}
-                                            />
-                                            <Line
-                                                type="monotone"
-                                                dataKey="weight"
-                                                stroke="#8884d8"
-                                                strokeWidth={2}
-                                                name="Weight (kg)"
-                                                activeDot={{ r: 8 }}
-                                            />
-                                            <Line
-                                                type="monotone"
-                                                dataKey="activity"
-                                                stroke="#82ca9d"
-                                                strokeWidth={2}
-                                                name="Activity Level (%)"
-                                                activeDot={{ r: 8 }}
-                                            />
-                                        </RechartsLineChart>
-                                    </ResponsiveContainer>
-                                )}
-                            </div>
-                            <div className="p-4 border-t">
-                                <div className="flex gap-4 text-sm">
-                                    <div className="flex items-center">
-                                        <div className="w-3 h-3 rounded-full bg-[#8884d8] mr-1"></div>
-                                        <span>Weight</span>
-                                    </div>
-                                    <div className="flex items-center">
-                                        <div className="w-3 h-3 rounded-full bg-[#82ca9d] mr-1"></div>
-                                        <span>Activity</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
+                    <div className="grid gap-4 grid-cols-1 md:grid-cols-7 overflow-hidden">
+                        {/* Medical History */}
+                        <div className="bg-white rounded-xl border shadow-sm md:col-span-4 flex flex-col">
+                            <div className="p-4">
+                                <h3 className="text-lg font-semibold">Medical History</h3>
+                                <p className="text-sm text-gray-500">Recent medical records</p>
+                            </div>
+                            {
+                                medicalHistoryLoading ?
+                                    <TinySpinner />
+                                    :
+                                    medicalHistory?.medicalHistory?.length > 0 ?
+                                        <>
+                                            <div className="overflow-x-auto">
+                                                <table className="w-full border-collapse">
+                                                    <thead>
+                                                        <tr className="text-left text-xs md:text-sm text-gray-500 border-b py-2">
+                                                            <th className="p-4">Date</th>
+                                                            <th className="p-4">Type</th>
+                                                            <th className="p-4">Doctor</th>
+                                                            <th className="p-4">Diagnosis</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody className="">
+                                                        {
+                                                            medicalHistory.medicalHistory.slice(0, 3).map((record, index) => (
+                                                                <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
+                                                                    <td className="px-5 py-3 text-sm">{new Date(record.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' })}</td>
+                                                                    <td className="px-5 py-3 text-sm">{displayValue(record.type)}</td>
+                                                                    <td className="px-5 py-3 text-sm">{displayValue(record.vet.fullName)}</td>
+                                                                    <td className="px-5 py-3 text-sm">{displayValue(record.diagnosis)}</td>
+                                                                </tr>
+                                                            ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div className="p-4 border-t mt-auto">
+                                                <button className="text-sm text-primary hover:text-primaryHover transition-colors">
+                                                    View Complete History →
+                                                </button>
+                                            </div>
+                                        </>
+                                        :
+                                        <div className='flex items-center justify-center h-full'>
+                                            <h4 className='text-gray-700'>No Medical History Found!</h4>
+                                        </div>
+                            }
+                        </div>
+                        
+                        {/* Upcoming */}
                         <div className="bg-white rounded-xl border shadow-sm md:col-span-3">
                             <div className="p-4 border-b">
                                 <h3 className="text-lg font-semibold">Upcoming</h3>
@@ -495,7 +481,7 @@ const DashboardPage = () => {
                             </div>
                             <div className="p-4 space-y-4">
                                 <div className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50 transition-colors">
-                                    <Calendar className="h-8 w-8 text-blue-500" />
+                                    <Calendar className="h-8 w-8 text-primary" />
                                     <div className="flex-1 space-y-1">
                                         <p className="text-sm font-medium">Regular Check-up</p>
                                         <p className="text-xs text-gray-500">Tomorrow at 10:00 AM</p>
@@ -506,7 +492,7 @@ const DashboardPage = () => {
                                     </button>
                                 </div>
                                 <div className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50 transition-colors">
-                                    <Pills className="h-8 w-8 text-blue-500" />
+                                    <Pills className="h-8 w-8 text-primary" />
                                     <div className="flex-1 space-y-1">
                                         <p className="text-sm font-medium">Heartworm Medicine Due</p>
                                         <p className="text-xs text-gray-500">In 3 days</p>
@@ -516,7 +502,7 @@ const DashboardPage = () => {
                                     </button>
                                 </div>
                                 <div className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50 transition-colors">
-                                    <Syringe className="h-8 w-8 text-blue-500" />
+                                    <Syringe className="h-8 w-8 text-primary" />
                                     <div className="flex-1 space-y-1">
                                         <p className="text-sm font-medium">Bordetella Vaccination</p>
                                         <p className="text-xs text-gray-500">In 15 days</p>
@@ -527,76 +513,81 @@ const DashboardPage = () => {
                                 </div>
                             </div>
                             <div className="p-4 border-t">
-                                <button className="text-sm text-blue-500 hover:text-blue-600 transition-colors">
+                                <button className="text-sm text-primary hover:text-primaryHover transition-colors">
                                     View All Upcoming →
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <div className="grid gap-4 grid-cols-1 md:grid-cols-7 overflow-hidden">
-                        {/* Medical History */}
-                        <div className="bg-white rounded-xl border shadow-sm md:col-span-4 flex flex-col">
-                            <div className="p-4">
-                                <h3 className="text-lg font-semibold">Medical History</h3>
-                                <p className="text-sm text-gray-500">Recent medical records</p>
-                            </div>
-                            <div className="overflow-x-auto">
-                                <table className="w-full border-collapse">
-                                    <thead>
-                                        <tr className="text-left text-xs md:text-sm text-gray-500 border-b py-2">
-                                            <th className="p-4">Date</th>
-                                            <th className="p-4">Type</th>
-                                            <th className="p-4">Doctor</th>
-                                            <th className="p-4">Diagnosis</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="">
-                                        {medicalRecords.slice(0, 3).map((record, index) => (
-                                            <tr key={record.id} className="border-b last:border-none hover:bg-gray-50 ">
-                                                <td className="p-4 text-sm">{record.date}</td>
-                                                <td className="p-4 text-sm">{record.type}</td>
-                                                <td className="p-4 text-sm">{record.doctor}</td>
-                                                <td className="p-4 text-sm">{record.diagnosis}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="p-4 border-t mt-auto">
-                                <button className="text-sm text-blue-500 hover:text-blue-600 transition-colors">
-                                    View Complete History →
-                                </button>
-                            </div>
+                    {/* Health Trends and Upcoming */}
+                    <div className="bg-white rounded-xl border shadow-sm md:col-span-4">
+                        <div className="p-4 border-b">
+                            <h3 className="text-lg font-semibold">Health Trends</h3>
+                            <p className="text-sm text-gray-500">Weight and activity level over time</p>
                         </div>
-
-                        {/* Recent Updates */}
-                        <div className="bg-white rounded-xl border shadow-sm md:col-span-3">
-                            <div className="p-4 border-b">
-                                <h3 className="text-lg font-semibold">Recent Updates</h3>
-                                <p className="text-sm text-gray-500">Latest activities and notifications</p>
-                            </div>
-                            <div className="p-0">
-                                <div className="space-y-1">
-                                    {notifications.slice(0, 3).map((notification) => (
-                                        <div
-                                            key={notification.id}
-                                            className="flex gap-4 items-start p-4 hover:bg-gray-50 transition-colors border-b last:border-0"
-                                        >
-                                            <div className="mt-0.5">{notification.icon}</div>
-                                            <div>
-                                                <p className="text-sm font-medium">{notification.title}</p>
-                                                <p className="text-sm text-gray-600">{notification.message}</p>
-                                                <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
-                                            </div>
-                                        </div>
-                                    ))}
+                        <div className="p-4">
+                            {mounted && (
+                                <ResponsiveContainer width="100%" height={300}>
+                                    <RechartsLineChart data={healthData}>
+                                        <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
+                                        <YAxis
+                                            stroke="#888888"
+                                            fontSize={12}
+                                            tickLine={false}
+                                            axisLine={false}
+                                            tickFormatter={(value) => `${value}`}
+                                        />
+                                        <Tooltip
+                                            contentStyle={{
+                                                backgroundColor: "white",
+                                                border: "1px solid #e5e7eb",
+                                                borderRadius: "0.5rem",
+                                                boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+                                            }}
+                                        />
+                                        <Line
+                                            type="monotone"
+                                            dataKey="weight"
+                                            stroke="#8884d8"
+                                            strokeWidth={2}
+                                            name="Weight (lbs)"
+                                            activeDot={{ r: 8 }}
+                                        />
+                                        <Line
+                                            type="monotone"
+                                            dataKey="activity"
+                                            stroke="#82ca9d"
+                                            strokeWidth={2}
+                                            name="Activity Level (%)"
+                                            activeDot={{ r: 8 }}
+                                        />
+                                        <Line
+                                            type="monotone"
+                                            dataKey="energy"
+                                            stroke="#f0be1b"
+                                            strokeWidth={2}
+                                            name="Energy Level (%)"
+                                            activeDot={{ r: 8 }}
+                                        />
+                                    </RechartsLineChart>
+                                </ResponsiveContainer>
+                            )}
+                        </div>
+                        <div className="p-4 border-t">
+                            <div className="flex gap-4 text-sm">
+                                <div className="flex items-center">
+                                    <div className="w-3 h-3 rounded-full bg-[#8884d8] mr-1"></div>
+                                    <span>Weight</span>
                                 </div>
-                            </div>
-                            <div className="p-4 border-t ">
-                                <button className="text-sm text-blue-500 hover:text-blue-600 transition-colors">
-                                    View All Updates →
-                                </button>
+                                <div className="flex items-center">
+                                    <div className="w-3 h-3 rounded-full bg-[#82ca9d] mr-1"></div>
+                                    <span>Activity</span>
+                                </div>
+                                <div className="flex items-center">
+                                    <div className="w-3 h-3 rounded-full bg-[#f0be1b] mr-1"></div>
+                                    <span>Energy</span>
+                                </div>
                             </div>
                         </div>
                     </div>

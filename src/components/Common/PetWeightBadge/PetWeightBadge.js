@@ -23,7 +23,7 @@ const PetWeightBadge = ({ pet }) => {
         <span
             className={`text-xs px-2 py-0.5 rounded-full flex items-center gap-1 border
                 text-${badge.color}-500 border-${badge.color}-300
-                bg-${badge.color}-500 bg-opacity-15`}
+                bg-${badge.color}-500 bg-opacity-10`}
         >
             {getIcon()}
             {badge.label || 'N/A'}
