@@ -13,6 +13,7 @@ import { FaPaw } from 'react-icons/fa6';
 import PetDetails from './PetDetails';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useGetRecentPetWeight } from '../../../../../hooks/useGetRecentPetWeight';
 
 const PetProfiles = () => {
     const { data, isLoading, isError, error } = useGetPetsQuery();
@@ -60,7 +61,13 @@ const PetProfiles = () => {
                                     <span className='text-sm font-normal text-gray-600 '>• {pet.type} • {pet.age} years old</span>
                                 </li>
                                 <li className='flex items-center justify-between text-sm capitalize'><span className='flex items-center gap-2'><Dna size={17} className='text-primary' /> Breed</span> {pet.breed}</li>
-                                <li className='flex items-center justify-between text-sm'><span className='flex items-center gap-2'><Scale size={17} className='text-primary' /> Weight</span> {pet.weight} lbs</li>
+                                <li className='flex items-center justify-between text-sm'><span className='flex items-center gap-2'><Scale size={17} className='text-primary' /> Weight (lbs)</span>
+                                    {
+                                        pet.weight.reduce((latest, current) => {
+                                            return new Date(current.date) > new Date(latest.date) ? current : latest;
+                                        }).value || 0
+                                    }
+                                </li>
                             </ul>
                             <div className='grid grid-cols-2 items-center gap-2'>
                                 <Button onClick={() => handleShowModal("update", pet)} variant={"primaryOutline"} classNames={"!w-full text-sm"}><HiOutlinePencilAlt /> Update pet</Button>

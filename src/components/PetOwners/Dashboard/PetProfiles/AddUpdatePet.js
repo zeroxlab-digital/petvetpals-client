@@ -7,18 +7,20 @@ import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
 import { useAddPetMutation, useUpdateAPetMutation } from '@/redux/services/petApi';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { useGetRecentPetWeight } from '../../../../../hooks/useGetRecentPetWeight';
 
 const AddUpdatePet = ({ popup, setPopup }) => {
+  const weightHistory = popup.pet?.weight;
+  const recentWeight = useGetRecentPetWeight(weightHistory);
   const isUpdate = popup.type === 'update';
   const [uploadedFile, setUploadedFile] = useState(null);
-
   const [formState, setFormState] = useState({
     name: isUpdate ? popup.pet?.name || '' : '',
     type: isUpdate ? popup.pet?.type || '' : '',
     age: isUpdate ? popup.pet?.age || '' : '',
     breed: isUpdate ? popup.pet?.breed || '' : '',
     gender: isUpdate ? popup.pet?.gender || '' : '',
-    weight: isUpdate ? popup.pet?.weight || '' : '',
+    weight: isUpdate ? recentWeight.value || '' : '',
     image: isUpdate ? popup.pet?.image || null : null
   });
 

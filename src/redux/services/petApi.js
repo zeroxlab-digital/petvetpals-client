@@ -19,6 +19,13 @@ export const petApi = createApi({
             query: () => "/get-pets",
             providesTags: ["Pet"]
         }),
+        getPetData: build.query({
+            query: ({ id }) => ({
+                url: "/get-pet-data",
+                params: { id }
+            }),
+            providesTags: ["Pet"]
+        }),
         addPet: build.mutation({
             query: (data) => ({
                 url: '/add-pet',
@@ -203,4 +210,4 @@ export const petApi = createApi({
     })
 })
 
-export const { useGetPetsQuery, useAddPetMutation, useUpdateAPetMutation, useGetMedicationsQuery, useAddMedicationMutation, useUpdateMedicationMutation, useDeleteMedicationMutation, useGetScheduledRemindersQuery, useAddMedScheduleReminderMutation, useUpdateMedScheduleReminderMutation, useDeleteMedScheduledReminderMutation, useMarkGivenMedScheduledReminderMutation, useGetMedicalHistoryQuery, useAddMedicalHistoryMutation, useUpdateMedicalHistoryMutation, useDeleteMedicalHistoryMutation, useGetVaccinationsQuery, useAddVaccinationMutation, useUpdateVaccinationMutation, useDeleteVaccinationMutation, useAddAllergyConditionMutation, useGetAllergiesConditionsQuery, useDeleteAllergyConditionMutation } = petApi;
+export const { useGetPetsQuery, useGetPetDataQuery, useAddPetMutation, useUpdateAPetMutation, useGetMedicationsQuery, useAddMedicationMutation, useUpdateMedicationMutation, useDeleteMedicationMutation, useGetScheduledRemindersQuery, useAddMedScheduleReminderMutation, useUpdateMedScheduleReminderMutation, useDeleteMedScheduledReminderMutation, useMarkGivenMedScheduledReminderMutation, useGetMedicalHistoryQuery, useAddMedicalHistoryMutation, useUpdateMedicalHistoryMutation, useDeleteMedicalHistoryMutation, useGetVaccinationsQuery, useAddVaccinationMutation, useUpdateVaccinationMutation, useDeleteVaccinationMutation, useAddAllergyConditionMutation, useGetAllergiesConditionsQuery, useDeleteAllergyConditionMutation } = petApi;
