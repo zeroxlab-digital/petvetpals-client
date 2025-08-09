@@ -1,5 +1,5 @@
 "use client";
-import { useGetPetsQuery } from '@/redux/services/petApi';
+import { useGetPetDataQuery, useGetPetsQuery } from '@/redux/services/petApi';
 import React, { useEffect, useState } from 'react';
 import InitialDashboard from './InitialDashboard';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
@@ -128,12 +128,16 @@ const DashboardPage = () => {
         }
     }, [pets])
 
+
+    const { data, isLoading: petLoading } = useGetPetDataQuery({ id: selectedPet._id });
+    console.log("pet data:", data);
+    console.log("loading:", petLoading);
+
     if (isLoading) {
         return (
             <PetSpinner />
         )
     }
-
     if (pets?.length < 1) {
         return <InitialDashboard />
     }
@@ -183,7 +187,14 @@ const DashboardPage = () => {
                             )}
                         </div>
                         <p className="text-sm text-gray-500 capitalize">
-                            {selectedPet.age} years old • {selectedPet.gender} • {selectedPet.weight} lbs
+                            {selectedPet.age} years old • {selectedPet.gender} •
+                            <span className='ml-1 normal-case'>{
+                                selectedPet?.weight?.reduce((latest, current) => {
+                                    return new Date(current.date) > new Date(latest.date) ? current : latest;
+                                }).value || 0
+                            }
+                                (lbs)
+                            </span>
                         </p>
                     </div>
                 </div>
@@ -267,14 +278,37 @@ const DashboardPage = () => {
                                 <h3 className="text-sm font-medium text-gray-600">Weight Tracking</h3>
                                 <Weight className="h-4 w-4 text-gray-500" />
                             </div>
-                            <div className="text-2xl font-bold">32.5 kg</div>
+                            <div className="text-2xl font-bold">
+                                {
+                                    selectedPet?.weight?.reduce((latest, current) => {
+                                        return new Date(current.date) > new Date(latest.date) ? current : latest;
+                                    }).value || 0
+                                }
+                                (lbs)
+                            </div>
                             <div className="flex items-center gap-1 mt-1">
-                                <span className="text-xs px-2 py-0.5 rounded-full bg-green-50 text-green-500 border border-green-200 flex items-center">
+                                <span className="text-xs px-2 py-0.3 rounded-full bg-green-50 text-green-500 border border-green-200 flex items-center">
                                     <Check className="h-3 w-3 mr-1" />
                                     Healthy range
                                 </span>
                             </div>
-                            <p className="text-xs text-gray-500 mt-2">Target: 30-34 kg</p>
+                            <p className="text-xs text-gray-500 mt-2">
+                                Last input: {
+                                    selectedPet?.weight?.length > 0
+                                        ? (() => {
+                                            const latestEntry = selectedPet.weight.reduce((latest, current) => {
+                                                return new Date(current.date) > new Date(latest.date) ? current : latest;
+                                            });
+                                            return new Date(latestEntry.date).toLocaleDateString('en-US', {
+                                                month: 'long',
+                                                year: 'numeric',
+                                                day: 'numeric',
+                                            });
+                                        })()
+                                        : "No weight records"
+                                }
+                            </p>
+
                         </div>
 
                         <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
@@ -297,9 +331,25 @@ const DashboardPage = () => {
                                 <h3 className="text-sm font-medium text-gray-600">Next Vaccination</h3>
                                 <Syringe className="h-4 w-4 text-gray-500" />
                             </div>
-                            <div className="text-2xl font-bold">15</div>
-                            <p className="text-xs text-gray-500 mt-2">Days until Bordetella shot</p>
-                            <button className="text-xs text-blue-500 mt-1 hover:underline">View vaccination schedule</button>
+                            {data?.upcoming_vaccination.length !== 1 ?
+                                <>
+                                    <span className='text-xs text-gray-500 '>No upcoming vaccination</span>
+                                </>
+                                :
+                                <>
+                                    <div className="text-2xl font-bold">
+                                        {(() => {
+                                            const nextDueDate = new Date(data?.upcoming_vaccination[0]?.next_due);
+                                            const now = new Date();
+                                            const diffMs = nextDueDate - now;
+                                            const daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+                                            return <span>{daysLeft}</span>;
+                                        })()}
+                                    </div>
+                                    <p className="text-xs text-gray-500 mt-2">Days until {data?.upcoming_vaccination[0]?.vaccine} shot</p>
+                                    <button className="text-xs text-blue-500 mt-1 hover:underline">View vaccination schedule</button>
+                                </>
+                            }
                         </div>
                     </div>
 

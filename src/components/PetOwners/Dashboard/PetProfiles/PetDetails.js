@@ -31,7 +31,13 @@ const PetDetails = ({ petId }) => {
                             <span className='text-sm font-normal '>• {pet.type} • {pet.age} years old</span>
                         </li>
                         <li className='mb-1 flex items-center  gap-5 text-sm capitalize text-white'><span className='flex items-center gap-2'><Dna size={17} className='' /> Breed</span> {pet.breed}</li>
-                        <li className='mb-2 flex items-center gap-5 text-sm text-white'><span className='flex items-center gap-2 '><Scale size={17} className='' /> Weight</span> {pet.weight} lbs</li>
+                        <li className='mb-2 flex items-center gap-5 text-sm text-white'><span className='flex items-center gap-2 '><Scale size={17} className='' /> Weight (lbs)</span>
+                            {
+                                pet.weight.reduce((latest, current) => {
+                                    return new Date(current.date) > new Date(latest.date) ? current : latest;
+                                }).value || 0
+                            }
+                            </li>
                         <span className={`rounded-full px-2 py-[2px] text-xs font-medium flex items-center gap-1 max-w-max ${pet.gender == 'male' ? 'bg-[#DBEAFE] text-blue-500' : 'bg-[#FCE7F3] text-pink-500'}`}>
                             <span>{pet.gender == 'male' ? '♂' : '♀'}</span>
                             {pet.gender}
