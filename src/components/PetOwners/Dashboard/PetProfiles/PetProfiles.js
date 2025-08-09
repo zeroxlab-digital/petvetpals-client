@@ -13,7 +13,6 @@ import { FaPaw } from 'react-icons/fa6';
 import PetDetails from './PetDetails';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useGetRecentPetWeight } from '../../../../../hooks/useGetRecentPetWeight';
 
 const PetProfiles = () => {
     const { data, isLoading, isError, error } = useGetPetsQuery();

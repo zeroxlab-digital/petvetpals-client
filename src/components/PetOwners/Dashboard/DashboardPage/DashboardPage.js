@@ -164,8 +164,8 @@ const DashboardPage = () => {
                         <Image
                             src={selectedPet.image || "/images/paw-heart.webp"}
                             alt="Pet avatar"
-                            width={64}
-                            height={64}
+                            width={60}
+                            height={60}
                             priority
                             unoptimized
                             className="rounded-full w-full h-full object-cover border-2 border-white shadow-sm"
