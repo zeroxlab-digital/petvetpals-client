@@ -12,6 +12,7 @@ import Medications from './Medications/Medications';
 import DietActivity from './DietActivity/DietActivity';
 import { useGetSymptomHistoryQuery } from '@/redux/services/symptomApi';
 import Link from 'next/link';
+import PetWeightBadge from '@/components/Common/PetWeightBadge/PetWeightBadge';
 
 // Sample data for charts and displays
 const healthData = [
@@ -288,10 +289,7 @@ const DashboardPage = () => {
                                 (lbs)
                             </div>
                             <div className="flex items-center gap-1 mt-1">
-                                <span className="text-xs px-2 py-0.3 rounded-full bg-green-50 text-green-500 border border-green-200 flex items-center">
-                                    <Check className="h-3 w-3 mr-1" />
-                                    Healthy range
-                                </span>
+                                <PetWeightBadge pet={selectedPet} />
                             </div>
                             <p className="text-xs text-gray-500 mt-2">
                                 Last input: {
