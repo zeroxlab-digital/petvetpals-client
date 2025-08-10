@@ -23,6 +23,7 @@ const getReminderSlots = (frequency) => {
 };
 
 const ScheduleReminder = ({ onClose, ongoingMedications, petId, schedule = null, refetch }) => {
+    console.log(schedule);
     const isEdit = Boolean(schedule);
 
     const [formData, setFormData] = useState({
