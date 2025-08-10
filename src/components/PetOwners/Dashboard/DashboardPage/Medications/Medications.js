@@ -17,8 +17,8 @@ import ScheduledReminders from "./ScheduledReminders"
 import AddUpdateMedication from "./AddUpdateMedication"
 import ScheduleReminder from "./ScheduleReminder"
 import { displayValue } from "@/utils/displayValue"
-import { HiEllipsisHorizontal, HiInformationCircle, HiOutlineCheckCircle, HiOutlineInformationCircle, HiOutlineTrash } from "react-icons/hi2"
-import { HiOutlinePencilAlt } from "react-icons/hi"
+import { HiEllipsisHorizontal, HiInformationCircle, HiOutlineCheckCircle, HiOutlineInformationCircle, HiOutlineTrash, HiPlus } from "react-icons/hi2"
+import { HiDocumentDownload, HiOutlineDownload, HiOutlinePencilAlt } from "react-icons/hi"
 
 const Medications = ({ petId }) => {
     const [activeTab, setActiveTab] = useState("current-medications")
@@ -104,14 +104,14 @@ const Medications = ({ petId }) => {
                                 variant={"primaryOutline"}
                                 classNames={"max-sm:px-3 text-sm !hover:bg-gray-200"}
                             >
-                                <Download className="text-lg" /> Export Calendar
+                                <HiOutlineDownload className="text-lg" /> Export Calendar
                             </Button>
                             <Button
                                 onClick={() => setOpenPopup(true)}
                                 variant={"primary"}
                                 classNames={"max-sm:px-3 text-sm "}
                             >
-                                <Plus className="text-lg" /> Add to Reminder
+                                <HiPlus className="text-lg" /> Add to Reminder
                             </Button>
                         </div>
                         <ModalPopup
@@ -136,7 +136,7 @@ const Medications = ({ petId }) => {
                             variant={"primaryOutline"}
                             classNames={"max-sm:mt-2 text-sm"}
                         >
-                            <Plus className="text-lg" /> Add Medication
+                            <HiPlus className="text-lg" /> Add Medication
                         </Button>
                         <ModalPopup
                             isOpen={openPopup}
@@ -151,7 +151,7 @@ const Medications = ({ petId }) => {
                 )}
             </div>
 
-            <div className="health-records-tabs flex space-x-5 overflow-x-auto border-b">
+            <div className=" space-x-3 overflow-x-auto whitespace-nowrap max-md:max-w-max bg-gray-50 border border-gray-200 rounded-md p-2 scrollbar-thin scrollbar-thumb-gray-300">
                 {[
                     { key: "current-medications", label: "Current Medications" },
                     { key: "schedule-reminders", label: "Schedule & Reminders" },
@@ -160,9 +160,9 @@ const Medications = ({ petId }) => {
                     <button
                         key={tab.key}
                         onClick={() => setActiveTab(tab.key)}
-                        className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === tab.key
-                            ? "border-primary text-primary"
-                            : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                        className={`py-2 px-4 rounded-md font-medium text-sm ${activeTab === tab.key
+                            ? "bg-primary text-white"
+                            : "bg-white text-gray-600 hover:bg-[#f6f0f4] hover:text-primary border border-gray-200"
                             }`}
                     >
                         {tab.label}
@@ -185,17 +185,17 @@ const Medications = ({ petId }) => {
                                     <article
                                         key={idx}
                                         tabIndex={0}
-                                        className="bg-white border border-opacity-30 rounded-2xl p-5 flex flex-col justify-between shadow-md hover:shadow-xl duration-200"
+                                        className="bg-white border border-opacity-30 rounded-2xl flex flex-col justify-between shadow-md hover:shadow-xl duration-200"
                                     >
-                                        <header className="flex flex-row justify-between items-start p-0 mb-4">
+                                        <header className="flex flex-row justify-between items-center p-5 bg-primary text-white rounded-t-2xl">
                                             <div>
-                                                <h3 className="text-xl font-semibold truncate mb-1">{displayValue(med.medication)}</h3>
-                                                <p className="uppercase text-xs font-semibold tracking-wider text-gray-600 select-none">
+                                                <h3 className="text-lg font-semibold text-white truncate mb-1">{displayValue(med.medication)}</h3>
+                                                <p className="uppercase text-xs font-semibold tracking-wider text-gray-200 select-none">
                                                     {displayValue(med.dosage)} - {displayValue(med.frequency)}
                                                 </p>
                                             </div>
-                                            <div className="relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md border w-9 h-9 flex items-center justify-center">
-                                                <HiEllipsisHorizontal className="text-2xl text-gray-800" />
+                                            <div className="relative cursor-pointer duration-150 rounded-md border w-9 h-9 flex items-center justify-center">
+                                                {/* <HiEllipsisHorizontal className="text-2xl text-white" /> */}
                                                 <Actions
                                                     actions={[
                                                         {
@@ -222,10 +222,10 @@ const Medications = ({ petId }) => {
                                                 />
                                             </div>
                                         </header>
-                                        <main className="flex-grow text-gray-900 p-0">
+                                        <main className="flex-grow text-gray-900 p-5">
                                             <section className="space-y-3">
                                                 <div>
-                                                    <h4 className="text-md font-semibold mb-1 select-none">Next Due</h4>
+                                                    <h4 className="text-sm font-semibold mb-0.5 select-none">Next Due</h4>
                                                     <p className="text-gray-700 leading-relaxed">
                                                         {displayValue(
                                                             new Date(med.next_due).toLocaleDateString("en-US", {
@@ -237,15 +237,15 @@ const Medications = ({ petId }) => {
                                                     </p>
                                                 </div>
                                                 <div>
-                                                    <h4 className="text-md font-semibold mb-1 select-none">Remaining</h4>
+                                                    <h4 className="text-sm font-semibold mb-0.5 select-none">Remaining</h4>
                                                     <p className="text-gray-700 leading-relaxed">{displayValue(med.remaining)}</p>
                                                 </div>
                                                 <div>
-                                                    <h4 className="text-md font-semibold mb-1 select-none">Reason</h4>
+                                                    <h4 className="text-sm font-semibold mb-0.5 select-none">Reason</h4>
                                                     <p className="text-gray-700 leading-relaxed">{displayValue(med.reason)}</p>
                                                 </div>
                                                 <div>
-                                                    <h4 className="text-md font-semibold mb-1 select-none">Prescribed by</h4>
+                                                    <h4 className="text-sm font-semibold mb-0.5 select-none">Prescribed by</h4>
                                                     <p className="text-gray-700 leading-relaxed">{displayValue(med.prescribed_by?.fullName)}</p>
                                                 </div>
                                             </section>
@@ -322,7 +322,7 @@ const Medications = ({ petId }) => {
                                             <td className="px-5 py-3 text-sm">{displayValue(med.prescribed_by?.fullName)}</td>
                                             <td className="px-5 py-3 text-sm flex justify-end ">
                                                 <span className="relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center">
-                                                    <HiEllipsisHorizontal className="text-2xl text-gray-800" />
+                                                    {/* <HiEllipsisHorizontal className="text-2xl text-gray-800" /> */}
                                                     <Actions
                                                         actions={[
                                                             {
@@ -400,12 +400,12 @@ const Medications = ({ petId }) => {
                                     <article
                                         key={idx}
                                         tabIndex={0}
-                                        className="bg-white border border-opacity-30 rounded-2xl p-5 flex flex-col justify-between shadow-md hover:shadow-xl duration-200"
+                                        className="bg-white border border-opacity-30 rounded-2xl flex flex-col justify-between shadow-md hover:shadow-xl duration-200"
                                     >
-                                        <header className="flex flex-row justify-between items-start p-0 mb-4">
+                                        <header className="flex flex-row justify-between items-center p-5 bg-primary rounded-t-2xl text-white">
                                             <div>
-                                                <h3 className="text-xl font-semibold truncate mb-1">{displayValue(med.medication)}</h3>
-                                                <p className="uppercase text-xs font-semibold tracking-wider text-gray-600 select-none">
+                                                <h3 className="text-lg font-semibold truncate mb-1">{displayValue(med.medication)}</h3>
+                                                <p className="uppercase text-xs font-semibold tracking-wider text-gray-200 select-none">
                                                     {displayValue(med.dosage)} - {displayValue(med.frequency)}
                                                 </p>
                                             </div>
@@ -414,15 +414,15 @@ const Medications = ({ petId }) => {
                                                     setOpenPopup(true);
                                                     setSelectedMed(med);
                                                 }}
-                                                className="cursor-pointer border hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center"
+                                                className="cursor-pointer border rounded-md w-9 h-9 flex items-center justify-center"
                                             >
-                                                <HiOutlineInformationCircle className="text-xl text-gray-800" />
+                                                <HiOutlineInformationCircle className="text-xl text-white" />
                                             </span>
                                         </header>
-                                        <main className="flex-grow text-gray-900 p-0">
+                                        <main className="flex-grow text-gray-900 p-5">
                                             <section className="space-y-3">
                                                 <div>
-                                                    <h4 className="text-md font-semibold mb-1 select-none">Start Date</h4>
+                                                    <h4 className="text-sm font-semibold mb-0.5 select-none">Start Date</h4>
                                                     <p className="text-gray-700 leading-relaxed">
                                                         {displayValue(
                                                             new Date(med.start_date).toLocaleDateString("en-US", {
@@ -434,7 +434,7 @@ const Medications = ({ petId }) => {
                                                     </p>
                                                 </div>
                                                 <div>
-                                                    <h4 className="text-md font-semibold mb-1 select-none">End Date</h4>
+                                                    <h4 className="text-sm font-semibold mb-0.5 select-none">End Date</h4>
                                                     <p className="text-gray-700 leading-relaxed">
                                                         {displayValue(
                                                             new Date(med.end_date).toLocaleDateString("en-US", {
@@ -446,11 +446,11 @@ const Medications = ({ petId }) => {
                                                     </p>
                                                 </div>
                                                 <div>
-                                                    <h4 className="text-md font-semibold mb-1 select-none">Reason</h4>
+                                                    <h4 className="text-sm font-semibold mb-0.5 select-none">Reason</h4>
                                                     <p className="text-gray-700 leading-relaxed">{displayValue(med.reason)}</p>
                                                 </div>
                                                 <div>
-                                                    <h4 className="text-md font-semibold mb-1 select-none">Prescribed by</h4>
+                                                    <h4 className="text-sm font-semibold mb-0.5 select-none">Prescribed by</h4>
                                                     <p className="text-gray-700 leading-relaxed">{displayValue(med.prescribed_by?.fullName)}</p>
                                                 </div>
                                             </section>

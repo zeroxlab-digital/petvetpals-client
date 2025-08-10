@@ -58,31 +58,36 @@ const Vaccinations = ({ petId }) => {
             className="bg-white border border-gray-200 border-opacity-30 rounded-2xl p-5 flex flex-col justify-between shadow-md hover:shadow-xl duration-200"
           >
             <header className="flex justify-between items-center mb-5">
-              <time
-                dateTime={record.date_given}
-                className="flex items-center gap-2 font-semibold text-primary"
-              >
-                <Clock size={20} />
-                {new Date(record.date_given).toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric',
-                })}
-              </time>
-              <span className="select-none rounded-full px-3 py-.5 font-semibold border border-gray-300 bg-gray-50 text-indigo-600">
+              <div className="flex items-center gap-2 text-primary">
+                <Syringe size={18} />
+                <span className="font-semibold tracking-wide text-base">Vaccination</span>
+              </div>
+              <span className="select-none rounded-full px-3 py-.5 font-semibold text-sm border border-gray-300 bg-gray-50 text-indigo-600">
                 {displayValue(record.status)}
               </span>
             </header>
 
             <main className="flex-grow text-gray-900">
-              <h3 className="text-xl font-semibold truncate mb-1">{displayValue(record.vaccine)}</h3>
+              <h3 className="text-base font-semibold truncate mb-0.5">{displayValue(record.vaccine)}</h3>
               <p className="uppercase text-xs font-semibold tracking-wider text-gray-600 mb-5 select-none">
                 Vaccine
               </p>
 
               <section className="mb-5 space-y-3 max-h-max">
                 <div>
-                  <h4 className="text-md font-semibold mb-1 select-none">Next Due</h4>
+                  <h4 className="text-sm font-semibold mb-0.5 select-none">Date Given</h4>
+                  <p className="text-gray-700 leading-relaxed">
+                    {displayValue(
+                      new Date(record.date_given).toLocaleDateString('en-US', {
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })
+                    )}
+                  </p>
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold mb-0.5 select-none">Next Due</h4>
                   <p className="text-gray-700 leading-relaxed">
                     {displayValue(
                       new Date(record.next_due).toLocaleDateString('en-US', {
@@ -94,20 +99,15 @@ const Vaccinations = ({ petId }) => {
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-md font-semibold mb-1 select-none">Provider</h4>
+                  <h4 className="text-sm font-semibold mb-0.5 select-none">Provider</h4>
                   <p className="text-gray-700 leading-relaxed">{displayValue(record.provider?.fullName)}</p>
                 </div>
               </section>
             </main>
 
             <footer className="flex justify-between items-center text-gray-700 select-none">
-              <div className="flex items-center gap-3">
-                <Syringe size={24} />
-                <span className="font-semibold tracking-wide text-lg">Vaccination</span>
-              </div>
-
-              <div className="flex items-center gap-4">
-                {/* You can add a download button here if needed */}
+              <div className="flex items-center justify-end w-full">
+                {/* Add a download button here when needed */}
                 <Actions
                   actions={[
                     {

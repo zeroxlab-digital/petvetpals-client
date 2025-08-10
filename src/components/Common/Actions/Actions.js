@@ -22,7 +22,7 @@ const Actions = ({ actions = [] }) => {
     <div className="relative inline-block text-left" ref={menuRef}>
       <button
         onClick={toggleMenu}
-        className="p-2 rounded-md hover:bg-gray-100 transition"
+        className="p-2 rounded-md hover:bg-gray-100 hover:text-primary transition"
         aria-label="Open actions menu"
       >
         <HiEllipsisHorizontal size={20} />

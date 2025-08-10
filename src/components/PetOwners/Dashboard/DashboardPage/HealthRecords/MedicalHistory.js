@@ -59,9 +59,9 @@ const MedicalHistory = ({ petId }) => {
               <header className="flex justify-between items-center mb-5">
                 <time
                   dateTime={record.date}
-                  className={`flex items-center gap-2 font-semibold text-primary`}
+                  className={`flex items-center gap-2 font-semibold text-sm text-primary`}
                 >
-                <Clock size={20} />
+                <Clock size={16} />
                   {new Date(record.date).toLocaleDateString('en-US', {
                     month: 'short',
                     day: 'numeric',
@@ -69,32 +69,32 @@ const MedicalHistory = ({ petId }) => {
                   })}
                 </time>
                 <span
-                  className={`select-none rounded-full px-3 py-.5 font-semibold border border-gray-300 bg-gray-50 text-indigo-600`}
+                  className={`select-none rounded-full px-3 py-.5 font-semibold text-sm border border-gray-300 bg-gray-50 text-indigo-600`}
                 >
                   {displayValue(record.type)}
                 </span>
               </header>
 
               <main className="flex-grow text-gray-900">
-                <h3 className="text-xl font-semibold truncate mb-1">{displayValue(record.vet.fullName)}</h3>
+                <h3 className="text-base font-semibold truncate mb-0.5">{displayValue(record.vet.fullName)}</h3>
                 <p className="uppercase text-xs font-semibold tracking-wider text-gray-600 mb-5 select-none">Doctor</p>
 
                 <section className="mb-5 space-y-3 max-h-max">
                   <div>
-                    <h4 className="text-md font-semibold mb-1 select-none">Diagnosis</h4>
-                    <p className="text-gray-700 leading-relaxed">{displayValue(record.diagnosis)}</p>
+                    <h4 className="text-sm font-semibold mb-0.5 select-none">Diagnosis</h4>
+                    <p className="text-gray-700 leading-relaxed text-sm">{displayValue(record.diagnosis)}</p>
                   </div>
                   <div>
-                    <h4 className="text-md font-semibold mb-1 select-none">Treatment</h4>
-                    <p className="text-gray-700 leading-relaxed">{displayValue(record.treatment)}</p>
+                    <h4 className="text-sm font-semibold mb-0.5 select-none">Treatment</h4>
+                    <p className="text-gray-700 leading-relaxed text-sm">{displayValue(record.treatment)}</p>
                   </div>
                 </section>
               </main>
 
               <footer className="flex justify-between items-center text-gray-700 select-none">
-                <div className="flex items-center gap-3">
-                  <HiOutlineDocumentText size={24} />
-                  <span className="font-semibold tracking-wide text-lg">Files</span>
+                <div className="flex items-center gap-2">
+                  <HiOutlineDocumentText size={20} />
+                  <span className="font-semibold tracking-wide text-sm">Files</span>
                 </div>
 
                 <div className="flex items-center gap-4">
@@ -107,7 +107,7 @@ const MedicalHistory = ({ petId }) => {
                     className="rounded-full p-2 bg-indigo-100 text-indigo-600 hover:bg-indigo-200 transition shadow"
                     title="Download"
                   >
-                    <Download size={20} />
+                    <Download size={16} />
                   </button>
 
                   <Actions
