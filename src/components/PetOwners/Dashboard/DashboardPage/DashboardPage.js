@@ -230,8 +230,8 @@ const DashboardPage = () => {
             <div className="flex space-x-6 overflow-x-auto mb-7 border-b">
                 <button
                     onClick={() => setActiveTab("overview")}
-                    className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === "overview"
-                        ? "border-primary text-primary"
+                    className={`py-2 px-1 border-b-[3px] font-medium text-sm whitespace-nowrap ${activeTab === "overview"
+                        ? "border-[#672e5b] text-primary"
                         : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
                 >
@@ -239,8 +239,8 @@ const DashboardPage = () => {
                 </button>
                 <button
                     onClick={() => setActiveTab("health")}
-                    className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === "health"
-                        ? "border-primary text-primary"
+                    className={`py-2 px-1 border-b-[3px] font-medium text-sm whitespace-nowrap ${activeTab === "health"
+                        ? "border-[#672e5b] text-primary"
                         : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
                 >
@@ -248,8 +248,8 @@ const DashboardPage = () => {
                 </button>
                 <button
                     onClick={() => setActiveTab("medications")}
-                    className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === "medications"
-                        ? "border-primary text-primary"
+                    className={`py-2 px-1 border-b-[3px] font-medium text-sm whitespace-nowrap ${activeTab === "medications"
+                        ? "border-[#672e5b] text-primary"
                         : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
                 >
@@ -257,8 +257,8 @@ const DashboardPage = () => {
                 </button>
                 <button
                     onClick={() => setActiveTab("diet")}
-                    className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${activeTab === "diet"
-                        ? "border-primary text-primary"
+                    className={`py-2 px-1 border-b-[3px] font-medium text-sm whitespace-nowrap ${activeTab === "diet"
+                        ? "border-[#672e5b] text-primary"
                         : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
                 >
@@ -299,7 +299,7 @@ const DashboardPage = () => {
                                 }
                                 (lbs)
                             </div>
-                            <div className="flex items-center gap-1 mt-1">
+                            <div className="flex items-center gap-1 mt-1 max-sm:mt-2">
                                 <PetWeightBadge pet={selectedPet} />
                             </div>
                             <p className="text-xs text-gray-500 mt-2">
