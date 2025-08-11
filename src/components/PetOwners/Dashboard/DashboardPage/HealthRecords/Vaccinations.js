@@ -42,8 +42,10 @@ const Vaccinations = ({ petId }) => {
 
   if (vaccinations.length < 1)
     return (
-      <div className="text-center py-20 text-gray-400 text-xl font-semibold select-none">
-        No vaccination found!
+      <div className="text-center py-10 text-gray-500">
+        <Syringe className="mx-auto h-12 w-12 mb-4 text-gray-400" />
+        <p className="text-lg font-medium">No Vaccination Found!</p>
+        <p className="text-sm">Add a new vaccination to get started</p>
       </div>
     );
 

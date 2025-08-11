@@ -266,7 +266,7 @@ const UserAccount = () => {
           {/* Billing Section */}
           {activeTab === "billing" && (
             <div className="grid gap-6">
-              <div className="bg-white rounded-xl border shadow-sm p-6">
+              {/* <div className="bg-white rounded-xl border shadow-sm p-6">
                 <h3 className="text-lg font-semibold mb-6">Payment Methods</h3>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between p-4 border rounded-lg">
@@ -286,7 +286,7 @@ const UserAccount = () => {
                     Add Payment Method
                   </button>
                 </div>
-              </div>
+              </div> */}
 
               <div className="bg-white rounded-xl border shadow-sm p-6">
                 <h3 className="text-lg font-semibold mb-6">Billing History</h3>

@@ -1,5 +1,4 @@
 "use client"
-
 import { useEffect, useState } from "react"
 import Button from "@/components/Common/Button/Button"
 import { Plus, Trash2, Clock, Info, MoreVertical, CheckCircle, Download, Pencil, Pill } from "lucide-react"
@@ -281,107 +280,115 @@ const Medications = ({ petId }) => {
                                     </article>
                                 ))
                             ) : (
-                                <div className="text-center py-10 text-gray-500">
+                                <div className="text-center py-10 text-gray-500 max-md:hidden">
                                     <Pill className="mx-auto h-12 w-12 mb-4 text-gray-400" />
                                     <p className="text-lg font-medium">No Current Medications Found!</p>
-                                    <p className="text-sm">Add a new medication to get started.</p>
+                                    <p className="text-sm">Add a new medication to get started</p>
                                 </div>
                             )}
                         </div>
 
                         {/* DESKTOP/TABLET TABLE */}
-                        <div className="hidden md:block min-h-full border rounded-md bg-white overflow-x-auto">
-                            <table className="w-full border-collapse p-5">
-                                <thead>
-                                    <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
-                                        <th className="p-5">Medication</th>
-                                        <th className="p-5">Dosage</th>
-                                        <th className="p-5">Frequency</th>
-                                        <th className="p-5">Next due</th>
-                                        <th className="p-5">Remaining</th>
-                                        <th className="p-5">Reason</th>
-                                        <th className="p-5">Prescribed by</th>
-                                        <th className="p-5 text-right">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {ongoingMedications.map((med, index) => (
-                                        <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
-                                            <td className="px-5 py-3 text-sm">{med.medication || "N/A"}</td>
-                                            <td className="px-5 py-3 text-sm">{med.dosage || "N/A"}</td>
-                                            <td className="px-5 py-3 text-sm">{med.frequency || "N/A"}</td>
-                                            <td className="px-5 py-3 text-sm">
-                                                {new Date(med.next_due).toLocaleDateString("en-US", {
-                                                    month: "long",
-                                                    year: "numeric",
-                                                    day: "numeric",
-                                                }) || "N/A"}
-                                            </td>
-                                            <td className="px-5 py-3 text-sm">{displayValue(med.remaining)}</td>
-                                            <td className="px-5 py-3 text-sm">{displayValue(med.reason)}</td>
-                                            <td className="px-5 py-3 text-sm">{displayValue(med.prescribed_by?.fullName)}</td>
-                                            <td className="px-5 py-3 text-sm flex justify-end ">
-                                                <span className="relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center">
-                                                    {/* <HiEllipsisHorizontal className="text-2xl text-gray-800" /> */}
-                                                    <Actions
-                                                        actions={[
-                                                            {
-                                                                label: "View Details",
-                                                                icon: <HiOutlineInformationCircle />,
-                                                                onClick: () => handleView(med),
-                                                            },
-                                                            {
-                                                                label: "Edit",
-                                                                icon: <HiOutlinePencilAlt />,
-                                                                onClick: () => handleEdit(med),
-                                                            },
-                                                            {
-                                                                label: "Delete",
-                                                                icon: <HiOutlineTrash />,
-                                                                onClick: () => handleDelete(med._id),
-                                                            },
-                                                            {
-                                                                label: "Mark Completed",
-                                                                icon: <HiOutlineCheckCircle />,
-                                                                onClick: () => handleMarkComplete(med._id),
-                                                            },
-                                                        ]}
-                                                    />
-                                                </span>
-                                            </td>
+                        {ongoingMedications.length > 0 ?
+                            <div className="hidden md:block min-h-full border rounded-md bg-white overflow-x-auto">
+                                <table className="w-full border-collapse p-5">
+                                    <thead>
+                                        <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
+                                            <th className="p-5">Medication</th>
+                                            <th className="p-5">Dosage</th>
+                                            <th className="p-5">Frequency</th>
+                                            <th className="p-5">Next due</th>
+                                            <th className="p-5">Remaining</th>
+                                            <th className="p-5">Reason</th>
+                                            <th className="p-5">Prescribed by</th>
+                                            <th className="p-5 text-right">Actions</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                            {/* View Details Modal */}
-                            {viewDetails && (
-                                <ModalPopup
-                                    isOpen={viewDetails}
-                                    onClose={() => setViewDetails(false)}
-                                    title={selectedMed.medication + " Details"}
-                                    icon={<Info />}
-                                // className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50"
-                                >
-                                    <MedicationDetails med={selectedMed} setViewDetails={setViewDetails} />
-                                </ModalPopup>
-                            )}
-                            {/* Edit Medication Modal */}
-                            {editMedication && (
-                                <ModalPopup
-                                    isOpen={editMedication}
-                                    onClose={() => setEditMedication(null)}
-                                    title={"Edit Medication Details"}
-                                    icon={<Pencil />}
-                                // className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50"
-                                >
-                                    <AddUpdateMedication
-                                        petId={petId}
-                                        medication={editMedication}
+                                    </thead>
+                                    <tbody>
+                                        {ongoingMedications.map((med, index) => (
+                                            <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
+                                                <td className="px-5 py-3 text-sm">{med.medication || "N/A"}</td>
+                                                <td className="px-5 py-3 text-sm">{med.dosage || "N/A"}</td>
+                                                <td className="px-5 py-3 text-sm">{med.frequency || "N/A"}</td>
+                                                <td className="px-5 py-3 text-sm">
+                                                    {new Date(med.next_due).toLocaleDateString("en-US", {
+                                                        month: "long",
+                                                        year: "numeric",
+                                                        day: "numeric",
+                                                    }) || "N/A"}
+                                                </td>
+                                                <td className="px-5 py-3 text-sm">{displayValue(med.remaining)}</td>
+                                                <td className="px-5 py-3 text-sm">{displayValue(med.reason)}</td>
+                                                <td className="px-5 py-3 text-sm">{displayValue(med.prescribed_by?.fullName)}</td>
+                                                <td className="px-5 py-3 text-sm flex justify-end ">
+                                                    <span className="relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center">
+                                                        {/* <HiEllipsisHorizontal className="text-2xl text-gray-800" /> */}
+                                                        <Actions
+                                                            actions={[
+                                                                {
+                                                                    label: "View Details",
+                                                                    icon: <HiOutlineInformationCircle />,
+                                                                    onClick: () => handleView(med),
+                                                                },
+                                                                {
+                                                                    label: "Edit",
+                                                                    icon: <HiOutlinePencilAlt />,
+                                                                    onClick: () => handleEdit(med),
+                                                                },
+                                                                {
+                                                                    label: "Delete",
+                                                                    icon: <HiOutlineTrash />,
+                                                                    onClick: () => handleDelete(med._id),
+                                                                },
+                                                                {
+                                                                    label: "Mark Completed",
+                                                                    icon: <HiOutlineCheckCircle />,
+                                                                    onClick: () => handleMarkComplete(med._id),
+                                                                },
+                                                            ]}
+                                                        />
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                                {/* View Details Modal */}
+                                {viewDetails && (
+                                    <ModalPopup
+                                        isOpen={viewDetails}
+                                        onClose={() => setViewDetails(false)}
+                                        title={selectedMed.medication + " Details"}
+                                        icon={<Info />}
+                                    // className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50"
+                                    >
+                                        <MedicationDetails med={selectedMed} setViewDetails={setViewDetails} />
+                                    </ModalPopup>
+                                )}
+                                {/* Edit Medication Modal */}
+                                {editMedication && (
+                                    <ModalPopup
+                                        isOpen={editMedication}
                                         onClose={() => setEditMedication(null)}
-                                    />
-                                </ModalPopup>
-                            )}
-                        </div>
+                                        title={"Edit Medication Details"}
+                                        icon={<Pencil />}
+                                    // className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50"
+                                    >
+                                        <AddUpdateMedication
+                                            petId={petId}
+                                            medication={editMedication}
+                                            onClose={() => setEditMedication(null)}
+                                        />
+                                    </ModalPopup>
+                                )}
+                            </div>
+                            :
+                            <div className="text-center py-10 text-gray-500">
+                                <Pill className="mx-auto h-12 w-12 mb-4 text-gray-400" />
+                                <p className="text-lg font-medium">No Current Medication Found!</p>
+                                <p className="text-sm">Add new medications to get started</p>
+                            </div>
+                        }
                     </>
                 ))}
 
@@ -469,78 +476,86 @@ const Medications = ({ petId }) => {
                                     </article>
                                 ))
                             ) : (
-                                <div className="text-center py-10 text-gray-500">
+                                <div className="text-center py-10 text-gray-500 max-md:hidden">
                                     <Pill className="mx-auto h-12 w-12 mb-4 text-gray-400" />
                                     <p className="text-lg font-medium">No Medication History Found!</p>
-                                    <p className="text-sm">Completed medications will appear here.</p>
+                                    <p className="text-sm">Completed medications will appear here</p>
                                 </div>
                             )}
                         </div>
 
                         {/* DESKTOP/TABLET TABLE */}
-                        <div className="hidden md:block min-h-screen border rounded-md bg-white overflow-x-auto">
-                            <table className="w-full border-collapse p-5">
-                                <thead>
-                                    <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
-                                        <th className="p-5">Medication</th>
-                                        <th className="p-5">Dosage</th>
-                                        <th className="p-5">Frequency</th>
-                                        <th className="p-5">Start date</th>
-                                        <th className="p-5">End date</th>
-                                        <th className="p-5">Reason</th>
-                                        <th className="p-5">Prescribed by</th>
-                                        <th className="p-5 text-right">Details</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {notOngoingMedications.map((med, index) => (
-                                        <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
-                                            <td className="px-5 py-3 text-sm">{med.medication}</td>
-                                            <td className="px-5 py-3 text-sm">{med.dosage}</td>
-                                            <td className="px-5 py-3 text-sm">{med.frequency}</td>
-                                            <td className="px-5 py-3 text-sm">
-                                                {new Date(med.start_date).toLocaleDateString("en-US", {
-                                                    month: "long",
-                                                    year: "numeric",
-                                                    day: "numeric",
-                                                }) || "N/A"}
-                                            </td>
-                                            <td className="px-5 py-3 text-sm">
-                                                {new Date(med.end_date).toLocaleDateString("en-US", {
-                                                    month: "long",
-                                                    year: "numeric",
-                                                    day: "numeric",
-                                                }) || "N/A"}
-                                            </td>
-                                            <td className="px-5 py-3 text-sm">{med.reason || "N/A"}</td>
-                                            <td className="px-5 py-3 text-sm">{med.prescribed_by?.fullName || "N/A"}</td>
-                                            <td className="px-5 py-3 text-sm flex justify-end">
-                                                <span
-                                                    onClick={() => {
-                                                        setOpenPopup(true);
-                                                        setSelectedMed(med);
-                                                    }}
-                                                    className="cursor-pointer border hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center"
-                                                >
-                                                    <HiOutlineInformationCircle className="text-xl text-gray-800" />
-                                                </span>
-                                            </td>
+                        {notOngoingMedications.length > 0 ?
+                            <div className="hidden md:block min-h-screen border rounded-md bg-white overflow-x-auto">
+                                <table className="w-full border-collapse p-5">
+                                    <thead>
+                                        <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
+                                            <th className="p-5">Medication</th>
+                                            <th className="p-5">Dosage</th>
+                                            <th className="p-5">Frequency</th>
+                                            <th className="p-5">Start date</th>
+                                            <th className="p-5">End date</th>
+                                            <th className="p-5">Reason</th>
+                                            <th className="p-5">Prescribed by</th>
+                                            <th className="p-5 text-right">Details</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                            {openPopup && (
-                                <ModalPopup
-                                    isOpen={openPopup}
-                                    onClose={() => setOpenPopup(false)}
-                                    title={selectedMed.medication + " Medication Details"}
-                                    icon={<Info />}
-                                // className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50"
-                                >
-                                    <MedicationDetails med={selectedMed} setOpenPopup={setOpenPopup} />
-                                </ModalPopup>
-                            )}
-                        </div>
+                                    </thead>
+                                    <tbody>
+                                        {notOngoingMedications.map((med, index) => (
+                                            <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
+                                                <td className="px-5 py-3 text-sm">{med.medication}</td>
+                                                <td className="px-5 py-3 text-sm">{med.dosage}</td>
+                                                <td className="px-5 py-3 text-sm">{med.frequency}</td>
+                                                <td className="px-5 py-3 text-sm">
+                                                    {new Date(med.start_date).toLocaleDateString("en-US", {
+                                                        month: "long",
+                                                        year: "numeric",
+                                                        day: "numeric",
+                                                    }) || "N/A"}
+                                                </td>
+                                                <td className="px-5 py-3 text-sm">
+                                                    {new Date(med.end_date).toLocaleDateString("en-US", {
+                                                        month: "long",
+                                                        year: "numeric",
+                                                        day: "numeric",
+                                                    }) || "N/A"}
+                                                </td>
+                                                <td className="px-5 py-3 text-sm">{med.reason || "N/A"}</td>
+                                                <td className="px-5 py-3 text-sm">{med.prescribed_by?.fullName || "N/A"}</td>
+                                                <td className="px-5 py-3 text-sm flex justify-end">
+                                                    <span
+                                                        onClick={() => {
+                                                            setOpenPopup(true);
+                                                            setSelectedMed(med);
+                                                        }}
+                                                        className="cursor-pointer border hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center"
+                                                    >
+                                                        <HiOutlineInformationCircle className="text-xl text-gray-800" />
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                                {openPopup && (
+                                    <ModalPopup
+                                        isOpen={openPopup}
+                                        onClose={() => setOpenPopup(false)}
+                                        title={selectedMed.medication + " Medication Details"}
+                                        icon={<Info />}
+                                    // className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50"
+                                    >
+                                        <MedicationDetails med={selectedMed} setOpenPopup={setOpenPopup} />
+                                    </ModalPopup>
+                                )}
+                            </div>
+                            :
+                            <div className="text-center py-10 text-gray-500">
+                                <Pill className="mx-auto h-12 w-12 mb-4 text-gray-400" />
+                                <p className="text-lg font-medium">No Medication History Found!</p>
+                                <p className="text-sm">Completed medications will appear here</p>
+                            </div>
+                        }
                     </>
                 ))}
 
@@ -549,7 +564,6 @@ const Medications = ({ petId }) => {
                 <ScheduledReminders petId={petId} ongoingMedications={ongoingMedications} />
             )}
         </div>
-
     )
 }
 
