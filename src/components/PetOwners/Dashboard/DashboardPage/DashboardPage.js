@@ -133,7 +133,10 @@ const DashboardPage = () => {
         }
     }, [pets])
 
-    const { data, isLoading: petLoading } = useGetPetDataQuery({ id: selectedPet._id });
+    const { data: petData, isLoading: petLoading } = useGetPetDataQuery({ id: selectedPet._id });
+    console.log(petData);
+    const confirmed_appointment = petData?.confirmed_appointment;
+    const pending_appointments = petData?.pending_appointments;
 
     const { data: symptom_history = [] } = useGetSymptomHistoryQuery(selectedPet._id)
 
@@ -328,24 +331,25 @@ const DashboardPage = () => {
                                 <h3 className="text-sm font-medium text-gray-600">Next Vaccination</h3>
                                 <Syringe className="h-4 w-4 text-gray-500" />
                             </div>
-                            {data?.upcoming_vaccination.length !== 1 ?
-                                <>
-                                    <span className='text-xs text-gray-500 '>No upcoming vaccination</span>
-                                </>
-                                :
+                            {petData?.upcoming_vaccination ?
                                 <>
                                     <div className="text-2xl font-bold">
                                         {(() => {
-                                            const nextDueDate = new Date(data?.upcoming_vaccination[0]?.next_due);
+                                            const nextDueDate = new Date(petData?.upcoming_vaccination?.next_due);
                                             const now = new Date();
                                             const diffMs = nextDueDate - now;
                                             const daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
                                             return <span>{daysLeft}</span>;
                                         })()}
                                     </div>
-                                    <p className="text-xs text-gray-500 mt-2">Days until {data?.upcoming_vaccination[0]?.vaccine} shot</p>
+                                    <p className="text-xs text-gray-500 mt-2">Days until {petData?.upcoming_vaccination?.vaccine} shot</p>
                                     <button className="text-xs text-blue-500 mt-1 hover:underline">View vaccination schedule</button>
                                 </>
+                                :
+                                <div className='text-2xl font-bold'>
+                                    <h2>No Vaccination</h2>
+                                    <p className='font-normal text-xs text-gray-500 mt-2'>Add a new vaccination from health record to get started</p>
+                                </div>
                             }
                         </div>
                     </div>
@@ -364,7 +368,7 @@ const DashboardPage = () => {
                                         .slice(0, 1)
                                         .map((item, i) => (
                                             <div key={i}>
-                                                <span className="capitalize font-semibold">
+                                                <span className="capitalize font-medium">
                                                     {item.symptoms
                                                         .map(symptom => symptom.bodyPart.replace(/_/g, ' '))
                                                         .join(', ')}
@@ -427,7 +431,7 @@ const DashboardPage = () => {
                     <div className="grid gap-4 grid-cols-1 md:grid-cols-7 overflow-hidden">
                         {/* Medical History */}
                         <div className="bg-white rounded-xl border shadow-sm md:col-span-4 flex flex-col max-md:order-2">
-                            <div className="p-4">
+                            <div className="p-4 border-b">
                                 <h3 className="text-lg font-semibold">Medical History</h3>
                                 <p className="text-sm text-gray-500">Recent medical records</p>
                             </div>
@@ -443,7 +447,7 @@ const DashboardPage = () => {
                                                         <tr className="text-left text-xs md:text-sm text-gray-500 border-b py-2">
                                                             <th className="p-4">Date</th>
                                                             <th className="p-4">Type</th>
-                                                            <th className="p-4">Doctor</th>
+                                                            {/* <th className="p-4">Doctor</th> */}
                                                             <th className="p-4">Diagnosis</th>
                                                         </tr>
                                                     </thead>
@@ -453,27 +457,27 @@ const DashboardPage = () => {
                                                                 <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
                                                                     <td className="px-5 py-3 text-sm">{new Date(record.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' })}</td>
                                                                     <td className="px-5 py-3 text-sm">{displayValue(record.type)}</td>
-                                                                    <td className="px-5 py-3 text-sm">{displayValue(record.vet.fullName)}</td>
+                                                                    {/* <td className="px-5 py-3 text-sm">{displayValue(record.vet.fullName)}</td> */}
                                                                     <td className="px-5 py-3 text-sm">{displayValue(record.diagnosis)}</td>
                                                                 </tr>
                                                             ))}
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div className="p-4 border-t mt-auto">
+                                            {/* <div className="p-4 border-t mt-auto">
                                                 <button className="text-sm text-primary hover:text-primaryHover transition-colors">
                                                     View Complete History →
                                                 </button>
-                                            </div>
+                                            </div> */}
                                         </>
                                         :
-                                        <div className='flex flex-col items-center justify-center gap-3 h-full pb-4 text-gray-700'>
+                                        <div className='flex flex-col items-center justify-center gap-3 h-full pb-4 text-gray-600'>
                                             <PawPrint size={30} />
-                                            <h4 className=''>No Medical History Found!</h4>
+                                            <h4 className='font-semibold '>No Medical History Found!</h4>
                                         </div>
                             }
                         </div>
-                        
+
                         {/* Upcoming */}
                         <div className="bg-white rounded-xl border shadow-sm md:col-span-3 max-md:order-1">
                             <div className="p-4 border-b">
@@ -481,43 +485,59 @@ const DashboardPage = () => {
                                 <p className="text-sm text-gray-500">Next appointments and reminders</p>
                             </div>
                             <div className="p-4 space-y-4">
-                                <div className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50 transition-colors">
-                                    <Calendar className="h-8 w-8 text-primary" />
-                                    <div className="flex-1 space-y-1">
-                                        <p className="text-sm font-medium">Regular Check-up</p>
-                                        <p className="text-xs text-gray-500">Tomorrow at 10:00 AM</p>
-                                        <p className="text-xs text-gray-500">with Dr. Smith</p>
+                                {confirmed_appointment &&
+                                    <div className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50 transition-colors">
+                                        <Calendar className="h-8 w-8 text-primary" />
+                                        <div className="flex-1 space-y-1">
+                                            <p className="text-sm font-medium">{confirmed_appointment?.reason || 'Regular Check-up'}</p>
+                                            <p className="text-xs text-gray-500">On {new Date(confirmed_appointment?.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric', day: 'numeric' })}</p>
+                                            <p className="text-xs text-gray-500">with Dr. {confirmed_appointment?.vet?.fullName}</p>
+                                        </div>
+                                        <button className="border border-gray-300 px-3 py-1 rounded-lg text-sm hover:bg-gray-100 transition-colors">
+                                            Reschedule
+                                        </button>
                                     </div>
-                                    <button className="border border-gray-300 px-3 py-1 rounded-lg text-sm hover:bg-gray-100 transition-colors">
-                                        Reschedule
-                                    </button>
-                                </div>
-                                <div className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50 transition-colors">
-                                    <Pills className="h-8 w-8 text-primary" />
-                                    <div className="flex-1 space-y-1">
-                                        <p className="text-sm font-medium">Heartworm Medicine Due</p>
-                                        <p className="text-xs text-gray-500">In 3 days</p>
+                                }
+                                {petData?.next_reminder?.length > 0 &&
+                                    <div className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50 transition-colors">
+                                        <Pills className="h-8 w-8 text-primary" />
+                                        <div className="flex-1 space-y-1">
+                                            <p className="text-sm font-medium capitalize">{petData.next_reminder[0].medication?.medication} due</p>
+                                            <p className="text-xs text-gray-500">
+                                                On {new Date(petData.next_reminder[0].reminder_datetime)
+                                                    .toLocaleString('en-US', {
+                                                        month: 'short',
+                                                        day: 'numeric',
+                                                        year: 'numeric',
+                                                        hour: 'numeric',
+                                                        minute: '2-digit',
+                                                        hour12: true,
+                                                    })}
+                                            </p>
+                                        </div>
+                                        <button className="border border-gray-300 px-3 py-1 rounded-lg text-sm hover:bg-gray-100 transition-colors">
+                                            Mark Done
+                                        </button>
                                     </div>
-                                    <button className="border border-gray-300 px-3 py-1 rounded-lg text-sm hover:bg-gray-100 transition-colors">
-                                        Mark Done
-                                    </button>
-                                </div>
-                                <div className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50 transition-colors">
-                                    <Syringe className="h-8 w-8 text-primary" />
-                                    <div className="flex-1 space-y-1">
-                                        <p className="text-sm font-medium">Bordetella Vaccination</p>
-                                        <p className="text-xs text-gray-500">In 15 days</p>
+                                }
+                                {petData?.upcoming_vaccination &&
+                                    <div className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50 transition-colors">
+                                        <Syringe className="h-8 w-8 text-primary" />
+                                        <div className="flex-1 space-y-1">
+                                            <p className="text-sm font-medium">{petData?.upcoming_vaccination?.vaccine}</p>
+                                            <p className="text-xs text-gray-500">{new Date(petData?.upcoming_vaccination?.next_due).toLocaleDateString('en-US', { month: 'short', year: 'numeric', day: 'numeric' })}</p>
+                                        </div>
+                                        <button className="border border-gray-300 px-3 py-1 rounded-lg text-sm hover:bg-gray-100 transition-colors">
+                                            Schedule
+                                        </button>
                                     </div>
-                                    <button className="border border-gray-300 px-3 py-1 rounded-lg text-sm hover:bg-gray-100 transition-colors">
-                                        Schedule
-                                    </button>
-                                </div>
+                                }
                             </div>
-                            <div className="p-4 border-t">
+                            {/* <div className="p-4 border-t">
                                 <button className="text-sm text-primary hover:text-primaryHover transition-colors">
                                     View All Upcoming →
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 

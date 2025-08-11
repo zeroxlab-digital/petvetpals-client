@@ -3,7 +3,7 @@ import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import { useDeleteMedicalHistoryMutation, useGetMedicalHistoryQuery } from '@/redux/services/petApi';
 import { displayValue } from '@/utils/displayValue';
-import { Clock, Download, Stethoscope } from 'lucide-react';
+import { Clock, Download, PawPrint, Stethoscope } from 'lucide-react';
 import React, { useState } from 'react';
 import { HiOutlinePencilAlt, HiPencilAlt } from 'react-icons/hi';
 import { HiEllipsisVertical, HiOutlineDocumentText, HiOutlineInformationCircle, HiOutlineTrash } from 'react-icons/hi2';
@@ -40,8 +40,10 @@ const MedicalHistory = ({ petId }) => {
     );
   if (medicalHistory.length < 1)
     return (
-      <div className="text-center py-20 text-gray-400 text-xl font-semibold select-none">
-        No medical history found!
+      <div className="text-center py-10 text-gray-500">
+        <Stethoscope className="mx-auto h-12 w-12 mb-4 text-gray-400" />
+        <p className="text-lg font-medium">No Medical History Found!</p>
+        <p className="text-sm">Add a new record to get started</p>
       </div>
     );
 
@@ -61,7 +63,7 @@ const MedicalHistory = ({ petId }) => {
                   dateTime={record.date}
                   className={`flex items-center gap-2 font-semibold text-sm text-primary`}
                 >
-                <Clock size={16} />
+                  <Clock size={16} />
                   {new Date(record.date).toLocaleDateString('en-US', {
                     month: 'short',
                     day: 'numeric',
@@ -101,7 +103,7 @@ const MedicalHistory = ({ petId }) => {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                    //   toast.info('Downloading files...');
+                      //   toast.info('Downloading files...');
                     }}
                     aria-label="Download medical record files"
                     className="rounded-full p-2 bg-indigo-100 text-indigo-600 hover:bg-indigo-200 transition shadow"
