@@ -426,7 +426,7 @@ const DashboardPage = () => {
 
                     <div className="grid gap-4 grid-cols-1 md:grid-cols-7 overflow-hidden">
                         {/* Medical History */}
-                        <div className="bg-white rounded-xl border shadow-sm md:col-span-4 flex flex-col">
+                        <div className="bg-white rounded-xl border shadow-sm md:col-span-4 flex flex-col max-md:order-2">
                             <div className="p-4">
                                 <h3 className="text-lg font-semibold">Medical History</h3>
                                 <p className="text-sm text-gray-500">Recent medical records</p>
@@ -467,14 +467,15 @@ const DashboardPage = () => {
                                             </div>
                                         </>
                                         :
-                                        <div className='flex items-center justify-center h-full'>
-                                            <h4 className='text-gray-700'>No Medical History Found!</h4>
+                                        <div className='flex flex-col items-center justify-center gap-3 h-full pb-4 text-gray-700'>
+                                            <PawPrint size={30} />
+                                            <h4 className=''>No Medical History Found!</h4>
                                         </div>
                             }
                         </div>
                         
                         {/* Upcoming */}
-                        <div className="bg-white rounded-xl border shadow-sm md:col-span-3">
+                        <div className="bg-white rounded-xl border shadow-sm md:col-span-3 max-md:order-1">
                             <div className="p-4 border-b">
                                 <h3 className="text-lg font-semibold">Upcoming</h3>
                                 <p className="text-sm text-gray-500">Next appointments and reminders</p>
