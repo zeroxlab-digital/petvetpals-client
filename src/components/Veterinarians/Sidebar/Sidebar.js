@@ -52,7 +52,7 @@ const Sidebar = () => {
     const pathname = usePathname();
     
     return (
-        <div className='col-span-2 bg-white border-r p-5 rounded-md flex flex-col items-start justify-between'>
+        <div className='flex flex-col items-start justify-between'>
             <div className='w-full'>
                 <h2 className="text-primary font-extrabold text-3xl mb-3 pb-3 border-b">Petsoli</h2>
                 <ul className='flex flex-col gap-1  '>

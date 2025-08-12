@@ -1,10 +1,88 @@
-import Sidebar from '@/components/Veterinarians/Sidebar/Sidebar';
+"use client";
+import Sidebar from '@/components/PetOwners/Dashboard/Sidebar/Sidebar';
+import { FaCalendar, FaDollarSign, FaHouse, FaPaw, FaPills, FaRegMessage, FaUser } from 'react-icons/fa6';
+import { Stethoscope } from 'lucide-react';
+import { useState } from 'react';
+import { HiBars3CenterLeft } from 'react-icons/hi2';
 
 const VetLayout = ({ children }) => {
+    const [responsiveToggle, setResponsiveToggle] = useState(false);
+    const links = [
+        {
+            title: "Dashboard",
+            link: "/veterinarian",
+            icon: <FaHouse />
+        },
+        {
+            title: "Appointments",
+            link: "/veterinarian/appointments",
+            icon: <FaCalendar />
+        },
+        {
+            title: "Messages",
+            link: "/veterinarian/messages",
+            icon: <FaRegMessage />
+        },
+        {
+            title: "Patient Records",
+            link: "/veterinarian/patients",
+            icon: <FaPaw />
+        },
+        {
+            title: "Treatments History",
+            link: "/veterinarian/treatments",
+            icon: <FaPills />
+        },
+        {
+            title: "Earnings & Payouts",
+            link: "/veterinarian/earnings",
+            icon: <FaDollarSign />
+        },
+        {
+            title: "Vet Profile",
+            link: "/veterinarian/account",
+            icon: <FaUser />
+        }
+    ]
     return (
-        <div className='grid grid-cols-10 gap-5 bg-gray-100 bg-opacity-50 h-screen'>
-            <Sidebar />
-            {children}
+        <div className='lg:grid grid-cols-10 gap-0 max-h-screen'>
+
+            {/* Toggle Button for Mobile */}
+            <div className={`lg:hidden p-3 flex flex-row-reverse items-center justify-between ${responsiveToggle && 'hidden'}`}>
+                <button
+                    onClick={() => setResponsiveToggle(true)}
+                    className='text-primary'
+                >
+                    <HiBars3CenterLeft className='text-3xl' />
+                </button>
+                <div className="flex items-center gap-2 text-primary">
+                    <Stethoscope className="w-6 h-6 text-blue-500" />
+                    <span className="text-2xl  font-bold">Pet<span className='text-blue-500'>Vet</span>Pals</span>
+                </div>
+            </div>
+
+            {/* Sidebar */}
+            <div className={`lg:h-[calc(100vh-5.1rem)] col-span-2 bg-white rounded-md max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:h-full max-lg:z-40 max-lg:transform ${responsiveToggle ? 'max-lg:translate-x-0' : 'max-lg:-translate-x-full'
+                } transition-transform duration-300 ease-in-out`}>
+                <div className="flex items-center gap-2 max-lg:hidden text-primary border-b lg:p-5 p-3">
+                    <Stethoscope className="w-6 h-6 text-blue-500" />
+                    <span className="text-2xl  font-bold">Pet<span className='text-blue-500'>Vet</span>Pals</span>
+                </div>
+                <Sidebar links={links} setResponsiveToggle={setResponsiveToggle} />
+            </div>
+
+            {/* Overlay for Mobile */}
+            {responsiveToggle && (
+                <div
+                    className='lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30'
+                    onClick={() => setResponsiveToggle(false)}
+                />
+            )}
+
+            {/* Main Content */}
+            <div className='col-span-8 max-lg:col-span-12 max-lg:h-[calc(100vh-3.5rem)] h-screen p-3 lg:p-5 bg-gray-50/40 border-l rounded-md rounded-l-none sm:overflow-auto hide-scrollbar'>
+                {children}
+            </div>
         </div>
     );
 };
