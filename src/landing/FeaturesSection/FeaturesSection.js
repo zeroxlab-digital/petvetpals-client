@@ -28,7 +28,7 @@ const FeaturesSection = () => {
         {
             title: "Online Vet",
             subtitle: "Expert consultations",
-            link: "/appointments",
+            link: "/vet-appointment",
             link_title: "Book Now",
             icon: Stethoscope,
             gradient: "from-orange-500 via-red-500 to-pink-600",

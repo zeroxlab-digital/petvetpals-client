@@ -29,7 +29,7 @@ const Actions = ({ actions = [] }) => {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg ring-1 ring-gray-200 z-50">
+        <div className="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg ring-1 ring-gray-200 z-10">
           {actions.map((action, index) => (
             <button
               key={index}

@@ -18,7 +18,7 @@ const HowWeWork = () => {
                         alt="vet"
                         width={300}
                         height={200}
-                        className='w-full max-md:order-2'
+                        className='w-full max-md:order-2 max-sm:hidden'
                     />
                     <Image
                         src="/images/vet-video.webp"
