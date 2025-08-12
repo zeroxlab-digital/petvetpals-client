@@ -93,7 +93,7 @@ const Medications = ({ petId }) => {
     }
 
     return (
-        <div className="space-y-5 h-screen">
+        <div className="space-y-5">
             <div className="flex items-center justify-between max-sm:flex-wrap">
                 <h2 className="font-semibold text-lg">Medications & Treatment</h2>
                 {activeTab === "schedule-reminders" && (
@@ -290,7 +290,7 @@ const Medications = ({ petId }) => {
 
                         {/* DESKTOP/TABLET TABLE */}
                         {ongoingMedications.length > 0 ?
-                            <div className="hidden md:block min-h-full border rounded-md bg-white overflow-x-auto">
+                            <div className="hidden md:block h-screen border rounded-md bg-white overflow-x-auto">
                                 <table className="w-full border-collapse p-5">
                                     <thead>
                                         <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">
@@ -486,7 +486,7 @@ const Medications = ({ petId }) => {
 
                         {/* DESKTOP/TABLET TABLE */}
                         {notOngoingMedications.length > 0 ?
-                            <div className="hidden md:block min-h-screen border rounded-md bg-white overflow-x-auto">
+                            <div className="hidden md:block h-screen border rounded-md bg-white overflow-x-auto">
                                 <table className="w-full border-collapse p-5">
                                     <thead>
                                         <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">

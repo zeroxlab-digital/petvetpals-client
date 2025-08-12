@@ -471,7 +471,7 @@ const DashboardPage = () => {
                                             </div> */}
                                         </>
                                         :
-                                        <div className='flex flex-col items-center justify-center gap-3 h-full pb-4 text-gray-600'>
+                                        <div className='flex flex-col items-center justify-center gap-3 h-full py-4 text-gray-600'>
                                             <PawPrint size={30} />
                                             <h4 className='font-semibold '>No Medical History Found!</h4>
                                         </div>
@@ -485,51 +485,60 @@ const DashboardPage = () => {
                                 <p className="text-sm text-gray-500">Next appointments and reminders</p>
                             </div>
                             <div className="p-4 space-y-4">
-                                {confirmed_appointment &&
-                                    <div className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50 transition-colors">
-                                        <Calendar className="h-8 w-8 text-primary" />
-                                        <div className="flex-1 space-y-1">
-                                            <p className="text-sm font-medium">{confirmed_appointment?.reason || 'Regular Check-up'}</p>
-                                            <p className="text-xs text-gray-500">On {new Date(confirmed_appointment?.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric', day: 'numeric' })}</p>
-                                            <p className="text-xs text-gray-500">with Dr. {confirmed_appointment?.vet?.fullName}</p>
-                                        </div>
-                                        <button className="border border-gray-300 px-3 py-1 rounded-lg text-sm hover:bg-gray-100 transition-colors">
-                                            Reschedule
-                                        </button>
-                                    </div>
-                                }
-                                {petData?.next_reminder?.length > 0 &&
-                                    <div className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50 transition-colors">
-                                        <Pills className="h-8 w-8 text-primary" />
-                                        <div className="flex-1 space-y-1">
-                                            <p className="text-sm font-medium capitalize">{petData.next_reminder[0].medication?.medication} due</p>
-                                            <p className="text-xs text-gray-500">
-                                                On {new Date(petData.next_reminder[0].reminder_datetime)
-                                                    .toLocaleString('en-US', {
-                                                        month: 'short',
-                                                        day: 'numeric',
-                                                        year: 'numeric',
-                                                        hour: 'numeric',
-                                                        minute: '2-digit',
-                                                        hour12: true,
-                                                    })}
-                                            </p>
-                                        </div>
-                                        <button className="border border-gray-300 px-3 py-1 rounded-lg text-sm hover:bg-gray-100 transition-colors">
-                                            Mark Done
-                                        </button>
-                                    </div>
-                                }
-                                {petData?.upcoming_vaccination &&
-                                    <div className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50 transition-colors">
-                                        <Syringe className="h-8 w-8 text-primary" />
-                                        <div className="flex-1 space-y-1">
-                                            <p className="text-sm font-medium">{petData?.upcoming_vaccination?.vaccine}</p>
-                                            <p className="text-xs text-gray-500">{new Date(petData?.upcoming_vaccination?.next_due).toLocaleDateString('en-US', { month: 'short', year: 'numeric', day: 'numeric' })}</p>
-                                        </div>
-                                        <button className="border border-gray-300 px-3 py-1 rounded-lg text-sm hover:bg-gray-100 transition-colors">
-                                            Schedule
-                                        </button>
+                                {confirmed_appointment || petData?.next_reminder?.length > 0 || petData?.upcoming_vaccination ?
+                                    <>
+                                        {confirmed_appointment &&
+                                            <div className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50 transition-colors">
+                                                <Calendar className="h-8 w-8 text-primary" />
+                                                <div className="flex-1 space-y-1">
+                                                    <p className="text-sm font-medium">{confirmed_appointment?.reason || 'Regular Check-up'}</p>
+                                                    <p className="text-xs text-gray-500">On {new Date(confirmed_appointment?.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric', day: 'numeric' })}</p>
+                                                    <p className="text-xs text-gray-500">with Dr. {confirmed_appointment?.vet?.fullName}</p>
+                                                </div>
+                                                <button className="border border-gray-300 px-3 py-1 rounded-lg text-sm hover:bg-gray-100 transition-colors">
+                                                    Reschedule
+                                                </button>
+                                            </div>
+                                        }
+                                        {petData?.next_reminder?.length > 0 &&
+                                            <div className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50 transition-colors">
+                                                <Pills className="h-8 w-8 text-primary" />
+                                                <div className="flex-1 space-y-1">
+                                                    <p className="text-sm font-medium capitalize">{petData.next_reminder[0].medication?.medication} due</p>
+                                                    <p className="text-xs text-gray-500">
+                                                        On {new Date(petData.next_reminder[0].reminder_datetime)
+                                                            .toLocaleString('en-US', {
+                                                                month: 'short',
+                                                                day: 'numeric',
+                                                                year: 'numeric',
+                                                                hour: 'numeric',
+                                                                minute: '2-digit',
+                                                                hour12: true,
+                                                            })}
+                                                    </p>
+                                                </div>
+                                                <button className="border border-gray-300 px-3 py-1 rounded-lg text-sm hover:bg-gray-100 transition-colors">
+                                                    Mark Done
+                                                </button>
+                                            </div>
+                                        }
+                                        {petData?.upcoming_vaccination &&
+                                            <div className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50 transition-colors">
+                                                <Syringe className="h-8 w-8 text-primary" />
+                                                <div className="flex-1 space-y-1">
+                                                    <p className="text-sm font-medium">{petData?.upcoming_vaccination?.vaccine}</p>
+                                                    <p className="text-xs text-gray-500">{new Date(petData?.upcoming_vaccination?.next_due).toLocaleDateString('en-US', { month: 'short', year: 'numeric', day: 'numeric' })}</p>
+                                                </div>
+                                                <button className="border border-gray-300 px-3 py-1 rounded-lg text-sm hover:bg-gray-100 transition-colors">
+                                                    Schedule
+                                                </button>
+                                            </div>
+                                        }
+                                    </>
+                                    :
+                                    <div className='flex flex-col items-center justify-center gap-3 h-full py-4 text-gray-600'>
+                                        <PawPrint size={30} />
+                                        <h4 className='font-semibold '>Nothing&apos;s Upcoming!</h4>
                                     </div>
                                 }
                             </div>
