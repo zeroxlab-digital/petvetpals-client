@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client"
 import { motion } from "framer-motion"
-import { Facebook, Twitter, Instagram, Youtube, Mail, MapPin, Phone, Heart, PawPrintIcon as Paw, ShoppingBag, Pill, Video, Calendar, Clock, ChevronRight, Send, Shield, Scissors, GraduationCap, Home, Linkedin, Building2Icon } from "lucide-react"
+import { Facebook, Twitter, Instagram, Youtube, Mail, MapPin, Phone, Heart, PawPrintIcon as Paw, ShoppingBag, Pill, Video, Calendar, Clock, ChevronRight, Send, Shield, Scissors, GraduationCap, Home, Linkedin, Building2Icon, MessageCircle, Stethoscope } from "lucide-react"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -116,7 +116,6 @@ export default function Footer() {
                 "Grooming Supplies",
                 "Health Supplements",
                 "Prescription Medicine",
-                "Pet Care Equipment",
                 "Special Diet Food",
               ].map((item, index) => (
                 <motion.li
@@ -145,12 +144,11 @@ export default function Footer() {
             <ul className="space-y-4">
               {[
                 { text: "Online Vet Consultation", icon: Video },
-                { text: "AI Health Checker", icon: Pill },
-                { text: "Emergency Care", icon: Clock },
+                { text: "AI Symptom Checker", icon: Stethoscope },
+                { text: "Medication Reminder", icon: Clock },
                 { text: "Vaccination Scheduler", icon: Calendar },
-                { text: "Pet Insurance", icon: Shield },
-                { text: "Training Programs", icon: GraduationCap },
-                { text: "Pet Adoption", icon: Home },
+                { text: "Pet Health Tracker", icon: Shield },
+                { text: "Vet Chat", icon: MessageCircle },
               ].map((item, index) => (
                 <motion.li
                   key={index}

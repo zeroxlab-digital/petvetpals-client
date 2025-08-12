@@ -44,7 +44,7 @@ const BottomNavigation = () => {
       transition={{ type: 'spring', stiffness: 200, damping: 25 }}
       className='lg:hidden bg-white fixed bottom-0 left-0 w-full px-[5px] z-20 border-t border-gray-200 rounded-t-2xl shadow-2xl shadow-black'
     >
-      <ul className='h-16 grid grid-cols-5 items-center text-center'>
+      <ul className='h-[60px] grid grid-cols-5 items-center text-center'>
         {links.map((link, index) => {
           const isActive = pathname === link.link;
           return (

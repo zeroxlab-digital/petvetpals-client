@@ -124,12 +124,12 @@ const MobileUserOptions = () => {
                     icon: <FaUser />,
                     description: "Personal information",
                 },
-                {
-                    title: "App Settings",
-                    link: "/dashboard/settings",
-                    icon: <FaGear />,
-                    description: "Preferences and privacy",
-                },
+                // {
+                //     title: "App Settings",
+                //     link: "/dashboard/settings",
+                //     icon: <FaGear />,
+                //     description: "Preferences and privacy",
+                // },
                 {
                     title: "Help & Support",
                     link: "/dashboard/support",
