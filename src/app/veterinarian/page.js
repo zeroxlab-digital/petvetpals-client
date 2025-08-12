@@ -2,7 +2,7 @@ import React from 'react';
 
 const Veterinarian = () => {
     return (
-        <div className='p-5'>
+        <div>
             Veterinarian
         </div>
     );

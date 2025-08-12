@@ -1,24 +1,13 @@
 "use client";
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { FaCalendar, FaCartShopping, FaHouse, FaPaw, FaPills, FaRegHeart, FaRegMessage, FaUser } from 'react-icons/fa6';
 import { HiArrowRightOnRectangle } from 'react-icons/hi2';
 import { toast } from 'react-toastify';
-import { PawPrint, Stethoscope } from 'lucide-react';
+import { PawPrint } from 'lucide-react';
 import { useLogoutUserMutation } from '@/redux/services/userApi';
 
-const DashboardSidebar = ({ setResponsiveToggle }) => {
+const Sidebar = ({ links, setResponsiveToggle = () => { } }) => {
 
-    const links = [
-        { title: "Dashboard", link: "/dashboard", icon: <FaHouse /> },
-        { title: "Pet Profiles", link: "/dashboard/pets", icon: <FaPaw /> },
-        { title: "Vet GPT", link: "/dashboard/symptom-checker", icon: <Stethoscope size={20} /> },
-        { title: "Appointments", link: "/dashboard/appointments", icon: <FaCalendar /> },
-        { title: "Messages", link: "/dashboard/messages", icon: <FaRegMessage /> },
-        { title: "Wishlist", link: "/dashboard/wishlist", icon: <FaRegHeart /> },
-        { title: "Order History", link: "/dashboard/orders", icon: <FaCartShopping /> },
-        { title: "User Profile", link: "/dashboard/account", icon: <FaUser /> }
-    ];
     const pathname = usePathname();
     const router = useRouter();
 
@@ -29,7 +18,6 @@ const DashboardSidebar = ({ setResponsiveToggle }) => {
     const handleUserLogout = async () => {
         try {
             const res = await logoutUser({});
-            console.log(res);
             if (res.data?.success) {
                 notify("Logout successfull!", "success");
                 localStorage.clear();
@@ -41,9 +29,8 @@ const DashboardSidebar = ({ setResponsiveToggle }) => {
     }
 
     return (
-        <div className=' flex flex-col  border border-r-0 bg-white p-3 rounded-md rounded-r-none sticky top-20 h-full overflow-auto '>
-            {/* <h2 className="lg:hidden text-primary font-bold text-xl mb-3 border-b pb-3">User Profile</h2> */}
-            <div className="flex items-center gap-2 lg:hidden text-primary mb-4 border-b pb-4">
+        <div className={`flex flex-col ${pathname.startsWith('/veterinarian') ? '' : 'border !border-r-0'} bg-white p-3 rounded-md rounded-r-none sticky top-20 h-full overflow-auto`}>
+            <div className={`${pathname.startsWith('/veterinarian') && 'hidden'} flex items-center gap-2 lg:hidden text-primary mb-4 border-b pb-4`}>
                 <PawPrint className="w-6 h-6" />
                 <span className="text-[22px]  font-bold">PetVetPals</span>
             </div>
@@ -57,4 +44,4 @@ const DashboardSidebar = ({ setResponsiveToggle }) => {
     );
 };
 
-export default DashboardSidebar;
+export default Sidebar;
