@@ -1,7 +1,15 @@
 "use client";
 import Sidebar from '@/components/PetOwners/Dashboard/Sidebar/Sidebar';
-import { FaCalendar, FaDollarSign, FaHouse, FaPaw, FaPills, FaRegMessage, FaUser } from 'react-icons/fa6';
-import { Stethoscope } from 'lucide-react';
+import {
+    Home,
+    Calendar,
+    MessageCircle,
+    Pill,
+    DollarSign,
+    User,
+    Stethoscope,
+    PawPrint
+} from "lucide-react";
 import { useState } from 'react';
 import { HiBars3CenterLeft } from 'react-icons/hi2';
 
@@ -11,39 +19,39 @@ const VetLayout = ({ children }) => {
         {
             title: "Dashboard",
             link: "/veterinarian",
-            icon: <FaHouse />
+            icon: <Home size={20} />
         },
         {
             title: "Appointments",
             link: "/veterinarian/appointments",
-            icon: <FaCalendar />
+            icon: <Calendar size={20} />
         },
         {
             title: "Messages",
             link: "/veterinarian/messages",
-            icon: <FaRegMessage />
+            icon: <MessageCircle size={20} />
         },
         {
             title: "Patient Records",
             link: "/veterinarian/patients",
-            icon: <FaPaw />
+            icon: <PawPrint size={20} />
         },
         {
             title: "Treatments History",
             link: "/veterinarian/treatments",
-            icon: <FaPills />
+            icon: <Pill size={20} />
         },
         {
             title: "Earnings & Payouts",
             link: "/veterinarian/earnings",
-            icon: <FaDollarSign />
+            icon: <DollarSign size={20} />
         },
         {
             title: "Vet Profile",
             link: "/veterinarian/profile",
-            icon: <FaUser />
+            icon: <User size={20} />
         }
-    ]
+    ];
     return (
         <div className='lg:grid grid-cols-10 gap-0 max-h-screen'>
 
