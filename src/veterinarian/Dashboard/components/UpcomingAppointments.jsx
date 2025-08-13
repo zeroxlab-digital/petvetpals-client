@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../..
 import { Button } from "../../../components/ui/button"
 import { Badge } from "../../../components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "../../../components/ui/avatar"
-import { Clock, PawPrint, ArrowRight, Phone, MessageSquare } from "lucide-react"
+import { Clock, PawPrint, ArrowRight, Phone, MessageSquare, Video } from "lucide-react"
 
 export default function UpcomingAppointments({ appointments }) {
   const handleViewAppointment = (appointmentId) => {
@@ -31,10 +31,10 @@ export default function UpcomingAppointments({ appointments }) {
 
   return (
     <Card className="shadow-sm border border-gray-200">
-      <CardHeader className="bg-white border-b border-gray-200">
+      <CardHeader className="bg-white border-b border-gray-200 rounded-t-xl">
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle className="text-xl font-semibold text-gray-900">Upcoming Appointments</CardTitle>
+            <CardTitle className="text-xl font-semibold text-gray-900 mb-1">Upcoming Appointments</CardTitle>
             <CardDescription className="text-gray-600">Your schedule for today</CardDescription>
           </div>
           <Button
@@ -54,7 +54,7 @@ export default function UpcomingAppointments({ appointments }) {
             className="p-4 bg-gray-50 rounded-lg border border-gray-100 hover:shadow-sm transition-shadow">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                <Avatar className="w-12 h-12 border-2 border-white shadow-sm">
+                <Avatar className="w-16 h-16 border-2 border-white shadow-sm">
                   <AvatarImage
                     src={appointment.petImage || "/placeholder.svg"}
                     alt={appointment.petName} />
@@ -64,7 +64,7 @@ export default function UpcomingAppointments({ appointments }) {
                 </Avatar>
 
                 <div className="flex-1">
-                  <div className="flex items-center space-x-2 mb-1">
+                  <div className="flex items-center gap-2 mb-1">
                     <h4 className="font-semibold text-gray-900">{appointment.petName}</h4>
                     <Badge
                       className={`text-xs ${
@@ -92,16 +92,16 @@ export default function UpcomingAppointments({ appointments }) {
                 <Button
                   size="sm"
                   onClick={() => handleViewAppointment(appointment.id)}
-                  style={{ backgroundColor: "#672e5b" }}>
+                  className={'text-white'}>
                   View Details
                 </Button>
-                <div className="flex gap-1">
+                <div className="flex gap-1 justify-end">
                   <Button
                     size="sm"
                     variant="outline"
                     onClick={() => handleCallOwner(appointment.ownerPhone)}
                     className="text-green-600 border-green-300 hover:bg-green-50 px-2">
-                    <Phone className="w-3 h-3" />
+                    <Video className="w-3 h-3" />
                   </Button>
                   <Button
                     size="sm"
