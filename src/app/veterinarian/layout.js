@@ -40,7 +40,7 @@ const VetLayout = ({ children }) => {
         },
         {
             title: "Vet Profile",
-            link: "/veterinarian/account",
+            link: "/veterinarian/profile",
             icon: <FaUser />
         }
     ]
