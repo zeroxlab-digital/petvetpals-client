@@ -1,11 +1,6 @@
 import React from 'react';
+import Appointments from '@/components/Veterinarians/Appointments';
 
-const page = () => {
-    return (
-        <div>
-            Appointments
-        </div>
-    );
-};
+const page = () => <Appointments />
 
 export default page;
