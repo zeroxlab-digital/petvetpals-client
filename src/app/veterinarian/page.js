@@ -1,11 +1,6 @@
 import React from 'react';
+import Dashboard from '@/components/Veterinarians/Dashboard';
 
-const Veterinarian = () => {
-    return (
-        <div>
-            Veterinarian
-        </div>
-    );
-};
+const page = () => <Dashboard />
 
-export default Veterinarian;
+export default page;

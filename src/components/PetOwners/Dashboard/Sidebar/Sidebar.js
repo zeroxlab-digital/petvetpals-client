@@ -15,13 +15,18 @@ const Sidebar = ({ links, setResponsiveToggle = () => { } }) => {
         toast(message, { type: type, autoClose: 1500 });
     }
     const [logoutUser] = useLogoutUserMutation();
-    const handleUserLogout = async () => {
+    const handleLogout = async () => {
         try {
-            const res = await logoutUser({});
-            if (res.data?.success) {
-                notify("Logout successfull!", "success");
-                localStorage.clear();
-                router.push("/signin");
+            if (pathname.startsWith('/veterinarian')) {
+                alert("Vet Log Out Alert!")
+            }
+            else {
+                const res = await logoutUser({});
+                if (res.data?.success) {
+                    notify("Logout successfull!", "success");
+                    localStorage.clear();
+                    router.push("/signin");
+                }
             }
         } catch (error) {
             console.log(error)
@@ -39,7 +44,7 @@ const Sidebar = ({ links, setResponsiveToggle = () => { } }) => {
                     <span>{link.icon}</span>{link.title}
                 </li></Link>)}
             </ul>
-            <button onClick={handleUserLogout} className="mt-auto w-full  text-left  rounded-md h-12 px-3 text-red-500  font-medium bg-red-500/5 hover:bg-red-500/10 duration-200 flex items-center gap-2 "><HiArrowRightOnRectangle className='text-xl' /> Log out</button>
+            <button onClick={handleLogout} className="mt-auto w-full  text-left  rounded-md h-12 px-3 text-red-500  font-medium bg-red-500/5 hover:bg-red-500/10 duration-200 flex items-center gap-2 "><HiArrowRightOnRectangle className='text-xl' /> Log out</button>
         </div>
     );
 };
