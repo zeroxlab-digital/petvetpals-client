@@ -238,7 +238,7 @@ export default function PatientRecords() {
   })
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 lg:p-8 space-y-6">
+    <div className="min-h-screen space-y-6">
       <PatientRecordsHeader onAddNewPatient={handleAddNewPatient} />
       <SearchAndFilters
         searchTerm={searchTerm}
