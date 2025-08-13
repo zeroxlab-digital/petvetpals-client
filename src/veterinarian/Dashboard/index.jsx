@@ -94,17 +94,16 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto space-y-8">
         <DashboardHeader />
         <StatsCards stats={stats} />
-        <QuickStatsRow />
 
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-          <div className="xl:col-span-2">
+        <div className="grid grid-cols-3 gap-8">
+          <div className="col-span-2 space-y-6">
             <UpcomingAppointments appointments={upcomingAppointments} />
-          </div>
-
-          <div className="space-y-6">
-            <QuickActions />
-            <RecentPatients patients={recentPatients} />
             <PerformanceInsights stats={stats} />
+          </div>
+          <div className="space-y-6">
+            <QuickStatsRow />
+            <RecentPatients patients={recentPatients} />
+            <QuickActions />
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ import { Calendar, DollarSign, TrendingUp, Users, Heart, CheckCircle, Clock } fr
 export default function StatsCards({ stats }) {
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-      <Card className="shadow-sm border border-gray-200">
+      <Card className="shadow-sm border border-gray-200 space-y-4">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium text-gray-600">Today's Appointments</CardTitle>
           <Calendar className="h-5 w-5 text-[#672e5b]" />
@@ -26,7 +26,7 @@ export default function StatsCards({ stats }) {
           </div>
         </CardContent>
       </Card>
-      <Card className="shadow-sm border border-gray-200">
+      <Card className="shadow-sm border border-gray-200 space-y-4">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium text-gray-600">Weekly Earnings</CardTitle>
           <DollarSign className="h-5 w-5 text-green-600" />
@@ -38,7 +38,7 @@ export default function StatsCards({ stats }) {
           </div>
         </CardContent>
       </Card>
-      <Card className="shadow-sm border border-gray-200">
+      <Card className="shadow-sm border border-gray-200 space-y-4">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium text-gray-600">Total Patients</CardTitle>
           <Users className="h-5 w-5 text-blue-600" />
@@ -48,7 +48,7 @@ export default function StatsCards({ stats }) {
           <p className="text-xs text-gray-500 mt-2">8 new this month</p>
         </CardContent>
       </Card>
-      <Card className="shadow-sm border border-gray-200">
+      <Card className="shadow-sm border border-gray-200 space-y-4">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium text-gray-600">Success Rate</CardTitle>
           <Heart className="h-5 w-5 text-red-500" />

@@ -1,41 +1,47 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card"
-import { Activity, Star, TrendingUp } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card";
+import { Activity } from "lucide-react";
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+} from "recharts";
 
 export default function PerformanceInsights({ stats }) {
+  // Transform the stats into a format suitable for Recharts
+  const data = [
+    { name: "Satisfaction", value: stats.patientSatisfaction, max: 5 },
+    { name: "Appointments", value: 28, max: 30 },
+    { name: "Response (hrs)", value: 2, max: 24 },
+    { name: "Growth (%)", value: stats.monthlyGrowth, max: 100 },
+  ];
+
   return (
-    <Card
-      className="shadow-sm border border-gray-200 bg-gradient-to-br from-[#672e5b] to-blue-600 text-white">
+    <Card className="border text-gray-800">
       <CardHeader>
         <CardTitle className="text-lg font-semibold flex items-center">
           <Activity className="w-5 h-5 mr-2" />
           This Week's Insights
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-purple-100">Patient Satisfaction</span>
-          <div className="flex items-center">
-            <Star className="w-4 h-4 text-yellow-300 mr-1" />
-            <span className="text-sm font-semibold">{stats.patientSatisfaction}/5</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-purple-100">Appointments Completed</span>
-          <span className="text-sm font-semibold text-green-300">28/30</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-purple-100">Response Time</span>
-          <span className="text-sm font-semibold">&lt; 2 hours</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-purple-100">Revenue Growth</span>
-          <div className="flex items-center">
-            <TrendingUp className="w-3 h-3 text-green-300 mr-1" />
-            <span className="text-sm font-semibold text-green-300">+{stats.monthlyGrowth}%</span>
-          </div>
-        </div>
+      <CardContent className="h-64">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip
+              formatter={(value, name) => [`${value}`, name]}
+              contentStyle={{ backgroundColor: "#fff", borderRadius: "8px" }}
+            />
+            <Bar dataKey="value" fill="#8884d8" radius={[6, 6, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
       </CardContent>
     </Card>
   );

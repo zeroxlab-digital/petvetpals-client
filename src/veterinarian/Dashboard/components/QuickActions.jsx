@@ -21,27 +21,27 @@ export default function QuickActions() {
   }
 
   return (
-    <Card className="shadow-sm border border-gray-200">
-      <CardHeader className="bg-white border-b border-gray-200">
-        <CardTitle className="text-lg font-semibold text-gray-900">Quick Actions</CardTitle>
+    <Card className="border">
+      <CardHeader className="bg-white border-b rounded-t-xl py-3">
+        <CardTitle className="text-lg font-semibold text-gray-900 ">Quick Actions</CardTitle>
       </CardHeader>
       <CardContent className="p-6 space-y-3">
         <Button
           onClick={handleStartConsultation}
-          className="w-full justify-start"
+          className="w-full justify-start text-white"
           style={{ backgroundColor: "#672e5b" }}>
           <Stethoscope className="w-4 h-4 mr-3" />
           Start Consultation
         </Button>
         <Button
           onClick={handleScheduleAppointment}
-          className="w-full justify-start bg-blue-600 hover:bg-blue-700">
+          className="w-full justify-start text-white bg-blue-600 hover:bg-blue-700">
           <Calendar className="w-4 h-4 mr-3" />
           Schedule Appointment
         </Button>
         <Button
           onClick={handleAddPatientRecord}
-          className="w-full justify-start bg-green-600 hover:bg-green-700">
+          className="w-full justify-start text-white bg-green-600 hover:bg-green-700">
           <Plus className="w-4 h-4 mr-3" />
           Add Patient Record
         </Button>

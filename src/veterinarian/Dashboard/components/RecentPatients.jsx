@@ -13,7 +13,7 @@ export default function RecentPatients({ patients }) {
 
   return (
     <Card className="shadow-sm border border-gray-200">
-      <CardHeader className="bg-white border-b border-gray-200">
+      <CardHeader className="bg-white border-b border-gray-200 rounded-t-xl py-4 space-y-1">
         <CardTitle className="text-lg font-semibold text-gray-900">Recent Patients</CardTitle>
         <CardDescription className="text-gray-600">Latest patient updates</CardDescription>
       </CardHeader>
