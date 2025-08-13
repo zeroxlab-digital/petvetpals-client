@@ -262,7 +262,7 @@ export default function TreatmentHistory() {
     treatment.diagnosis.toLowerCase().includes(searchTerm.toLowerCase()))
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 lg:p-8 space-y-6">
+    <div className="min-h-screen space-y-6">
       <TreatmentHistoryHeader onExportRecords={handleExportRecords} onAddTreatment={handleAddTreatment} />
       <TreatmentSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <TreatmentList

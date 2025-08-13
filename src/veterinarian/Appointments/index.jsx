@@ -272,7 +272,7 @@ export default function Appointments() {
       appointment.type.toLowerCase().includes(searchTerm.toLowerCase())) || []
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 lg:p-8">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto space-y-8">
         <AppointmentsHeader searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 

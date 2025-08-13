@@ -87,7 +87,7 @@ export default function Messages() {
   }
 
   return (
-    <div className="p-4 lg:p-8">
+    <div className="">
       <div className="flex flex-col lg:flex-row h-[calc(100vh-8rem)] gap-6">
         <ConversationsList
           conversations={conversations}
