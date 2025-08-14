@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import {AlertTriangle, ArrowRight, Brain, Calendar, Check, ChevronDown, Heart, Loader2, MessageSquare, PawPrintIcon as Paw, Search, Stethoscope, StickerIcon as Stomach, ThumbsUp, Download, Sparkles, Activity, Eye, Zap, Clock, FileText, Palette,} from "lucide-react"
+import { AlertTriangle, ArrowRight, Brain, Calendar, Check, ChevronDown, Heart, Loader2, MessageSquare, PawPrintIcon as Paw, Search, Stethoscope, StickerIcon as Stomach, ThumbsUp, Download, Sparkles, Activity, Eye, Zap, Clock, FileText, Palette, } from "lucide-react"
 import Image from "next/image"
 import {
   useGetSymptomHistoryQuery,
@@ -392,7 +392,7 @@ export default function AdvancedSymptomChecker() {
     <div className="">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <motion.div
+        {/* <motion.div
           className=" mb-8"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -402,6 +402,35 @@ export default function AdvancedSymptomChecker() {
             <h2 className='font-bold text-2xl mb-2 flex items-center gap-3'><span className="bg-primary rounded-md w-10 h-10 flex items-center justify-center text-white"><Stethoscope /></span>Symptom Checker</h2>
             <p className='text-gray-500'>Advanced AI-powered symptom analysis for your beloved pets</p>
           </div>
+        </motion.div> */}
+        {/* Header */}
+        <motion.div
+          className="text-center mb-8"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <motion.div
+              className="p-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl shadow-xl max-md:hidden"
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 0.6 }}
+            >
+              <Stethoscope className="h-10 w-10 text-white" />
+            </motion.div>
+            <div>
+              <h1 className="text-5xl max-md:text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                Symptoms AI
+              </h1>
+              <Badge className="mt-2">
+                <Sparkles className="h-3 w-3 mr-1" />
+                AI Symptom Checker
+              </Badge>
+            </div>
+          </div>
+          {/* <p className="text-gray-600 text-xl max-w-3xl mx-auto leading-relaxed">
+            Advanced AI-powered symptom analysis for your beloved pets. Get professional insights in minutes.
+          </p> */}
         </motion.div>
 
         {/* Step Indicator */}
@@ -438,7 +467,7 @@ export default function AdvancedSymptomChecker() {
                       <div className="flex items-center gap-4">
                         <div className="relative w-12 h-12 rounded-full overflow-hidden border-3 border-blue-200 shadow-lg">
                           <Image
-                            src={selectedPet.image || "/placeholder.svg?height=48&width=48"}
+                            src={selectedPet.image || "/images/paw-heart.webp"}
                             alt={selectedPet.name}
                             width={48}
                             height={48}
@@ -470,7 +499,7 @@ export default function AdvancedSymptomChecker() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
                         transition={{ duration: 0.2 }}
-                        className="w-full mt-2 bg-white rounded-2xl shadow-2xl border border-gray-100 p-2 z-50 max-h-80 overflow-y-auto"
+                        className="w-full mt-2 bg-white rounded-2xl shadow-xl border border-gray-100 p-2 z-50 max-h-80 overflow-y-auto"
                       >
                         {petsLoading ? (
                           Array(3)
