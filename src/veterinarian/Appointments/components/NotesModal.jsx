@@ -29,7 +29,7 @@ export default function NotesModal({
             <Button variant="outline" onClick={() => setShowNotesModal(false)}>
               Cancel
             </Button>
-            <Button onClick={handleSaveNotes} style={{ backgroundColor: "#672e5b" }}>
+            <Button onClick={handleSaveNotes} className="text-white" style={{ backgroundColor: "#672e5b" }}>
               <Save className="w-4 h-4 mr-2" />
               Save Notes
             </Button>

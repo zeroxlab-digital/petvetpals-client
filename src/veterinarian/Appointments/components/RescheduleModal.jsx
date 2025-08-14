@@ -35,7 +35,7 @@ export default function RescheduleModal({ showRescheduleModal, setShowReschedule
             <Button variant="outline" onClick={() => setShowRescheduleModal(false)}>
               Cancel
             </Button>
-            <Button style={{ backgroundColor: "#672e5b" }} onClick={handleReschedule}>
+            <Button style={{ backgroundColor: "#672e5b" }} className="text-white" onClick={handleReschedule}>
               Reschedule
             </Button>
           </div>

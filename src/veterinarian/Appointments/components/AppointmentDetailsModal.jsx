@@ -14,7 +14,7 @@ export default function AppointmentDetailsModal({ selectedAppointment, setSelect
     <Dialog
       open={!!selectedAppointment}
       onOpenChange={() => setSelectedAppointment(null)}>
-      <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="h-96 overflow-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-gray-900">
             {selectedAppointment.pet.name}'s Appointment Details
@@ -32,7 +32,7 @@ export default function AppointmentDetailsModal({ selectedAppointment, setSelect
           </TabsList>
 
           <TabsContent value="overview" className="space-y-4 mt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col-reverse gap-6">
               <Card className="shadow-sm">
                 <CardHeader className="bg-gray-50">
                   <CardTitle className="flex items-center text-lg">
