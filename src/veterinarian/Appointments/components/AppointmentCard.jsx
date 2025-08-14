@@ -53,9 +53,8 @@ export default function AppointmentCard({
     <Card
       className={`border-l-4 ${getPriorityColor(appointment.priority)} shadow-sm hover:shadow-md transition-shadow`}>
       <CardContent className="p-6">
-        <div
-          className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-          <div className="flex items-start space-x-4">
+        <div className="grid grid-cols-[4fr_1fr] max-md:grid-cols-1 gap-6 items-center">
+          <div className="flex items-start gap-4">
             <Avatar className="w-16 h-16">
               <AvatarImage
                 src={appointment.pet.image || "/placeholder.svg"}
@@ -70,52 +69,51 @@ export default function AppointmentCard({
                 <Badge className={getStatusColor(appointment.status)}>{appointment.status}</Badge>
                 {appointment.priority === "high" && <Badge variant="destructive">High Priority</Badge>}
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-600">
-                <div className="flex items-center">
-                  <User className="w-4 h-4 mr-2" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 max-sm:w-full w-fit gap-3 text-sm text-gray-600">
+                <div className="flex items-center gap-2">
+                  <User className="w-4 h-4" />
                   {appointment.owner.name}
                 </div>
-                <div className="flex items-center">
-                  <Clock className="w-4 h-4 mr-2" />
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
                   {appointment.time} ({appointment.duration})
                 </div>
-                <div className="flex items-center">
-                  <PawPrint className="w-4 h-4 mr-2" />
+                <div className="flex items-center gap-2">
+                  <PawPrint className="w-4 h-4" />
                   {appointment.pet.breed} • {appointment.pet.age}
                 </div>
-                <div className="flex items-center">
-                  <FileText className="w-4 h-4 mr-2" />
+                <div className="flex items-center gap-2">
+                  <FileText className="w-4 h-4" />
                   {appointment.type}
                 </div>
               </div>
-              <p className="text-sm text-gray-500 mt-2">{appointment.reason}</p>
+              <p className="text-sm text-gray-500 mt-3">{appointment.reason}</p>
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 min-w-fit">
+          <div className="flex flex-col gap-2 sm:justify-end">
             <div className="flex gap-2">
               <Button
                 size="sm"
                 onClick={() => setSelectedAppointment(appointment)}
+                className="text-white"
                 style={{ backgroundColor: "#672e5b" }}>
                 View Details
               </Button>
-              {appointment.status === "confirmed" && (
-                <Button
-                  size="sm"
-                  onClick={handleStartConsultation}
-                  className="bg-green-600 hover:bg-green-700">
-                  <Video className="w-4 h-4 mr-1" />
-                  Start
-                </Button>
-              )}
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setShowNotesModal(true)}
+                className="text-gray-600 border-gray-300 hover:bg-gray-50">
+                Add Notes
+              </Button>
             </div>
             <div className="flex gap-2">
               <Button
                 size="sm"
                 variant="outline"
                 onClick={() => setShowRescheduleModal(true)}
-                className="text-blue-600 border-blue-600 hover:bg-blue-50">
+                className="text-blue-600 border-blue-600 hover:bg-blue-100">
                 <Edit className="w-4 h-4 mr-1" />
                 Reschedule
               </Button>
@@ -123,18 +121,20 @@ export default function AppointmentCard({
                 size="sm"
                 variant="outline"
                 onClick={handleViewFullRecord}
-                className="text-green-600 border-green-600 hover:bg-green-50 bg-transparent">
+                className="text-green-600 border-green-600 hover:bg-green-100 bg-transparent">
                 <Eye className="w-4 h-4 mr-1" />
                 Records
               </Button>
             </div>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setShowNotesModal(true)}
-              className="text-gray-600 border-gray-300 hover:bg-gray-50">
-              Add Notes
-            </Button>
+            {appointment.status === "confirmed" && (
+              <Button
+                size="lg"
+                onClick={handleStartConsultation}
+                className="bg-green-600 hover:bg-green-700 text-white">
+                <Video className="w-4 h-4 mr-1" />
+                Start
+              </Button>
+            )}
           </div>
         </div>
       </CardContent>
