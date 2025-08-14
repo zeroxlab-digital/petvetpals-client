@@ -1,39 +1,11 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import {
-  AlertTriangle,
-  ArrowRight,
-  Brain,
-  Calendar,
-  Check,
-  ChevronDown,
-  Heart,
-  Loader2,
-  MessageSquare,
-  ThumbsUp,
-  Download,
-  Sparkles,
-  Activity,
-  Clock,
-  FileText,
-  Utensils,
-  Scale,
-  Target,
-  Award,
-  ShoppingCart,
-  AlertCircle,
-  Leaf,
-  Star,
-  Timer,
-  TrendingUp,
-  Coffee,
-  Fish,
-  Beef,
-  Carrot,
-} from "lucide-react"
+import { AlertTriangle, ArrowRight, Brain, Calendar, Check, ChevronDown, Heart, Loader2, MessageSquare, ThumbsUp, Download, Sparkles, Activity, Clock, FileText, Utensils, Scale, Target, Award, ShoppingCart, AlertCircle, Leaf, Star, Timer, TrendingUp, Coffee, Fish, Beef, Carrot, PawPrint } from "lucide-react"
 import Image from "next/image"
 import html2pdf from "html2pdf.js"
+import { useGetAllergiesConditionsQuery, useGetPetsQuery } from "@/redux/services/petApi"
+import AllergiesInput from "./AllergiesInput"
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -281,7 +253,16 @@ const StepIndicator = ({ currentStep, totalSteps }) => {
 }
 
 export default function PetNutritionist() {
+  const { data: { pets } = {}, isLoading: petsLoading } = useGetPetsQuery();
+  console.log("pets:", pets)
   const [selectedPet, setSelectedPet] = useState(null)
+  console.log("pet:", selectedPet);
+  const { data: { allergiesConditions } = {}, isLoading: allergyConditionLoading } = useGetAllergiesConditionsQuery({ petId: selectedPet?._id }, { skip: !selectedPet?._id });
+  const allergies = allergiesConditions?.filter(i => i.type == 'allergy').map(i => i.name);
+  console.log("allergies:", allergies)
+  const conditions = allergiesConditions?.filter(i => i.type == 'condition').map(i => i.name);
+  console.log("conditions:", conditions)
+
   const [showPetMenu, setShowPetMenu] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
   const [nutritionPlan, setNutritionPlan] = useState(null)
@@ -295,31 +276,26 @@ export default function PetNutritionist() {
     medicalConditions: [],
     currentSymptoms: [],
     currentDiet: "",
-    allergies: "",
+    allergies: [],
     treatmentGoals: [],
   })
+  useEffect(() => {
+    setFormData({
+      age: selectedPet?.age || '',
+      weight:
+        selectedPet?.weight?.reduce((latest, current) => {
+          return new Date(current.date) > new Date(latest.date) ? current : latest
+        }).value || 0,
+      activityLevel: "",
+      medicalConditions: [],
+      currentSymptoms: [],
+      currentDiet: "",
+      allergies: allergies,
+      treatmentGoals: [],
+    })
+  }, [allergiesConditions, selectedPet])
+  console.log("Form data:", formData);
 
-  // Replace RTK Query hooks with mock data
-  const mockPets = [
-    {
-      _id: "1",
-      name: "Buddy",
-      breed: "Golden Retriever",
-      image: "/placeholder.svg?height=48&width=48",
-    },
-    {
-      _id: "2",
-      name: "Whiskers",
-      breed: "Persian Cat",
-      image: "/placeholder.svg?height=48&width=48",
-    },
-    {
-      _id: "3",
-      name: "Max",
-      breed: "German Shepherd",
-      image: "/placeholder.svg?height=48&width=48",
-    },
-  ]
 
   const mockNutritionHistory = [
     {
@@ -386,8 +362,8 @@ export default function PetNutritionist() {
   }
 
   // Replace the hook calls with:
-  const pets = mockPets
-  const petsLoading = false
+  // const pets = mockPets
+  // const petsLoading = false
   const [getNutritionRecommendation, { isLoading: isNutritionLoading }] = [
     mockGetNutritionRecommendation,
     { isLoading: false },
@@ -535,7 +511,7 @@ export default function PetNutritionist() {
   }
 
   const displayPlan = nutritionPlan || mockNutritionPlan
-  // min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50
+
   return (
     <div className="">
       <div className="">
@@ -548,14 +524,14 @@ export default function PetNutritionist() {
         >
           <div className="flex items-center justify-center gap-4 mb-6">
             <motion.div
-              className="p-4 bg-gradient-to-r from-green-600 to-emerald-600 rounded-3xl shadow-xl"
+              className="p-4 bg-gradient-to-r from-green-600 to-emerald-600 rounded-3xl shadow-xl max-md:hidden"
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.6 }}
             >
-              <Utensils className="h-10 w-10 text-white" />
+              <Utensils className="h-10 w-10 text-white " />
             </motion.div>
             <div>
-              <h1 className="text-5xl font-bold bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              <h1 className="text-5xl max-md:text-4xl font-bold bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
                 Pet Nutritionist AI
               </h1>
               <Badge className="mt-2">
@@ -564,52 +540,13 @@ export default function PetNutritionist() {
               </Badge>
             </div>
           </div>
-          <p className="text-gray-600 text-xl max-w-3xl mx-auto leading-relaxed">
+          {/* <p className="text-gray-600 text-xl max-w-3xl mx-auto leading-relaxed">
             Get personalized nutrition plans tailored to your pet&apos;s breed, age, health, and lifestyle needs.
-          </p>
+          </p> */}
         </motion.div>
 
         {/* Step Indicator */}
         <StepIndicator currentStep={currentStep} totalSteps={4} />
-
-        {/* Nutrition Warning */}
-        {/* <motion.div
-          className="bg-gradient-to-r from-orange-50 to-yellow-50 border-l-4 border-orange-500 p-6 mb-8 rounded-r-2xl shadow-lg"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <div className="flex items-start">
-            <motion.div
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-            >
-              <AlertTriangle className="h-6 w-6 text-orange-500 mt-0.5" />
-            </motion.div>
-            <div className="ml-4">
-              <h3 className="text-lg font-bold text-orange-800 mb-2">🥗 Nutrition Advisory</h3>
-              <p className="text-orange-700 mb-3">
-                Always consult with your veterinarian before making significant dietary changes, especially if your pet
-                has:
-              </p>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                {[
-                  "Medical conditions",
-                  "Food allergies",
-                  "Weight issues",
-                  "Age-related needs",
-                  "Medication interactions",
-                  "Special dietary requirements",
-                ].map((item) => (
-                  <div key={item} className="flex items-center text-sm text-orange-700">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full mr-2" />
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </motion.div> */}
 
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Main Form Area */}
@@ -642,7 +579,7 @@ export default function PetNutritionist() {
                       <div className="flex items-center gap-4">
                         <div className="relative w-12 h-12 rounded-full overflow-hidden border-3 border-green-200 shadow-lg">
                           <Image
-                            src={selectedPet.image || "/placeholder.svg?height=48&width=48"}
+                            src={selectedPet.image || "/images/paw-heart.webp"}
                             alt={selectedPet.name}
                             width={48}
                             height={48}
@@ -657,9 +594,9 @@ export default function PetNutritionist() {
                     ) : (
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-100 to-emerald-100 flex items-center justify-center">
-                          <Heart className="h-6 w-6 text-green-600" />
+                          <PawPrint className="h-6 w-6 text-green-600" />
                         </div>
-                        <span className="text-gray-500 font-medium">Choose your pet for nutrition analysis</span>
+                        <span className="text-gray-500 font-medium">Select pet for nutrition analysis</span>
                       </div>
                     )}
                     <motion.div animate={{ rotate: showPetMenu ? 180 : 0 }} transition={{ duration: 0.3 }}>
@@ -674,7 +611,7 @@ export default function PetNutritionist() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute top-full left-0 w-full mt-2 bg-white rounded-2xl shadow-2xl border border-gray-100 p-2 z-50 max-h-80 overflow-y-auto"
+                        className="w-full mt-2 bg-white rounded-2xl shadow-xl border border-gray-100 p-2 z-50 max-h-80 overflow-y-auto"
                       >
                         {petsLoading ? (
                           Array(3)
@@ -702,7 +639,7 @@ export default function PetNutritionist() {
                             >
                               <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-green-100 shadow-md">
                                 <Image
-                                  src={pet.image || "/placeholder.svg?height=48&width=48"}
+                                  src={pet.image || "/images/paw-heart.webp"}
                                   alt={pet.name}
                                   width={48}
                                   height={48}
@@ -772,7 +709,7 @@ export default function PetNutritionist() {
                             type="number"
                             placeholder="e.g., 3"
                             value={formData.age}
-                            onChange={(e) => updateFormData("age", e.target.value)}
+                          // onChange={(e) => updateFormData("age", e.target.value)}
                           />
                         </div>
                         <div>
@@ -781,7 +718,7 @@ export default function PetNutritionist() {
                             type="number"
                             placeholder="e.g., 45"
                             value={formData.weight}
-                            onChange={(e) => updateFormData("weight", e.target.value)}
+                          // onChange={(e) => updateFormData("weight", e.target.value)}
                           />
                         </div>
                       </div>
@@ -890,14 +827,15 @@ export default function PetNutritionist() {
                             onChange={(e) => updateFormData("currentDiet", e.target.value)}
                           />
                         </div>
-                        <div>
+                        {/* <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">Known Allergies</label>
                           <Input
                             placeholder="e.g., Chicken, Grain"
                             value={formData.allergies}
                             onChange={(e) => updateFormData("allergies", e.target.value)}
                           />
-                        </div>
+                        </div> */}
+                        <AllergiesInput formData={formData} updateFormData={updateFormData} />
                       </div>
 
                       {canProceedToStep(3) && (
