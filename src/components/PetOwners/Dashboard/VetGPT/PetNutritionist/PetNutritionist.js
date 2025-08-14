@@ -253,15 +253,62 @@ const StepIndicator = ({ currentStep, totalSteps }) => {
 }
 
 export default function PetNutritionist() {
+  // Activity levels
+  const activityLevels = [
+    { value: "low", label: "Low - Mostly indoor, minimal exercise", icon: <Coffee className="h-4 w-4" /> },
+    { value: "moderate", label: "Moderate - Daily walks, some play", icon: <Activity className="h-4 w-4" /> },
+    { value: "high", label: "High - Very active, lots of exercise", icon: <TrendingUp className="h-4 w-4" /> },
+    { value: "working", label: "Working - Working dog, intense activity", icon: <Target className="h-4 w-4" /> },
+  ]
+
+  // Medical conditions
+  const [medicalConditions, setMedicalConditions] = useState([
+    "Diabetes",
+    "Kidney Disease",
+    "Heart Disease",
+    "Arthritis",
+    "Obesity",
+    "Allergies",
+    "Digestive Issues",
+    "Skin Problems",
+    "Dental Issues",
+    "Senior Health",
+  ])
+
+  // Treatment goals
+  const treatmentGoals = [
+    "Weight Loss",
+    "Weight Gain",
+    "Muscle Building",
+    "Joint Health",
+    "Digestive Health",
+    "Skin & Coat Health",
+    "Energy Boost",
+    "Senior Care",
+    "Puppy/Kitten Growth",
+    "Maintenance",
+  ]
+
   const { data: { pets } = {}, isLoading: petsLoading } = useGetPetsQuery();
-  console.log("pets:", pets)
   const [selectedPet, setSelectedPet] = useState(null)
   console.log("pet:", selectedPet);
   const { data: { allergiesConditions } = {}, isLoading: allergyConditionLoading } = useGetAllergiesConditionsQuery({ petId: selectedPet?._id }, { skip: !selectedPet?._id });
   const allergies = allergiesConditions?.filter(i => i.type == 'allergy').map(i => i.name);
-  console.log("allergies:", allergies)
-  const conditions = allergiesConditions?.filter(i => i.type == 'condition').map(i => i.name);
-  console.log("conditions:", conditions)
+  const conditions = allergiesConditions?.filter(i => i.type == 'condition').map(i => ({ name: i.name, severity: i.severity, diagnosed_date: i.diagnosedDate, description: i.description })) || [];
+
+  // Add condition to medical condition if the pet already have it
+  useEffect(() => {
+    if (conditions.length > 0) {
+      const conditionNames = conditions.map(c => c.name);
+      const updatedMedicalConditions = Array.from(new Set([...medicalConditions, ...conditionNames]));
+
+      // Only update if different
+      if (updatedMedicalConditions.join() !== medicalConditions.join()) {
+        setMedicalConditions(updatedMedicalConditions);
+      }
+    }
+  }, [conditions, selectedPet]);
+
 
   const [showPetMenu, setShowPetMenu] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
@@ -287,7 +334,7 @@ export default function PetNutritionist() {
           return new Date(current.date) > new Date(latest.date) ? current : latest
         }).value || 0,
       activityLevel: "",
-      medicalConditions: [],
+      medicalConditions: conditions.map(c => c.name),
       currentSymptoms: [],
       currentDiet: "",
       allergies: allergies,
@@ -361,9 +408,6 @@ export default function PetNutritionist() {
     return { success: true }
   }
 
-  // Replace the hook calls with:
-  // const pets = mockPets
-  // const petsLoading = false
   const [getNutritionRecommendation, { isLoading: isNutritionLoading }] = [
     mockGetNutritionRecommendation,
     { isLoading: false },
@@ -371,41 +415,7 @@ export default function PetNutritionist() {
   const saveNutritionPlan = mockSaveNutritionPlan
   const nutritionHistory = selectedPet ? mockNutritionHistory : []
 
-  // Activity levels
-  const activityLevels = [
-    { value: "low", label: "Low - Mostly indoor, minimal exercise", icon: <Coffee className="h-4 w-4" /> },
-    { value: "moderate", label: "Moderate - Daily walks, some play", icon: <Activity className="h-4 w-4" /> },
-    { value: "high", label: "High - Very active, lots of exercise", icon: <TrendingUp className="h-4 w-4" /> },
-    { value: "working", label: "Working - Working dog, intense activity", icon: <Target className="h-4 w-4" /> },
-  ]
 
-  // Medical conditions
-  const medicalConditions = [
-    "Diabetes",
-    "Kidney Disease",
-    "Heart Disease",
-    "Arthritis",
-    "Obesity",
-    "Allergies",
-    "Digestive Issues",
-    "Skin Problems",
-    "Dental Issues",
-    "Senior Health",
-  ]
-
-  // Treatment goals
-  const treatmentGoals = [
-    "Weight Loss",
-    "Weight Gain",
-    "Muscle Building",
-    "Joint Health",
-    "Digestive Health",
-    "Skin & Coat Health",
-    "Energy Boost",
-    "Senior Care",
-    "Puppy/Kitten Growth",
-    "Maintenance",
-  ]
 
   const updateFormData = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -588,15 +598,18 @@ export default function PetNutritionist() {
                         </div>
                         <div className="text-left">
                           <p className="font-bold text-gray-800">{selectedPet.name}</p>
-                          <p className="text-gray-500 text-sm">{selectedPet.breed}</p>
+                          <p className="text-gray-500 text-sm font-medium">{selectedPet.breed}</p>
                         </div>
                       </div>
                     ) : (
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-100 to-emerald-100 flex items-center justify-center">
-                          <PawPrint className="h-6 w-6 text-green-600" />
+                        <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-gradient-to-r from-green-100 to-emerald-100 flex items-center justify-center">
+                          <PawPrint className="h-5 w-5 md:w-6 md:h-6 text-green-600" />
                         </div>
-                        <span className="text-gray-500 font-medium">Select pet for nutrition analysis</span>
+                        <div className="text-start">
+                          <p className="font-medium md:font-semibold text-gray-700">Select Pet</p>
+                          <span className="text-xs md:text-sm font-normal text-gray-600">Get instant nutrition analysis</span>
+                        </div>
                       </div>
                     )}
                     <motion.div animate={{ rotate: showPetMenu ? 180 : 0 }} transition={{ duration: 0.3 }}>
@@ -648,7 +661,7 @@ export default function PetNutritionist() {
                               </div>
                               <div className="text-left">
                                 <p className="font-bold text-gray-800">{pet.name}</p>
-                                <p className="text-gray-500 text-sm">{pet.breed}</p>
+                                <p className="text-gray-500 text-sm font-medium">{pet.breed}</p>
                               </div>
                             </motion.button>
                           ))
