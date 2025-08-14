@@ -16,7 +16,7 @@ const BottomNavigation = () => {
     },
     {
       title: "Vet GPT",
-      link: "/dashboard/symptom-checker",
+      link: "/dashboard/vet-gpt",
       icon: <Stethoscope />
     },
     {
