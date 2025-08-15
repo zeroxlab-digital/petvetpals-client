@@ -57,7 +57,7 @@ export default function TagInput({ label, placeholder, value, onChange }) {
 
       {/* Tags */}
       <div className="flex flex-wrap gap-2 mb-2">
-        {value.map((tag, idx) => (
+        {value?.map((tag, idx) => (
           <span
             key={idx}
             className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm flex items-center gap-1"
