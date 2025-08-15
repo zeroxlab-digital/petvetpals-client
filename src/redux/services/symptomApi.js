@@ -14,7 +14,6 @@ export const symptomApi = createApi({
   },
   tagTypes: ['SymptomReport'],
   endpoints: (builder) => ({
-    // ✅ FIXED: GPT call should be a mutation
     getGptRecommendation: builder.mutation({
       query: (body) => ({
         url: '/gpt',

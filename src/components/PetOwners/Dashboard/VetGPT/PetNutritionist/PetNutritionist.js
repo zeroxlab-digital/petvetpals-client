@@ -6,6 +6,8 @@ import Image from "next/image"
 import html2pdf from "html2pdf.js"
 import { useGetAllergiesConditionsQuery, useGetPetsQuery } from "@/redux/services/petApi"
 import TagInput from "./TagInput"
+import { useGetNutritionistGptMutation } from "@/redux/services/NutritionistApi"
+import { HiFaceFrown, HiOutlineFaceFrown } from "react-icons/hi2"
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -313,6 +315,9 @@ export default function PetNutritionist() {
   const allergies = allergiesConditions?.filter(i => i.type == 'allergy').map(i => i.name);
   const conditions = allergiesConditions?.filter(i => i.type == 'condition').map(i => ({ name: i.name, severity: i.severity, diagnosed_date: i.diagnosedDate, description: i.description })) || [];
 
+  // Get Nutritionist GPT Response
+  const [getNutritionistGpt, { isLoading: nutritionPlanLoading }] = useGetNutritionistGptMutation();
+
   // Add condition to medical condition if the pet already have it
   useEffect(() => {
     if (conditions.length > 0) {
@@ -329,7 +334,8 @@ export default function PetNutritionist() {
 
   const [showPetMenu, setShowPetMenu] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
-  const [nutritionPlan, setNutritionPlan] = useState(null)
+  const [nutritionPlan, setNutritionPlan] = useState(null);
+  console.log("Nutrtion Plan:", nutritionPlan);
   const [isGenerating, setIsGenerating] = useState(false)
 
   // Form data
@@ -373,66 +379,60 @@ export default function PetNutritionist() {
   ]
 
   // Mock functions
-  const mockGetNutritionRecommendation = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 3000)) // Simulate API delay
-    return {
-      data: {
-        dailyCalories: 850,
-        proteinNeeds: "25-30%",
-        fatNeeds: "12-15%",
-        carbNeeds: "45-50%",
-        feedingSchedule: [
-          { time: "7:00 AM", portion: "1/2 cup", meal: "Breakfast" },
-          { time: "12:00 PM", portion: "1/4 cup", meal: "Lunch" },
-          { time: "6:00 PM", portion: "1/2 cup", meal: "Dinner" },
-        ],
-        recommendedIngredients: [
-          { name: "Chicken", type: "Protein", benefit: "High-quality protein for muscle maintenance" },
-          { name: "Sweet Potato", type: "Carbohydrate", benefit: "Complex carbs for sustained energy" },
-          { name: "Salmon Oil", type: "Fat", benefit: "Omega-3 for skin and coat health" },
-          { name: "Blueberries", type: "Antioxidant", benefit: "Immune system support" },
-        ],
-        avoidIngredients: ["Chocolate", "Grapes", "Onions", "Garlic", "Xylitol"],
-        brandRecommendations: [
-          {
-            name: "Royal Canin Breed Health Nutrition",
-            price: "$45.99",
-            rating: 4.8,
-            affiliate: true,
-            reason: "Breed-specific formula with optimal nutrition",
-          },
-          {
-            name: "Hill's Science Diet Adult",
-            price: "$52.99",
-            rating: 4.7,
-            affiliate: true,
-            reason: "Veterinarian recommended for overall health",
-          },
-          {
-            name: "Blue Buffalo Life Protection",
-            price: "$38.99",
-            rating: 4.6,
-            affiliate: true,
-            reason: "Natural ingredients with LifeSource Bits",
-          },
-        ],
-      },
-    }
-  }
+  // const mockGetNutritionRecommendation = async (data) => {
+  //   await new Promise((resolve) => setTimeout(resolve, 3000)) // Simulate API delay
+  //   return {
+  //     data: {
+  //       dailyCalories: 850,
+  //       proteinNeeds: "25-30%",
+  //       fatNeeds: "12-15%",
+  //       carbNeeds: "45-50%",
+  //       feedingSchedule: [
+  //         { time: "7:00 AM", portion: "1/2 cup", meal: "Breakfast" },
+  //         { time: "12:00 PM", portion: "1/4 cup", meal: "Lunch" },
+  //         { time: "6:00 PM", portion: "1/2 cup", meal: "Dinner" },
+  //       ],
+  //       recommendedIngredients: [
+  //         { name: "Chicken", type: "Protein", benefit: "High-quality protein for muscle maintenance" },
+  //         { name: "Sweet Potato", type: "Carbohydrate", benefit: "Complex carbs for sustained energy" },
+  //         { name: "Salmon Oil", type: "Fat", benefit: "Omega-3 for skin and coat health" },
+  //         { name: "Blueberries", type: "Antioxidant", benefit: "Immune system support" },
+  //       ],
+  //       avoidIngredients: ["Chocolate", "Grapes", "Onions", "Garlic", "Xylitol"],
+  //       brandRecommendations: [
+  //         {
+  //           name: "Royal Canin Breed Health Nutrition",
+  //           price: "$45.99",
+  //           rating: 4.8,
+  //           affiliate: true,
+  //           reason: "Breed-specific formula with optimal nutrition",
+  //         },
+  //         {
+  //           name: "Hill's Science Diet Adult",
+  //           price: "$52.99",
+  //           rating: 4.7,
+  //           affiliate: true,
+  //           reason: "Veterinarian recommended for overall health",
+  //         },
+  //         {
+  //           name: "Blue Buffalo Life Protection",
+  //           price: "$38.99",
+  //           rating: 4.6,
+  //           affiliate: true,
+  //           reason: "Natural ingredients with LifeSource Bits",
+  //         },
+  //       ],
+  //     },
+  //   }
+  // }
 
   const mockSaveNutritionPlan = async (data) => {
     console.log("Saving nutrition plan:", data)
     return { success: true }
   }
 
-  const [getNutritionRecommendation, { isLoading: isNutritionLoading }] = [
-    mockGetNutritionRecommendation,
-    { isLoading: false },
-  ]
   const saveNutritionPlan = mockSaveNutritionPlan
   const nutritionHistory = selectedPet ? mockNutritionHistory : []
-
-
 
   const updateFormData = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -453,11 +453,21 @@ export default function PetNutritionist() {
 
     setIsGenerating(true)
     try {
-      const { data } = await getNutritionRecommendation({
-        pet: selectedPet,
-        formData,
+      const latestWeight = selectedPet.weight.reduce((latest, current) => {
+        return new Date(current.date) > new Date(latest.date) ? current : latest
+      }).value || 0;
+      const petData = {
+        type: selectedPet.type, name: selectedPet.name, age: selectedPet.age, weight: latestWeight, gender: selectedPet.gender, breed: selectedPet.breed,
+      }
+      const { age, weight, ...formDataWithoutAgeWeight } = formData;
+
+      const { data } = await getNutritionistGpt({
+        pet: petData,
+        ...formDataWithoutAgeWeight
       })
-      setNutritionPlan(data)
+      console.log("DATA:", data);
+
+      setNutritionPlan(data?.plan)
       setCurrentStep(4)
       await saveNutritionPlan({
         petId: selectedPet._id,
@@ -495,49 +505,49 @@ export default function PetNutritionist() {
   }
 
   // Mock nutrition plan data for demonstration
-  const mockNutritionPlan = {
-    dailyCalories: 850,
-    proteinNeeds: "25-30%",
-    fatNeeds: "12-15%",
-    carbNeeds: "45-50%",
-    feedingSchedule: [
-      { time: "7:00 AM", portion: "1/2 cup", meal: "Breakfast" },
-      { time: "12:00 PM", portion: "1/4 cup", meal: "Lunch" },
-      { time: "6:00 PM", portion: "1/2 cup", meal: "Dinner" },
-    ],
-    recommendedIngredients: [
-      { name: "Chicken", type: "Protein", benefit: "High-quality protein for muscle maintenance" },
-      { name: "Sweet Potato", type: "Carbohydrate", benefit: "Complex carbs for sustained energy" },
-      { name: "Salmon Oil", type: "Fat", benefit: "Omega-3 for skin and coat health" },
-      { name: "Blueberries", type: "Antioxidant", benefit: "Immune system support" },
-    ],
-    avoidIngredients: ["Chocolate", "Grapes", "Onions", "Garlic", "Xylitol"],
-    brandRecommendations: [
-      {
-        name: "Royal Canin Breed Health Nutrition",
-        price: "$45.99",
-        rating: 4.8,
-        affiliate: true,
-        reason: "Breed-specific formula with optimal nutrition",
-      },
-      {
-        name: "Hill's Science Diet Adult",
-        price: "$52.99",
-        rating: 4.7,
-        affiliate: true,
-        reason: "Veterinarian recommended for overall health",
-      },
-      {
-        name: "Blue Buffalo Life Protection",
-        price: "$38.99",
-        rating: 4.6,
-        affiliate: true,
-        reason: "Natural ingredients with LifeSource Bits",
-      },
-    ],
-  }
+  // const mockNutritionPlan = {
+  //   dailyCalories: 850,
+  //   proteinNeeds: "25-30%",
+  //   fatNeeds: "12-15%",
+  //   carbNeeds: "45-50%",
+  //   feedingSchedule: [
+  //     { time: "7:00 AM", portion: "1/2 cup", meal: "Breakfast" },
+  //     { time: "12:00 PM", portion: "1/4 cup", meal: "Lunch" },
+  //     { time: "6:00 PM", portion: "1/2 cup", meal: "Dinner" },
+  //   ],
+  //   recommendedIngredients: [
+  //     { name: "Chicken", type: "Protein", benefit: "High-quality protein for muscle maintenance" },
+  //     { name: "Sweet Potato", type: "Carbohydrate", benefit: "Complex carbs for sustained energy" },
+  //     { name: "Salmon Oil", type: "Fat", benefit: "Omega-3 for skin and coat health" },
+  //     { name: "Blueberries", type: "Antioxidant", benefit: "Immune system support" },
+  //   ],
+  //   avoidIngredients: ["Chocolate", "Grapes", "Onions", "Garlic", "Xylitol"],
+  //   brandRecommendations: [
+  //     {
+  //       name: "Royal Canin Breed Health Nutrition",
+  //       price: "$45.99",
+  //       rating: 4.8,
+  //       affiliate: true,
+  //       reason: "Breed-specific formula with optimal nutrition",
+  //     },
+  //     {
+  //       name: "Hill's Science Diet Adult",
+  //       price: "$52.99",
+  //       rating: 4.7,
+  //       affiliate: true,
+  //       reason: "Veterinarian recommended for overall health",
+  //     },
+  //     {
+  //       name: "Blue Buffalo Life Protection",
+  //       price: "$38.99",
+  //       rating: 4.6,
+  //       affiliate: true,
+  //       reason: "Natural ingredients with LifeSource Bits",
+  //     },
+  //   ],
+  // }
 
-  const displayPlan = nutritionPlan || mockNutritionPlan
+  const displayPlan = nutritionPlan;
 
   return (
     <div className="">
@@ -961,7 +971,7 @@ export default function PetNutritionist() {
                           {isGenerating ? (
                             <>
                               <Loader2 className="mr-3 h-5 w-5 animate-spin" />
-                              Generating Nutrition Plan...
+                              Generating Nutrition Plan
                             </>
                           ) : (
                             <>
@@ -979,8 +989,21 @@ export default function PetNutritionist() {
             </AnimatePresence>
 
             {/* Step 4: Nutrition Plan Results */}
+            {currentStep >= 4 && !nutritionPlan &&
+              <div className="flex flex-col items-center justify-center gap-4 text-center py-12 px-4 bg-red-50 border rounded-2xl animate-fadeIn">
+                <div className="flex items-center justify-center w-20 h-20 bg-red-100 rounded-full shadow-inner animate-bounce">
+                  <HiOutlineFaceFrown className="text-5xl text-red-500" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-800">
+                  Oops! We couldn&apos;t create your nutrition plan
+                </h3>
+                <p className="text-gray-600 text-sm max-w-md">
+                  Our AI hit a hiccup while preparing your pet&apos;s meal plan. Please review your inputs and try again — we&apos;ll get it right next time!
+                </p>
+              </div>
+            }
             <AnimatePresence mode="wait">
-              {currentStep >= 4 && (nutritionPlan || mockNutritionPlan) && (
+              {currentStep >= 4 && nutritionPlan && (
                 <motion.div
                   id="nutrition-plan"
                   initial={{ opacity: 0, y: 20 }}
