@@ -53,7 +53,7 @@ export default function TagInput({ label, placeholder, value, onChange }) {
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
+      <label className="block text-sm font-semibold text-gray-800 mb-2">{label}</label>
 
       {/* Tags */}
       <div className="flex flex-wrap gap-2 mb-2">

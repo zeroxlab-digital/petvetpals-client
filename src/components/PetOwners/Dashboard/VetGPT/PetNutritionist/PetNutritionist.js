@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { AlertTriangle, ArrowRight, Brain, Calendar, Check, ChevronDown, Heart, Loader2, MessageSquare, ThumbsUp, Download, Sparkles, Activity, Clock, FileText, Utensils, Scale, Target, Award, ShoppingCart, AlertCircle, Leaf, Star, Timer, TrendingUp, Coffee, Fish, Beef, Carrot, PawPrint } from "lucide-react"
+import { AlertTriangle, ArrowRight, Brain, Calendar, Check, ChevronDown, Heart, Loader2, MessageSquare, ThumbsUp, Download, Sparkles, Activity, Clock, FileText, Utensils, Scale, Target, Award, ShoppingCart, AlertCircle, Leaf, Star, Timer, TrendingUp, Coffee, Fish, Beef, Carrot, PawPrint, CheckCircle } from "lucide-react"
 import Image from "next/image"
 import html2pdf from "html2pdf.js"
 import { useGetAllergiesConditionsQuery, useGetPetsQuery } from "@/redux/services/petApi"
@@ -591,7 +591,7 @@ export default function PetNutritionist() {
                   <Button
                     variant="outline"
                     onClick={() => setShowPetMenu(!showPetMenu)}
-                    className="w-full flex items-center justify-between gap-3 h-auto py-4"
+                    className="w-full flex items-center justify-between gap-3 h-auto py-4 max-md:py-3 max-md:px-3"
                     size="lg"
                   >
                     {petsLoading ? (
@@ -624,8 +624,8 @@ export default function PetNutritionist() {
                           <PawPrint className="h-5 w-5 md:w-6 md:h-6 text-green-600" />
                         </div>
                         <div className="text-start">
-                          <p className="font-medium md:font-semibold text-gray-700">Select Pet</p>
-                          <span className="text-xs md:text-sm font-normal text-gray-600">Get instant nutrition analysis</span>
+                          <p className="font-semibold text-gray-800">Select Pet</p>
+                          <span className="text-[13px] sm:text-sm font-normal text-gray-600">Get instant nutrition analysis</span>
                         </div>
                       </div>
                     )}
@@ -734,7 +734,7 @@ export default function PetNutritionist() {
                       {/* Basic Info */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">Age (years)</label>
+                          <label className="block text-sm font-semibold text-gray-800 mb-2">Age (years)</label>
                           <Input
                             type="number"
                             placeholder="e.g., 3"
@@ -743,7 +743,7 @@ export default function PetNutritionist() {
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">Weight (lbs)</label>
+                          <label className="block text-sm font-semibold text-gray-800 mb-2">Weight (lbs)</label>
                           <Input
                             type="number"
                             placeholder="e.g., 45"
@@ -755,7 +755,7 @@ export default function PetNutritionist() {
 
                       {/* Activity Level */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-4">Activity Level</label>
+                        <label className="block text-sm font-semibold text-gray-800 mb-4">Activity Level</label>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           {activityLevels.map((level) => (
                             <motion.button
@@ -793,7 +793,7 @@ export default function PetNutritionist() {
 
                       {/* Medical Conditions */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-4">
+                        <label className="block text-sm font-semibold text-gray-800 mb-4">
                           Medical Conditions (select all that apply)
                         </label>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -821,7 +821,7 @@ export default function PetNutritionist() {
 
                       {/* Current Symptoms */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-4">
+                        <label className="block text-sm font-semibold text-gray-800 mb-4">
                           Current Symptoms (select all that apply)
                         </label>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -849,7 +849,7 @@ export default function PetNutritionist() {
 
                       {/* Treatment Goals */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-4">
+                        <label className="block text-sm font-semibold text-gray-800 mb-4">
                           Nutrition Goals (select all that apply)
                         </label>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -926,7 +926,7 @@ export default function PetNutritionist() {
                     </CardHeader>
                     <CardContent className="pt-6">
                       <div className="text-center space-y-6">
-                        <div className="p-8 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border border-green-200">
+                        <div className="p-8 max-md:p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border border-green-200">
                           <div className="flex items-center justify-center mb-4">
                             <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
                               <Brain className="h-8 w-8 text-white" />
@@ -937,21 +937,21 @@ export default function PetNutritionist() {
                             Our AI nutritionist will analyze {selectedPet?.name}&apos;s information and create a personalized
                             nutrition plan with:
                           </p>
-                          <div className="grid grid-cols-2 gap-4 text-sm">
+                          <div className="grid grid-cols-2 gap-4 text-sm max-md:text-start">
                             <div className="flex items-center gap-2 text-green-700">
-                              <Check className="h-4 w-4" />
+                              <CheckCircle className="h-4 w-4" />
                               Daily calorie requirements
                             </div>
                             <div className="flex items-center gap-2 text-green-700">
-                              <Check className="h-4 w-4" />
+                              <CheckCircle className="h-4 w-4" />
                               Feeding schedule
                             </div>
                             <div className="flex items-center gap-2 text-green-700">
-                              <Check className="h-4 w-4" />
+                              <CheckCircle className="h-4 w-4" />
                               Ingredient recommendations
                             </div>
                             <div className="flex items-center gap-2 text-green-700">
-                              <Check className="h-4 w-4" />
+                              <CheckCircle className="h-4 w-4" />
                               Brand suggestions
                             </div>
                           </div>
@@ -967,7 +967,7 @@ export default function PetNutritionist() {
                             <>
                               <Sparkles className="mr-3 h-5 w-5" />
                               Generate Nutrition Plan
-                              <ArrowRight className="ml-3 h-5 w-5" />
+                              {/* <ArrowRight className="ml-3 h-5 w-5" /> */}
                             </>
                           )}
                         </Button>
@@ -1119,12 +1119,12 @@ export default function PetNutritionist() {
                   <Card>
                     <CardHeader gradient>
                       <CardTitle className="flex items-center justify-between">
-                        <div className="flex items-center">
-                          <Award className="mr-3 h-6 w-6 text-purple-600" />
+                        <div className="flex items-center gap-2">
+                          <Award className="min-h-6 min-w-6 text-purple-600" />
                           Recommended Brands
                         </div>
-                        <Badge variant="affiliate">
-                          <ShoppingCart className="h-3 w-3 mr-1" />
+                        <Badge variant="affiliate" className={'flex items-center gap-2'}>
+                          <ShoppingCart className="h-3 w-3" />
                           Affiliate Partners
                         </Badge>
                       </CardTitle>
@@ -1160,7 +1160,7 @@ export default function PetNutritionist() {
                                 </div>
                               </div>
                               <div className="text-right">
-                                <p className="text-2xl font-bold text-green-600">{brand.price}</p>
+                                <p className="text-xl font-bold text-green-600">{brand.price}</p>
                                 {/* {brand.affiliate && (
                                   <Badge variant="affiliate" className="text-xs">
                                     Affiliate Link
@@ -1223,7 +1223,7 @@ export default function PetNutritionist() {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6 sticky top-0 z-20 h-fit">
+          <div className="space-y-6 sticky top-0 z-10 h-fit">
 
             {/* Nutrition Tips */}
             <Card>
