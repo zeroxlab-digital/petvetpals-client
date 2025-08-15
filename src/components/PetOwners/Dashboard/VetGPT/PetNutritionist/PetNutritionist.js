@@ -362,14 +362,14 @@ export default function PetNutritionist() {
 
 
   const mockNutritionHistory = [
-    {
-      createdAt: new Date().toISOString(),
-      goals: ["Weight Loss", "Joint Health"],
-    },
-    {
-      createdAt: new Date(Date.now() - 86400000 * 7).toISOString(),
-      goals: ["Maintenance", "Skin Health"],
-    },
+    // {
+    //   createdAt: new Date().toISOString(),
+    //   goals: ["Weight Loss", "Joint Health"],
+    // },
+    // {
+    //   createdAt: new Date(Date.now() - 86400000 * 7).toISOString(),
+    //   goals: ["Maintenance", "Skin Health"],
+    // },
   ]
 
   // Mock functions
@@ -541,7 +541,7 @@ export default function PetNutritionist() {
 
   return (
     <div className="">
-      <div className="">
+      <div className="relative">
         {/* Header */}
         <motion.div
           className="text-center mb-8"
@@ -577,7 +577,7 @@ export default function PetNutritionist() {
 
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Main Form Area */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-8 ">
             {/* Step 1: Pet Selection */}
             <Card hover>
               <CardHeader gradient>
@@ -1139,7 +1139,7 @@ export default function PetNutritionist() {
                             transition={{ delay: index * 0.1 }}
                             className="p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200 hover:shadow-lg transition-all duration-300"
                           >
-                            <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-start justify-between mb-4">
                               <div>
                                 <h3 className="font-bold text-lg text-gray-800">{brand.name}</h3>
                                 <div className="flex items-center gap-2 mt-1">
@@ -1161,15 +1161,15 @@ export default function PetNutritionist() {
                               </div>
                               <div className="text-right">
                                 <p className="text-2xl font-bold text-green-600">{brand.price}</p>
-                                {brand.affiliate && (
+                                {/* {brand.affiliate && (
                                   <Badge variant="affiliate" className="text-xs">
                                     Affiliate Link
                                   </Badge>
-                                )}
+                                )} */}
                               </div>
                             </div>
                             <p className="text-gray-600 mb-4">{brand.reason}</p>
-                            <Button variant="outline" className="w-full bg-transparent">
+                            <Button variant="primary" className="w-full bg-primary text-white">
                               <ShoppingCart className="h-4 w-4 mr-2" />
                               View Product & Buy Now
                             </Button>
@@ -1223,57 +1223,7 @@ export default function PetNutritionist() {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Nutrition History */}
-            {selectedPet && (
-              <Card>
-                <CardHeader gradient>
-                  <CardTitle className="flex items-center">
-                    <Clock className="mr-3 h-6 w-6 text-orange-600" />
-                    Nutrition History
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  {nutritionHistory.length > 0 ? (
-                    <div className="space-y-3 max-h-64 overflow-y-auto">
-                      {nutritionHistory.map((plan, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.05 }}
-                          className="p-4 bg-gradient-to-r from-gray-50 to-green-50 rounded-xl border border-gray-100 hover:shadow-md transition-all duration-200"
-                        >
-                          <div className="flex items-center justify-between mb-2">
-                            <p className="text-sm font-medium text-gray-600">
-                              {new Date(plan.createdAt).toLocaleDateString("en-US", {
-                                year: "numeric",
-                                month: "short",
-                                day: "numeric",
-                              })}
-                            </p>
-                            <FileText className="h-4 w-4 text-gray-400" />
-                          </div>
-                          <div className="flex flex-wrap gap-2">
-                            {plan.goals?.map((goal, i) => (
-                              <Badge key={i} variant="outline" className="text-xs bg-white">
-                                {goal}
-                              </Badge>
-                            ))}
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-center py-8 text-gray-500">
-                      <Clock className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-                      <p className="font-medium">No nutrition history</p>
-                      <p className="text-sm">Create your first plan to get started</p>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            )}
+          <div className="space-y-6 sticky top-0 z-20 h-fit">
 
             {/* Nutrition Tips */}
             <Card>
@@ -1342,6 +1292,58 @@ export default function PetNutritionist() {
                 </CardContent>
               </Card>
             )}
+
+            {/* Nutrition History */}
+            {selectedPet && (
+              <Card>
+                <CardHeader gradient>
+                  <CardTitle className="flex items-center">
+                    <Clock className="mr-3 h-6 w-6 text-orange-600" />
+                    Nutrition History
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-6">
+                  {nutritionHistory.length > 0 ? (
+                    <div className="space-y-3 max-h-64 overflow-y-auto">
+                      {nutritionHistory.map((plan, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.05 }}
+                          className="p-4 bg-gradient-to-r from-gray-50 to-green-50 rounded-xl border border-gray-100 hover:shadow-md transition-all duration-200"
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <p className="text-sm font-medium text-gray-600">
+                              {new Date(plan.createdAt).toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric",
+                              })}
+                            </p>
+                            <FileText className="h-4 w-4 text-gray-400" />
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {plan.goals?.map((goal, i) => (
+                              <Badge key={i} variant="outline" className="text-xs bg-white">
+                                {goal}
+                              </Badge>
+                            ))}
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-8 text-gray-500">
+                      <Clock className="h-12 w-12 mx-auto mb-3 text-gray-300" />
+                      <p className="font-medium">No nutrition history</p>
+                      <p className="text-sm">Create your first plan to get started</p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+
           </div>
         </div>
       </div>
