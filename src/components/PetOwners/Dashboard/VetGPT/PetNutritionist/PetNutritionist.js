@@ -5,7 +5,7 @@ import { AlertTriangle, ArrowRight, Brain, Calendar, Check, ChevronDown, Heart, 
 import Image from "next/image"
 import html2pdf from "html2pdf.js"
 import { useGetAllergiesConditionsQuery, useGetPetsQuery } from "@/redux/services/petApi"
-import AllergiesInput from "./AllergiesInput"
+import TagInput from "./TagInput"
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -263,31 +263,48 @@ export default function PetNutritionist() {
 
   // Medical conditions
   const [medicalConditions, setMedicalConditions] = useState([
-    "Diabetes",
+    "Dental Disease",
+    "Ear Infections",
+    "Skin Allergies",
+    "Obesity",
+    "Arthritis",
+    "Urinary Tract Infections",
     "Kidney Disease",
     "Heart Disease",
-    "Arthritis",
-    "Obesity",
-    "Allergies",
-    "Digestive Issues",
-    "Skin Problems",
-    "Dental Issues",
-    "Senior Health",
-  ])
+    "Gastrointestinal Issues",
+    "Fleas and Parasites",
+    "Respiratory Infections",
+  ]);
 
   // Treatment goals
   const treatmentGoals = [
     "Weight Loss",
     "Weight Gain",
-    "Muscle Building",
-    "Joint Health",
+    "Muscle Maintenance",
+    "Joint Health Support",
     "Digestive Health",
     "Skin & Coat Health",
     "Energy Boost",
-    "Senior Care",
-    "Puppy/Kitten Growth",
-    "Maintenance",
-  ]
+    "Senior Support",
+    "Growth & Development",
+    "Immune System Support",
+    "General Maintenance",
+  ];
+
+  // Current symptoms
+  const [currentSymptoms, setCurrentSymptoms] = useState([
+    "Itching / Scratching",
+    "Vomiting",
+    "Diarrhea",
+    "Lethargy / Low Energy",
+    "Loss of Appetite",
+    "Eye Discharge / Redness",
+    "Sneezing / Nasal Discharge",
+    "Coughing",
+    "Limping / Stiffness",
+    "Excessive Thirst",
+    "Excessive Licking"
+  ]);
 
   const { data: { pets } = {}, isLoading: petsLoading } = useGetPetsQuery();
   const [selectedPet, setSelectedPet] = useState(null)
@@ -322,7 +339,7 @@ export default function PetNutritionist() {
     activityLevel: "",
     medicalConditions: [],
     currentSymptoms: [],
-    currentDiet: "",
+    currentDiet: [],
     allergies: [],
     treatmentGoals: [],
   })
@@ -336,7 +353,7 @@ export default function PetNutritionist() {
       activityLevel: "",
       medicalConditions: conditions.map(c => c.name),
       currentSymptoms: [],
-      currentDiet: "",
+      currentDiet: [],
       allergies: allergies,
       treatmentGoals: [],
     })
@@ -802,6 +819,34 @@ export default function PetNutritionist() {
                         </div>
                       </div>
 
+                      {/* Current Symptoms */}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-4">
+                          Current Symptoms (select all that apply)
+                        </label>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                          {currentSymptoms.map((symptom) => (
+                            <motion.button
+                              key={symptom}
+                              onClick={() => toggleArrayItem("currentSymptoms", symptom)}
+                              className={cn(
+                                "p-3 rounded-lg border-2 text-sm font-medium transition-all duration-200",
+                                formData.currentSymptoms.includes(symptom)
+                                  ? "bg-gradient-to-r from-green-50 to-emerald-50 border-green-300 text-green-700"
+                                  : "bg-white border-gray-200 text-gray-700 hover:border-green-200",
+                              )}
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                            >
+                              {symptom}
+                              {formData.currentSymptoms.includes(symptom) && (
+                                <Check className="h-4 w-4 ml-2 inline" />
+                              )}
+                            </motion.button>
+                          ))}
+                        </div>
+                      </div>
+
                       {/* Treatment Goals */}
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-4">
@@ -830,25 +875,19 @@ export default function PetNutritionist() {
 
                       {/* Additional Info */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Current Diet/Food Brand
-                          </label>
-                          <Input
-                            placeholder="e.g., Royal Canin Adult"
-                            value={formData.currentDiet}
-                            onChange={(e) => updateFormData("currentDiet", e.target.value)}
-                          />
-                        </div>
-                        {/* <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">Known Allergies</label>
-                          <Input
-                            placeholder="e.g., Chicken, Grain"
-                            value={formData.allergies}
-                            onChange={(e) => updateFormData("allergies", e.target.value)}
-                          />
-                        </div> */}
-                        <AllergiesInput formData={formData} updateFormData={updateFormData} />
+                        <TagInput
+                          label="Current Diet/Food Brand"
+                          placeholder="e.g., Royal Canin Adult"
+                          value={formData.currentDiet}
+                          onChange={(newArray) => updateFormData("currentDiet", newArray)}
+                        />
+
+                        <TagInput
+                          label="Known Allergies"
+                          placeholder="e.g., Chicken, Grain"
+                          value={formData.allergies}
+                          onChange={(newArray) => updateFormData("allergies", newArray)}
+                        />
                       </div>
 
                       {canProceedToStep(3) && (
