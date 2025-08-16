@@ -1,41 +1,43 @@
 import React from "react";
 import Link from "next/link";
 import { PawPrint, Bone, Zap, Dog } from "lucide-react";
+import PawBackground from "@/components/Common/PawBackground/PawBackground";
 
 const page = () => {
   const features = [
     {
-      title: "AI Symptom Checker",
+      title: "Symptom Checker AI",
       href: "vet-gpt/symptom-checker",
-      icon: <PawPrint className="w-12 h-12 text-pink-500" />,
-      bg: "from-pink-100 to-pink-300",
+      icon: <PawPrint className="w-12 h-12 max-sm:w-11 max-sm:h-11 text-blue-500" />,
+      bg: "from-blue-100 to-blue-300",
     },
     {
-      title: "Nutrition Guru",
-      href: "vet-gpt/nutrition-guru",
-      icon: <Bone className="w-12 h-12 text-green-500" />,
+      title: "Pet Nutritionist AI",
+      href: "vet-gpt/nutrition-planner",
+      icon: <Bone className="w-12 h-12 max-sm:w-11 max-sm:h-11 text-green-500" />,
       bg: "from-green-100 to-green-300",
     },
     {
       title: "Allergy & Itch Coach",
       href: "vet-gpt/allergy-itch-coach",
-      icon: <Zap className="w-12 h-12 text-purple-500" />,
-      bg: "from-purple-100 to-purple-300",
+      icon: <Zap className="w-12 h-12 max-sm:w-11 max-sm:h-11 text-rose-500" />,
+      bg: "from-rose-100 to-rose-300",
     },
-    {
-      title: "PetFit AI",
-      href: "vet-gpt/petfit-ai",
-      icon: <Dog className="w-12 h-12 text-yellow-500" />,
-      bg: "from-yellow-100 to-yellow-300",
-    },
+    // {
+    //   title: "PetFit AI",
+    //   href: "vet-gpt/petfit-ai",
+    //   icon: <Dog className="w-12 h-12 max-sm:w-11 max-sm:h-11 text-yellow-500" />,
+    //   bg: "from-yellow-100 to-yellow-300",
+    // },
   ];
 
   return (
-    <div className="min-h-full flex flex-col items-center justify-center py-12 max-sm:py-6 px-4 max-sm:px-2">
-      <h1 className="text-3xl font-bold mb-12 text-gray-800 text-center max-sm:hidden">
+    <div className="min-h-full flex flex-col items-center justify-center py-12 max-sm:py-6 px-4 max-sm:px-0 relative">
+      <PawBackground />
+      <h1 className="text-3xl font-bold mb-12 text-slate-700 text-center max-sm:hidden">
         VetGPT AI Features
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-6xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
         {features.map((feature, idx) => (
           <Link
             key={idx}
@@ -47,7 +49,7 @@ const page = () => {
               {feature.icon}
             </div>
 
-            <h2 className={`text-slate-700 max-sm:text-lg font-semibold text-center`}>{feature.title}</h2>
+            <h2 className={`text-slate-800 max-sm:text-lg font-semibold text-center`}>{feature.title}</h2>
             <div className="sm:opacity-0 group-hover:opacity-100 transition-opacity text-sm text-gray-700 mt-2">
               Explore →
             </div>

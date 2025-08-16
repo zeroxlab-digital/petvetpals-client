@@ -5,9 +5,9 @@ import { AlertTriangle, ArrowRight, Brain, Calendar, Check, ChevronDown, Heart, 
 import Image from "next/image"
 import html2pdf from "html2pdf.js"
 import { useGetAllergiesConditionsQuery, useGetPetsQuery } from "@/redux/services/petApi"
-import TagInput from "./TagInput"
 import { useGetNutritionistGptMutation } from "@/redux/services/NutritionistApi"
 import { HiFaceFrown, HiOutlineFaceFrown } from "react-icons/hi2"
+import TagInput from "@/components/Common/TagInput/TagInput"
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -568,7 +568,7 @@ export default function PetNutritionist() {
               <Utensils className="h-10 w-10 text-white " />
             </motion.div>
             <div>
-              <h1 className="text-5xl max-md:text-4xl font-bold bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              <h1 className="text-5xl max-md:text-3xl font-bold bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
                 Pet Nutritionist AI
               </h1>
               <Badge className="mt-2">

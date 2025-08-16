@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { AlertTriangle, ArrowRight, Brain, Calendar, Check, ChevronDown, Heart, Loader2, MessageSquare, PawPrintIcon as Paw, Search, Stethoscope, StickerIcon as Stomach, ThumbsUp, Download, Sparkles, Activity, Eye, Zap, Clock, FileText, Palette, } from "lucide-react"
+import { AlertTriangle, ArrowRight, Brain, Calendar, Check, ChevronDown, Heart, Loader2, MessageSquare, PawPrintIcon as Paw, Search, Stethoscope, StickerIcon as Stomach, ThumbsUp, Download, Sparkles, Activity, Eye, Zap, Clock, FileText, Palette, PawPrint, } from "lucide-react"
 import Image from "next/image"
 import {
   useGetSymptomHistoryQuery,
@@ -419,12 +419,12 @@ export default function AdvancedSymptomChecker() {
               <Stethoscope className="h-10 w-10 text-white" />
             </motion.div>
             <div>
-              <h1 className="text-5xl max-md:text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Symptoms AI
+              <h1 className="text-5xl max-md:text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-500 bg-clip-text text-transparent">
+                Symptoms Checker
               </h1>
               <Badge className="mt-2">
                 <Sparkles className="h-3 w-3 mr-1" />
-                AI Symptom Checker
+                AI-Powered Analysis
               </Badge>
             </div>
           </div>
@@ -481,10 +481,13 @@ export default function AdvancedSymptomChecker() {
                       </div>
                     ) : (
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 flex items-center justify-center">
-                          <Heart className="h-6 w-6 text-blue-600" />
+                        <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 flex items-center justify-center">
+                          <PawPrint className="h-5 w-5 md:w-6 md:h-6 text-blue-600" />
                         </div>
-                        <span className="text-gray-500 font-medium">Choose your pet</span>
+                        <div className="text-start">
+                          <p className="font-semibold text-gray-800">Select Pet</p>
+                          <span className="text-[13px] sm:text-sm font-normal text-gray-600">Get instant symptom analysis</span>
+                        </div>
                       </div>
                     )}
                     <motion.div animate={{ rotate: showPetMenu ? 180 : 0 }} transition={{ duration: 0.3 }}>

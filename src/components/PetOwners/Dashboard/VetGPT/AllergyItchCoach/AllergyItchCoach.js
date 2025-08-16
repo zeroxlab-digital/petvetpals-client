@@ -1,10 +1,11 @@
 "use client"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { AlertTriangle, ArrowRight, Calendar, Check, ChevronDown, Heart, Loader2, MessageSquare, ThumbsUp, Download, Sparkles, Activity, Clock, Shield, Target, TrendingUp, Zap, Eye, Droplets, Wind, Sun, Leaf, Home, AlertCircle, Bell, BarChart3, MapPin, Thermometer, SprayCanIcon as Spray, Settings, Smartphone, Database, Brain, Cpu, Wifi, Monitor, Plus, Minus, PawPrint, } from "lucide-react"
+import { AlertTriangle, ArrowRight, Calendar, Check, ChevronDown, Heart, Loader2, MessageSquare, ThumbsUp, Download, Sparkles, Activity, Clock, Shield, Target, TrendingUp, Zap, Eye, Droplets, Wind, Sun, Leaf, Home, AlertCircle, Bell, BarChart3, MapPin, Thermometer, SprayCanIcon as Spray, Settings, Smartphone, Database, Brain, Cpu, Wifi, Monitor, Plus, Minus, PawPrint, ShoppingCart, } from "lucide-react"
 import Image from "next/image"
 import html2pdf from "html2pdf.js"
 import TagInput from "@/components/Common/TagInput/TagInput"
+import { useGetAllergiesConditionsQuery, useGetPetsQuery } from "@/redux/services/petApi"
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -426,7 +427,13 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
 }
 
 export default function AllergyItchCoach() {
+  // const [selectedPet, setSelectedPet] = useState(null)
+  const { data: { pets } = {}, isLoading: petsLoading } = useGetPetsQuery();
   const [selectedPet, setSelectedPet] = useState(null)
+  console.log("pet:", selectedPet);
+  const { data: { allergiesConditions } = {}, isLoading: allergyConditionLoading } = useGetAllergiesConditionsQuery({ petId: selectedPet?._id }, { skip: !selectedPet?._id });
+  const allergies = allergiesConditions?.filter(i => i.type == 'allergy').map(i => i.name);
+
   const [showPetMenu, setShowPetMenu] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
   const [carePlan, setCarePlan] = useState(null)
@@ -482,16 +489,16 @@ export default function AllergyItchCoach() {
   ]
 
   const mockAllergyHistory = [
-    {
-      createdAt: new Date().toISOString(),
-      episode: { severity: 7, areas: ["paws", "ears"] },
-      triggers: ["pollen", "new food"],
-    },
-    {
-      createdAt: new Date(Date.now() - 86400000 * 14).toISOString(),
-      episode: { severity: 4, areas: ["abdomen"] },
-      triggers: ["flea treatment"],
-    },
+    // {
+    //   createdAt: new Date().toISOString(),
+    //   episode: { severity: 7, areas: ["paws", "ears"] },
+    //   triggers: ["pollen", "new food"],
+    // },
+    // {
+    //   createdAt: new Date(Date.now() - 86400000 * 14).toISOString(),
+    //   episode: { severity: 4, areas: ["abdomen"] },
+    //   triggers: ["flea treatment"],
+    // },
   ]
 
   const mockReminders = [
@@ -568,8 +575,8 @@ export default function AllergyItchCoach() {
   }
 
   // Replace with mock data
-  const pets = mockPets
-  const petsLoading = false
+  // const pets = mockPets
+  // const petsLoading = false
   const remindersData = selectedPet ? mockReminders.filter((r) => r.petId === selectedPet._id) : []
   const progressDataFiltered = selectedPet ? mockProgressData : []
   const analytics = selectedPet ? mockAnalyticsData : null
@@ -871,7 +878,7 @@ export default function AllergyItchCoach() {
               <Shield className="h-10 w-10 text-white" />
             </motion.div>
             <div>
-              <h1 className="text-5xl max-md:text-4xl font-bold bg-gradient-to-r from-pink-600 via-rose-600 to-orange-600 bg-clip-text text-transparent">
+              <h1 className="text-5xl max-md:text-3xl font-bold bg-gradient-to-r from-pink-600 via-rose-600 to-orange-600 bg-clip-text text-transparent">
                 Allergy & Itch Coach
               </h1>
               <Badge className="mt-2">
@@ -1064,19 +1071,20 @@ export default function AllergyItchCoach() {
                     <CardContent className="pt-6 space-y-6">
                       {/* Start Date */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-semibold text-gray-800 mb-2">
                           When did this episode start?
                         </label>
                         <Input
                           type="date"
                           value={formData.startDate}
                           onChange={(e) => updateFormData("startDate", e.target.value)}
+                          className={'w-full'}
                         />
                       </div>
 
                       {/* Affected Body Areas */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-4">
+                        <label className="block text-sm font-semibold text-gray-800 mb-4">
                           Which body areas are affected? (select all that apply)
                         </label>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -1116,7 +1124,7 @@ export default function AllergyItchCoach() {
 
                       {/* Severity Scale */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-4">
+                        <label className="block text-sm font-semibold text-gray-800 mb-4">
                           Itch Severity (0 = No itch, 10 = Extreme)
                         </label>
                         <div className="space-y-4">
@@ -1141,7 +1149,7 @@ export default function AllergyItchCoach() {
 
                       {/* Visible Signs */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-4">
+                        <label className="block text-sm font-semibold text-gray-800 mb-4">
                           Visible Signs (select all that you observe)
                         </label>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -1160,7 +1168,7 @@ export default function AllergyItchCoach() {
                             >
                               <span>{sign.name}</span>
                               <div className="flex items-center gap-2">
-                                <Badge variant={getSignSeverityVariant(sign.severity)} className="text-xs">
+                                <Badge variant={getSignSeverityVariant(sign.severity)} className="text-xs max-sm:font-normal max-sm:px-1 max-sm:py-0.5">
                                   {sign.severity}
                                 </Badge>
                                 {formData.visibleSigns.includes(sign.id) && <Check className="h-4 w-4" />}
@@ -1207,7 +1215,7 @@ export default function AllergyItchCoach() {
                     <CardContent className="pt-6 space-y-6">
                       {/* Current Season */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-4">Current Season</label>
+                        <label className="block text-sm font-semibold text-gray-800 mb-4">Current Season</label>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                           {seasons.map((season) => (
                             <motion.button
@@ -1242,7 +1250,7 @@ export default function AllergyItchCoach() {
 
                       {/* Recent Changes */}
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-4">
+                        <label className="block text-sm font-semibold text-gray-800 mb-4">
                           Recent Changes (past 2-4 weeks)
                         </label>
                         <div className="space-y-3">
@@ -1336,7 +1344,7 @@ export default function AllergyItchCoach() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
                   transition={{ duration: 0.4 }}
-                  className="space-y-6"
+                  className="space-y-6 max-w-max"
                 >
                   {/* Urgency Assessment */}
                   <Card>
@@ -1481,7 +1489,7 @@ export default function AllergyItchCoach() {
                             transition={{ delay: index * 0.1 }}
                             className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200 hover:shadow-lg transition-all duration-300"
                           >
-                            <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-start justify-between mb-3">
                               <div>
                                 <h3 className="font-bold text-gray-800">{product.name}</h3>
                                 <Badge variant="outline" className="text-xs mt-1">
@@ -1490,16 +1498,16 @@ export default function AllergyItchCoach() {
                               </div>
                               <div className="text-right">
                                 <p className="text-xl font-bold text-green-600">{product.price}</p>
-                                {product.affiliate && (
+                                {/* {product.affiliate && (
                                   <Badge variant="info" className="text-xs">
                                     Affiliate
                                   </Badge>
-                                )}
+                                )} */}
                               </div>
                             </div>
                             <p className="text-gray-600 mb-3">{product.reason}</p>
-                            <Button variant="outline" className="w-full bg-transparent">
-                              <Sparkles className="h-4 w-4 mr-2" />
+                            <Button variant="primary" className="w-full bg-primary text-white">
+                              <ShoppingCart className="h-4 w-4 mr-2" />
                               View Product & Buy Now
                             </Button>
                           </motion.div>
@@ -1619,7 +1627,7 @@ export default function AllergyItchCoach() {
                   {/* AI Analytics Overview */}
                   <Card>
                     <CardHeader gradient>
-                      <CardTitle className="flex items-center justify-between">
+                      <CardTitle className="flex sm:items-center sm:justify-between max-sm:flex-col max-sm:gap-3">
                         <div className="flex items-center">
                           <Brain className="mr-3 h-6 w-6 text-purple-600" />
                           AI Analytics Dashboard
@@ -1742,7 +1750,7 @@ export default function AllergyItchCoach() {
 
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                              <h4 className="font-medium text-gray-700 mb-2">Risk Factors</h4>
+                              <h4 className="font-semibold text-gray-800 mb-2">Risk Factors</h4>
                               <ul className="space-y-1">
                                 {analytics.predictions.riskFactors.map((factor, index) => (
                                   <li key={index} className="flex items-center gap-2 text-sm text-gray-600">
@@ -1754,7 +1762,7 @@ export default function AllergyItchCoach() {
                             </div>
 
                             <div>
-                              <h4 className="font-medium text-gray-700 mb-2">Recommended Actions</h4>
+                              <h4 className="font-semibold text-gray-800 mb-2">Recommended Actions</h4>
                               <ul className="space-y-1">
                                 {analytics.predictions.recommendedActions.map((action, index) => (
                                   <li key={index} className="flex items-center gap-2 text-sm text-gray-600">
@@ -1773,14 +1781,14 @@ export default function AllergyItchCoach() {
                   {/* Smart Reminder System */}
                   <Card>
                     <CardHeader gradient>
-                      <CardTitle className="flex items-center justify-between">
+                      <CardTitle className="flex sm:items-center sm:justify-between max-sm:flex-col max-sm:gap-3">
                         <div className="flex items-center">
                           <Bell className="mr-3 h-6 w-6 text-green-600" />
                           Smart Reminder System
                         </div>
                         <div className="flex items-center gap-2">
                           <Badge variant="success">
-                            <Smartphone className="h-3 w-3 mr-1" />
+                            <Smartphone className="h-4 w-4 mr-2" />
                             Push Notifications
                           </Badge>
                           <Button variant="outline" size="sm" onClick={() => setShowReminders(!showReminders)}>
