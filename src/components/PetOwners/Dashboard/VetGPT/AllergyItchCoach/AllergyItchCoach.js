@@ -1,11 +1,14 @@
 "use client"
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { AlertTriangle, ArrowRight, Calendar, Check, ChevronDown, Heart, Loader2, MessageSquare, ThumbsUp, Download, Sparkles, Activity, Clock, Shield, Target, TrendingUp, Zap, Eye, Droplets, Wind, Sun, Leaf, Home, AlertCircle, Bell, BarChart3, MapPin, Thermometer, SprayCanIcon as Spray, Settings, Smartphone, Database, Brain, Cpu, Wifi, Monitor, Plus, Minus, PawPrint, ShoppingCart, } from "lucide-react"
+import { AlertTriangle, ArrowRight, Calendar, Check, ChevronDown, Heart, Loader2, MessageSquare, ThumbsUp, Download, Sparkles, Activity, Clock, Shield, Target, TrendingUp, Zap, Eye, Droplets, Wind, Sun, Leaf, Home, AlertCircle, Bell, BarChart3, MapPin, Thermometer, SprayCanIcon as Spray, Settings, Smartphone, Database, Brain, Cpu, Wifi, Monitor, Plus, Minus, PawPrint, ShoppingCart, BookOpen, Info, } from "lucide-react"
 import Image from "next/image"
 import html2pdf from "html2pdf.js"
 import TagInput from "@/components/Common/TagInput/TagInput"
 import { useGetAllergiesConditionsQuery, useGetMedicationsQuery, useGetPetsQuery } from "@/redux/services/petApi"
+import { useGetAllergyCoachResponseMutation } from "@/redux/services/allergyCoachApi"
+import axios from "axios"
+import { HiOutlineFaceFrown } from "react-icons/hi2"
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -434,8 +437,11 @@ export default function AllergyItchCoach() {
   const allergies = allergiesConditions?.filter(i => i.type == 'allergy').map(i => i.name);
   const { data: medications = {}, isLoading: medicationsLoading } = useGetMedicationsQuery({ petId: selectedPet?._id }, { skip: !selectedPet?._id });
   console.log("medications:", medications)
-  const currentMedications = medications?.medications?.filter((med) => med.is_ongoing === true).map(med => ({ name: med.medication, dosage: med.dosage }))
+  const currentMedications = medications?.medications?.filter((med) => med.is_ongoing === true).map(med => ({ name: med.medication, dosage: med.dosage })).map(i => i.name) || [];
   console.log("current medications:", currentMedications)
+
+  const [getAllergyCoachResponse, { isLoading: allergyCoachResLoading }] = useGetAllergyCoachResponseMutation();
+
   const [showPetMenu, setShowPetMenu] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
   const [carePlan, setCarePlan] = useState(null)
@@ -469,11 +475,11 @@ export default function AllergyItchCoach() {
       recentChanges: [],
       livingEnvironment: "",
       // Additional info
-      currentMedications: currentMedications?.map(i => i.name),
+      currentMedications: currentMedications.map(i => i),
       knownAllergies: allergies,
       previousTreatments: "",
     })
-  }, [selectedPet, allergiesConditions])
+  }, [selectedPet, allergiesConditions, medications.medications])
   console.log(formData);
 
   const [reminders, setReminders] = useState([])
@@ -484,29 +490,6 @@ export default function AllergyItchCoach() {
   const [selectedTimeframe, setSelectedTimeframe] = useState("30d")
 
   // Mock data
-  const mockPets = [
-    {
-      _id: "1",
-      name: "Buddy",
-      breed: "Golden Retriever",
-      age: 4,
-      image: "/placeholder.svg?height=48&width=48",
-    },
-    {
-      _id: "2",
-      name: "Whiskers",
-      breed: "Persian Cat",
-      age: 6,
-      image: "/placeholder.svg?height=48&width=48",
-    },
-    {
-      _id: "3",
-      name: "Max",
-      breed: "German Shepherd",
-      age: 3,
-      image: "/placeholder.svg?height=48&width=48",
-    },
-  ]
 
   const mockAllergyHistory = [
     // {
@@ -769,85 +752,14 @@ export default function AllergyItchCoach() {
 
     setIsGenerating(true)
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 3000))
 
-      const mockCarePlan = {
-        urgencyLevel: formData.severity >= 8 ? "urgent" : formData.severity >= 6 ? "moderate" : "routine",
-        immediateActions: [
-          "Stop any new products introduced in the last 2 weeks",
-          "Keep affected areas clean and dry",
-          "Prevent excessive scratching with an E-collar if needed",
-          "Document symptoms with photos for vet consultation",
-        ],
-        homeCareTips: [
-          {
-            category: "Cleaning",
-            icon: <Droplets className="h-5 w-5" />,
-            tips: [
-              "Use lukewarm water for cleaning affected areas",
-              "Pat dry gently, don't rub",
-              "Apply prescribed topical treatments as directed",
-            ],
-          },
-          {
-            category: "Diet",
-            icon: <Heart className="h-5 w-5" />,
-            tips: [
-              "Consider elimination diet if food allergies suspected",
-              "Avoid treats and table scraps during flare-ups",
-              "Ensure adequate omega-3 fatty acids in diet",
-            ],
-          },
-          {
-            category: "Environment",
-            icon: <Home className="h-5 w-5" />,
-            tips: [
-              "Use air purifiers to reduce allergens",
-              "Wash bedding in hypoallergenic detergent weekly",
-              "Vacuum frequently with HEPA filter",
-            ],
-          },
-        ],
-        productRecommendations: [
-          {
-            name: "Medicated Shampoo",
-            type: "Grooming",
-            price: "$24.99",
-            reason: "Antifungal and antibacterial properties for infected skin",
-            affiliate: true,
-          },
-          {
-            name: "Hypoallergenic Wipes",
-            type: "Cleaning",
-            price: "$12.99",
-            reason: "Gentle cleaning for sensitive areas",
-            affiliate: true,
-          },
-          {
-            name: "HEPA Air Purifier",
-            type: "Environment",
-            price: "$89.99",
-            reason: "Reduces airborne allergens and irritants",
-            affiliate: true,
-          },
-        ],
-        avoidanceList: [
-          "Fragranced products",
-          "Harsh chemicals",
-          "Over-bathing",
-          "Scratching/licking",
-          "New foods during flare-ups",
-        ],
-        followUpSchedule: [
-          { timeframe: "24-48 hours", action: "Monitor symptom progression" },
-          { timeframe: "1 week", action: "Reassess severity and treatment effectiveness" },
-          { timeframe: "2 weeks", action: "Consider vet consultation if no improvement" },
-        ],
-        vetConsultation: formData.severity >= 7 || formData.visibleSigns.includes("fleas"),
-      }
-
-      setCarePlan(mockCarePlan)
+      const pet = { type: selectedPet.type, name: selectedPet.name, breed: selectedPet.breed, gender: selectedPet.gender, age: selectedPet.age }
+      const { data } = await getAllergyCoachResponse({
+        pet,
+        ...formData
+      })
+      console.log("data:", data)
+      setCarePlan(data?.coach_response)
       setCurrentStep(4)
     } catch (err) {
       console.error("Error generating care plan:", err)
@@ -1064,7 +976,7 @@ export default function AllergyItchCoach() {
                       size="lg"
                       className="px-8"
                     >
-                      Continue to Episode Details
+                      Continue to Episode
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
                   </motion.div>
@@ -1356,6 +1268,19 @@ export default function AllergyItchCoach() {
             </AnimatePresence>
 
             {/* Step 4: Care Plan Results */}
+            {currentStep >= 4 && !carePlan &&
+              <div className="flex flex-col items-center justify-center gap-4 text-center py-12 px-4 bg-red-50 border rounded-2xl animate-fadeIn">
+                <div className="flex items-center justify-center w-20 h-20 bg-red-100 rounded-full shadow-inner animate-bounce">
+                  <HiOutlineFaceFrown className="text-5xl text-red-500" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-800">
+                  Oops! Our stupid coach couldn&apos;t create your relief plan
+                </h3>
+                <p className="text-gray-600 text-sm max-w-md">
+                  Our AI hit a hiccup while preparing your pet&apos;s allergy/itch relief plan. Please review your inputs and try again — we&apos;ll get it right next time!
+                </p>
+              </div>
+            }
             <AnimatePresence mode="wait">
               {currentStep >= 4 && carePlan && (
                 <motion.div
@@ -1560,6 +1485,41 @@ export default function AllergyItchCoach() {
                       </div>
                     </CardContent>
                   </Card>
+
+                  {/* Educational Info */}
+                  {carePlan.educationalInfo && carePlan.educationalInfo.length > 0 && (
+                    <Card>
+                      <CardHeader gradient>
+                        <CardTitle className="flex items-center">
+                          <BookOpen className="mr-3 h-6 w-6 text-indigo-600" />
+                          Educational Information
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="pt-6">
+                        <p className="text-gray-700 text-base space-y-2">
+                          {carePlan.educationalInfo.map((info, index) => (
+                            <span key={index} className="block mb-2">{info}</span>
+                          ))}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  )}
+
+                  {/* Rationale */}
+                  {carePlan.rationale && (
+                    <Card>
+                      <CardHeader gradient>
+                        <CardTitle className="flex items-center">
+                          <Info className="mr-3 h-6 w-6 text-teal-600" />
+                          Rationale
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="pt-6">
+                        <p className="text-gray-700 text-base">{carePlan.rationale}</p>
+                      </CardContent>
+                    </Card>
+                  )}
+
 
                   {/* Follow-up Schedule */}
                   <Card>
