@@ -1,11 +1,11 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { AlertTriangle, ArrowRight, Calendar, Check, ChevronDown, Heart, Loader2, MessageSquare, ThumbsUp, Download, Sparkles, Activity, Clock, Shield, Target, TrendingUp, Zap, Eye, Droplets, Wind, Sun, Leaf, Home, AlertCircle, Bell, BarChart3, MapPin, Thermometer, SprayCanIcon as Spray, Settings, Smartphone, Database, Brain, Cpu, Wifi, Monitor, Plus, Minus, PawPrint, ShoppingCart, } from "lucide-react"
 import Image from "next/image"
 import html2pdf from "html2pdf.js"
 import TagInput from "@/components/Common/TagInput/TagInput"
-import { useGetAllergiesConditionsQuery, useGetPetsQuery } from "@/redux/services/petApi"
+import { useGetAllergiesConditionsQuery, useGetMedicationsQuery, useGetPetsQuery } from "@/redux/services/petApi"
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -427,13 +427,15 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
 }
 
 export default function AllergyItchCoach() {
-  // const [selectedPet, setSelectedPet] = useState(null)
   const { data: { pets } = {}, isLoading: petsLoading } = useGetPetsQuery();
   const [selectedPet, setSelectedPet] = useState(null)
   console.log("pet:", selectedPet);
   const { data: { allergiesConditions } = {}, isLoading: allergyConditionLoading } = useGetAllergiesConditionsQuery({ petId: selectedPet?._id }, { skip: !selectedPet?._id });
   const allergies = allergiesConditions?.filter(i => i.type == 'allergy').map(i => i.name);
-
+  const { data: medications = {}, isLoading: medicationsLoading } = useGetMedicationsQuery({ petId: selectedPet?._id }, { skip: !selectedPet?._id });
+  console.log("medications:", medications)
+  const currentMedications = medications?.medications?.filter((med) => med.is_ongoing === true).map(med => ({ name: med.medication, dosage: med.dosage }))
+  console.log("current medications:", currentMedications)
   const [showPetMenu, setShowPetMenu] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
   const [carePlan, setCarePlan] = useState(null)
@@ -455,6 +457,24 @@ export default function AllergyItchCoach() {
     knownAllergies: [],
     previousTreatments: "",
   })
+  useEffect(() => {
+    setFormData({
+      // Current Episode
+      startDate: "",
+      affectedAreas: [],
+      severity: 5,
+      visibleSigns: [],
+      // Environment
+      currentSeason: "",
+      recentChanges: [],
+      livingEnvironment: "",
+      // Additional info
+      currentMedications: currentMedications?.map(i => i.name),
+      knownAllergies: allergies,
+      previousTreatments: "",
+    })
+  }, [selectedPet, allergiesConditions])
+  console.log(formData);
 
   const [reminders, setReminders] = useState([])
   const [progressData, setProgressData] = useState([])
@@ -1113,9 +1133,9 @@ export default function AllergyItchCoach() {
                                   {area.icon}
                                 </div>
                                 <span className="text-sm font-medium">{area.name}</span>
-                                {formData.affectedAreas.includes(area.id) && (
+                                {/* {formData.affectedAreas.includes(area.id) && (
                                   <Check className="h-4 w-4 text-pink-600" />
-                                )}
+                                )} */}
                               </div>
                             </motion.button>
                           ))}
@@ -1171,7 +1191,7 @@ export default function AllergyItchCoach() {
                                 <Badge variant={getSignSeverityVariant(sign.severity)} className="text-xs max-sm:font-normal max-sm:px-1 max-sm:py-0.5">
                                   {sign.severity}
                                 </Badge>
-                                {formData.visibleSigns.includes(sign.id) && <Check className="h-4 w-4" />}
+                                {/* {formData.visibleSigns.includes(sign.id) && <Check className="h-4 w-4" />} */}
                               </div>
                             </motion.button>
                           ))}
@@ -1622,7 +1642,7 @@ export default function AllergyItchCoach() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
                   transition={{ duration: 0.4, delay: 0.2 }}
-                  className="space-y-6"
+                  className="space-y-6 hidden"
                 >
                   {/* AI Analytics Overview */}
                   <Card>
