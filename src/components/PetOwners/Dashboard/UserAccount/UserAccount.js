@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify"
 import { useGetUserDetailsQuery, useLogoutUserMutation, useUpdateUserDetailsMutation } from "@/redux/services/userApi"
 import { HiArrowRightOnRectangle } from "react-icons/hi2"
 import { useRouter } from "next/navigation"
+import { FaMoneyBillTransfer, FaMoneyCheckDollar } from "react-icons/fa6"
 
 const UserAccount = () => {
   const [userProfile, setUserProfile] = useState(null);
@@ -291,7 +292,12 @@ const UserAccount = () => {
               <div className="bg-white rounded-xl border shadow-sm p-6">
                 <h3 className="text-lg font-semibold mb-6">Billing History</h3>
                 <div className="overflow-x-auto">
-                  <table className="w-full">
+                  <div className="text-center py-10 text-gray-500">
+                    <FaMoneyBillTransfer className="mx-auto h-12 w-12 mb-4 text-gray-400" />
+                    <p className="text-lg font-medium">No Billing History Found!</p>
+                    <p className="text-sm">You have no transaction history</p>
+                  </div>
+                  {/* <table className="w-full">
                     <thead>
                       <tr className="text-left text-sm text-gray-500">
                         <th className="pb-4 pr-4">Date</th>
@@ -318,7 +324,7 @@ const UserAccount = () => {
                         </td>
                       </tr>
                     </tbody>
-                  </table>
+                  </table> */}
                 </div>
               </div>
             </div>
