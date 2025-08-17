@@ -13,8 +13,10 @@ import { HiOutlineThumbUp } from 'react-icons/hi';
 import Reschedule from './Reschedule';
 import BookingPopup from '../../Appointment/BookingPopup';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
-import { Calendar, CheckCircle, MessageCircle } from 'lucide-react';
+import { Calendar, CalendarClock, CheckCircle, MessageCircle } from 'lucide-react';
 import ConfirmBooking from './ConfirmBooking';
+import Button from '@/components/Common/Button/Button';
+import Link from 'next/link';
 
 const Appointments = () => {
     const { data, isLoading, isError } = useGetAppointmentsQuery();
@@ -119,14 +121,14 @@ const Appointments = () => {
                 <p className='text-gray-500'>See your scheduled and all other appointments</p>
             </div>
 
-            <ul className='bg-gray-200 bg-opacity-50 p-2 rounded-md flex overflow-auto items-center gap-2 mb-6'>
+            <ul className='health-records-tabs flex space-x-3 overflow-x-auto whitespace-nowrap max-md:max-w-max bg-gray-50 border border-gray-200 rounded-md p-2 scrollbar-thin scrollbar-thumb-gray-300'>
                 {status_tabs.map((tab, index) => {
                     const count = data?.appointments.filter(appointment => appointment.status === tab).length;
                     return (
                         <li
                             key={index}
                             onClick={() => set_active_status_tab(tab)}
-                            className={`text-sm py-2 px-4 text-center rounded-md cursor-pointer capitalize flex items-center gap-2 ${active_status_tab === tab ? 'bg-gray-700 text-gray-100' : 'text-gray-800'}`}
+                            className={`capitalize cursor-pointer py-2 px-4 rounded-md font-medium text-sm ${active_status_tab === tab ? 'bg-primary text-white' : 'bg-white text-gray-600 hover:bg-[#f6f0f4] hover:text-primary border border-gray-200'}`}
                         >
                             {tab} <span className='text-xs text-gray-400'>{count > 0 && count}</span>
                         </li>
@@ -135,7 +137,7 @@ const Appointments = () => {
             </ul>
 
             {filtered_appointments?.length > 0 ? (
-                <div className='space-y-5 max-md:space-y-8 sm:max-h-screen sm:overflow-y-auto'>
+                <div className='space-y-5 max-md:space-y-8 sm:max-h-screen sm:overflow-y-auto mt-6'>
                     {filtered_appointments.map((appointment, index) => (
                         <div key={index} className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 items-center gap-5  md:p-3 shadow-sm max-md:shadow-lg max-md:hover:shadow-xl duration-200 bg-white rounded-md'>
                             <div className='text-center lg:col-span-1 max-md:bg-primary max-md:rounded-md max-md:p-3'>
@@ -189,7 +191,7 @@ const Appointments = () => {
                                             <span className='sm:hidden'>Edit</span>
                                         </button>
                                         {editConfirmAppt.show && <ModalPopup isOpen={editConfirmAppt.show} onClose={() => setEditConfirmAppt({ show: false })} title={"Edit Appointment"} icon={<HiPencilSquare />}>
-                                        <div>Show Edit Form</div>    
+                                            <div>Show Edit Form</div>
                                         </ModalPopup>}
                                         {new Date() >= new Date(appointment.date) ? (
                                             <button onClick={() => handleJoinNow(appointment)} className='bg-primary hover:bg-primaryHover rounded-md text-white text-base flex items-center gap-2 justify-center  w-44 max-md:w-full h-12'>
@@ -224,7 +226,31 @@ const Appointments = () => {
                     ))}
                 </div>
             ) : (
-                <div className='text-center'>No {active_status_tab} appointments!</div>
+                <div className="text-center py-10 text-gray-500 max-sm:h-screen">
+                    <CalendarClock className="mx-auto h-12 w-12 mb-4 text-gray-400" />
+                    <p className="text-lg font-medium capitalize">No {active_status_tab} Appointment!</p>
+                    <p className='text-sm'>
+                        {active_status_tab === 'confirmed' ?
+                            'Book or confirm a appointment to get started'
+                            :
+                            active_status_tab === 'pending' ?
+                                'Book an appointment to get started'
+                                :
+                                active_status_tab === 'cancelled' ?
+                                    'You have no cancelled appointment'
+                                    :
+                                    "You have no paste appointment"
+                        }
+                    </p>
+                    <div className='w-full flex items-center justify-center mt-10'>
+                        {active_status_tab === 'confirmed' &&
+                            <Link href="/vet-appointment"><Button variant={'primaryOutline'}>Book new appointment</Button></Link>
+                        }
+                        {active_status_tab === 'pending' &&
+                            <Link href="/vet-appointment"><Button variant={'primaryOutline'}>Book new appointment</Button></Link>
+                        }
+                    </div>
+                </div>
             )}
         </div>
     );
