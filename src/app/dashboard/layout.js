@@ -12,7 +12,7 @@ const DashboardLayout = ({ children }) => {
     const links = [
         { title: "Dashboard", link: "/dashboard", icon: <FaHouse /> },
         { title: "Pet Profiles", link: "/dashboard/pets", icon: <FaPaw /> },
-        { title: "Vet GPT", link: "/dashboard/symptom-checker", icon: <Stethoscope size={20} /> },
+        { title: "Vet GPT", link: "/dashboard/vet-gpt", icon: <Stethoscope size={20} /> },
         { title: "Appointments", link: "/dashboard/appointments", icon: <FaCalendar /> },
         { title: "Messages", link: "/dashboard/messages", icon: <FaRegMessage /> },
         { title: "Wishlist", link: "/dashboard/wishlist", icon: <FaRegHeart /> },
