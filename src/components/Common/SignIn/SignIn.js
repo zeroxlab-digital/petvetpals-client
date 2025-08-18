@@ -7,28 +7,39 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 import TinySpinner from "../Loader/TinySpinner";
 import { useSignInUserMutation } from "@/redux/services/userApi";
-import { PawPrint } from "lucide-react";
+import { PawPrint, Stethoscope } from "lucide-react";
 import PawBackground from "../PawBackground/PawBackground";
+import { useLoginVetMutation } from "@/redux/services/vetApi";
 
-const SignInPage = () => {
+const SignInPage = ({ mode = "user" }) => {
     const notify = (message, type) => {
         toast(message, { type: type, autoClose: 1000 });
     }
     const router = useRouter();
-    const [user, setUser] = useState({
+    const [formData, setFormData] = useState({
         email: "",
         password: ""
     })
 
-    const [signInUser, { isLoading, error }] = useSignInUserMutation();
-    const handleUserLogin = async (e) => {
+    const [signInUser, { isLoading: userLoading, error: userError }] = useSignInUserMutation();
+    const [loginVet, { isLoading: vetLoading, error: vetError }] = useLoginVetMutation();
+    const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await signInUser(user);
-            console.log(response)
-            if (response.data?.success === "true") {
-                notify("User login successfull!", "success");
-                router.push("/");
+            if (mode === 'user') {
+                const response = await signInUser(formData);
+                console.log(response)
+                if (response.data?.success === "true") {
+                    notify("User login successfull!", "success");
+                    router.push("/");
+                }
+            } else if (mode === 'vet') {
+                const response = await loginVet(formData);
+                console.log(response)
+                if (response.data?.success) {
+                    notify("Vet login successfull!", "success");
+                    router.push("/veterinarian");
+                }
             }
         } catch (error) {
             console.log(error);
@@ -40,25 +51,31 @@ const SignInPage = () => {
             <div className="w-full sm:w-[21rem] max-md:px-7 text-center flex justify-center items-center h-screen mx-auto ">
                 <div className="w-full mx-auto">
                     <>
-                        <h2 className="text-[22px] font-bold text-primary mb-7 flex items-center gap-3 justify-center uppercase"><PawPrint /> Login Pawfile</h2>
-                        <form onSubmit={handleUserLogin} action="#" className="flex flex-col gap-3">
+                        <h2 className="text-2xl font-bold text-primary mb-7 flex items-center justify-center">
+                            {mode === 'user' ?
+                                <><PawPrint className="mr-3" /> Login Pawfile</>
+                                :
+                                <><Stethoscope className="mr-3 text-blue-600" /> Login Pet<span className="text-blue-600">Vet</span>Pals</>
+                            }
+                        </h2>
+                        <form onSubmit={handleLogin} action="#" className="flex flex-col gap-3">
                             <Input type="email" placeholder="Email address"
                                 name="email"
-                                onChange={(e) => setUser({ ...user, email: e.target.value })}
-                                value={user.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                value={formData.email}
                                 classNames={"bg-transparent text-gray-900 border-gray-300"}
                             />
                             <Input type="password" placeholder="Password"
                                 name="password"
-                                onChange={(e) => setUser({ ...user, password: e.target.value })}
-                                value={user.password}
+                                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                value={formData.password}
                                 classNames={"bg-transparent text-gray-900 border-gray-300"}
                             />
                             <div className="flex">
                                 <Link className="text-sm text-gray-800" href="/forgot-password">Forgot password?</Link>
                             </div>
-                            {error && <p className="text-red-400">{error.data?.message}</p>}
-                            <button type="submit" className={`bg-primary hover:bg-primaryHover duration-200 p-3 rounded-full cursor-pointer text-white mt-5 ${error && '!mt-0'}`}>{isLoading ? <TinySpinner /> : 'Sign In'}</button>
+                            {(userError || vetError) && <p className="text-red-400">{(userError || vetError).data?.message}</p>}
+                            <button type="submit" className={`bg-primary hover:bg-primaryHover duration-200 p-3 rounded-full cursor-pointer text-white mt-5 ${(userError || vetError) && '!mt-0'}`}>{userLoading || vetLoading ? <TinySpinner /> : 'Sign In'}</button>
                         </form>
                         <div className="my-5">
                             <p className="text-sm text-gray-800">Dont have an account? <Link href="/signup" className="text-primary">Sign Up</Link></p>

@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import Search from "./Search";
 import CartCount from "@/e-commerce/Cart/CartCount";
 import { PawPrint } from "lucide-react";
-import { useIsAuthenticated } from "../../../../hooks/useIsAuthenticated";
+import { useUserAuthenticated } from "../../../../hooks/useUserAuthenticated";
 import { usePathname } from "next/navigation";
 
 const Header = () => {
     const pathname = usePathname();
-    const { isAuthenticated: authUser } = useIsAuthenticated();
+    const { isAuthenticated: authUser } = useUserAuthenticated();
 
     const [responsiveMenu, setResponsiveMenu] = useState(false)
 

@@ -43,4 +43,4 @@ const DashboardLayout = ({ children }) => {
     );
 };
 
-export default ProtectedPage(DashboardLayout);
+export default ProtectedPage(DashboardLayout, "user");

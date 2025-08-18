@@ -1,10 +1,10 @@
 "use client"
 import Link from "next/link"
 import { User, ShoppingBag, Pill, Stethoscope, ArrowUpRight, Sparkles, HeartPulse } from "lucide-react"
-import { useIsAuthenticated } from "../../../hooks/useIsAuthenticated"
+import { useUserAuthenticated } from "../../../hooks/useUserAuthenticated"
 
 const FeaturesSection = () => {
-    const { isAuthenticated: authUser } = useIsAuthenticated();
+    const { isAuthenticated: authUser } = useUserAuthenticated();
 
     const features = [
         {

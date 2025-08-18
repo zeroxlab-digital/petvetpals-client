@@ -4,10 +4,10 @@ import Participants from './TopBar/Participants';
 import ConversationContainer from './MessagesContainer/ConversationContainer';
 import { useSelector } from 'react-redux';
 import Image from 'next/image';
-import { useIsAuthenticated } from '../../../../hooks/useIsAuthenticated';
+import { useUserAuthenticated } from '../../../../hooks/useUserAuthenticated';
 
 const Messenger = () => {
-    const { isAuthenticated: authUser } = useIsAuthenticated();
+    const { isAuthenticated: authUser } = useUserAuthenticated();
     const clickedParticipant = useSelector((state) => state.messageRedu.clickedParticipant);
     return (
         <div className='md:grid md:grid-cols-[5fr_2fr] max-md:grid-cols-1 gap-5 h-full'>
