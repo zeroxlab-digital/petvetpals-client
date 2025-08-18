@@ -9,6 +9,7 @@ import { userApi } from "../services/userApi";
 import { symptomApi } from "../services/symptomApi";
 import { nutritionistApi } from "../services/NutritionistApi";
 import { allergyCoachApi } from "../services/allergyCoachApi";
+import { vetApi } from "../services/vetApi";
 
 const store = configureStore({
     reducer: {
@@ -20,7 +21,8 @@ const store = configureStore({
         [petApi.reducerPath]: petApi.reducer,
         [symptomApi.reducerPath]: symptomApi.reducer,
         [nutritionistApi.reducerPath]: nutritionistApi.reducer,
-        [allergyCoachApi.reducerPath]: allergyCoachApi.reducer
+        [allergyCoachApi.reducerPath]: allergyCoachApi.reducer,
+        [vetApi.reducerPath]: vetApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
@@ -31,6 +33,7 @@ const store = configureStore({
             .concat(symptomApi.middleware)
             .concat(nutritionistApi.middleware)
             .concat(allergyCoachApi.middleware)
+            .concat(vetApi.middleware)
 })
 
 setupListeners(store.dispatch)

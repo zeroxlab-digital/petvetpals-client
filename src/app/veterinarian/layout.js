@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useState } from 'react';
 import { HiBars3CenterLeft } from 'react-icons/hi2';
+import ProtectedPage from '@/components/Common/ProtectedPage/ProtectedPage';
 
 const VetLayout = ({ children }) => {
     const [responsiveToggle, setResponsiveToggle] = useState(false);
@@ -95,4 +96,4 @@ const VetLayout = ({ children }) => {
     );
 };
 
-export default VetLayout;
+export default ProtectedPage(VetLayout, "vet");

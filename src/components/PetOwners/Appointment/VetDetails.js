@@ -12,10 +12,10 @@ import Link from "next/link";
 import FAQs from "@/components/Common/FAQs/FAQs";
 import { PetSpinner } from "../../Common/Loader/PetSpinner";
 import { useGetAppointmentsQuery } from "@/redux/services/appointmentApi";
-import { useIsAuthenticated } from "../../../../hooks/useIsAuthenticated";
+import { useUserAuthenticated } from "../../../../hooks/useUserAuthenticated";
 
 const VetDetails = ({ params }) => {
-    const {isAuthenticated: authUser } = useIsAuthenticated();
+    const {isAuthenticated: authUser } = useUserAuthenticated();
     const { vets, isLoading, error } = useFetchVets();
     const foundVet = vets.find(vet => vet._id === params._id);
 
