@@ -92,7 +92,7 @@ const Appointments = () => {
 
     const handleJoinNow = (appointment) => {
         console.log("Trigger join appointment:", appointment._id);
-        window.open(`https://meet.jit.si/petvetpals-appointment/${appointment._id}`, '_blank');
+        window.open(`https://meet.jit.si/petvetpals-appointment/${appointment._id}#config.prejoinPageEnabled=false`, '_blank');
     }
 
     // Appointment Reschedule
@@ -167,9 +167,6 @@ const Appointments = () => {
                                     {(() => {
                                         const startDate = new Date(appointment.date);
                                         const endDate = new Date(startDate.getTime() + 30 * 60 * 1000);
-                                        // if (new Date().getTime() >= endDate.getTime()) {
-                                        //     handleMakePastAppointment();
-                                        // }
                                         return `${startDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })} - ${endDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;
                                     })()}
                                 </p>

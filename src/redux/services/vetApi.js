@@ -27,8 +27,12 @@ export const vetApi = createApi({
         getVetProfile: build.query({
             query: () => "/get-vet-profile",
             providesTags: "Vet"
+        }),
+        getAppointments: build.query({
+            query: () => "/get-appointments",
+            providesTags: "Vet"
         })
     })
 })
 
-export const { useLoginVetMutation, useRegisterVetMutation, useGetVetProfileQuery } = vetApi;
+export const { useLoginVetMutation, useRegisterVetMutation, useGetVetProfileQuery, useGetAppointmentsQuery } = vetApi;

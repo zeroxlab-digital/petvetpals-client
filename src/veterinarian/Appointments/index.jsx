@@ -1,12 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import AppointmentsHeader from "./components/AppointmentsHeader"
 import AppointmentsTabs from "./components/AppointmentsTabs"
 import AppointmentDetailsModal from "./components/AppointmentDetailsModal"
 import RescheduleModal from "./components/RescheduleModal"
 import NotesModal from "./components/NotesModal"
 import FullRecordModal from "./components/FullRecordModal"
+import { useGetAppointmentsQuery } from "@/redux/services/vetApi"
+import { useUpdateAppointmentMutation } from "@/redux/services/appointmentApi"
 
 export default function Appointments() {
   const [selectedAppointment, setSelectedAppointment] = useState(null)
@@ -18,177 +20,226 @@ export default function Appointments() {
   const [showFullRecordModal, setShowFullRecordModal] = useState(false)
   const [selectedPatientRecord, setSelectedPatientRecord] = useState(null)
 
+  const [updateAppointment] = useUpdateAppointmentMutation();
+  const handleMakePastAppointment = async (id) => {
+    try {
+      const res = await updateAppointment({ id, status: "past" }).unwrap();
+      console.log("Updated appointment:", res);
+    } catch (error) {
+      console.error("Failed to update appointment:", error);
+    }
+  };
+  const handleMakeCancelledAppointment = async (id) => {
+    try {
+      const res = await updateAppointment({ id, status: "cancelled" }).unwrap();
+      console.log("Updated appointment:", res);
+    } catch (error) {
+      console.error("Failed to update appointment:", error);
+    }
+  };
+
+  const { data, isLoading: appointmentsLoading } = useGetAppointmentsQuery();
+  const today = new Date();
+  const todayAppointments = data?.appointments.filter(appointment => {
+    const apptDate = new Date(appointment.date);
+    return apptDate.toDateString() === today.toDateString() && appointment.status !== 'past';
+  });
+  const upcomingAppointments = data?.appointments.filter(appointment => appointment.date !== new Date() && appointment.status !== 'past');
+  const pastAppointments = data?.appointments.filter(appointment => appointment.status === 'past');
+
+  useEffect(() => {
+    if (!appointmentsLoading && data?.appointments?.length) {
+      data.appointments.forEach(element => {
+        const startTime = new Date(element.date);
+        const endTime = new Date(startTime.getTime() + 30 * 60 * 1000);
+        if (new Date().getTime() >= endTime.getTime()) {
+          if (element.status === "confirmed") {
+            handleMakePastAppointment(element._id);
+          } else if (element.status === "pending") {
+            handleMakeCancelledAppointment(element._id);
+          }
+        }
+      });
+    }
+  }, [data, appointmentsLoading]);
+
   const appointments = {
-    today: [
-      {
-        id: 1,
-        pet: {
-          name: "Buddy",
-          breed: "Golden Retriever",
-          age: "3 years",
-          weight: "65 lbs",
-          gender: "Male",
-          image: "/placeholder.svg?height=64&width=64",
-          medicalHistory: [
-            {
-              condition: "Annual Checkup",
-              date: "2024-01-15",
-              vet: "Dr. Smith",
-              notes: "Healthy, all vitals normal. Recommended dental cleaning.",
-            },
-          ],
-          allergies: ["Chicken", "Dust mites"],
-          vaccinationStatus: "Up to date - Next due March 2025",
-          behaviorNotes: "Friendly, good with children and other pets",
-          currentMedications: [
-            {
-              name: "Heartgard Plus",
-              dosage: "1 tablet monthly",
-              purpose: "Heartworm prevention",
-              startDate: "Jan 2024",
-            },
-          ],
-          diet: {
-            food: "Royal Canin Adult",
-            amount: "3 cups daily",
-            schedule: "Morning and evening",
-            treats: "Training treats, occasional carrots",
-            restrictions: "No chicken-based products",
-          },
-          activity: {
-            level: "High",
-            exercise: "2 walks daily, 1 hour each",
-            favorite: "Fetch, swimming",
-            restrictions: "None",
-            lastActivity: "Morning walk - 2 hours ago",
-          },
-        },
-        owner: {
-          name: "Sarah Johnson",
-          phone: "+1 (555) 123-4567",
-          email: "sarah.johnson@email.com",
-          address: "123 Oak Street, Springfield, IL 62701",
-          emergencyContact: "Mike Johnson - +1 (555) 123-4568",
-        },
-        time: "10:30 AM",
-        duration: "30 min",
-        type: "Routine Checkup",
-        status: "confirmed",
-        priority: "normal",
-        reason: "Annual wellness examination",
-      },
-    ],
-    upcoming: [
-      {
-        id: 2,
-        pet: {
-          name: "Whiskers",
-          breed: "Persian Cat",
-          age: "5 years",
-          weight: "12 lbs",
-          gender: "Female",
-          image: "/placeholder.svg?height=64&width=64",
-          medicalHistory: [
-            {
-              condition: "Dental Cleaning",
-              date: "2024-02-10",
-              vet: "Dr. Johnson",
-              notes: "Removed tartar buildup, prescribed dental care routine.",
-            },
-          ],
-          allergies: ["Seafood"],
-          vaccinationStatus: "Overdue - Needs FVRCP booster",
-          behaviorNotes: "Shy, prefers quiet environments",
-          currentMedications: [],
-          diet: {
-            food: "Hill's Science Diet Indoor",
-            amount: "1/2 cup twice daily",
-            schedule: "7 AM and 6 PM",
-            treats: "Dental treats",
-            restrictions: "No seafood",
-          },
-          activity: {
-            level: "Low",
-            exercise: "Indoor play, 15 minutes daily",
-            favorite: "Feather toys, window watching",
-            restrictions: "Indoor only",
-            lastActivity: "Play session - 4 hours ago",
-          },
-        },
-        owner: {
-          name: "Mike Chen",
-          phone: "+1 (555) 987-6543",
-          email: "mike.chen@email.com",
-          address: "456 Pine Avenue, Springfield, IL 62702",
-          emergencyContact: "Lisa Chen - +1 (555) 987-6544",
-        },
-        time: "2:00 PM",
-        duration: "45 min",
-        type: "Vaccination",
-        status: "pending",
-        priority: "high",
-        reason: "Overdue vaccinations and health check",
-      },
-    ],
-    completed: [
-      {
-        id: 3,
-        pet: {
-          name: "Luna",
-          breed: "Border Collie",
-          age: "2 years",
-          weight: "45 lbs",
-          gender: "Female",
-          image: "/placeholder.svg?height=64&width=64",
-          medicalHistory: [
-            {
-              condition: "Spay Surgery",
-              date: "2024-03-01",
-              vet: "Dr. Smith",
-              notes: "Surgery successful, recovery going well.",
-            },
-          ],
-          allergies: ["None known"],
-          vaccinationStatus: "Up to date",
-          behaviorNotes: "Very active, highly intelligent, needs mental stimulation",
-          currentMedications: [
-            {
-              name: "Carprofen",
-              dosage: "50mg twice daily",
-              purpose: "Post-surgery pain management",
-              startDate: "Mar 2024",
-            },
-          ],
-          diet: {
-            food: "Blue Buffalo Life Protection",
-            amount: "2.5 cups daily",
-            schedule: "Morning and evening",
-            treats: "Training treats, puzzle toys with treats",
-            restrictions: "None",
-          },
-          activity: {
-            level: "Very High",
-            exercise: "3+ hours daily - running, agility training",
-            favorite: "Agility courses, frisbee, herding games",
-            restrictions: "Limited activity for 2 weeks post-surgery",
-            lastActivity: "Light walk - 1 hour ago",
-          },
-        },
-        owner: {
-          name: "Emma Davis",
-          phone: "+1 (555) 456-7890",
-          email: "emma.davis@email.com",
-          address: "789 Maple Drive, Springfield, IL 62703",
-          emergencyContact: "Tom Davis - +1 (555) 456-7891",
-        },
-        time: "9:00 AM",
-        duration: "60 min",
-        type: "Post-Surgery Follow-up",
-        status: "completed",
-        priority: "normal",
-        reason: "Post-spay surgery check and suture removal",
-      },
-    ],
+    today: todayAppointments
+    // [
+    //   {
+    //     id: 1,
+    //     pet: {
+    //       name: "Buddy",
+    //       breed: "Golden Retriever",
+    //       age: "3 years",
+    //       weight: "65 lbs",
+    //       gender: "Male",
+    //       image: "/placeholder.svg?height=64&width=64",
+    //       medicalHistory: [
+    //         {
+    //           condition: "Annual Checkup",
+    //           date: "2024-01-15",
+    //           vet: "Dr. Smith",
+    //           notes: "Healthy, all vitals normal. Recommended dental cleaning.",
+    //         },
+    //       ],
+    //       allergies: ["Chicken", "Dust mites"],
+    //       vaccinationStatus: "Up to date - Next due March 2025",
+    //       behaviorNotes: "Friendly, good with children and other pets",
+    //       currentMedications: [
+    //         {
+    //           name: "Heartgard Plus",
+    //           dosage: "1 tablet monthly",
+    //           purpose: "Heartworm prevention",
+    //           startDate: "Jan 2024",
+    //         },
+    //       ],
+    //       diet: {
+    //         food: "Royal Canin Adult",
+    //         amount: "3 cups daily",
+    //         schedule: "Morning and evening",
+    //         treats: "Training treats, occasional carrots",
+    //         restrictions: "No chicken-based products",
+    //       },
+    //       activity: {
+    //         level: "High",
+    //         exercise: "2 walks daily, 1 hour each",
+    //         favorite: "Fetch, swimming",
+    //         restrictions: "None",
+    //         lastActivity: "Morning walk - 2 hours ago",
+    //       },
+    //     },
+    //     owner: {
+    //       name: "Sarah Johnson",
+    //       phone: "+1 (555) 123-4567",
+    //       email: "sarah.johnson@email.com",
+    //       address: "123 Oak Street, Springfield, IL 62701",
+    //       emergencyContact: "Mike Johnson - +1 (555) 123-4568",
+    //     },
+    //     time: "10:30 AM",
+    //     duration: "30 min",
+    //     type: "Routine Checkup",
+    //     status: "confirmed",
+    //     priority: "normal",
+    //     reason: "Annual wellness examination",
+    //   },
+    // ]
+    ,
+    upcoming: upcomingAppointments
+    // [
+    //   {
+    //     id: 2,
+    //     pet: {
+    //       name: "Whiskers",
+    //       breed: "Persian Cat",
+    //       age: "5 years",
+    //       weight: "12 lbs",
+    //       gender: "Female",
+    //       image: "/placeholder.svg?height=64&width=64",
+    //       medicalHistory: [
+    //         {
+    //           condition: "Dental Cleaning",
+    //           date: "2024-02-10",
+    //           vet: "Dr. Johnson",
+    //           notes: "Removed tartar buildup, prescribed dental care routine.",
+    //         },
+    //       ],
+    //       allergies: ["Seafood"],
+    //       vaccinationStatus: "Overdue - Needs FVRCP booster",
+    //       behaviorNotes: "Shy, prefers quiet environments",
+    //       currentMedications: [],
+    //       diet: {
+    //         food: "Hill's Science Diet Indoor",
+    //         amount: "1/2 cup twice daily",
+    //         schedule: "7 AM and 6 PM",
+    //         treats: "Dental treats",
+    //         restrictions: "No seafood",
+    //       },
+    //       activity: {
+    //         level: "Low",
+    //         exercise: "Indoor play, 15 minutes daily",
+    //         favorite: "Feather toys, window watching",
+    //         restrictions: "Indoor only",
+    //         lastActivity: "Play session - 4 hours ago",
+    //       },
+    //     },
+    //     owner: {
+    //       name: "Mike Chen",
+    //       phone: "+1 (555) 987-6543",
+    //       email: "mike.chen@email.com",
+    //       address: "456 Pine Avenue, Springfield, IL 62702",
+    //       emergencyContact: "Lisa Chen - +1 (555) 987-6544",
+    //     },
+    //     time: "2:00 PM",
+    //     duration: "45 min",
+    //     type: "Vaccination",
+    //     status: "pending",
+    //     priority: "high",
+    //     reason: "Overdue vaccinations and health check",
+    //   },
+    // ]
+    ,
+    completed: pastAppointments
+    // [
+    //   {
+    //     id: 3,
+    //     pet: {
+    //       name: "Luna",
+    //       breed: "Border Collie",
+    //       age: "2 years",
+    //       weight: "45 lbs",
+    //       gender: "Female",
+    //       image: "/placeholder.svg?height=64&width=64",
+    //       medicalHistory: [
+    //         {
+    //           condition: "Spay Surgery",
+    //           date: "2024-03-01",
+    //           vet: "Dr. Smith",
+    //           notes: "Surgery successful, recovery going well.",
+    //         },
+    //       ],
+    //       allergies: ["None known"],
+    //       vaccinationStatus: "Up to date",
+    //       behaviorNotes: "Very active, highly intelligent, needs mental stimulation",
+    //       currentMedications: [
+    //         {
+    //           name: "Carprofen",
+    //           dosage: "50mg twice daily",
+    //           purpose: "Post-surgery pain management",
+    //           startDate: "Mar 2024",
+    //         },
+    //       ],
+    //       diet: {
+    //         food: "Blue Buffalo Life Protection",
+    //         amount: "2.5 cups daily",
+    //         schedule: "Morning and evening",
+    //         treats: "Training treats, puzzle toys with treats",
+    //         restrictions: "None",
+    //       },
+    //       activity: {
+    //         level: "Very High",
+    //         exercise: "3+ hours daily - running, agility training",
+    //         favorite: "Agility courses, frisbee, herding games",
+    //         restrictions: "Limited activity for 2 weeks post-surgery",
+    //         lastActivity: "Light walk - 1 hour ago",
+    //       },
+    //     },
+    //     owner: {
+    //       name: "Emma Davis",
+    //       phone: "+1 (555) 456-7890",
+    //       email: "emma.davis@email.com",
+    //       address: "789 Maple Drive, Springfield, IL 62703",
+    //       emergencyContact: "Tom Davis - +1 (555) 456-7891",
+    //     },
+    //     time: "9:00 AM",
+    //     duration: "60 min",
+    //     type: "Post-Surgery Follow-up",
+    //     status: "completed",
+    //     priority: "normal",
+    //     reason: "Post-spay surgery check and suture removal",
+    //   },
+    // ]
+
   }
 
   const getStatusColor = (status) => {

@@ -50,7 +50,7 @@ export default function AppointmentsTabs({
         ) : (
           <Card className="p-8 text-center">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">No appointments for today</h3>
-            <p className="text-gray-600">Today's appointments will appear here</p>
+            <p className="text-gray-600">Today&apos;s appointments will appear here</p>
           </Card>
         )}
       </TabsContent>
