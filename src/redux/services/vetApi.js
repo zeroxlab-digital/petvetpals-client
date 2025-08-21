@@ -31,8 +31,15 @@ export const vetApi = createApi({
         getAppointments: build.query({
             query: () => "/get-appointments",
             providesTags: "Vet"
+        }),
+        logoutVet: build.mutation({
+            query: () => ({
+                url: "/logout",
+                method: "POST",
+            }),
+            invalidatesTags: ["Vet"]
         })
     })
 })
 
-export const { useLoginVetMutation, useRegisterVetMutation, useGetVetProfileQuery, useGetAppointmentsQuery } = vetApi;
+export const { useLoginVetMutation, useRegisterVetMutation, useGetVetProfileQuery, useGetAppointmentsQuery, useLogoutVetMutation } = vetApi;
