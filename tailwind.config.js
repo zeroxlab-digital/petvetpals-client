@@ -6,6 +6,7 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/landing/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/e-commerce/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/veterinarian/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
   	extend: {

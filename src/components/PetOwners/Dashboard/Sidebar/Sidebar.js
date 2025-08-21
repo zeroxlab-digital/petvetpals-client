@@ -5,6 +5,7 @@ import { HiArrowRightOnRectangle } from 'react-icons/hi2';
 import { toast } from 'react-toastify';
 import { PawPrint } from 'lucide-react';
 import { useLogoutUserMutation } from '@/redux/services/userApi';
+import { useLogoutVetMutation } from '@/redux/services/vetApi';
 
 const Sidebar = ({ links, setResponsiveToggle = () => { } }) => {
 
@@ -15,12 +16,17 @@ const Sidebar = ({ links, setResponsiveToggle = () => { } }) => {
         toast(message, { type: type, autoClose: 1500 });
     }
     const [logoutUser] = useLogoutUserMutation();
+    const [logoutVet] = useLogoutVetMutation();
     const handleLogout = async () => {
         try {
             if (pathname.startsWith('/veterinarian')) {
-                alert("Vet Log Out Alert!")
-            }
-            else {
+                const res = await logoutVet({});
+                if (res.data?.success) {
+                    notify("Logout successfull!", "success");
+                    localStorage.clear();
+                    router.push("/veterinarian/signin");
+                }
+            } else {
                 const res = await logoutUser({});
                 if (res.data?.success) {
                     notify("Logout successfull!", "success");
