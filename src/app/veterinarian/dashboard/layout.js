@@ -19,37 +19,37 @@ const VetLayout = ({ children }) => {
     const links = [
         {
             title: "Dashboard",
-            link: "/veterinarian",
+            link: "/veterinarian/dashboard",
             icon: <Home size={20} />
         },
         {
             title: "Appointments",
-            link: "/veterinarian/appointments",
+            link: "/veterinarian/dashboard/appointments",
             icon: <Calendar size={20} />
         },
         {
             title: "Messages",
-            link: "/veterinarian/messages",
+            link: "/veterinarian/dashboard/messages",
             icon: <MessageCircle size={20} />
         },
         {
             title: "Patient Records",
-            link: "/veterinarian/patients",
+            link: "/veterinarian/dashboard/patients",
             icon: <PawPrint size={20} />
         },
         {
             title: "Treatments History",
-            link: "/veterinarian/treatments",
+            link: "/veterinarian/dashboard/treatments",
             icon: <Pill size={20} />
         },
         {
             title: "Earnings & Payouts",
-            link: "/veterinarian/earnings",
+            link: "/veterinarian/dashboard/earnings",
             icon: <DollarSign size={20} />
         },
         {
             title: "Vet Profile",
-            link: "/veterinarian/profile",
+            link: "/veterinarian/dashboard/profile",
             icon: <User size={20} />
         }
     ];

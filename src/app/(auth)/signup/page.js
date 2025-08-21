@@ -5,7 +5,7 @@ const SignUp = () => {
     
     return (
         <>
-            <SignUpPage />
+            <SignUpPage mode={"user"} />
             <ToastContainer />
         </>
     );
