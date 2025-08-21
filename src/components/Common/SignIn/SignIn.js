@@ -11,7 +11,8 @@ import { PawPrint, Stethoscope } from "lucide-react";
 import PawBackground from "../PawBackground/PawBackground";
 import { useLoginVetMutation } from "@/redux/services/vetApi";
 
-const SignInPage = ({ mode = "user" }) => {
+const SignInPage = ({ mode }) => {
+    console.log(mode)
     const notify = (message, type) => {
         toast(message, { type: type, autoClose: 1000 });
     }
@@ -38,7 +39,7 @@ const SignInPage = ({ mode = "user" }) => {
                 console.log(response)
                 if (response.data?.success) {
                     notify("Vet login successfull!", "success");
-                    router.push("/veterinarian");
+                    router.push("/veterinarian/dashboard");
                 }
             }
         } catch (error) {

@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 const SignIn = () => {
     return (
         <>
-            <SignInPage />
+            <SignInPage mode={"user"} />
             <ToastContainer />
         </>
     );
