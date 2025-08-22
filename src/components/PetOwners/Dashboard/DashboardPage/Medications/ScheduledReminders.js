@@ -306,7 +306,7 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
                                                     return (
                                                         <div className="space-y-1">
                                                             <div className="text-xs text-gray-700 font-medium">
-                                                                {nextReminder.toLocaleString("en-US", {
+                                                                {nextReminder?.toLocaleString("en-US", {
                                                                     month: "2-digit",
                                                                     day: "2-digit",
                                                                     hour: "2-digit",
@@ -552,7 +552,7 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
                                                     return (
                                                         <div className="space-y-1">
                                                             <div className="text-xs text-gray-700 font-medium">
-                                                                {nextReminder.toLocaleString("en-US", {
+                                                                {nextReminder?.toLocaleString("en-US", {
                                                                     month: "2-digit",
                                                                     day: "2-digit",
                                                                     hour: "2-digit",
