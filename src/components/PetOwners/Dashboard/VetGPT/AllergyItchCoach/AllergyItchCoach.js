@@ -7,7 +7,6 @@ import html2pdf from "html2pdf.js"
 import TagInput from "@/components/Common/TagInput/TagInput"
 import { useGetAllergiesConditionsQuery, useGetMedicationsQuery, useGetPetsQuery } from "@/redux/services/petApi"
 import { useGetAllergyCoachResponseMutation } from "@/redux/services/allergyCoachApi"
-import axios from "axios"
 import { HiOutlineFaceFrown } from "react-icons/hi2"
 
 // Custom utility function to conditionally join class names
@@ -15,7 +14,7 @@ const cn = (...classes) => {
   return classes.filter(Boolean).join(" ")
 }
 
-// Custom Button component with enhanced styling
+// Custom Button component
 const Button = ({
   children,
   variant = "default",
@@ -60,7 +59,7 @@ const Button = ({
   )
 }
 
-// Enhanced Card components
+// Card components
 const Card = ({ className, children, hover = true, ...props }) => {
   return (
     <motion.div
@@ -108,7 +107,7 @@ const CardContent = ({ className, children, ...props }) => {
   )
 }
 
-// Enhanced Badge component
+// Badge component
 const Badge = ({ children, variant = "default", className, ...props }) => {
   const variants = {
     default: "bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-md",
@@ -134,7 +133,7 @@ const Badge = ({ children, variant = "default", className, ...props }) => {
   )
 }
 
-// Enhanced Skeleton component
+// Skeleton component
 const Skeleton = ({ className, ...props }) => {
   return (
     <div
@@ -250,196 +249,13 @@ const StepIndicator = ({ currentStep, totalSteps }) => {
   )
 }
 
-// Advanced Analytics Card Component
-const AnalyticsCard = ({ title, value, change, icon, trend = "neutral" }) => {
-  const trendColors = {
-    positive: "text-green-600 bg-green-100",
-    negative: "text-red-600 bg-red-100",
-    neutral: "text-blue-600 bg-blue-100",
-  }
-
-  return (
-    <div className="p-4 bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl border border-gray-200">
-      <div className="flex items-center justify-between mb-2">
-        <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center text-white">
-          {icon}
-        </div>
-        {change && (
-          <div className={cn("px-2 py-1 rounded-full text-xs font-bold", trendColors[trend])}>
-            {change > 0 ? "+" : ""}
-            {change}%
-          </div>
-        )}
-      </div>
-      <div className="text-2xl font-bold text-gray-800">{value}</div>
-      <div className="text-sm text-gray-600">{title}</div>
-    </div>
-  )
-}
-
-// Progress Chart Component
-const ProgressChart = ({ data, timeframe }) => {
-  const maxSeverity = Math.max(...data.map((d) => d.severity))
-
-  return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="font-bold text-gray-800">Severity Trend</h3>
-        <div className="flex gap-2">
-          {["7d", "30d", "90d"].map((period) => (
-            <button
-              key={period}
-              onClick={() => { }} // This will be handled by parent component
-              className={cn(
-                "px-3 py-1 rounded-lg text-xs font-medium transition-all",
-                timeframe === period
-                  ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200",
-              )}
-            >
-              {period}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Rest of the chart remains the same */}
-      <div className="relative h-48 bg-gradient-to-t from-gray-50 to-white rounded-xl border border-gray-200 p-4">
-        <div className="absolute inset-4 flex items-end justify-between">
-          {data.map((entry, index) => (
-            <div key={index} className="flex flex-col items-center group relative">
-              <div
-                className="w-6 bg-gradient-to-t from-pink-500 to-rose-400 rounded-t-sm transition-all duration-300 hover:from-pink-600 hover:to-rose-500"
-                style={{ height: `${(entry.severity / 10) * 100}%` }}
-              />
-              <div className="text-xs text-gray-500 mt-2 transform -rotate-45 origin-left">
-                {new Date(entry.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
-              </div>
-
-              {/* Tooltip */}
-              <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded-lg px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
-                Severity: {entry.severity}/10
-                <br />
-                Areas: {entry.areas}
-                {entry.notes && (
-                  <>
-                    <br />
-                    {entry.notes}
-                  </>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Y-axis labels */}
-        <div className="absolute left-0 top-4 bottom-4 flex flex-col justify-between text-xs text-gray-500">
-          <span>10</span>
-          <span>5</span>
-          <span>0</span>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// Reminder Component
-const ReminderCard = ({ reminder, onToggle, onDelete }) => {
-  const isOverdue = new Date(reminder.nextDue) < new Date()
-  const timeUntil = Math.ceil((new Date(reminder.nextDue) - new Date()) / (1000 * 60 * 60))
-
-  const reminderIcons = {
-    medication: <Heart className="h-4 w-4" />,
-    treatment: <Droplets className="h-4 w-4" />,
-    checkup: <Activity className="h-4 w-4" />,
-    appointment: <Calendar className="h-4 w-4" />,
-  }
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      className={cn(
-        "p-4 rounded-xl border-2 transition-all duration-200",
-        isOverdue
-          ? "bg-gradient-to-r from-red-50 to-pink-50 border-red-300"
-          : reminder.active
-            ? "bg-gradient-to-r from-blue-50 to-cyan-50 border-blue-300"
-            : "bg-gray-50 border-gray-200 opacity-60",
-      )}
-    >
-      <div className="flex items-start justify-between">
-        <div className="flex items-start gap-3">
-          <div
-            className={cn(
-              "w-10 h-10 rounded-lg flex items-center justify-center",
-              isOverdue
-                ? "bg-gradient-to-r from-red-500 to-pink-500 text-white"
-                : reminder.active
-                  ? "bg-gradient-to-r from-blue-500 to-cyan-500 text-white"
-                  : "bg-gray-300 text-gray-600",
-            )}
-          >
-            {reminderIcons[reminder.type]}
-          </div>
-          <div>
-            <h3 className="font-bold text-gray-800">{reminder.title}</h3>
-            <p className="text-sm text-gray-600">{reminder.description}</p>
-            <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
-              <span>⏰ {reminder.time}</span>
-              <span>🔄 {reminder.frequency}</span>
-              {isOverdue ? (
-                <Badge variant="danger" className="text-xs">
-                  Overdue
-                </Badge>
-              ) : timeUntil > 0 ? (
-                <Badge variant="info" className="text-xs">
-                  In {timeUntil}h
-                </Badge>
-              ) : (
-                <Badge variant="success" className="text-xs">
-                  Due now
-                </Badge>
-              )}
-            </div>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => onToggle(reminder.id)}
-            className={cn(
-              "w-8 h-8 rounded-lg flex items-center justify-center transition-all",
-              reminder.active
-                ? "bg-green-100 text-green-600 hover:bg-green-200"
-                : "bg-gray-100 text-gray-400 hover:bg-gray-200",
-            )}
-          >
-            <Check className="h-4 w-4" />
-          </button>
-          <button
-            onClick={() => onDelete(reminder.id)}
-            className="w-8 h-8 rounded-lg flex items-center justify-center bg-red-100 text-red-600 hover:bg-red-200 transition-all"
-          >
-            <Minus className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
-    </motion.div>
-  )
-}
-
 export default function AllergyItchCoach() {
   const { data: { pets } = {}, isLoading: petsLoading } = useGetPetsQuery();
   const [selectedPet, setSelectedPet] = useState(null)
-  console.log("pet:", selectedPet);
   const { data: { allergiesConditions } = {}, isLoading: allergyConditionLoading } = useGetAllergiesConditionsQuery({ petId: selectedPet?._id }, { skip: !selectedPet?._id });
   const allergies = allergiesConditions?.filter(i => i.type == 'allergy').map(i => i.name);
   const { data: medications = {}, isLoading: medicationsLoading } = useGetMedicationsQuery({ petId: selectedPet?._id }, { skip: !selectedPet?._id });
-  console.log("medications:", medications)
   const currentMedications = medications?.medications?.filter((med) => med.is_ongoing === true).map(med => ({ name: med.medication, dosage: med.dosage })).map(i => i.name) || [];
-  console.log("current medications:", currentMedications)
-
   const [getAllergyCoachResponse, { isLoading: allergyCoachResLoading }] = useGetAllergyCoachResponseMutation();
 
   const [showPetMenu, setShowPetMenu] = useState(false)
@@ -480,17 +296,9 @@ export default function AllergyItchCoach() {
       previousTreatments: "",
     })
   }, [selectedPet, allergiesConditions, medications.medications])
-  console.log(formData);
 
-  const [reminders, setReminders] = useState([])
-  const [progressData, setProgressData] = useState([])
-  const [analyticsData, setAnalyticsData] = useState(null)
-  const [showReminders, setShowReminders] = useState(false)
-  const [showAnalytics, setShowAnalytics] = useState(false)
-  const [selectedTimeframe, setSelectedTimeframe] = useState("30d")
 
   // Mock data
-
   const mockAllergyHistory = [
     // {
     //   createdAt: new Date().toISOString(),
@@ -504,42 +312,6 @@ export default function AllergyItchCoach() {
     // },
   ]
 
-  const mockReminders = [
-    {
-      id: "1",
-      type: "medication",
-      title: "Give Apoquel",
-      description: "Daily allergy medication for Buddy",
-      time: "08:00",
-      frequency: "daily",
-      nextDue: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(),
-      active: true,
-      petId: "1",
-    },
-    {
-      id: "2",
-      type: "treatment",
-      title: "Apply medicated shampoo",
-      description: "Weekly antifungal shampoo treatment",
-      time: "10:00",
-      frequency: "weekly",
-      nextDue: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
-      active: true,
-      petId: "1",
-    },
-    {
-      id: "3",
-      type: "checkup",
-      title: "Severity assessment",
-      description: "Rate current itch severity and document progress",
-      time: "19:00",
-      frequency: "daily",
-      nextDue: new Date(Date.now() + 5 * 60 * 60 * 1000).toISOString(),
-      active: true,
-      petId: "1",
-    },
-  ]
-
   const mockProgressData = [
     { date: "2024-01-01", severity: 8, areas: 3, treatments: 2, notes: "Started new treatment plan" },
     { date: "2024-01-03", severity: 7, areas: 3, treatments: 2, notes: "Slight improvement in paw area" },
@@ -550,39 +322,7 @@ export default function AllergyItchCoach() {
     { date: "2024-01-15", severity: 2, areas: 1, treatments: 1, notes: "Maintenance phase" },
   ]
 
-  const mockAnalyticsData = {
-    overview: {
-      totalEpisodes: 12,
-      averageDuration: 8.5,
-      mostAffectedArea: "paws",
-      commonTriggers: ["pollen", "new food", "stress"],
-      improvementRate: 78,
-    },
-    trends: {
-      severityTrend: -2.3,
-      episodeFrequency: -15,
-      treatmentEffectiveness: 85,
-      seasonalPattern: "spring_peak",
-    },
-    predictions: {
-      nextEpisodeRisk: "low",
-      riskFactors: ["upcoming pollen season", "diet change planned"],
-      recommendedActions: ["continue current treatment", "monitor closely in spring"],
-    },
-    triggers: [
-      { name: "Pollen", frequency: 8, severity: 7.2, season: "spring" },
-      { name: "New Food", frequency: 5, severity: 6.8, season: "all" },
-      { name: "Stress", frequency: 4, severity: 5.5, season: "all" },
-      { name: "Flea Treatment", frequency: 3, severity: 8.1, season: "summer" },
-    ],
-  }
-
-  // Replace with mock data
-  // const pets = mockPets
-  // const petsLoading = false
-  const remindersData = selectedPet ? mockReminders.filter((r) => r.petId === selectedPet._id) : []
   const progressDataFiltered = selectedPet ? mockProgressData : []
-  const analytics = selectedPet ? mockAnalyticsData : null
 
   // Body areas for itch episodes
   const bodyAreas = [
@@ -690,45 +430,6 @@ export default function AllergyItchCoach() {
     }
   }
 
-  const addReminder = (reminderData) => {
-    const newReminder = {
-      id: Date.now().toString(),
-      ...reminderData,
-      petId: selectedPet._id,
-      active: true,
-      createdAt: new Date().toISOString(),
-    }
-    setReminders((prev) => [...prev, newReminder])
-  }
-
-  const toggleReminder = (reminderId) => {
-    setReminders((prev) =>
-      prev.map((reminder) => (reminder.id === reminderId ? { ...reminder, active: !reminder.active } : reminder)),
-    )
-  }
-
-  const deleteReminder = (reminderId) => {
-    setReminders((prev) => prev.filter((reminder) => reminder.id !== reminderId))
-  }
-
-  const addProgressEntry = (progressEntry) => {
-    const newEntry = {
-      date: new Date().toISOString().split("T")[0],
-      severity: formData.severity,
-      areas: formData.affectedAreas.length,
-      treatments: formData.currentMedications ? formData.currentMedications.split(",").length : 0,
-      notes: progressEntry.notes || "",
-      ...progressEntry,
-    }
-    setProgressData((prev) => [...prev, newEntry].sort((a, b) => new Date(a.date) - new Date(b.date)))
-  }
-
-  const getTimeframeData = (timeframe) => {
-    const days = timeframe === "7d" ? 7 : timeframe === "30d" ? 30 : 90
-    const cutoffDate = new Date(Date.now() - days * 24 * 60 * 60 * 1000)
-    return progressData.filter((entry) => new Date(entry.date) >= cutoffDate)
-  }
-
   const calculateTrends = (data) => {
     if (data.length < 2) return { severity: 0, improvement: 0 }
 
@@ -826,44 +527,6 @@ export default function AllergyItchCoach() {
 
         {/* Step Indicator */}
         <StepIndicator currentStep={currentStep} totalSteps={4} />
-
-        {/* Emergency Warning */}
-        {/* <motion.div
-          className="bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-500 p-6 mb-8 rounded-r-2xl shadow-lg"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <div className="flex items-start">
-            <motion.div
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-            >
-              <AlertTriangle className="h-6 w-6 text-red-500 mt-0.5" />
-            </motion.div>
-            <div className="ml-4">
-              <h3 className="text-lg font-bold text-red-800 mb-2">🚨 Urgent Care Needed</h3>
-              <p className="text-red-700 mb-3">
-                Seek immediate veterinary attention if your pet shows any of these severe symptoms:
-              </p>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                {[
-                  "Severe swelling",
-                  "Difficulty breathing",
-                  "Open wounds/bleeding",
-                  "Signs of infection",
-                  "Extreme lethargy",
-                  "Loss of appetite",
-                ].map((symptom) => (
-                  <div key={symptom} className="flex items-center text-sm text-red-700">
-                    <div className="w-2 h-2 bg-red-500 rounded-full mr-2" />
-                    {symptom}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </motion.div> */}
 
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Main Form Area */}
@@ -1486,41 +1149,6 @@ export default function AllergyItchCoach() {
                     </CardContent>
                   </Card>
 
-                  {/* Educational Info */}
-                  {carePlan.educationalInfo && carePlan.educationalInfo.length > 0 && (
-                    <Card>
-                      <CardHeader gradient>
-                        <CardTitle className="flex items-center">
-                          <BookOpen className="mr-3 h-6 w-6 text-indigo-600" />
-                          Educational Information
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="pt-6">
-                        <p className="text-gray-700 text-base space-y-2">
-                          {carePlan.educationalInfo.map((info, index) => (
-                            <span key={index} className="block mb-2">{info}</span>
-                          ))}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  )}
-
-                  {/* Rationale */}
-                  {carePlan.rationale && (
-                    <Card>
-                      <CardHeader gradient>
-                        <CardTitle className="flex items-center">
-                          <Info className="mr-3 h-6 w-6 text-teal-600" />
-                          Rationale
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="pt-6">
-                        <p className="text-gray-700 text-base">{carePlan.rationale}</p>
-                      </CardContent>
-                    </Card>
-                  )}
-
-
                   {/* Follow-up Schedule */}
                   <Card>
                     <CardHeader gradient>
@@ -1551,6 +1179,40 @@ export default function AllergyItchCoach() {
                       </div>
                     </CardContent>
                   </Card>
+
+                  {/* Rationale */}
+                  {carePlan.rationale && (
+                    <Card>
+                      <CardHeader gradient>
+                        <CardTitle className="flex items-center">
+                          <Info className="mr-3 h-6 w-6 text-teal-600" />
+                          Rationale
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="pt-6">
+                        <p className="text-gray-700 text-base">{carePlan.rationale}</p>
+                      </CardContent>
+                    </Card>
+                  )}
+
+                  {/* Educational Info */}
+                  {carePlan.educationalInfo && carePlan.educationalInfo.length > 0 && (
+                    <Card>
+                      <CardHeader gradient>
+                        <CardTitle className="flex items-center">
+                          <BookOpen className="mr-3 h-6 w-6 text-indigo-600" />
+                          Educational Information
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="pt-6">
+                        <p className="text-gray-700 text-base space-y-2">
+                          {carePlan.educationalInfo.map((info, index) => (
+                            <span key={index} className="block mb-2">{info}</span>
+                          ))}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  )}
 
                   {/* Action Buttons */}
                   <Card>
@@ -1593,314 +1255,6 @@ export default function AllergyItchCoach() {
                 </motion.div>
               )}
             </AnimatePresence>
-
-            {/* Advanced Analytics Dashboard */}
-            <AnimatePresence mode="wait">
-              {currentStep >= 4 && carePlan && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.4, delay: 0.2 }}
-                  className="space-y-6 hidden"
-                >
-                  {/* AI Analytics Overview */}
-                  <Card>
-                    <CardHeader gradient>
-                      <CardTitle className="flex sm:items-center sm:justify-between max-sm:flex-col max-sm:gap-3">
-                        <div className="flex items-center">
-                          <Brain className="mr-3 h-6 w-6 text-purple-600" />
-                          AI Analytics Dashboard
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Badge variant="info">
-                            <Cpu className="h-3 w-3 mr-1" />
-                            AI-Powered
-                          </Badge>
-                          <Badge variant="success">
-                            <Wifi className="h-3 w-3 mr-1" />
-                            Real-time
-                          </Badge>
-                        </div>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="pt-6">
-                      {analytics && (
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                          <AnalyticsCard
-                            title="Total Episodes"
-                            value={analytics.overview.totalEpisodes}
-                            icon={<BarChart3 className="h-5 w-5" />}
-                            trend="neutral"
-                          />
-                          <AnalyticsCard
-                            title="Avg Duration"
-                            value={`${analytics.overview.averageDuration} days`}
-                            change={analytics.trends.episodeFrequency}
-                            icon={<Clock className="h-5 w-5" />}
-                            trend={analytics.trends.episodeFrequency < 0 ? "positive" : "negative"}
-                          />
-                          <AnalyticsCard
-                            title="Improvement Rate"
-                            value={`${analytics.overview.improvementRate}%`}
-                            change={analytics.trends.treatmentEffectiveness - 70}
-                            icon={<TrendingUp className="h-5 w-5" />}
-                            trend="positive"
-                          />
-                          <AnalyticsCard
-                            title="Risk Level"
-                            value={analytics.predictions.nextEpisodeRisk}
-                            icon={<Shield className="h-5 w-5" />}
-                            trend={analytics.predictions.nextEpisodeRisk === "low" ? "positive" : "negative"}
-                          />
-                        </div>
-                      )}
-
-                      {/* Progress Chart */}
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                          <h3 className="font-bold text-gray-800">Severity Trend</h3>
-                          <div className="flex gap-2">
-                            {["7d", "30d", "90d"].map((period) => (
-                              <button
-                                key={period}
-                                onClick={() => setSelectedTimeframe(period)}
-                                className={cn(
-                                  "px-3 py-1 rounded-lg text-xs font-medium transition-all",
-                                  selectedTimeframe === period
-                                    ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white"
-                                    : "bg-gray-100 text-gray-600 hover:bg-gray-200",
-                                )}
-                              >
-                                {period}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div className="relative h-48 bg-gradient-to-t from-gray-50 to-white rounded-xl border border-gray-200 p-4">
-                          <div className="absolute inset-4 flex items-end justify-between">
-                            {getTimeframeData(selectedTimeframe).map((entry, index) => (
-                              <div key={index} className="flex flex-col items-center group relative">
-                                <div
-                                  className="w-6 bg-gradient-to-t from-pink-500 to-rose-400 rounded-t-sm transition-all duration-300 hover:from-pink-600 hover:to-rose-500"
-                                  style={{ height: `${(entry.severity / 10) * 100}%` }}
-                                />
-                                <div className="text-xs text-gray-500 mt-2 transform -rotate-45 origin-left">
-                                  {new Date(entry.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
-                                </div>
-
-                                {/* Tooltip */}
-                                <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded-lg px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
-                                  Severity: {entry.severity}/10
-                                  <br />
-                                  Areas: {entry.areas}
-                                  {entry.notes && (
-                                    <>
-                                      <br />
-                                      {entry.notes}
-                                    </>
-                                  )}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-
-                          {/* Y-axis labels */}
-                          <div className="absolute left-0 top-4 bottom-4 flex flex-col justify-between text-xs text-gray-500">
-                            <span>10</span>
-                            <span>5</span>
-                            <span>0</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* AI Predictions */}
-                      {analytics && (
-                        <div className="mt-6 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200">
-                          <div className="flex items-center gap-3 mb-3">
-                            <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-                              <Brain className="h-5 w-5 text-white" />
-                            </div>
-                            <div>
-                              <h3 className="font-bold text-gray-800">AI Predictions & Insights</h3>
-                              <p className="text-sm text-gray-600">Based on historical data and pattern analysis</p>
-                            </div>
-                          </div>
-
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                              <h4 className="font-semibold text-gray-800 mb-2">Risk Factors</h4>
-                              <ul className="space-y-1">
-                                {analytics.predictions.riskFactors.map((factor, index) => (
-                                  <li key={index} className="flex items-center gap-2 text-sm text-gray-600">
-                                    <AlertTriangle className="h-3 w-3 text-orange-500" />
-                                    {factor}
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-
-                            <div>
-                              <h4 className="font-semibold text-gray-800 mb-2">Recommended Actions</h4>
-                              <ul className="space-y-1">
-                                {analytics.predictions.recommendedActions.map((action, index) => (
-                                  <li key={index} className="flex items-center gap-2 text-sm text-gray-600">
-                                    <Check className="h-3 w-3 text-green-500" />
-                                    {action}
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-
-                  {/* Smart Reminder System */}
-                  <Card>
-                    <CardHeader gradient>
-                      <CardTitle className="flex sm:items-center sm:justify-between max-sm:flex-col max-sm:gap-3">
-                        <div className="flex items-center">
-                          <Bell className="mr-3 h-6 w-6 text-green-600" />
-                          Smart Reminder System
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Badge variant="success">
-                            <Smartphone className="h-4 w-4 mr-2" />
-                            Push Notifications
-                          </Badge>
-                          <Button variant="outline" size="sm" onClick={() => setShowReminders(!showReminders)}>
-                            <Settings className="h-4 w-4 mr-2" />
-                            Manage
-                          </Button>
-                        </div>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="pt-6">
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                        <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200 text-center">
-                          <Smartphone className="h-8 w-8 text-green-600 mx-auto mb-2" />
-                          <div className="text-2xl font-bold text-gray-800">
-                            {remindersData.filter((r) => r.active).length}
-                          </div>
-                          <div className="text-sm text-gray-600">Active Reminders</div>
-                        </div>
-
-                        <div className="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-200 text-center">
-                          <Clock className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                          <div className="text-2xl font-bold text-gray-800">
-                            {remindersData.filter((r) => new Date(r.nextDue) < new Date()).length}
-                          </div>
-                          <div className="text-sm text-gray-600">Due Now</div>
-                        </div>
-
-                        <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200 text-center">
-                          <TrendingUp className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-                          <div className="text-2xl font-bold text-gray-800">94%</div>
-                          <div className="text-sm text-gray-600">Compliance Rate</div>
-                        </div>
-                      </div>
-
-                      <AnimatePresence>
-                        {showReminders && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="space-y-3"
-                          >
-                            {remindersData.map((reminder) => (
-                              <ReminderCard
-                                key={reminder.id}
-                                reminder={reminder}
-                                onToggle={toggleReminder}
-                                onDelete={deleteReminder}
-                              />
-                            ))}
-
-                            <Button
-                              variant="outline"
-                              className="w-full bg-transparent border-dashed"
-                              onClick={() => {
-                                // Add new reminder logic
-                                const newReminder = {
-                                  type: "checkup",
-                                  title: "Daily Assessment",
-                                  description: "Rate severity and document progress",
-                                  time: "20:00",
-                                  frequency: "daily",
-                                  nextDue: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
-                                }
-                                addReminder(newReminder)
-                              }}
-                            >
-                              <Plus className="h-4 w-4 mr-2" />
-                              Add New Reminder
-                            </Button>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </CardContent>
-                  </Card>
-
-                  {/* Trigger Analysis */}
-                  {analytics && (
-                    <Card>
-                      <CardHeader gradient>
-                        <CardTitle className="flex items-center">
-                          <Database className="mr-3 h-6 w-6 text-orange-600" />
-                          Trigger Analysis & Patterns
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="pt-6">
-                        <div className="space-y-4">
-                          {analytics.triggers.map((trigger, index) => (
-                            <motion.div
-                              key={index}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: index * 0.1 }}
-                              className="p-4 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-xl border border-orange-200"
-                            >
-                              <div className="flex items-center justify-between mb-3">
-                                <div className="flex items-center gap-3">
-                                  <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-lg flex items-center justify-center text-white font-bold">
-                                    {trigger.frequency}
-                                  </div>
-                                  <div>
-                                    <h3 className="font-bold text-gray-800">{trigger.name}</h3>
-                                    <p className="text-sm text-gray-600">Peak season: {trigger.season}</p>
-                                  </div>
-                                </div>
-                                <div className="text-right">
-                                  <div className="text-lg font-bold text-gray-800">{trigger.severity}/10</div>
-                                  <div className="text-xs text-gray-500">Avg Severity</div>
-                                </div>
-                              </div>
-
-                              <div className="space-y-2">
-                                <div className="flex justify-between text-sm text-gray-600">
-                                  <span>Frequency Impact</span>
-                                  <span>{trigger.frequency} episodes</span>
-                                </div>
-                                <div className="w-full bg-gray-200 rounded-full h-2">
-                                  <div
-                                    className="bg-gradient-to-r from-orange-500 to-yellow-500 h-2 rounded-full transition-all duration-1000"
-                                    style={{ width: `${(trigger.frequency / 10) * 100}%` }}
-                                  />
-                                </div>
-                              </div>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
 
           {/* Sidebar */}
@@ -1935,16 +1289,6 @@ export default function AllergyItchCoach() {
                           ? Math.ceil((new Date() - new Date(formData.startDate)) / (1000 * 60 * 60 * 24)) + " days"
                           : "Not set"}
                       </Badge>
-                    </div>
-
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Active Reminders</span>
-                      <Badge variant="info">{remindersData.filter((r) => r.active).length}</Badge>
-                    </div>
-
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Next Check-in</span>
-                      <Badge variant="success">{remindersData.length > 0 ? "2 hours" : "Not scheduled"}</Badge>
                     </div>
 
                     {progressDataFiltered.length > 0 && (
