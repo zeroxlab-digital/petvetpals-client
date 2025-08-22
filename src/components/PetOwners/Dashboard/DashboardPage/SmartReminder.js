@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Activity, Bell, Calendar, Check, Clock, Droplets, Heart, Minus, Plus, Settings, Smartphone, TrendingUp } from 'lucide-react';
+import { Activity, Bell, Calendar, Calendar1, Check, Clock, Clock12, Droplets, Heart, Minus, Plus, Settings, Smartphone, TrendingUp } from 'lucide-react';
+import { HiCalendar, HiClock } from 'react-icons/hi2';
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -56,8 +57,7 @@ const Card = ({ className, children, hover = true, ...props }) => {
     return (
         <div
             className={cn(
-                "rounded-2xl border border-gray-100 bg-white/80 backdrop-blur-sm shadow-sm",
-                hover && "hover:shadow-lg hover:border-pink-200 transition-all duration-300",
+                "rounded-2xl border",
                 className,
             )}
             {...props}
@@ -71,7 +71,7 @@ const CardHeader = ({ className, children, gradient = false, ...props }) => {
     return (
         <div
             className={cn(
-                "flex flex-col space-y-1.5 p-6",
+                "flex flex-col space-y-1.5 p-4",
                 gradient && "bg-gradient-to-r from-pink-50 to-rose-50 rounded-t-2xl border-b border-gray-100",
                 className,
             )}
@@ -92,7 +92,7 @@ const CardTitle = ({ className, children, ...props }) => {
 
 const CardContent = ({ className, children, ...props }) => {
     return (
-        <div className={cn("p-6 pt-0", className)} {...props}>
+        <div className={cn("p-4 pt-0", className)} {...props}>
             {children}
         </div>
     )
@@ -165,8 +165,8 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
                         <h3 className="font-bold text-gray-800">{reminder.title}</h3>
                         <p className="text-sm text-gray-600">{reminder.description}</p>
                         <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
-                            <span>⏰ {reminder.time}</span>
-                            <span>🔄 {reminder.frequency}</span>
+                            <span className='flex gap-2 items-center font-semibold'><Clock12 size={15} /> {reminder.time}</span>
+                            <span className='flex gap-2 items-center font-semibold capitalize'><Calendar1 size={15} /> {reminder.frequency}</span>
                             {isOverdue ? (
                                 <Badge variant="danger" className="text-xs">
                                     Overdue
@@ -270,8 +270,8 @@ const SmartReminder = ({ selectedPet }) => {
         setReminders((prev) => prev.filter((reminder) => reminder.id !== reminderId))
     }
     return (
-        <Card>
-            <CardHeader gradient>
+        <Card className={"bg-white"}>
+            <CardHeader className={"border-b"}>
                 <CardTitle className="flex sm:items-center sm:justify-between max-sm:flex-col max-sm:gap-3">
                     <div className="flex items-center">
                         <Bell className="mr-3 h-6 w-6 text-green-600" />
@@ -290,7 +290,7 @@ const SmartReminder = ({ selectedPet }) => {
                 </CardTitle>
             </CardHeader>
             <CardContent className="pt-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200 text-center">
                         <Smartphone className="h-8 w-8 text-green-600 mx-auto mb-2" />
                         <div className="text-2xl font-bold text-gray-800">
@@ -314,10 +314,10 @@ const SmartReminder = ({ selectedPet }) => {
                     </div>
                 </div>
 
-                <div>
+                <>
                     {showReminders && (
                         <div
-                            className="space-y-3"
+                            className="space-y-3 mt-6"
                         >
                             {reminders.map((reminder) => (
                                 <ReminderCard
@@ -349,7 +349,7 @@ const SmartReminder = ({ selectedPet }) => {
                             </Button>
                         </div>
                     )}
-                </div>
+                </>
             </CardContent>
         </Card>
     );

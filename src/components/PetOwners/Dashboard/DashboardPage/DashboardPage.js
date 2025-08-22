@@ -429,7 +429,7 @@ const DashboardPage = () => {
                     </div>
                     
                     {/* Smart Reminder */}
-                    <SmartReminder selectedPet={selectedPet} />
+                    {/* <SmartReminder selectedPet={selectedPet} /> */}
 
                     <div className="grid gap-4 grid-cols-1 md:grid-cols-7 overflow-hidden">
                         {/* Medical History */}
