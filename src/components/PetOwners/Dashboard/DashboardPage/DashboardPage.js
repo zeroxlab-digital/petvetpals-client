@@ -15,6 +15,7 @@ import Link from 'next/link';
 import PetWeightBadge from '@/components/Common/PetWeightBadge/PetWeightBadge';
 import { displayValue } from '@/utils/displayValue';
 import TinySpinner from '@/components/Common/Loader/TinySpinner';
+import SmartReminder from './SmartReminder';
 
 // Sample data for charts and displays
 // const healthData = [
@@ -390,7 +391,7 @@ const DashboardPage = () => {
                                     :
                                     <div>
                                         <h2>No Recent Issue</h2>
-                                        <p className='font-normal text-xs text-gray-500 mt-2'>Try <Link className='text-blue-600' href="./symptom-checker">Vet GPT</Link> to get professional symptom analysis</p>
+                                        <p className='font-normal text-xs text-gray-500 mt-2'>Try <Link className='text-blue-600' href="/dashboard/vet-gpt">Vet GPT</Link> to get professional symptom analysis</p>
                                     </div>
                                 }
                             </div>
@@ -426,7 +427,9 @@ const DashboardPage = () => {
                             <p className="text-xs text-gray-500 mt-2">Consistent with breed standard</p>
                         </div>
                     </div>
-
+                    
+                    {/* Smart Reminder */}
+                    <SmartReminder selectedPet={selectedPet} />
 
                     <div className="grid gap-4 grid-cols-1 md:grid-cols-7 overflow-hidden">
                         {/* Medical History */}
