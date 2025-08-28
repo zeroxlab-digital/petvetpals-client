@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Activity, Bell, Calendar, Calendar1, Check, Clock, Clock12, Droplets, Heart, Minus, Plus, Settings, Smartphone, TrendingUp } from 'lucide-react';
-import { HiCalendar, HiClock } from 'react-icons/hi2';
+import { Activity, Bell, Calendar, Calendar1, CalendarClock, Check, Clock, Clock12, Droplets, Heart, Minus, Plus, Settings, Smartphone, TrendingUp } from 'lucide-react';
+import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
+import AddReminderModal from './AddReminderModal';
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -247,18 +248,18 @@ const SmartReminder = ({ selectedPet }) => {
     const remindersData = selectedPet ? mockReminders.filter((r) => r.petId === selectedPet._id) : []
     const [showReminders, setShowReminders] = useState(false)
 
-    const [reminders, setReminders] = useState([])
+    const [reminders, setReminders] = useState(mockReminders)
 
-    const addReminder = (reminderData) => {
-        const newReminder = {
-            id: Date.now().toString(),
-            ...reminderData,
-            petId: selectedPet._id,
-            active: true,
-            createdAt: new Date().toISOString(),
-        }
-        setReminders((prev) => [...prev, newReminder])
-    }
+    // const addReminder = (reminderData) => {
+    //     const newReminder = {
+    //         id: Date.now().toString(),
+    //         ...reminderData,
+    //         petId: selectedPet._id,
+    //         active: true,
+    //         createdAt: new Date().toISOString(),
+    //     }
+    //     setReminders((prev) => [...prev, newReminder])
+    // }
 
     const toggleReminder = (reminderId) => {
         setReminders((prev) =>
@@ -269,6 +270,7 @@ const SmartReminder = ({ selectedPet }) => {
     const deleteReminder = (reminderId) => {
         setReminders((prev) => prev.filter((reminder) => reminder.id !== reminderId))
     }
+    const [showModal, setShowModal] = useState(false);
     return (
         <Card className={"bg-white"}>
             <CardHeader className={"border-b"}>
@@ -278,10 +280,10 @@ const SmartReminder = ({ selectedPet }) => {
                         Smart Reminder System
                     </div>
                     <div className="flex items-center gap-2">
-                        <Badge variant="success">
+                        {/* <Badge variant="success">
                             <Smartphone className="h-4 w-4 mr-2" />
                             Push Notifications
-                        </Badge>
+                        </Badge> */}
                         <Button variant="outline" size="sm" onClick={() => setShowReminders(!showReminders)}>
                             <Settings className="h-4 w-4 mr-2" />
                             Manage
@@ -304,12 +306,12 @@ const SmartReminder = ({ selectedPet }) => {
                         <div className="text-2xl font-bold text-gray-800">
                             {remindersData.filter((r) => new Date(r.nextDue) < new Date()).length}
                         </div>
-                        <div className="text-sm text-gray-600">Due Now</div>
+                        <div className="text-sm text-gray-600">Due Today</div>
                     </div>
 
                     <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200 text-center">
                         <TrendingUp className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-                        <div className="text-2xl font-bold text-gray-800">94%</div>
+                        <div className="text-2xl font-bold text-gray-800">0%</div>
                         <div className="text-sm text-gray-600">Compliance Rate</div>
                     </div>
                 </div>
@@ -331,23 +333,29 @@ const SmartReminder = ({ selectedPet }) => {
                             <Button
                                 variant="outline"
                                 className="w-full bg-transparent border-dashed"
-                                onClick={() => {
-                                    // Add new reminder logic
-                                    const newReminder = {
-                                        type: "checkup",
-                                        title: "Daily Assessment",
-                                        description: "Rate severity and document progress",
-                                        time: "20:00",
-                                        frequency: "daily",
-                                        nextDue: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
-                                    }
-                                    addReminder(newReminder)
-                                }}
+                                onClick={() => setShowModal(true)}
+                            // onClick={() => {
+                            //     // Add new reminder logic
+                            //     const newReminder = {
+                            //         type: "checkup",
+                            //         title: "Daily Assessment",
+                            //         description: "Rate severity and document progress",
+                            //         time: "20:00",
+                            //         frequency: "daily",
+                            //         nextDue: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+                            //     }
+                            //     addReminder(newReminder)
+                            // }}
                             >
                                 <Plus className="h-4 w-4 mr-2" />
                                 Add New Reminder
                             </Button>
                         </div>
+                    )}
+                    {showModal && (
+                        <ModalPopup isOpen={showModal} onClose={() => setShowModal(false)} title="Add New Reminder" icon={<CalendarClock size={20} />}>
+                            <AddReminderModal isOpen={showModal} onClose={() => setShowModal(false)} />
+                        </ModalPopup>
                     )}
                 </>
             </CardContent>

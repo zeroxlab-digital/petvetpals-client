@@ -15,7 +15,7 @@ import Link from 'next/link';
 import PetWeightBadge from '@/components/Common/PetWeightBadge/PetWeightBadge';
 import { displayValue } from '@/utils/displayValue';
 import TinySpinner from '@/components/Common/Loader/TinySpinner';
-import SmartReminder from './SmartReminder';
+import SmartReminder from './SmartReminder/SmartReminder';
 
 // Sample data for charts and displays
 // const healthData = [
@@ -429,7 +429,7 @@ const DashboardPage = () => {
                     </div>
                     
                     {/* Smart Reminder */}
-                    {/* <SmartReminder selectedPet={selectedPet} /> */}
+                    <SmartReminder selectedPet={selectedPet} />
 
                     <div className="grid gap-4 grid-cols-1 md:grid-cols-7 overflow-hidden">
                         {/* Medical History */}

@@ -35,7 +35,7 @@ const ScheduleReminder = ({ onClose, ongoingMedications, petId, schedule = null,
         reminder_methods: [],
         repeat_reminder: false,
     });
-
+    console.log(formData)
     const [addMedScheduleReminder, { isLoading: isAdding }] = useAddMedScheduleReminderMutation();
     const [updateMedScheduleReminder, { isLoading: isUpdating }] = useUpdateMedScheduleReminderMutation();
 
