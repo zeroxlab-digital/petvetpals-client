@@ -134,14 +134,14 @@ const DashboardPage = () => {
         }
     }, [pets])
 
-    const { data: petData, isLoading: petLoading } = useGetPetDataQuery({ id: selectedPet._id });
-    console.log(petData);
+    const { data: petData, isLoading: petLoading } = useGetPetDataQuery({ id: selectedPet._id }, { skip: !selectedPet._id });
+
     const confirmed_appointment = petData?.confirmed_appointment;
     const pending_appointments = petData?.pending_appointments;
 
-    const { data: symptom_history = [] } = useGetSymptomHistoryQuery(selectedPet._id)
+    const { data: symptom_history = [] } = useGetSymptomHistoryQuery(selectedPet._id, { skip: !selectedPet._id })
 
-    const { data: medicalHistory = [], isLoading: medicalHistoryLoading } = useGetMedicalHistoryQuery({ petId: selectedPet._id });
+    const { data: medicalHistory = [], isLoading: medicalHistoryLoading } = useGetMedicalHistoryQuery({ petId: selectedPet._id }, { skip: !selectedPet._id });
 
     const healthData = selectedPet?.weight?.map(({ date, value }) => ({
         name: new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
