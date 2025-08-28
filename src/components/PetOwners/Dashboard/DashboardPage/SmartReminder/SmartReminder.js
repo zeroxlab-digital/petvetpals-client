@@ -2,101 +2,11 @@ import React, { useState } from 'react';
 import { Activity, Bell, Calendar, Calendar1, CalendarClock, Check, Clock, Clock12, Droplets, Heart, Minus, Plus, Settings, Smartphone, TrendingUp } from 'lucide-react';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import AddReminderModal from './AddReminderModal';
+import Button from '@/components/Common/Button/Button';
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
     return classes.filter(Boolean).join(" ")
-}
-
-// Custom Button component
-const Button = ({
-    children,
-    variant = "default",
-    className = "",
-    disabled = false,
-    size = "default",
-    onClick,
-    ...props
-}) => {
-    const baseStyles =
-        "inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 disabled:pointer-events-none disabled:opacity-50 transform hover:scale-105 active:scale-95"
-
-    const variants = {
-        default:
-            "bg-gradient-to-r from-pink-600 to-rose-600 text-white hover:from-pink-700 hover:to-rose-700 shadow-lg hover:shadow-xl",
-        outline:
-            "border-2 border-gray-200 bg-white hover:border-pink-300 text-gray-700 hover:text-pink-600 hover:bg-pink-50 shadow-sm hover:shadow-md",
-        ghost: "hover:bg-gray-100 text-gray-700 hover:text-pink-600",
-        success:
-            "bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-600 hover:to-emerald-600 shadow-lg hover:shadow-xl",
-        warning:
-            "bg-gradient-to-r from-orange-500 to-yellow-500 text-white hover:from-orange-600 hover:to-yellow-600 shadow-lg hover:shadow-xl",
-        danger:
-            "bg-gradient-to-r from-red-500 to-pink-500 text-white hover:from-red-600 hover:to-pink-600 shadow-lg hover:shadow-xl",
-    }
-
-    const sizes = {
-        default: "h-12 px-6 py-3 text-sm",
-        sm: "h-10 px-4 py-2 text-xs",
-        lg: "h-14 px-8 py-4 text-base",
-    }
-
-    return (
-        <button
-            className={cn(baseStyles, variants[variant], sizes[size], className)}
-            disabled={disabled}
-            onClick={onClick}
-            {...props}
-        >
-            {children}
-        </button>
-    )
-}
-
-// Card components
-const Card = ({ className, children, hover = true, ...props }) => {
-    return (
-        <div
-            className={cn(
-                "rounded-2xl border",
-                className,
-            )}
-            {...props}
-        >
-            {children}
-        </div>
-    )
-}
-
-const CardHeader = ({ className, children, gradient = false, ...props }) => {
-    return (
-        <div
-            className={cn(
-                "flex flex-col space-y-1.5 p-4",
-                gradient && "bg-gradient-to-r from-pink-50 to-rose-50 rounded-t-2xl border-b border-gray-100",
-                className,
-            )}
-            {...props}
-        >
-            {children}
-        </div>
-    )
-}
-
-const CardTitle = ({ className, children, ...props }) => {
-    return (
-        <h3 className={cn("text-xl font-bold leading-none tracking-tight text-gray-800", className)} {...props}>
-            {children}
-        </h3>
-    )
-}
-
-const CardContent = ({ className, children, ...props }) => {
-    return (
-        <div className={cn("p-4 pt-0", className)} {...props}>
-            {children}
-        </div>
-    )
 }
 
 // Badge component
@@ -248,7 +158,7 @@ const SmartReminder = ({ selectedPet }) => {
     const remindersData = selectedPet ? mockReminders.filter((r) => r.petId === selectedPet._id) : []
     const [showReminders, setShowReminders] = useState(false)
 
-    const [reminders, setReminders] = useState(mockReminders)
+    const [reminders, setReminders] = useState([])
 
     // const addReminder = (reminderData) => {
     //     const newReminder = {
@@ -272,26 +182,18 @@ const SmartReminder = ({ selectedPet }) => {
     }
     const [showModal, setShowModal] = useState(false);
     return (
-        <Card className={"bg-white"}>
-            <CardHeader className={"border-b"}>
-                <CardTitle className="flex sm:items-center sm:justify-between max-sm:flex-col max-sm:gap-3">
-                    <div className="flex items-center">
-                        <Bell className="mr-3 h-6 w-6 text-green-600" />
-                        Smart Reminder System
-                    </div>
-                    <div className="flex items-center gap-2">
-                        {/* <Badge variant="success">
-                            <Smartphone className="h-4 w-4 mr-2" />
-                            Push Notifications
-                        </Badge> */}
-                        <Button variant="outline" size="sm" onClick={() => setShowReminders(!showReminders)}>
-                            <Settings className="h-4 w-4 mr-2" />
-                            Manage
-                        </Button>
-                    </div>
-                </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-6">
+        <div className={"bg-white rounded-2xl border"}>
+            <div className="flex items-center justify-between space-y-1.5 p-4 rounded-t-2xl border-b border-gray-100">
+                <h3 className="flex items-center text-lg font-semibold">
+                    <Bell className="mr-2 h-5 w-5 text-green-600" />
+                    Smart Reminder
+                </h3>
+                <Button variant="primary" size="small" classNames={"text-sm font-semibold"} onClick={() => setShowReminders(!showReminders)}>
+                    <Settings className="h-4 w-4" />
+                    Manage
+                </Button>
+            </div>
+            <div className="pt-6 p-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200 text-center">
                         <Smartphone className="h-8 w-8 text-green-600 mx-auto mb-2" />
@@ -331,8 +233,8 @@ const SmartReminder = ({ selectedPet }) => {
                             ))}
 
                             <Button
-                                variant="outline"
-                                className="w-full bg-transparent border-dashed"
+                                variant="primaryOutline"
+                                classNames="w-full bg-transparent border-dashed"
                                 onClick={() => setShowModal(true)}
                             // onClick={() => {
                             //     // Add new reminder logic
@@ -358,8 +260,8 @@ const SmartReminder = ({ selectedPet }) => {
                         </ModalPopup>
                     )}
                 </>
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     );
 };
 

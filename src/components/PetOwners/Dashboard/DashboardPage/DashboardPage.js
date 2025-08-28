@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import InitialDashboard from './InitialDashboard';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 import Image from 'next/image';
-import { Calendar, ChevronDown, ChevronUp, MessageSquare, Syringe, Check, Heart, PawPrint, PillIcon as Pills, Plus, Thermometer, Weight, Zap, Filter, MoreHorizontal, Activity, AlertCircle } from 'lucide-react';
+import { Calendar, ChevronDown, ChevronUp, MessageSquare, Syringe, Check, Heart, PawPrint, PillIcon as Pills, Plus, Thermometer, Weight, Zap, Filter, MoreHorizontal, Activity, AlertCircle, CalendarClock, Stethoscope, HeartPulse } from 'lucide-react';
 import { Line, LineChart as RechartsLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 import { useRouter } from 'next/navigation';
 import HealthRecords from './HealthRecords/HealthRecords';
@@ -427,7 +427,7 @@ const DashboardPage = () => {
                             <p className="text-xs text-gray-500 mt-2">Consistent with breed standard</p>
                         </div>
                     </div>
-                    
+
                     {/* Smart Reminder */}
                     <SmartReminder selectedPet={selectedPet} />
 
@@ -435,7 +435,10 @@ const DashboardPage = () => {
                         {/* Medical History */}
                         <div className="bg-white rounded-xl border shadow-sm md:col-span-4 flex flex-col max-md:order-2">
                             <div className="p-4 border-b">
-                                <h3 className="text-lg font-semibold">Medical History</h3>
+                                <h3 className="flex items-center text-lg font-semibold">
+                                    <Stethoscope className="mr-2 h-5 w-5 text-blue-600" />
+                                    Medical Records
+                                </h3>
                                 <p className="text-sm text-gray-500">Recent medical records</p>
                             </div>
                             {
@@ -484,7 +487,10 @@ const DashboardPage = () => {
                         {/* Upcoming */}
                         <div className="bg-white rounded-xl border shadow-sm md:col-span-3 max-md:order-1">
                             <div className="p-4 border-b">
-                                <h3 className="text-lg font-semibold">Upcoming</h3>
+                                <h3 className="flex items-center text-lg font-semibold">
+                                    <CalendarClock className="mr-2 h-5 w-5 text-primary" />
+                                    Upcoming
+                                </h3>
                                 <p className="text-sm text-gray-500">Next appointments and reminders</p>
                             </div>
                             <div className="p-4 space-y-4">
@@ -556,7 +562,10 @@ const DashboardPage = () => {
                     {/* Health Trends and Upcoming */}
                     <div className="bg-white rounded-xl border shadow-sm md:col-span-4">
                         <div className="p-4 border-b">
-                            <h3 className="text-lg font-semibold">Health Trends</h3>
+                            <h3 className="flex items-center text-lg font-semibold">
+                                <HeartPulse className="mr-2 h-5 w-5 text-rose-500" />
+                                Health Trends
+                            </h3>
                             <p className="text-sm text-gray-500">Weight and activity level over time</p>
                         </div>
                         <div className="p-4">

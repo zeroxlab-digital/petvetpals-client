@@ -5,6 +5,7 @@ import Label from '@/components/Common/Form/Label';
 import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
 import { Switch } from '@mui/material';
 import { askNotificationPermission } from '@/utils/askNotificationPermission';
+import Textarea from '@/components/Common/Form/Textarea';
 
 const AddReminderModal = ({ isOpen, onClose }) => {
     // Reminder Time Slots
@@ -33,7 +34,8 @@ const AddReminderModal = ({ isOpen, onClose }) => {
         end_date: '',
         reminder_times: [{ time: '', remind_before: '10' }],
         reminder_methods: [],
-        repeat_reminder: false
+        repeat_reminder: false,
+        note: ''
     })
     console.log(formData);
 
@@ -129,7 +131,7 @@ const AddReminderModal = ({ isOpen, onClose }) => {
             }
 
             {/* Reminder Times */}
-            <div className="space-y-4 mt-5">
+            <div className="space-y-3 mt-5">
                 <h3 className="text-base font-semibold text-gray-900">Reminder Times</h3>
                 {formData.reminder_times.map((reminder, index) => (
                     <div key={index} className="grid grid-cols-2 gap-3 items-end">
@@ -172,8 +174,20 @@ const AddReminderModal = ({ isOpen, onClose }) => {
                 ))}
             </div>
 
+            {/* Reminder Notes */}
+            <div className='mt-3'>
+                <Label htmlFor="note">Notes</Label>
+                <Textarea
+                    id="note"
+                    type="note"
+                    value={formData.note}
+                    placeholder={"Add any additional notes or details for the reminder..."}
+                    onChange={(e) => setFormData({ ...formData, note: e.target.value })}
+                />
+            </div>
+
             {/* Reminder Settings */}
-            <div className="space-y-3 mt-7">
+            <div className="space-y-3 mt-5">
                 <h3 className="text-base font-semibold text-gray-900">Reminder Settings</h3>
 
                 <div className="space-y-2">
