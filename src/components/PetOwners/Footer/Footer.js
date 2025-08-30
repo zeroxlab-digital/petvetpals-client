@@ -249,10 +249,10 @@ export default function Footer() {
               repeat: Number.POSITIVE_INFINITY,
               delay: index * 2,
             }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              bottom: "20%",
-            }}
+            // style={{
+            //   left: `${Math.random() * 100}%`,
+            //   bottom: "20%",
+            // }}
           >
             <Paw className="w-8 h-8" />
           </motion.div>

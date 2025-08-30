@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/next';
 import { Inter } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "./provider";
@@ -10,12 +11,13 @@ export const metadata = {
 };
 
 const RootLayout = ({ children }) => {
-  
+
   return (
     <html lang="en">
       <body className={inter.className}>
         <StoreProvider>
           {children}
+          <Analytics />
         </StoreProvider>
       </body>
     </html>

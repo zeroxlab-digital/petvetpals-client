@@ -95,10 +95,10 @@ const FloatingIcons = () => {
         <motion.div
           key={index}
           className="absolute text-indigo-300 opacity-50"
-          style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-          }}
+          // style={{
+          //   top: `${Math.random() * 100}%`,
+          //   left: `${Math.random() * 100}%`,
+          // }}
           animate={{
             y: [0, -20, 0],
             rotate: [0, 360],

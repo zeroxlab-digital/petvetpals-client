@@ -36,7 +36,6 @@ const MobileUserOptions = () => {
 
     const { data: { user } = {} , isLoading } = useGetUserDetailsQuery();
     const { data: pets = {} } = useGetPetsQuery()
-    console.log(pets);
     const navigationSections = [
         {
             title: "Communication",
