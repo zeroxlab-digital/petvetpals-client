@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Bell, Check, Droplets, Briefcase, BookOpen } from "lucide-react";
+import { Bell, Check, Droplets, Briefcase, BookOpen, HeartPulse } from "lucide-react";
 import Input from '@/components/Common/Form/Input';
 import Label from '@/components/Common/Form/Label';
 import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
 import { Switch } from '@mui/material';
 import { askNotificationPermission } from '@/utils/askNotificationPermission';
 import Textarea from '@/components/Common/Form/Textarea';
+import { useScheduleReminderMutation } from '@/redux/services/reminderApi';
+import { toast } from 'react-toastify';
 
 const AddReminderModal = ({ isOpen, onClose }) => {
     // Reminder Time Slots
@@ -13,29 +15,29 @@ const AddReminderModal = ({ isOpen, onClose }) => {
         { label: 'One Time Only', value: 'one_time' },
         { label: 'Daily (Once)', value: 'daily_once' },
         { label: 'Daily (Twice)', value: 'daily_twice' },
-        { label: 'Weekly (Once)', value: 'weekly_once' },
-        { label: 'Weekly (Twice)', value: 'weekly_twice' },
-        { label: 'Monthly (Once)', value: 'monthly_once' }
+        { label: 'Weekly', value: 'weekly' },
+        { label: 'Bi-Weekly', value: 'bi-weekly' },
+        { label: 'Monthly', value: 'monthly' }
     ]
     // Universal Reminder Types
     const reminder_types = [
-        { value: "vet-appointment", label: "Vet Appointment", icon: Briefcase },
-        { value: "task", label: "Task", icon: Check },
-        { value: "hydration", label: "Hydration", icon: Droplets },
-        { value: "vaccination", label: "Vaccination", icon: BookOpen },
-        { value: "other", label: "Other", icon: Bell },
+        { value: "Vet Aappointment", label: "Vet Appointment", icon: Briefcase },
+        { value: "Vaccination", label: "Vaccination", icon: BookOpen },
+        { value: "Exercise", label: "Exercise", icon: HeartPulse },
+        { value: "Hydration", label: "Hydration", icon: Droplets },
+        { value: "Other", label: "Other", icon: Bell },
     ];
 
     const [formData, setFormData] = useState({
-        reminderType: '',
+        reminder_type: null,
         frequency: 'one_time',
-        reminder_date: '',
-        starting_date: '',
-        end_date: '',
+        reminder_date: null,
+        starting_date: null,
+        end_date: null,
         reminder_times: [{ time: '', remind_before: '10' }],
         reminder_methods: [],
         repeat_reminder: false,
-        note: ''
+        notes: null
     })
     console.log(formData);
 
@@ -62,22 +64,33 @@ const AddReminderModal = ({ isOpen, onClose }) => {
         setFormData({ ...formData, reminder_methods: updated });
     };
 
-    const handleSubmitSchedule = () => {
-        onClose();
+    const [scheduleReminder, { isLoading: isScheduling }] = useScheduleReminderMutation();
+    const handleSubmitSchedule = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await scheduleReminder(formData).unwrap();
+            console.log(res);
+            onClose();
+            toast.success("Reminder scheduled successfully!", { autoClose: 2000 });
+        } catch (error) {
+            console.log(error);
+            onClose();
+            toast.error("Failed to schedule reminder. Please try again.", { autoClose: 2000 });
+        }
     }
     return (
         <form onSubmit={handleSubmitSchedule}>
             {/* Reminder Type */}
             <div className='mb-3'>
-                <Label htmlFor="reminderType">Reminder Type</Label>
+                <Label htmlFor="reminder_type">Reminder Type</Label>
                 <SelectOptions
-                    id="reminderType"
-                    value={formData.reminderType}
+                    id="reminder_type"
+                    value={formData.reminder_type}
                     options={reminder_types.map(reminder => ({
                         label: reminder.label,
                         value: reminder.value
                     }))}
-                    onChange={(e) => setFormData({ ...formData, reminderType: e.target.value })}
+                    onChange={(e) => setFormData({ ...formData, reminder_type: e.target.value })}
                 />
             </div>
 
@@ -176,13 +189,13 @@ const AddReminderModal = ({ isOpen, onClose }) => {
 
             {/* Reminder Notes */}
             <div className='mt-3'>
-                <Label htmlFor="note">Notes</Label>
+                <Label htmlFor="notes">Notes</Label>
                 <Textarea
-                    id="note"
-                    type="note"
-                    value={formData.note}
+                    id="notes"
+                    type="notes"
+                    value={formData.notes}
                     placeholder={"Add any additional notes or details for the reminder..."}
-                    onChange={(e) => setFormData({ ...formData, note: e.target.value })}
+                    onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                 />
             </div>
 
@@ -231,11 +244,10 @@ const AddReminderModal = ({ isOpen, onClose }) => {
                 </button>
                 <button
                     type="submit"
-                    // disabled={isAdding || isUpdating}
+                    disabled={isScheduling}
                     className='bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryHover duration-200'
                 >
-                    Schedule Reminder
-                    {/* {(isAdding || isUpdating) ? 'Saving...' : isEdit ? 'Update Reminder' : 'Schedule Reminder'} */}
+                    {isScheduling ? 'Saving...' : 'Schedule Reminder'}
                 </button>
             </div>
         </form>
