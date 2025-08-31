@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { HiBars4, HiBarsArrowUp, HiMiniAdjustmentsHorizontal, HiOutlineBarsArrowDown, HiOutlineXCircle } from 'react-icons/hi2';
 
-const VetFilterSidebar = ({ setFilterChange, vets }) => {
+const VetFilterSidebar = ({ setFilterChange, vets, isLoading }) => {
+
     const [filters, setFilters] = useState({
         specialities: [],
         sortBy: "Relevance"
@@ -35,7 +36,7 @@ const VetFilterSidebar = ({ setFilterChange, vets }) => {
 
     return (
         <>
-            <div className='filter-header xl:hidden flex items-center justify-between bg-white p-3 rounded-md max-h-max '>
+            <div className={`filter-header xl:hidden flex items-center justify-between bg-white p-3 rounded-md max-h-max ${isLoading && 'hidden'}`}>
                 <p className='text-gray-800 text-sm'>{vets.length} vets found</p>
                 <div className='flex gap-2'>
                     <button onClick={() => { setShowResponsiveFilter(true), setShowResponsiveSort(false) }} className='rounded px-2 py-[2px] border text-gray-800 text-sm flex items-center gap-1'><HiMiniAdjustmentsHorizontal className='text-xs' /> Filter</button>
@@ -43,7 +44,7 @@ const VetFilterSidebar = ({ setFilterChange, vets }) => {
                     <button onClick={resetFilters} className='rounded px-2 py-[2px] border text-gray-800 text-sm flex items-center gap-1'><HiBarsArrowUp className='text-sm' /> Reset</button>
                 </div>
                 {showResponsiveSort && (
-                    <div className="fixed bottom-0 left-0 w-full bg-white shadow-lg rounded-t-xl z-50 p-4 max-h-[80vh] overflow-y-auto">
+                    <div className="fixed bottom-0 left-0 w-full bg-white shadow-black shadow-2xl rounded-t-xl z-50 p-4 max-h-[80vh] overflow-y-auto">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-lg font-semibold text-gray-700">Sort by</h3>
                             <button onClick={() => setShowResponsiveSort(false)}>
@@ -104,7 +105,7 @@ const VetFilterSidebar = ({ setFilterChange, vets }) => {
                 )}
 
                 {showResponsiveFilter && (
-                    <div className="fixed bottom-0 left-0 w-full bg-white shadow-lg rounded-t-xl z-50 p-4 max-h-[80vh] overflow-y-auto">
+                    <div className="fixed bottom-0 left-0 w-full bg-white shadow-2xl shadow-black rounded-t-xl z-50 p-4 max-h-[80vh] overflow-y-auto">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-lg font-semibold text-gray-700">Filter by</h3>
                             <button onClick={() => setShowResponsiveFilter(false)}>
@@ -201,10 +202,10 @@ const VetFilterSidebar = ({ setFilterChange, vets }) => {
                 )}
             </div>
 
-            <aside className="sticky top-28 h-fit overflow-auto bg-white rounded-lg max-xl:hidden">
+            <aside className="sticky top-28 h-fit overflow-auto bg-white border-r pr-6 max-xl:hidden">
                 <div className="flex justify-between items-center mb-6">
-                    <h3 className="font-bold text-xl text-gray-800">Filter Vets</h3>
-                    <button onClick={resetFilters} className="bg-gray-100 hover:bg-gray-200 duration-200 px-4 py-1 rounded-md text-gray-600 text-sm font-medium">
+                    <h3 className="font-bold text-lg text-gray-800">Filter Veterinarian</h3>
+                    <button onClick={resetFilters} className="bg-primary hover:bg-primaryHover duration-200 px-4 py-1 rounded text-white text-sm font-medium">
                         Reset
                     </button>
                 </div>

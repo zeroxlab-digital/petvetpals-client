@@ -29,7 +29,7 @@ const VaccinationDetails = ({ vaccination, onClose }) => {
                 </div>
                 <div>
                     <span className='text-gray-600 font-medium text-sm'>Provider</span>
-                    <p>{displayValue(provider.fullName)}</p>
+                    <p>{displayValue(provider?.fullName)}</p>
                 </div>
                 <div>
                     <span className='text-gray-600 font-medium text-sm'>Date given</span>

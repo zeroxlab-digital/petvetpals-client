@@ -1,4 +1,5 @@
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
+import { Stethoscope } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { HiAcademicCap, HiArrowRight, HiBriefcase, HiOutlineAcademicCap, HiOutlineBriefcase, HiOutlineClock } from 'react-icons/hi2';
@@ -58,8 +59,10 @@ const Vets = ({ vets, isLoading, error, currentPath }) => {
                     }
                 </div>
                 :
-                <div className='text-center'>
-                    <h2 className='font-semibold '>No vets found!</h2>
+                <div className="text-center py-10 text-gray-500">
+                    <Stethoscope className="mx-auto h-12 w-12 mb-4 text-gray-400" />
+                    <p className="text-lg font-medium">No Available Vet!</p>
+                    <p className="text-sm">We do not have a registered verified veterinarian yet. Please check back later.</p>
                 </div>
             }
         </div>

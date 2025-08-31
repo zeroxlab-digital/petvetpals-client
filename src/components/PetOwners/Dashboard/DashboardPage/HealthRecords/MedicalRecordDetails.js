@@ -41,7 +41,7 @@ const MedicalRecordDetails = ({ medicalRecord, onClose }) => {
             </div>
             <div className='my-3'>
                 <span className='text-gray-600 font-medium text-sm'>Vet</span>
-                <p>{displayValue(vet.fullName)}</p>
+                <p>{displayValue(vet?.fullName)}</p>
             </div>
             <div>
                 <span className='text-gray-600 font-medium text-sm'>Description</span>

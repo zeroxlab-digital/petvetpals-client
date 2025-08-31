@@ -4,7 +4,7 @@ import { LuPill } from 'react-icons/lu';
 
 const Search = () => {
     const searchTypes = [
-        { type: "Pet food", icon: <HiOutlineShoppingCart /> },
+        { type: "Food, Accs.", icon: <HiOutlineShoppingCart /> },
         { type: "Pharmacy", icon: <LuPill /> },
     ];
     const [selected, set_selected] = useState(searchTypes[0].type);

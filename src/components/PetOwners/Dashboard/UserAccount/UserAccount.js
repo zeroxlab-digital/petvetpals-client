@@ -225,7 +225,7 @@ const UserAccount = () => {
                       <div className="flex items-center gap-4">
                         <input
                           type={showPassword ? "text" : "password"}
-                          value={userProfile?.password || "12345678"}
+                          value={userProfile?.password || "********"}
 
                           className="px-3 py-2 border rounded-lg bg-gray-50 text-gray-500"
                         />

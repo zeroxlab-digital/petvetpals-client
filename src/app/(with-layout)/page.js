@@ -22,7 +22,7 @@ const Home = () => {
         <HowItWorksSection />
         <HowWeWork />
         <PopularItemsSection />
-        <BestDealSection />
+        {/* <BestDealSection /> */}
         <PetHealthTrackerSection />
         {/* <AISyndromeCheckerSection /> */}
         {/* <AllInOne /> */}
