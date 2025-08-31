@@ -1,10 +1,35 @@
-import React, { useState } from 'react';
-import { Activity, Bell, Calendar, Calendar1, CalendarClock, Check, Clock, Clock12, Droplets, Heart, HeartPulse, Minus, Plus, Settings, Smartphone, Syringe, TrendingUp } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Activity, Bell, Calendar, Calendar1, CalendarClock, Check, ChevronDown, ChevronUp, Clock, Clock12, Droplets, Heart, HeartPulse, Minus, PawPrint, Pill, PillBottle, Plus, Settings, Smartphone, Syringe, TrendingUp } from 'lucide-react';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import AddReminderModal from './AddReminderModal';
 import Button from '@/components/Common/Button/Button';
 import { useDeleteReminderMutation, useGetRemindersQuery } from '@/redux/services/reminderApi';
 import { toast } from 'react-toastify';
+
+// Countdown
+const getTimeUntil = (reminder) => {
+    const baseDate = reminder.reminder_date || reminder.starting_date;
+    if (!baseDate) return null;
+
+    const now = new Date();
+    const targetDate = new Date(baseDate);
+
+    // This aads first reminder time if exists
+    const firstTime = reminder.reminder_times?.[0]?.time;
+    if (firstTime) {
+        const [hours, minutes] = firstTime.split(':').map(Number);
+        targetDate.setHours(hours, minutes, 0, 0);
+    }
+
+    const diffMs = targetDate - now;
+    if (diffMs <= 0) return { days: 0, hours: 0, minutes: 0 };
+
+    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diffMs / (1000 * 60)) % 60);
+
+    return { days, hours, minutes };
+};
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -39,18 +64,25 @@ const Badge = ({ children, variant = "default", className, ...props }) => {
 
 // Reminder Component
 const ReminderCard = ({ reminder, onToggle, onDelete }) => {
-    // const isOverdue = new Date(reminder.nextDue) < new Date()
-    const isOverdue = false;
-    // const timeUntil = Math.ceil((new Date(reminder.nextDue) - new Date()) / (1000 * 60 * 60))
-    const timeUntil = 5;
+    const [timeLeft, setTimeLeft] = useState(getTimeUntil(reminder));
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTimeLeft(getTimeUntil(reminder));
+        }, 60000); // update every minute
+
+        return () => clearInterval(interval);
+    }, [reminder]);
+
+    const isOverdue = !timeLeft || (timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0);
 
     const reminderIcons = {
-        Medication: <Heart className="h-4 w-4" />,
+        Medication: <Pill className="h-4 w-4" />,
         'Vet Appointment': <Calendar className="h-4 w-4" />,
         Vaccination: <Syringe className="h-4 w-4" />,
         Exercise: <HeartPulse className="h-4 w-4" />,
         Hydration: <Droplets className="h-4 w-4" />,
-        Other: <Activity className="h-4 w-4" />,
+        Other: <PawPrint className="h-4 w-4" />,
     }
 
     return (
@@ -96,9 +128,9 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
                                 <Badge variant="danger" className="text-xs">
                                     Overdue
                                 </Badge>
-                            ) : timeUntil > 0 ? (
-                                <Badge variant="info" className="text-xs">
-                                    In {timeUntil}h
+                            ) : timeLeft ? (
+                                <Badge variant="info" className="text-xs font-medium px-1 py-0.5">
+                                    {timeLeft.days > 0 && `${timeLeft.days}d `}{timeLeft.hours}h {timeLeft.minutes}m
                                 </Badge>
                             ) : (
                                 <Badge variant="success" className="text-xs">
@@ -175,7 +207,7 @@ const SmartReminder = ({ selectedPet }) => {
     // const [reminders, setReminders] = useState(mockReminders);
     const { data, isLoading: remindersLoading, error } = useGetRemindersQuery();
     const reminders = data?.reminders || [];
-    console.log(reminders)
+
     const toggleReminder = (reminderId) => {
         // setReminders((prev) =>
         //     prev.map((reminder) => (reminder.id === reminderId ? { ...reminder, active: !reminder.active } : reminder)),
@@ -200,9 +232,13 @@ const SmartReminder = ({ selectedPet }) => {
                     <Bell className="mr-2 h-5 w-5 text-green-600" />
                     Smart Reminder
                 </h3>
-                <Button variant="primary" size="small" classNames={"text-sm font-semibold"} onClick={() => setShowReminders(!showReminders)}>
-                    <Settings className="h-4 w-4" />
+                <Button variant="primary" size="small" classNames={"text-sm font-medium !gap-1 items-center"} onClick={() => setShowReminders(!showReminders)}>
                     Manage
+                    {showReminders ?
+                        <ChevronUp className="h-4 w-4" />
+                        :
+                        <ChevronDown className="h-4 w-4" />
+                    }
                 </Button>
             </div>
             <div className="pt-6 p-4">
@@ -227,7 +263,6 @@ const SmartReminder = ({ selectedPet }) => {
                                             ? new Date(r.reminder_date)
                                             : null;
 
-                                    console.log(targetDate);
                                     if (!targetDate) return false;
 
                                     const isSameDay =
@@ -268,7 +303,7 @@ const SmartReminder = ({ selectedPet }) => {
 
                             <Button
                                 variant="primaryOutline"
-                                classNames="w-full bg-transparent border-dashed"
+                                classNames="w-full bg-transparent border-dashed !mt-5"
                                 onClick={() => setShowModal(true)}
                             >
                                 <Plus className="h-4 w-4 mr-2" />

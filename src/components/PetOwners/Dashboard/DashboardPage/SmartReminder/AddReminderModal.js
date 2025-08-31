@@ -21,7 +21,7 @@ const AddReminderModal = ({ isOpen, onClose }) => {
     ]
     // Universal Reminder Types
     const reminder_types = [
-        { value: "Vet Aappointment", label: "Vet Appointment", icon: Briefcase },
+        { value: "Vet Appointment", label: "Vet Appointment", icon: Briefcase },
         { value: "Vaccination", label: "Vaccination", icon: BookOpen },
         { value: "Exercise", label: "Exercise", icon: HeartPulse },
         { value: "Hydration", label: "Hydration", icon: Droplets },
@@ -39,8 +39,7 @@ const AddReminderModal = ({ isOpen, onClose }) => {
         repeat_reminder: false,
         notes: null
     })
-    console.log(formData);
-
+    
     const handleFrequencyChange = (value) => {
         const slots = reminder_slots.find(slot => slot.value === value)?.label.includes('Once') ? 1 : (reminder_slots.find(slot => slot.value === value)?.label.includes('Twice') ? 2 : 1);
         const updatedReminders = Array.from({ length: slots }, (_, i) => ({
