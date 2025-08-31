@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Activity, Bell, Calendar, Calendar1, CalendarClock, Check, Clock, Clock12, Droplets, Heart, Minus, Plus, Settings, Smartphone, TrendingUp } from 'lucide-react';
+import { Activity, Bell, Calendar, Calendar1, CalendarClock, Check, Clock, Clock12, Droplets, Heart, HeartPulse, Minus, Plus, Settings, Smartphone, Syringe, TrendingUp } from 'lucide-react';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import AddReminderModal from './AddReminderModal';
 import Button from '@/components/Common/Button/Button';
+import { useDeleteReminderMutation, useGetRemindersQuery } from '@/redux/services/reminderApi';
+import { toast } from 'react-toastify';
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -37,14 +39,18 @@ const Badge = ({ children, variant = "default", className, ...props }) => {
 
 // Reminder Component
 const ReminderCard = ({ reminder, onToggle, onDelete }) => {
-    const isOverdue = new Date(reminder.nextDue) < new Date()
-    const timeUntil = Math.ceil((new Date(reminder.nextDue) - new Date()) / (1000 * 60 * 60))
+    // const isOverdue = new Date(reminder.nextDue) < new Date()
+    const isOverdue = false;
+    // const timeUntil = Math.ceil((new Date(reminder.nextDue) - new Date()) / (1000 * 60 * 60))
+    const timeUntil = 5;
 
     const reminderIcons = {
-        medication: <Heart className="h-4 w-4" />,
-        treatment: <Droplets className="h-4 w-4" />,
-        checkup: <Activity className="h-4 w-4" />,
-        appointment: <Calendar className="h-4 w-4" />,
+        Medication: <Heart className="h-4 w-4" />,
+        'Vet Appointment': <Calendar className="h-4 w-4" />,
+        Vaccination: <Syringe className="h-4 w-4" />,
+        Exercise: <HeartPulse className="h-4 w-4" />,
+        Hydration: <Droplets className="h-4 w-4" />,
+        Other: <Activity className="h-4 w-4" />,
     }
 
     return (
@@ -53,7 +59,7 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
                 "p-4 rounded-xl border-2 transition-all duration-200",
                 isOverdue
                     ? "bg-gradient-to-r from-red-50 to-pink-50 border-red-300"
-                    : reminder.active
+                    : reminder
                         ? "bg-gradient-to-r from-blue-50 to-cyan-50 border-blue-300"
                         : "bg-gray-50 border-gray-200 opacity-60",
             )}
@@ -65,7 +71,7 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
                             "w-10 h-10 rounded-lg flex items-center justify-center",
                             isOverdue
                                 ? "bg-gradient-to-r from-red-500 to-pink-500 text-white"
-                                : reminder.active
+                                : reminder
                                     ? "bg-gradient-to-r from-blue-500 to-cyan-500 text-white"
                                     : "bg-gray-300 text-gray-600",
                         )}
@@ -73,11 +79,19 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
                         {reminderIcons[reminder.type]}
                     </div>
                     <div>
-                        <h3 className="font-bold text-gray-800">{reminder.title}</h3>
-                        <p className="text-sm text-gray-600">{reminder.description}</p>
+                        <h3 className="font-bold text-gray-800">{reminder.type || "Reminder title..."}</h3>
+                        <p className="text-sm text-gray-600">{reminder.notes || "Notes..."}</p>
                         <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
-                            <span className='flex gap-2 items-center font-semibold'><Clock12 size={15} /> {reminder.time}</span>
-                            <span className='flex gap-2 items-center font-semibold capitalize'><Calendar1 size={15} /> {reminder.frequency}</span>
+                            <span className='flex gap-2 items-center font-semibold'><Clock12 size={15} /> {reminder.reminder_times.map(rt => {
+                                return rt.time || '00:00'
+                            })}</span>
+                            <span className='flex gap-2 items-center font-semibold capitalize'><Calendar1 size={15} /> {
+                                reminder.frequency === 'one_time' ? 'One Time' : reminder.frequency === 'daily_once' ? 'Daily' :
+                                    reminder.frequency === 'daily_twice' ? 'Twice Daily' :
+                                        reminder.frequency === 'weekly' ? 'Weekly' :
+                                            reminder.frequency === 'bi-weekly' ? 'Bi-Weekly' :
+                                                reminder.frequency === 'monthly' ? 'Monthly' : 'Custom'
+                            }</span>
                             {isOverdue ? (
                                 <Badge variant="danger" className="text-xs">
                                     Overdue
@@ -97,10 +111,10 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
 
                 <div className="flex items-center gap-2">
                     <button
-                        onClick={() => onToggle(reminder.id)}
+                        onClick={() => onToggle(reminder._id)}
                         className={cn(
                             "w-8 h-8 rounded-lg flex items-center justify-center transition-all",
-                            reminder.active
+                            reminder
                                 ? "bg-green-100 text-green-600 hover:bg-green-200"
                                 : "bg-gray-100 text-gray-400 hover:bg-gray-200",
                         )}
@@ -108,7 +122,7 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
                         <Check className="h-4 w-4" />
                     </button>
                     <button
-                        onClick={() => onDelete(reminder.id)}
+                        onClick={() => onDelete(reminder._id)}
                         className="w-8 h-8 rounded-lg flex items-center justify-center bg-red-100 text-red-600 hover:bg-red-200 transition-all"
                     >
                         <Minus className="h-4 w-4" />
@@ -158,27 +172,25 @@ const SmartReminder = ({ selectedPet }) => {
     const remindersData = selectedPet ? mockReminders.filter((r) => r.petId === selectedPet._id) : []
     const [showReminders, setShowReminders] = useState(false)
 
-    const [reminders, setReminders] = useState([])
-
-    // const addReminder = (reminderData) => {
-    //     const newReminder = {
-    //         id: Date.now().toString(),
-    //         ...reminderData,
-    //         petId: selectedPet._id,
-    //         active: true,
-    //         createdAt: new Date().toISOString(),
-    //     }
-    //     setReminders((prev) => [...prev, newReminder])
-    // }
-
+    // const [reminders, setReminders] = useState(mockReminders);
+    const { data, isLoading: remindersLoading, error } = useGetRemindersQuery();
+    const reminders = data?.reminders || [];
+    console.log(reminders)
     const toggleReminder = (reminderId) => {
-        setReminders((prev) =>
-            prev.map((reminder) => (reminder.id === reminderId ? { ...reminder, active: !reminder.active } : reminder)),
-        )
+        // setReminders((prev) =>
+        //     prev.map((reminder) => (reminder.id === reminderId ? { ...reminder, active: !reminder.active } : reminder)),
+        // )
     }
 
-    const deleteReminder = (reminderId) => {
-        setReminders((prev) => prev.filter((reminder) => reminder.id !== reminderId))
+    const [deleteReminder, { isLoading: deleteLoading, error: deleteError }] = useDeleteReminderMutation();
+    const handleDeleteReminder = async (reminderId) => {
+        try {
+            await deleteReminder(reminderId).unwrap();
+            toast.success("Reminder deleted successfully", { autoClose: 2000 });
+        } catch (error) {
+            console.log(error);
+            toast.error("Failed to delete reminder. Please try again.", { autoClose: 2000 });
+        }
     }
     const [showModal, setShowModal] = useState(false);
     return (
@@ -198,15 +210,37 @@ const SmartReminder = ({ selectedPet }) => {
                     <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200 text-center">
                         <Smartphone className="h-8 w-8 text-green-600 mx-auto mb-2" />
                         <div className="text-2xl font-bold text-gray-800">
-                            {remindersData.filter((r) => r.active).length}
+                            {reminders.length}
                         </div>
                         <div className="text-sm text-gray-600">Active Reminders</div>
                     </div>
 
                     <div className="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-200 text-center">
-                        <Clock className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                        <CalendarClock className="h-8 w-8 text-blue-600 mx-auto mb-2" />
                         <div className="text-2xl font-bold text-gray-800">
-                            {remindersData.filter((r) => new Date(r.nextDue) < new Date()).length}
+                            {
+                                reminders.filter(r => {
+                                    const today = new Date();
+                                    const targetDate = r.starting_date
+                                        ? new Date(r.starting_date)
+                                        : r.reminder_date
+                                            ? new Date(r.reminder_date)
+                                            : null;
+
+                                    console.log(targetDate);
+                                    if (!targetDate) return false;
+
+                                    const isSameDay =
+                                        targetDate.getFullYear() === today.getFullYear() &&
+                                        targetDate.getMonth() === today.getMonth() &&
+                                        targetDate.getDate() === today.getDate();
+
+                                    return (
+                                        isSameDay &&
+                                        r.reminder_times.some(t => !t.is_given && !t.skipped)
+                                    );
+                                }).length || 0
+                            }
                         </div>
                         <div className="text-sm text-gray-600">Due Today</div>
                     </div>
@@ -223,12 +257,12 @@ const SmartReminder = ({ selectedPet }) => {
                         <div
                             className="space-y-3 mt-6"
                         >
-                            {reminders.map((reminder) => (
+                            {reminders?.map((reminder) => (
                                 <ReminderCard
-                                    key={reminder.id}
+                                    key={reminder._id}
                                     reminder={reminder}
                                     onToggle={toggleReminder}
-                                    onDelete={deleteReminder}
+                                    onDelete={handleDeleteReminder}
                                 />
                             ))}
 
@@ -236,18 +270,6 @@ const SmartReminder = ({ selectedPet }) => {
                                 variant="primaryOutline"
                                 classNames="w-full bg-transparent border-dashed"
                                 onClick={() => setShowModal(true)}
-                            // onClick={() => {
-                            //     // Add new reminder logic
-                            //     const newReminder = {
-                            //         type: "checkup",
-                            //         title: "Daily Assessment",
-                            //         description: "Rate severity and document progress",
-                            //         time: "20:00",
-                            //         frequency: "daily",
-                            //         nextDue: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
-                            //     }
-                            //     addReminder(newReminder)
-                            // }}
                             >
                                 <Plus className="h-4 w-4 mr-2" />
                                 Add New Reminder

@@ -21,8 +21,23 @@ export const reminderApi = createApi({
                 body: data
             }),
             invalidatesTags: ['Reminder']
+        }),
+        getReminders: build.query({
+            query: () => ({
+                url: '/get-reminders',
+                method: 'GET'
+            }),
+            providesTags: ['Reminder']
+        }),
+        deleteReminder: build.mutation({
+            query: (id) => ({
+                url: `/delete-reminder/${id}`,
+                method: 'DELETE',
+                params: id
+            }),
+            invalidatesTags: ['Reminder']
         })
     })
 })
 
-export const { useScheduleReminderMutation } = reminderApi;
+export const { useScheduleReminderMutation, useGetRemindersQuery, useDeleteReminderMutation } = reminderApi;
