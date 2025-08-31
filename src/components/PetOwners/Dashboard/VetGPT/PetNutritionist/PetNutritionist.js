@@ -547,8 +547,6 @@ export default function PetNutritionist() {
   //   ],
   // }
 
-  const displayPlan = nutritionPlan;
-
   return (
     <div className="">
       <div className="relative">
@@ -1024,22 +1022,22 @@ export default function PetNutritionist() {
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         <div className="text-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl">
                           <Scale className="h-8 w-8 text-green-600 mx-auto mb-2" />
-                          <p className="text-2xl font-bold text-gray-800">{displayPlan.dailyCalories}</p>
+                          <p className="text-2xl font-bold text-gray-800">{nutritionPlan.dailyCalories}</p>
                           <p className="text-sm text-gray-600">Daily Calories</p>
                         </div>
                         <div className="text-center p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl">
                           <Beef className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                          <p className="text-2xl font-bold text-gray-800">{displayPlan.proteinNeeds}</p>
+                          <p className="text-2xl font-bold text-gray-800">{nutritionPlan.proteinNeeds}</p>
                           <p className="text-sm text-gray-600">Protein</p>
                         </div>
                         <div className="text-center p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl">
                           <Fish className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
-                          <p className="text-2xl font-bold text-gray-800">{displayPlan.fatNeeds}</p>
+                          <p className="text-2xl font-bold text-gray-800">{nutritionPlan.fatNeeds}</p>
                           <p className="text-sm text-gray-600">Fat</p>
                         </div>
                         <div className="text-center p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl">
                           <Carrot className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-                          <p className="text-2xl font-bold text-gray-800">{displayPlan.carbNeeds}</p>
+                          <p className="text-2xl font-bold text-gray-800">{nutritionPlan.carbNeeds}</p>
                           <p className="text-sm text-gray-600">Carbohydrates</p>
                         </div>
                       </div>
@@ -1056,7 +1054,7 @@ export default function PetNutritionist() {
                     </CardHeader>
                     <CardContent className="pt-6">
                       <div className="space-y-4">
-                        {displayPlan.feedingSchedule.map((meal, index) => (
+                        {nutritionPlan.feedingSchedule.map((meal, index) => (
                           <motion.div
                             key={index}
                             initial={{ opacity: 0, x: -20 }}
@@ -1092,7 +1090,7 @@ export default function PetNutritionist() {
                     </CardHeader>
                     <CardContent className="pt-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {displayPlan.recommendedIngredients.map((ingredient, index) => (
+                        {nutritionPlan.recommendedIngredients.map((ingredient, index) => (
                           <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 10 }}
@@ -1124,7 +1122,7 @@ export default function PetNutritionist() {
                     <CardContent className="pt-6">
                       <div className="p-4 bg-gradient-to-r from-red-50 to-pink-50 rounded-xl border border-red-200">
                         <div className="flex flex-wrap gap-2">
-                          {displayPlan.avoidIngredients.map((ingredient, index) => (
+                          {nutritionPlan.avoidIngredients.map((ingredient, index) => (
                             <Badge key={index} variant="warning" className="bg-gradient-to-r from-red-500 to-pink-500">
                               <AlertTriangle className="h-3 w-3 mr-1" />
                               {ingredient}
@@ -1154,7 +1152,7 @@ export default function PetNutritionist() {
                     </CardHeader>
                     <CardContent className="pt-6">
                       <div className="space-y-4">
-                        {displayPlan.brandRecommendations.map((brand, index) => (
+                        {nutritionPlan?.brandRecommendations?.map((brand, index) => (
                           <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 10 }}
