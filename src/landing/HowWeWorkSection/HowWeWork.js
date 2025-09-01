@@ -4,7 +4,7 @@ import React from 'react';
 
 const HowWeWork = () => {
     return (
-        <section className='pb-16 md:pb-32'>
+        <section className=''>
             <div className='app-container'>
                 <div className='text-center mb-5 md:mb-10'>
                     <h3 className='text-2xl text-gray-900'>Care That Puts Your Pet at the Center</h3>

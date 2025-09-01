@@ -21,9 +21,9 @@ const Home = () => {
         <PetTypesSection />
         <HowItWorksSection />
         <HowWeWork />
+        <PetHealthTrackerSection />
         <PopularItemsSection />
         {/* <BestDealSection /> */}
-        <PetHealthTrackerSection />
         {/* <AISyndromeCheckerSection /> */}
         {/* <AllInOne /> */}
         {/* <GetStartedSection /> */}

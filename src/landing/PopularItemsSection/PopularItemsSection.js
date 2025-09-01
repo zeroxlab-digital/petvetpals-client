@@ -32,7 +32,7 @@ const PopularItemsSection = () => {
 
     return (
         <>
-            <section className="pb-14 md:pb-24">
+            <section className="py-14">
                 <div className="app-container mx-auto flex items-center justify-between mb-5 md:mb-10">
                     <div>
                         <h3 className='text-base lg:text-lg font-semibold text-primary '>Top pet foods</h3>

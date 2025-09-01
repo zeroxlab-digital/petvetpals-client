@@ -19,6 +19,12 @@ html {
     --secondary-color: #ffb330;
 }
 
+
+p, span, li {
+  @apply font-sans;
+}
+
+
 .primary-btn {
     padding: 17px 40px;
     text-transform: uppercase;
