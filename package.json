@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -24,6 +25,7 @@
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.475.0",
     "next": "14.2.6",
+    "next-sitemap": "^4.2.3",
     "react": "^18",
     "react-cookie": "^1.0.5",
     "react-day-picker": "^9.1.4",
