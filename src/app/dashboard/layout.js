@@ -8,6 +8,11 @@ import ProtectedPage from '@/components/Common/ProtectedPage/ProtectedPage';
 import { ToastContainer } from 'react-toastify';
 import BottomNavigation from '@/components/Common/BottomNavigation/BottomNavigation';
 
+export const metadat = {
+    title: "PetVetPals Dashboard – AI Pet Health & Care Management",
+    description: "Manage your pets' health effortlessly with PetVetPals Dashboard. Track medications, monitor symptoms, get AI-powered recommendations, and access virtual vet support anytime."
+}
+
 const DashboardLayout = ({ children }) => {
     const [responsiveToggle, setResponsiveToggle] = useState(false);
     return (
@@ -25,10 +30,9 @@ const DashboardLayout = ({ children }) => {
                 </div> */}
 
                 {/* Sidebar */}
-                <div 
-                    className={`col-span-2 max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:h-full max-lg:z-40 max-lg:transform ${
-                        responsiveToggle ? 'max-lg:translate-x-0' : 'max-lg:-translate-x-full'
-                    } transition-transform duration-300 ease-in-out`}
+                <div
+                    className={`col-span-2 max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:h-full max-lg:z-40 max-lg:transform ${responsiveToggle ? 'max-lg:translate-x-0' : 'max-lg:-translate-x-full'
+                        } transition-transform duration-300 ease-in-out`}
                 >
                     <DashboardSidebar setResponsiveToggle={setResponsiveToggle} />
                 </div>

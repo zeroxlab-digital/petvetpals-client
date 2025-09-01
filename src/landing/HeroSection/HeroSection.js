@@ -12,16 +12,17 @@ const HeroSection = () => {
     const slides = [
         {
             title: "Smarter Pet Care, All in One Place",
-            description: "PetVetPals helps you care for your pet with 24/7 online vet access, health tracking tools, and personalized AI support — all in one app.",
+            description: "Keep your pets safe and healthy with PetVetPals. AI tools, virtual vet calls, and custom health tracking make caring for your furry friends easy.",
             buttonText: "Get Started",
             url: "/dashboard",
             image: "/images/cat-vet.jpg",
             services: [
+                "AI-Powered pet health assistant",
+                "Symptom checker, nutritionist, allergy & itch relief",
                 "Online vet consultations anytime",
-                "AI-powered symptom checker",
-                "Health & vaccination tracking",
-                "Medication reminders & logs",
-                "Full pet history dashboard"
+                "Track your pet's health & growth",
+                "Medication & vaccination reminders",
+                "Smart pet health records"
             ]
         },
         {

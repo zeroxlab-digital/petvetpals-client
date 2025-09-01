@@ -8,8 +8,8 @@ const inter = Inter({ subsets: ["latin"] });
 const baloo2 = Baloo_2({ subsets: ["latin"], weight: ["400","600","700"] });
 
 export const metadata = {
-  title: "PetVetPals - Your Trusted Online Pet Care Platform",
-  description: "Find experienced veterinarians, book online consultations, shop pet accessories, and ensure your pet's well-being—all in one place!",
+  title: "PetVetPals – Your Trusted Online Pet Care Platform",
+  description: "AI-Powered pet health tools, verified veterinarians, online vet consultations, shop pet accessories, and ensure your pet's well-being—all in one place!",
 };
 
 const RootLayout = ({ children }) => {

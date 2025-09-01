@@ -1,9 +1,7 @@
 "use client";
 import { motion, useInView } from "framer-motion";
-// import { HiUser, HiSearch, HiPaw, HiShoppingCart } from "react-icons/hi2";
 import { useRef } from "react";
-import { HiSearch } from "react-icons/hi";
-import { HiShoppingCart, HiUser, HiUsers } from "react-icons/hi2";
+import { HiPencilAlt, HiHeart, HiChat, HiClipboardCheck } from "react-icons/hi";
 
 const HowItWorksSection = () => {
   const ref = useRef(null);
@@ -11,10 +9,16 @@ const HowItWorksSection = () => {
 
   const steps = [
     {
-      icon: <HiUser className="w-10 h-10 text-primary" />,
-      title: "Create an Account",
-      description:
-        "Sign up in seconds and create a profile for you and your pet. Get access to exclusive features and personalized recommendations.",
+      icon: <HiPencilAlt className="w-10 h-10 text-primary" />,
+      title: "Create Your Pet Profiles",
+      description: (
+        <>
+          Sign up quickly and add your pets’ details. Our AI instantly analyzes breed, age, and health history to give personalized care insights just for them.
+          <span className="sr-only">
+            AI pet health analysis, personalized pet care, pet profile setup
+          </span>
+        </>
+      ),
       color: "bg-purple-600",
       animation: {
         scale: [1, 1.1, 1],
@@ -23,10 +27,16 @@ const HowItWorksSection = () => {
       },
     },
     {
-      icon: <HiSearch className="w-10 h-10 text-primary" />,
-      title: "Find a Vet & Book",
-      description:
-        "Browse certified vets, read reviews, and choose a slot that works for you. Book a video or in-person consultation in just a few clicks.",
+      icon: <HiHeart className="w-10 h-10 text-primary" />,
+      title: "AI Health Assessment & Vet Booking",
+      description: (
+        <>
+          Get an AI-powered symptom analysis and health check. Browse certified vets, read reviews, and book virtual or in-person consultations perfectly suited for your pet’s needs.
+          <span className="sr-only">
+            virtual vet consultation, AI symptom tracking, pet health check
+          </span>
+        </>
+      ),
       color: "bg-blue-600",
       animation: {
         y: [0, -10, 0],
@@ -35,10 +45,16 @@ const HowItWorksSection = () => {
       },
     },
     {
-      icon: <HiUsers className="w-10 h-10 text-primary" />,
-      title: "Join with Your Pet",
-      description:
-        "Bring your pet to the consultation and get expert advice. Our vets are trained to handle all kinds of pets, from cats and dogs to exotic animals.",
+      icon: <HiChat className="w-10 h-10 text-primary" />,
+      title: "Consult with Experts & AI Insights",
+      description: (
+        <>
+          Join your consultation with your pet while our AI provides real-time health insights and suggestions. Experience combined veterinary expertise and AI accuracy for smarter care.
+          <span className="sr-only">
+            veterinary advice, AI health insights, real-time pet monitoring
+          </span>
+        </>
+      ),
       color: "bg-green-600",
       animation: {
         scale: [1, 1.1, 1],
@@ -46,10 +62,16 @@ const HowItWorksSection = () => {
       },
     },
     {
-      icon: <HiShoppingCart className="w-10 h-10 text-primary" />,
-      title: "Get Prescription & Shop",
-      description:
-        "Receive a digital prescription after your consultation. Click a link to buy all recommended products, which are automatically added to your cart.",
+      icon: <HiClipboardCheck className="w-10 h-10 text-primary" />,
+      title: "Get Prescriptions & Smart Recommendations",
+      description: (
+        <>
+          After your consultation, receive digital prescriptions instantly. Our AI recommends the right medications, supplements, and products — ready to order with one click to keep your pet thriving.
+          <span className="sr-only">
+            digital prescriptions, AI medication recommendations, pet health products
+          </span>
+        </>
+      ),
       color: "bg-orange-600",
       animation: {
         x: [0, 10, -10, 0],
@@ -60,7 +82,6 @@ const HowItWorksSection = () => {
 
   return (
     <section className="pt-10 pb-44 app-container relative overflow-hidden">
-      {/* Floating shapes for background */}
       <motion.div
         className="absolute w-64 h-64 bg-purple-200 rounded-full opacity-20 top-20 left-20"
         animate={{ y: [0, -20, 0], rotate: [0, 360] }}
@@ -72,8 +93,8 @@ const HowItWorksSection = () => {
         transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
       />
 
-      <div className=" mx-auto px-4 relative z-10">
-        <h2 className="text-2xl text-gray-900 text-center mb-10">
+      <div className="mx-auto px-4 relative z-10">
+        <h2 className="text-2xl md:text-3xl text-gray-900 text-center mb-10 font-bold">
           How It Works
         </h2>
         <div
@@ -89,7 +110,6 @@ const HowItWorksSection = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.2, duration: 0.5 }}
             >
-              {/* Animated background circle */}
               <motion.div
                 className={`absolute -top-16 -right-16 w-32 h-32 ${step.color} rounded-full opacity-10`}
                 animate={{ scale: [1, 1.5, 1], rotate: [0, 180] }}
