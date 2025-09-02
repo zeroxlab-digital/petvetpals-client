@@ -56,7 +56,7 @@ const PetProfiles = () => {
                         <div className='p-3'>
                             <ul className='text-gray-600 flex flex-col gap-2 mb-4'>
                                 <li className='mb-2 flex items-center gap-1 text-lg font-semibold text-gray-700 capitalize'>
-                                    <span>{pet.name}</span>
+                                    <h4>{pet.name}</h4>
                                     <span className='text-sm font-normal text-gray-600 '>• {pet.type} • {pet.age} years old</span>
                                 </li>
                                 <li className='flex items-center justify-between text-sm capitalize'><span className='flex items-center gap-2'><Dna size={17} className='text-primary' /> Breed</span> {pet.breed}</li>

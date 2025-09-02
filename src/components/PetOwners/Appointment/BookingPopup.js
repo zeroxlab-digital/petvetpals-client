@@ -62,7 +62,7 @@ const BookingPopup = ({ appointment = () => { }, setShowModal = () => { }, setAp
             setApptReschedule(false);
         } catch (error) {
             console.log(error);
-            notify("error");
+            notify(`${error?.data?.message || 'Failed to book appointment'}`, "error");
         }
     }
 
@@ -107,7 +107,7 @@ const BookingPopup = ({ appointment = () => { }, setShowModal = () => { }, setAp
                             selectedTime={selectedTime}
                         />
                         <div >
-                            <Button onClick={handleBookingConfirm} variant={"primary"} classNames={`w-full mt-5 ${selectedTime ? '' : 'opacity-50 cursor-not-allowed'}`} disabled={!selectedTime}>{isLoading ? <TinySpinner /> : 'Continue'}</Button>
+                            <Button onClick={handleBookingConfirm} variant={"primary"} classNames={`w-full h-10 text-lg font-medium mt-5 ${selectedTime ? '' : 'opacity-50 cursor-not-allowed'}`} disabled={!selectedTime}>{isLoading ? <TinySpinner /> : 'Continue'}</Button>
                         </div>
                     </div>
                 </div>

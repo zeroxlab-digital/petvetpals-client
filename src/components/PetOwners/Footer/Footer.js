@@ -90,7 +90,7 @@ export default function Footer() {
             <div className="space-y-4">
               <div className="flex items-center gap-3 text-gray-300">
                 <MapPin className="w-5 h-5 text-white" />
-                <span>Monroe, LA, USA</span>
+                <span>Monroe, LA 71203, USA</span>
               </div>
               <div className="flex items-center gap-3 text-gray-300">
                 <Phone className="w-5 h-5 text-white" />
@@ -156,7 +156,7 @@ export default function Footer() {
                   className="flex items-center gap-2 text-gray-300 hover:text-purple-400 transition-colors cursor-pointer group"
                   whileHover={{ x: 5 }}
                 >
-                  <item.icon className="w-4 h-4 group-hover:text-purple-500 transition-colors" />
+                  <ChevronRight className="w-4 h-4" />
                   {item.text}
                 </motion.li>
               ))}

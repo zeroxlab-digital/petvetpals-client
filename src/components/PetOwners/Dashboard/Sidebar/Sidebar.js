@@ -4,20 +4,20 @@ import { usePathname, useRouter } from 'next/navigation';
 import { FaCalendar, FaCartShopping, FaHouse, FaPaw, FaPills, FaRegHeart, FaRegMessage, FaUser } from 'react-icons/fa6';
 import { HiArrowRightOnRectangle } from 'react-icons/hi2';
 import { toast } from 'react-toastify';
-import { PawPrint, Stethoscope } from 'lucide-react';
+import { CalendarClock, Heart, Home, MessageCircle, PawPrint, ShoppingCart, Stethoscope, User } from 'lucide-react';
 import { useLogoutUserMutation } from '@/redux/services/userApi';
 
 const DashboardSidebar = ({ setResponsiveToggle }) => {
 
     const links = [
-        { title: "Dashboard", link: "/dashboard", icon: <FaHouse /> },
-        { title: "Pet Profiles", link: "/dashboard/pets", icon: <FaPaw /> },
+        { title: "Dashboard", link: "/dashboard", icon: <Home size={20} /> },
+        { title: "Pet Profiles", link: "/dashboard/pets", icon: <PawPrint size={20} /> },
         { title: "Vet GPT", link: "/dashboard/vet-gpt", icon: <Stethoscope size={20} /> },
-        { title: "Appointments", link: "/dashboard/appointments", icon: <FaCalendar /> },
-        { title: "Messages", link: "/dashboard/messages", icon: <FaRegMessage /> },
-        { title: "Wishlist", link: "/dashboard/wishlist", icon: <FaRegHeart /> },
-        { title: "Order History", link: "/dashboard/orders", icon: <FaCartShopping /> },
-        { title: "User Profile", link: "/dashboard/account", icon: <FaUser /> }
+        { title: "Appointments", link: "/dashboard/appointments", icon: <CalendarClock size={20} /> },
+        { title: "Messages", link: "/dashboard/messages", icon: <MessageCircle size={20} /> },
+        { title: "Wishlist", link: "/dashboard/wishlist", icon: <Heart size={20} /> },
+        { title: "Order History", link: "/dashboard/orders", icon: <ShoppingCart size={20} /> },
+        { title: "User Profile", link: "/dashboard/account", icon: <User size={20} /> }
     ];
     const pathname = usePathname();
     const router = useRouter();

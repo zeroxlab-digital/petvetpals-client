@@ -228,8 +228,8 @@ const SmartReminder = ({ selectedPet }) => {
     return (
         <div className={"bg-white rounded-2xl border"}>
             <div className="flex items-center justify-between space-y-1.5 p-4 rounded-t-2xl border-b border-gray-100">
-                <h3 className="flex items-center text-lg font-semibold">
-                    <Bell className="mr-2 h-5 w-5 text-green-600" />
+                <h3 className="flex items-center text-lg font-semibold text-primary">
+                    <Bell className="mr-2 h-5 w-5" />
                     Smart Reminder
                 </h3>
                 <Button variant="primary" size="small" classNames={"text-sm font-medium !gap-1 items-center"} onClick={() => setShowReminders(!showReminders)}>

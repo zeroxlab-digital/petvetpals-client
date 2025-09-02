@@ -7,6 +7,7 @@ import useFetchVets from "../../../../hooks/useFetchVets";
 
 const AppointmentsPage = () => {
     const { vets, isLoading, error } = useFetchVets();
+    // console.log(vets);
     const currentPath = usePathname();
     const [filterChange, setFilterChange] = useState({});
     const [filteredVets, setFilteredVets] = useState([]);

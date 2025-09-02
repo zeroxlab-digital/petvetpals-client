@@ -18,7 +18,7 @@ const DashboardLayout = ({ children }) => {
     return (
         <div className='dashboard relative'>
             <Header />
-            <div className='app-container lg:h-[calc(100vh-5.1rem)] grid grid-cols-10 py-5 max-lg:pb-20'>
+            <div className='app-container lg:h-[calc(100vh-5.5rem)] grid grid-cols-10 py-5 max-lg:pb-20'>
                 {/* Toggle Button for Mobile */}
                 {/* <div className={`lg:hidden fixed top-20 left-2 z-10 ${responsiveToggle && 'hidden'}`}>
                     <button 

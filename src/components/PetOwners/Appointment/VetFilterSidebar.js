@@ -186,7 +186,7 @@ const VetFilterSidebar = ({ setFilterChange, vets, isLoading }) => {
                                     />
                                     <label htmlFor="weekends" className="text-gray-600">Available on Weekends</label>
                                 </div>
-                                <div className="flex items-center gap-2">
+                                {/* <div className="flex items-center gap-2">
                                     <input
                                         type="checkbox"
                                         id="house-visits"
@@ -195,7 +195,7 @@ const VetFilterSidebar = ({ setFilterChange, vets, isLoading }) => {
                                         className="w-4 h-4 text-primary"
                                     />
                                     <label htmlFor="house-visits" className="text-gray-600">Offers House Visits</label>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -274,10 +274,10 @@ const VetFilterSidebar = ({ setFilterChange, vets, isLoading }) => {
                             <input type="checkbox" id="weekends" value="Weekends" onChange={handleSpecialityChange} className="w-4 h-4 text-primary" />
                             <label htmlFor="weekends" className="text-gray-600">Available on Weekends</label>
                         </div>
-                        <div className="flex items-center gap-2">
+                        {/* <div className="flex items-center gap-2">
                             <input type="checkbox" id="house-visits" value="House Visits" onChange={handleSpecialityChange} className="w-4 h-4 text-primary" />
                             <label htmlFor="house-visits" className="text-gray-600">Offers House Visits</label>
-                        </div>
+                        </div> */}
                     </div>
                 </form>
             </aside>

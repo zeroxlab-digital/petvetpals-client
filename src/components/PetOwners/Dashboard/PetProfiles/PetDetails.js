@@ -27,7 +27,7 @@ const PetDetails = ({ petId }) => {
                 <div>
                     <ul>
                         <li className='mb-2 flex items-center gap-1 text-lg font-semibold text-white capitalize'>
-                            <span>{pet.name}</span>
+                            <h4>{pet.name}</h4>
                             <span className='text-sm font-normal '>• {pet.type} • {pet.age} years old</span>
                         </li>
                         <li className='mb-1 flex items-center  gap-5 text-sm capitalize text-white'><span className='flex items-center gap-2'><Dna size={17} className='' /> Breed</span> {pet.breed}</li>

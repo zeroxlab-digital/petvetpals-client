@@ -210,7 +210,7 @@ const DashboardPage = () => {
                                     return new Date(current.date) > new Date(latest.date) ? current : latest;
                                 }).value || 0
                             }
-                                (lbs)
+                                 (lbs)
                             </span>
                         </p>
                     </div>
@@ -218,23 +218,23 @@ const DashboardPage = () => {
                 <div className="flex items-center gap-2 text-center">
                     <button
                         onClick={() => router.push("/vet-appointment")}
-                        className=" flex justify-center items-center bg-primary hover:bg-primaryHover duration-200 text-white px-4 max-sm:px-2 py-[10px] rounded-lg transition-colors"
+                        className=" flex justify-center items-center bg-primary hover:bg-primaryHover duration-200 text-white max-sm:w-max w-fit px-4 max-sm:px-3 py-[9px] rounded-lg transition-colors"
                     >
                         <Calendar className="mr-2 h-4 w-4" />
                         Book Appointment
                     </button>
-                    <button onClick={() => router.push("/dashboard/messages")} className=" flex justify-center items-center border border-gray-300 px-4 max-sm:px-2 py-[10px] rounded-lg hover:bg-gray-100 duration-200 transition-colors">
-                        <MessageSquare className="mr-2 h-4 w-4" />
-                        Chat with Vet
+                    <button onClick={() => router.push("/dashboard/vet-gpt")} className=" flex justify-center items-center border border-gray-300 max-sm:w-max w-fit px-4 max-sm:px-3 py-[9px] rounded-lg hover:bg-gray-100 duration-200 transition-colors">
+                        <HeartPulse className="mr-2 h-4 w-4" />
+                        AI Health Tools
                     </button>
                 </div>
             </div>
 
             {/* Dashboard Tabs */}
-            <div className="flex space-x-6 overflow-x-auto mb-7 border-b">
+            <div className="flex space-x-6 max-sm:space-x-5 overflow-x-auto mb-7 border-b">
                 <button
                     onClick={() => setActiveTab("overview")}
-                    className={`py-2 px-1 border-b-[3px] font-medium text-sm whitespace-nowrap ${activeTab === "overview"
+                    className={`py-2 px-1 border-b-[3px] font-semibold text-base whitespace-nowrap ${activeTab === "overview"
                         ? "border-[#672e5b] text-primary"
                         : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
@@ -243,7 +243,7 @@ const DashboardPage = () => {
                 </button>
                 <button
                     onClick={() => setActiveTab("health")}
-                    className={`py-2 px-1 border-b-[3px] font-medium text-sm whitespace-nowrap ${activeTab === "health"
+                    className={`py-2 px-1 border-b-[3px] font-semibold text-base whitespace-nowrap ${activeTab === "health"
                         ? "border-[#672e5b] text-primary"
                         : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
@@ -252,7 +252,7 @@ const DashboardPage = () => {
                 </button>
                 <button
                     onClick={() => setActiveTab("medications")}
-                    className={`py-2 px-1 border-b-[3px] font-medium text-sm whitespace-nowrap ${activeTab === "medications"
+                    className={`py-2 px-1 border-b-[3px] font-semibold text-base whitespace-nowrap ${activeTab === "medications"
                         ? "border-[#672e5b] text-primary"
                         : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
@@ -261,7 +261,7 @@ const DashboardPage = () => {
                 </button>
                 <button
                     onClick={() => setActiveTab("diet")}
-                    className={`py-2 px-1 border-b-[3px] font-medium text-sm whitespace-nowrap ${activeTab === "diet"
+                    className={`py-2 px-1 border-b-[3px] font-semibold text-base whitespace-nowrap ${activeTab === "diet"
                         ? "border-[#672e5b] text-primary"
                         : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
@@ -435,8 +435,8 @@ const DashboardPage = () => {
                         {/* Medical History */}
                         <div className="bg-white rounded-xl border shadow-sm md:col-span-4 flex flex-col max-md:order-2">
                             <div className="p-4 border-b">
-                                <h3 className="flex items-center text-lg font-semibold">
-                                    <Stethoscope className="mr-2 h-5 w-5 text-blue-600" />
+                                <h3 className="flex items-center text-lg font-semibold text-blue-600">
+                                    <Stethoscope className="mr-2 h-5 w-5 " />
                                     Medical Records
                                 </h3>
                                 <p className="text-sm text-gray-500">Recent medical records</p>
@@ -478,8 +478,8 @@ const DashboardPage = () => {
                                         </>
                                         :
                                         <div className='flex flex-col items-center justify-center gap-3 h-full py-4 text-gray-600'>
-                                            <PawPrint size={30} />
-                                            <h4 className='font-semibold '>No Medical History Found!</h4>
+                                            <PawPrint size={24} />
+                                            <h4 className='font-medium '>No Medical History Found!</h4>
                                         </div>
                             }
                         </div>
@@ -487,8 +487,8 @@ const DashboardPage = () => {
                         {/* Upcoming */}
                         <div className="bg-white rounded-xl border shadow-sm md:col-span-3 max-md:order-1">
                             <div className="p-4 border-b">
-                                <h3 className="flex items-center text-lg font-semibold">
-                                    <CalendarClock className="mr-2 h-5 w-5 text-primary" />
+                                <h3 className="flex items-center text-lg font-semibold text-red-800">
+                                    <CalendarClock className="mr-2 h-5 w-5" />
                                     Upcoming
                                 </h3>
                                 <p className="text-sm text-gray-500">Next appointments and reminders</p>
@@ -546,8 +546,8 @@ const DashboardPage = () => {
                                     </>
                                     :
                                     <div className='flex flex-col items-center justify-center gap-3 h-full py-4 text-gray-600'>
-                                        <PawPrint size={30} />
-                                        <h4 className='font-semibold '>Nothing&apos;s Upcoming!</h4>
+                                        <PawPrint size={24} />
+                                        <h4 className='font-medium'>Nothing&apos;s Upcoming!</h4>
                                     </div>
                                 }
                             </div>
@@ -562,8 +562,8 @@ const DashboardPage = () => {
                     {/* Health Trends and Upcoming */}
                     <div className="bg-white rounded-xl border shadow-sm md:col-span-4">
                         <div className="p-4 border-b">
-                            <h3 className="flex items-center text-lg font-semibold">
-                                <HeartPulse className="mr-2 h-5 w-5 text-rose-500" />
+                            <h3 className="flex items-center text-lg font-semibold text-green-500">
+                                <HeartPulse className="mr-2 h-5 w-5" />
                                 Health Trends
                             </h3>
                             <p className="text-sm text-gray-500">Weight and activity level over time</p>
