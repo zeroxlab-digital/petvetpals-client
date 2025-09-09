@@ -121,7 +121,8 @@ const notifications = [
 
 const DashboardPage = () => {
     const { data: { pets } = {}, isLoading, error } = useGetPetsQuery();
-    const [selectedPet, setSelectedPet] = useState({})
+    const [selectedPet, setSelectedPet] = useState({});
+    console.log(selectedPet);
     const [showPetMenu, setShowPetMenu] = useState(false)
     const router = useRouter();
     const [mounted, setMounted] = useState(false)
@@ -145,9 +146,9 @@ const DashboardPage = () => {
 
     const { data: medicalHistory = [], isLoading: medicalHistoryLoading } = useGetMedicalHistoryQuery({ petId: selectedPet._id }, { skip: !selectedPet._id });
 
-    const petWeights = petData?.pet?.weight || [];
-    const petActivityLevel = petData?.pet?.activity_level || [];
-    const petEnergyLevel = petData?.pet?.energy_level || [];
+    const petWeights = selectedPet?.weight || [];
+    const petActivityLevel = selectedPet?.activity_level || [];
+    const petEnergyLevel = selectedPet?.energy_level || [];
 
     const healthMap = {};
 
@@ -413,8 +414,8 @@ const DashboardPage = () => {
                             </div>
                         </div>
 
-                        <ActivityLevel />
-                        <EnergyLevel />
+                        <ActivityLevel activityLevel={petActivityLevel} />
+                        <EnergyLevel energyLevel={petEnergyLevel} />
 
                     </div>
 
@@ -477,7 +478,7 @@ const DashboardPage = () => {
                         {/* Upcoming */}
                         <div className="bg-white rounded-xl border shadow-sm md:col-span-3 max-md:order-1">
                             <div className="p-4 border-b">
-                                <h3 className="flex items-center text-lg font-semibold text-red-800">
+                                <h3 className="flex items-center text-lg font-semibold text-primary">
                                     <CalendarClock className="mr-2 h-5 w-5" />
                                     Upcoming
                                 </h3>
