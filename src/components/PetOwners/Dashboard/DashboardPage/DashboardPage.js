@@ -16,6 +16,8 @@ import PetWeightBadge from '@/components/Common/PetWeightBadge/PetWeightBadge';
 import { displayValue } from '@/utils/displayValue';
 import TinySpinner from '@/components/Common/Loader/TinySpinner';
 import SmartReminder from './SmartReminder/SmartReminder';
+import ActivityLevel from './QuickPetInsights/ActivityLevel/ActivityLevel';
+import EnergyLevel from './QuickPetInsights/EnergyLevel/EnergyLevel';
 
 // Sample data for charts and displays
 // const healthData = [
@@ -135,7 +137,7 @@ const DashboardPage = () => {
     }, [pets])
 
     const { data: petData, isLoading: petLoading } = useGetPetDataQuery({ id: selectedPet._id }, { skip: !selectedPet._id });
-
+    console.log("pet data:", petData);
     const confirmed_appointment = petData?.confirmed_appointment;
     const pending_appointments = petData?.pending_appointments;
 
@@ -143,12 +145,26 @@ const DashboardPage = () => {
 
     const { data: medicalHistory = [], isLoading: medicalHistoryLoading } = useGetMedicalHistoryQuery({ petId: selectedPet._id }, { skip: !selectedPet._id });
 
-    const healthData = selectedPet?.weight?.map(({ date, value }) => ({
-        name: new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-        weight: value,
-        activity: 0, // or 0 if later want to show something but no data now
-        energy: 0
-    }));
+    const petWeights = petData?.pet?.weight || [];
+    const petActivityLevel = petData?.pet?.activity_level || [];
+    const petEnergyLevel = petData?.pet?.energy_level || [];
+
+    const healthMap = {};
+
+    const addToMap = (arr, key) => {
+        arr.forEach(({ date, value }) => {
+            const dateKey = new Date(date).toDateString();
+            if (!healthMap[dateKey]) healthMap[dateKey] = { name: new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' }), weight: 0, activity: 0, energy: 0 };
+            healthMap[dateKey][key] = value;
+        });
+    };
+    // Merge all arrays
+    addToMap(petWeights, 'weight');
+    addToMap(petActivityLevel, 'activity');
+    addToMap(petEnergyLevel, 'energy');
+    // Convert map to array sorted by date
+    const healthData = Object.values(healthMap).sort((a, b) => new Date(a.name) - new Date(b.name));
+
 
     if (isLoading) {
         return (
@@ -210,7 +226,7 @@ const DashboardPage = () => {
                                     return new Date(current.date) > new Date(latest.date) ? current : latest;
                                 }).value || 0
                             }
-                                 (lbs)
+                                (lbs)
                             </span>
                         </p>
                     </div>
@@ -397,35 +413,9 @@ const DashboardPage = () => {
                             </div>
                         </div>
 
-                        <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
-                            <div className="flex items-center justify-between pb-2">
-                                <h3 className="text-sm font-medium text-gray-600">Activity Level</h3>
-                                <PawPrint className="h-4 w-4 text-gray-500" />
-                            </div>
-                            <div className="text-2xl font-bold">85%</div>
-                            <div className="mt-2 h-2 rounded-full bg-gray-100 overflow-hidden">
-                                <div
-                                    className="h-full rounded-full bg-blue-500 transition-all duration-500"
-                                    style={{ width: "85%" }}
-                                ></div>
-                            </div>
-                            <p className="text-xs text-gray-500 mt-2">Above average for breed</p>
-                        </div>
+                        <ActivityLevel />
+                        <EnergyLevel />
 
-                        <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
-                            <div className="flex items-center justify-between pb-2">
-                                <h3 className="text-sm font-medium text-gray-600">Energy Level</h3>
-                                <Zap className="h-4 w-4 text-yellow-500" />
-                            </div>
-                            <div className="text-2xl font-bold">High</div>
-                            <div className="mt-2 h-2 rounded-full bg-gray-100 overflow-hidden">
-                                <div
-                                    className="h-full rounded-full bg-yellow-500 transition-all duration-500"
-                                    style={{ width: "90%" }}
-                                ></div>
-                            </div>
-                            <p className="text-xs text-gray-500 mt-2">Consistent with breed standard</p>
-                        </div>
                     </div>
 
                     {/* Smart Reminder */}

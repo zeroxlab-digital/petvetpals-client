@@ -21,7 +21,7 @@ export const petApi = createApi({
         }),
         getPetData: build.query({
             query: ({ id }) => ({
-                url: "/get-pet-data",
+                url: "/detailed-pet-data",
                 params: { id }
             }),
             providesTags: ["Pet"]
