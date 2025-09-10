@@ -582,7 +582,7 @@ const DashboardPage = () => {
                                         <Line
                                             type="monotone"
                                             dataKey="weight"
-                                            stroke="#8884d8"
+                                            stroke="#22C55E"
                                             strokeWidth={2}
                                             name="Weight (lbs)"
                                             activeDot={{ r: 8 }}
@@ -590,7 +590,7 @@ const DashboardPage = () => {
                                         <Line
                                             type="monotone"
                                             dataKey="activity"
-                                            stroke="#82ca9d"
+                                            stroke="#3B82F6"
                                             strokeWidth={2}
                                             name="Activity Level (%)"
                                             activeDot={{ r: 8 }}
@@ -610,11 +610,11 @@ const DashboardPage = () => {
                         <div className="p-4 border-t">
                             <div className="flex gap-4 text-sm">
                                 <div className="flex items-center">
-                                    <div className="w-3 h-3 rounded-full bg-[#8884d8] mr-1"></div>
+                                    <div className="w-3 h-3 rounded-full bg-[#22C55E] mr-1"></div>
                                     <span>Weight</span>
                                 </div>
                                 <div className="flex items-center">
-                                    <div className="w-3 h-3 rounded-full bg-[#82ca9d] mr-1"></div>
+                                    <div className="w-3 h-3 rounded-full bg-[#3B82F6] mr-1"></div>
                                     <span>Activity</span>
                                 </div>
                                 <div className="flex items-center">
