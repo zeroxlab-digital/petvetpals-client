@@ -2,8 +2,10 @@ import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import { PawPrint, Star } from 'lucide-react';
 import React, { useState, useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
+import { useAddActivityLevelMutation } from '@/redux/services/petApi';
+import { toast } from 'react-toastify';
 
-const ActivityLevel = ({ activityLevel }) => {
+const ActivityLevel = ({ petId, activityLevel }) => {
   let latestActivityLevel = 0;
   if (activityLevel.length > 0) {
     latestActivityLevel = activityLevel.reduce(
@@ -54,9 +56,20 @@ const ActivityLevel = ({ activityLevel }) => {
     });
   };
 
-  const handleSave = () => {
-    console.log('New activity logged:', newActivity);
-    setShowLogModal(false);
+  const [addActivityLevel, { isLoading }] = useAddActivityLevelMutation();
+  const handleSave = async () => {
+    try {
+      const res = await addActivityLevel({
+        id: petId,
+        activity_level: newActivity
+      }).unwrap();
+      toast.success("Activity level logged successfully!", { autoClose: 2000 })
+    } catch (error) {
+      console.log(error)
+      toast.error("Failed to log activity level!", { autoClose: 2000 })
+    } finally {
+      setShowLogModal(false);
+    }
   };
 
   const strokeDashoffset = circumference - (newActivity / 100) * circumference;
@@ -192,7 +205,7 @@ const ActivityLevel = ({ activityLevel }) => {
               onClick={handleSave}
               className="px-6 py-2 bg-primary text-white rounded-full shadow-md hover:bg-primaryHover transition-all max-sm:w-full"
             >
-              Save
+              {isLoading ? 'Loading...' : 'Save'}
             </motion.button>
           </div>
         </ModalPopup>

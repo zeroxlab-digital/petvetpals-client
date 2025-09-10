@@ -2,8 +2,10 @@ import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import { Zap, Star } from 'lucide-react';
 import React, { useState, useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
+import { useAddEnergyLevelMutation } from '@/redux/services/petApi';
+import { toast } from 'react-toastify';
 
-const EnergyLevel = ({ energyLevel }) => {
+const EnergyLevel = ({ petId, energyLevel }) => {
   let latestEnergyLevel = 0;
   if (energyLevel.length > 0) {
     latestEnergyLevel = energyLevel.reduce(
@@ -54,9 +56,20 @@ const EnergyLevel = ({ energyLevel }) => {
     });
   };
 
-  const handleSave = () => {
-    console.log('New energy logged:', newEnergy);
-    setShowLogModal(false);
+  const [addEnergyLevel, { isLoading }] = useAddEnergyLevelMutation();
+  const handleSave = async () => {
+    try {
+      const res = await addEnergyLevel({
+        id: petId,
+        energy_level: newEnergy
+      }).unwrap();
+      toast.success("Energy level logged successfully!", { autoClose: 2000 })
+    } catch (error) {
+      console.log(error)
+      toast.error("Ops! Failed to log energy level", { autoClose: 2000 })
+    } finally {
+      setShowLogModal(false);
+    }
   };
 
   const strokeDashoffset = circumference - (newEnergy / 100) * circumference;
@@ -192,7 +205,7 @@ const EnergyLevel = ({ energyLevel }) => {
               onClick={handleSave}
               className="px-6 py-2 bg-primary text-white rounded-full shadow-md hover:bg-primaryHover transition-all max-sm:w-full"
             >
-              Save
+              {isLoading ? 'Loading...' : 'Save'}
             </motion.button>
           </div>
         </ModalPopup>

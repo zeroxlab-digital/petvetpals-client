@@ -122,7 +122,8 @@ const notifications = [
 const DashboardPage = () => {
     const { data: { pets } = {}, isLoading, error } = useGetPetsQuery();
     const [selectedPet, setSelectedPet] = useState({});
-    console.log(selectedPet);
+    // console.log(selectedPet);
+    
     const [showPetMenu, setShowPetMenu] = useState(false)
     const router = useRouter();
     const [mounted, setMounted] = useState(false)
@@ -138,7 +139,7 @@ const DashboardPage = () => {
     }, [pets])
 
     const { data: petData, isLoading: petLoading } = useGetPetDataQuery({ id: selectedPet._id }, { skip: !selectedPet._id });
-    console.log("pet data:", petData);
+    // console.log("pet data:", petData);
     const confirmed_appointment = petData?.confirmed_appointment;
     const pending_appointments = petData?.pending_appointments;
 
@@ -295,7 +296,7 @@ const DashboardPage = () => {
                         <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center justify-between pb-2">
                                 <h3 className="text-sm font-medium text-gray-600">Overall Health</h3>
-                                <Activity className="h-4 w-4 text-gray-500" />
+                                <Activity className="h-4 w-4 text-green-500" />
                             </div>
                             <div className="text-2xl font-bold text-green-500">Excellent</div>
                             <div className="mt-2 h-2 rounded-full bg-gray-100 overflow-hidden">
@@ -310,7 +311,7 @@ const DashboardPage = () => {
                         <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center justify-between pb-2">
                                 <h3 className="text-sm font-medium text-gray-600">Weight Tracking</h3>
-                                <Weight className="h-4 w-4 text-gray-500" />
+                                <Weight className="h-4 w-4 text-primary" />
                             </div>
                             <div className="text-2xl font-bold">
                                 {
@@ -347,7 +348,7 @@ const DashboardPage = () => {
                         <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center justify-between pb-2">
                                 <h3 className="text-sm font-medium text-gray-600">Next Vaccination</h3>
-                                <Syringe className="h-4 w-4 text-gray-500" />
+                                <Syringe className="h-4 w-4 text-violet-500" />
                             </div>
                             {petData?.upcoming_vaccination ?
                                 <>
@@ -414,8 +415,8 @@ const DashboardPage = () => {
                             </div>
                         </div>
 
-                        <ActivityLevel activityLevel={petActivityLevel} />
-                        <EnergyLevel energyLevel={petEnergyLevel} />
+                        <ActivityLevel petId={selectedPet?._id} activityLevel={petActivityLevel} />
+                        <EnergyLevel petId={selectedPet?._id} energyLevel={petEnergyLevel} />
 
                     </div>
 
