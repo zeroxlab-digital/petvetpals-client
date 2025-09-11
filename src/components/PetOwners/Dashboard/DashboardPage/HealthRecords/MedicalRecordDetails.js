@@ -5,7 +5,7 @@ import React from 'react';
 import { toast } from 'react-toastify';
 
 const MedicalRecordDetails = ({ medicalRecord, onClose }) => {
-    const { type, diagnosis, treatment, date, description, vet, file } = medicalRecord || {};
+    const { type, diagnosis, treatment, date, description, vetOrClinic, file } = medicalRecord || {};
     const [deleteMedicalHistory, { isLoading, error }] = useDeleteMedicalHistoryMutation()
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this medical history?"))
@@ -41,7 +41,7 @@ const MedicalRecordDetails = ({ medicalRecord, onClose }) => {
             </div>
             <div className='my-3'>
                 <span className='text-gray-600 font-medium text-sm'>Vet</span>
-                <p>{displayValue(vet?.fullName)}</p>
+                <p>{displayValue(vetOrClinic)}</p>
             </div>
             <div>
                 <span className='text-gray-600 font-medium text-sm'>Description</span>
