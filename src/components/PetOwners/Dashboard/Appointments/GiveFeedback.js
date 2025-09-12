@@ -5,6 +5,7 @@ import { MessageCircle, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import { HiOutlineThumbDown, HiOutlineThumbUp } from 'react-icons/hi';
 import { HiStar, HiXMark } from 'react-icons/hi2';
+import DefaultVetImage from '/public/images/dr-vector.png'
 
 const GiveFeedback = ({ setGiveFeedback, appointment }) => {
     console.log(appointment)
@@ -13,7 +14,7 @@ const GiveFeedback = ({ setGiveFeedback, appointment }) => {
     return (
         <>
             <div className='border rounded-md p-5 bg-[#672e5b35] border-[#672e5b6e] flex items-center gap-4'>
-                <Image src={appointment.vet?.image || '/images/user.jpg'} alt={`vet image`} height={70} width={70} className='border-spacing-3 border-4 border-white rounded-full' />
+                <Image src={appointment.vet?.image || DefaultVetImage} alt={`vet image`} height={70} width={70} className='border-spacing-3 border-4 border-white rounded-full' />
                 <div>
                     <h3 className='text-base font-semibold'>{appointment.vet?.fullName}</h3>
                     <p className='text-sm text-blue-500 font-medium'>{appointment.vet?.degrees.slice(-1)}</p>

@@ -226,13 +226,14 @@ const Medications = ({ petId }) => {
                                                 <div>
                                                     <h4 className="text-sm font-semibold mb-0.5 select-none">Next Due</h4>
                                                     <p className="text-gray-700 leading-relaxed">
-                                                        {displayValue(
-                                                            new Date(med.next_due).toLocaleDateString("en-US", {
-                                                                month: "long",
-                                                                day: "numeric",
-                                                                year: "numeric",
-                                                            }),
-                                                        )}
+                                                        {
+                                                            // new Date(med.next_due).toLocaleDateString("en-US", {
+                                                            //     month: "long",
+                                                            //     day: "numeric",
+                                                            //     year: "numeric",
+                                                            // })
+                                                            med.next_due || "N/A"
+                                                        }
                                                     </p>
                                                 </div>
                                                 <div>
@@ -245,7 +246,7 @@ const Medications = ({ petId }) => {
                                                 </div>
                                                 <div>
                                                     <h4 className="text-sm font-semibold mb-0.5 select-none">Prescribed by</h4>
-                                                    <p className="text-gray-700 leading-relaxed">{displayValue(med.prescribed_by?.fullName)}</p>
+                                                    <p className="text-gray-700 leading-relaxed">{displayValue(med.prescribed_by)}</p>
                                                 </div>
                                             </section>
                                         </main>
@@ -311,15 +312,18 @@ const Medications = ({ petId }) => {
                                                 <td className="px-5 py-3 text-sm">{med.dosage || "N/A"}</td>
                                                 <td className="px-5 py-3 text-sm">{med.frequency || "N/A"}</td>
                                                 <td className="px-5 py-3 text-sm">
-                                                    {new Date(med.next_due).toLocaleDateString("en-US", {
-                                                        month: "long",
-                                                        year: "numeric",
-                                                        day: "numeric",
-                                                    }) || "N/A"}
+                                                    {
+                                                        // new Date(med.next_due).toLocaleDateString("en-US", {
+                                                        //     month: "long",
+                                                        //     year: "numeric",
+                                                        //     day: "numeric",
+                                                        // })
+                                                        med.next_due || "N/A"
+                                                    }
                                                 </td>
                                                 <td className="px-5 py-3 text-sm">{displayValue(med.remaining)}</td>
                                                 <td className="px-5 py-3 text-sm">{displayValue(med.reason)}</td>
-                                                <td className="px-5 py-3 text-sm">{displayValue(med.prescribed_by?.fullName)}</td>
+                                                <td className="px-5 py-3 text-sm">{displayValue(med.prescribed_by)}</td>
                                                 <td className="px-5 py-3 text-sm flex justify-end ">
                                                     <span className="relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center">
                                                         {/* <HiEllipsisHorizontal className="text-2xl text-gray-800" /> */}
@@ -458,7 +462,7 @@ const Medications = ({ petId }) => {
                                                 </div>
                                                 <div>
                                                     <h4 className="text-sm font-semibold mb-0.5 select-none">Prescribed by</h4>
-                                                    <p className="text-gray-700 leading-relaxed">{displayValue(med.prescribed_by?.fullName)}</p>
+                                                    <p className="text-gray-700 leading-relaxed">{displayValue(med.prescribed_by)}</p>
                                                 </div>
                                             </section>
                                         </main>
@@ -521,7 +525,7 @@ const Medications = ({ petId }) => {
                                                     }) || "N/A"}
                                                 </td>
                                                 <td className="px-5 py-3 text-sm">{med.reason || "N/A"}</td>
-                                                <td className="px-5 py-3 text-sm">{med.prescribed_by?.fullName || "N/A"}</td>
+                                                <td className="px-5 py-3 text-sm">{med.prescribed_by || "N/A"}</td>
                                                 <td className="px-5 py-3 text-sm flex justify-end">
                                                     <span
                                                         onClick={() => {
