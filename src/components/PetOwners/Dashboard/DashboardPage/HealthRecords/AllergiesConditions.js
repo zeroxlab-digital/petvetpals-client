@@ -40,15 +40,11 @@ const AllergiesConditions = ({ petId }) => {
 
     return (
         <div className="bg-white rounded-md border p-4">
-            <h2 className="text-xl mb-1 font-medium">Allergies & Medical Conditions</h2>
-            <p className="text-gray-600 text-sm">
-                Manage your pet&apos;s allergies and ongoing conditions
-            </p>
-            <div className="mt-8 space-y-5">
+            <div className="space-y-5">
 
                 {/* Allergies */}
                 <div>
-                    <h4 className="font-medium mb-2">Known Allergies</h4>
+                    <h4 className="font-semibold mb-4">Known Allergies</h4>
                     <ul className="space-y-3 mb-5">
                         {allergies.length === 0 && <p className="text-gray-500 text-sm">No known allergies.</p>}
                         {allergies.map((allergy, index) => (
@@ -61,7 +57,7 @@ const AllergiesConditions = ({ petId }) => {
                                     <span className="text-gray-600 text-sm">{new Date(allergy.diagnosedDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' })}</span>
                                 </div>
                                 <div className="flex item-center gap-1 max-sm:gap-0">
-                                    <Button size="small"><HiOutlinePencilAlt className="text-blue-400 hover:text-blue-500 duration-150 text-2xl" /></Button>
+                                    {/* <Button size="small"><HiOutlinePencilAlt className="text-blue-400 hover:text-blue-500 duration-150 text-2xl" /></Button> */}
                                     <Button onClick={() => handleDelete(allergy._id, "allergy")} size="small"><HiOutlineTrash className="text-red-400 hover:text-red-500 duration-150 text-2xl" /></Button>
                                 </div>
                             </li>
@@ -71,9 +67,9 @@ const AllergiesConditions = ({ petId }) => {
                         onClick={() => setAllergyPopup(true)}
                         variant="primary"
                         size="small"
-                        classNames="text-sm border !px-3 !py-2 rounded-md font-medium flex items-center gap-1"
+                        classNames="text-sm border !px-3 !py-1.5 rounded-full font-medium flex items-center gap-1"
                     >
-                        <HiPlus className="text-lg" /> Add Allergy
+                        <HiPlus className="" /> Add Allergy
                     </Button>
 
                     {allergyPopup && (
@@ -99,7 +95,7 @@ const AllergiesConditions = ({ petId }) => {
 
                 {/* Medical Conditions */}
                 <div>
-                    <h4 className="font-medium mb-2">Medical Conditions</h4>
+                    <h4 className="font-semibold mb-4">Medical Conditions</h4>
                     <ul className="space-y-3 mb-5">
                         {conditions.length === 0 && <p className="text-gray-500 text-sm">No medical conditions recorded.</p>}
                         {conditions.map((condition, index) => (
@@ -112,7 +108,7 @@ const AllergiesConditions = ({ petId }) => {
                                     <span className="text-gray-600 text-sm">{new Date(condition.diagnosedDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' })}</span>
                                 </div>
                                 <div className="flex item-center gap-1 max-sm:gap-0">
-                                    <Button size="small"><HiOutlinePencilAlt className="text-blue-400 hover:text-blue-500 duration-150 text-2xl" /></Button>
+                                    {/* <Button size="small"><HiOutlinePencilAlt className="text-blue-400 hover:text-blue-500 duration-150 text-2xl" /></Button> */}
                                     <Button onClick={() => handleDelete(condition._id, "condition")} size="small"><HiOutlineTrash className="text-red-400 hover:text-red-500 duration-150 text-2xl" /></Button>
                                 </div>
                             </li>
@@ -122,9 +118,9 @@ const AllergiesConditions = ({ petId }) => {
                         onClick={() => setConditionPopup(true)}
                         variant="primary"
                         size="small"
-                        classNames="text-sm border !px-3 !py-2 rounded-md font-medium flex items-center gap-1"
+                        classNames="text-sm border !px-3 !py-1.5 rounded-full font-medium flex items-center gap-1"
                     >
-                        <HiPlus className="text-lg" /> Add Condition
+                        <HiPlus className="" /> Add Condition
                     </Button>
 
                     {conditionPopup && (
