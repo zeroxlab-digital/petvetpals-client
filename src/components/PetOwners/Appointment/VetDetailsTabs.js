@@ -46,7 +46,7 @@ const VetDetailsTabs = ({ foundVet }) => {
                                         </span>
                                     </li>
                                     <li className='flex items-center gap-2 text-gray-800'>
-                                        <HiStar className='text-xl text-gray-700' /> Ratings <span className='font-medium'>4.7 (193)</span>
+                                        <HiStar className='text-xl text-gray-700' /> Ratings <span className='font-medium'>0.0 (0)</span>
                                     </li>
                                 </ul>
 

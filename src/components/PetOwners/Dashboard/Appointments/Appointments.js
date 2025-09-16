@@ -17,6 +17,7 @@ import { Calendar, CalendarClock, CheckCircle, MessageCircle } from 'lucide-reac
 import ConfirmBooking from './ConfirmBooking';
 import Button from '@/components/Common/Button/Button';
 import Link from 'next/link';
+import DefaultVetImage from '/public/images/dr-vector.png'
 
 const Appointments = () => {
     const { data, isLoading, isError } = useGetAppointmentsQuery();
@@ -153,8 +154,8 @@ const Appointments = () => {
                                 })()}
                             </div>
 
-                            <div className='flex items-center gap-3 lg:col-span-3 px-3'>
-                                <Image src={"/images/user.jpg"} alt='vet_img' width={200} height={200} className='w-16 h-auto rounded-full border-2' />
+                            <div className='flex gap-3 lg:col-span-3 px-3'>
+                                <Image src={appointment.vet?.image || DefaultVetImage} alt='vet_img' width={200} height={200} className='w-20 h-20 object-cover rounded-full' />
                                 <div>
                                     <h5 className='font-semibold text-lg mb-1'>{appointment.vet?.fullName}</h5>
                                     <p className='text-sm text-gray-500'>{appointment.vet?.degrees[0]}</p>

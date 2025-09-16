@@ -9,6 +9,7 @@ import { setClickedParticipant } from '@/redux/features/messageSlice';
 import { PetSpinner } from '../../Loader/PetSpinner';
 import { useRouter } from 'next/navigation';
 import TinySpinner from '../../Loader/TinySpinner';
+import { MessageCircle, MessageCircleDashed, MessageCircleHeart, MessageCircleMore } from 'lucide-react';
 
 const ConversationContainer = ({ clickedParticipant, authUser }) => {
     const [showMenu, setShowMenu] = useState(false);
@@ -49,7 +50,7 @@ const ConversationContainer = ({ clickedParticipant, authUser }) => {
                     <button onClick={() => dispatch(setClickedParticipant(null))} className='md:hidden'>
                         <HiArrowLeft className='text-gray-900 text-xl' />
                     </button>
-                    <Image src="/images/user.jpg" alt="participant-profile" width={20} height={20} className='rounded-full w-10 h-10' />
+                    <Image src="/images/dr-vector.png" alt="participant-profile" width={20} height={20} className='rounded-full w-10 h-10' />
                     <span className='font-medium text-gray-900'>{clickedParticipant.fullName}</span>
                 </div>
                 <button onClick={() => setShowMenu(!showMenu)} className='text-gray-900 text-2xl'>
@@ -57,15 +58,16 @@ const ConversationContainer = ({ clickedParticipant, authUser }) => {
                 </button>
                 {showMenu && <div className='absolute top-10 right-0 w-52 h-max border shadow-lg bg-white rounded-md z-10'>
                     <ul>
-                        <li onClick={() => { router.push(`/appointments/${clickedParticipant._id}`), setShowMenu(false) }} className='py-3 px-3 text-gray-800 cursor-pointer hover:bg-gray-100 duration-150 rounded-t-md font-medium text-sm border-b'>View profile</li>
+                        <li onClick={() => { router.push(`/vet-appointment/${clickedParticipant._id}`), setShowMenu(false) }} className='py-3 px-3 text-gray-800 cursor-pointer hover:bg-gray-100 duration-150 rounded-t-md font-medium text-sm border-b'>View profile</li>
                         <li onClick={() => setShowMenu(false)} className='py-3 px-3 text-gray-800 cursor-pointer hover:bg-gray-100 duration-150 rounded-b-md font-medium text-sm'>View media & links</li>
                     </ul>
                 </div>}
             </div>
             {loading && <TinySpinner />}
             {messages.length < 1 && error ?
-                <div className='flex items-center justify-center h-full'>
-                    <h3 className='font-bold text-lg text-gray-800'>No convo found</h3>
+                <div className='flex flex-col text-center items-center justify-center h-full gap-4'>
+                    <MessageCircleMore className='text-gray-300' size={100} />
+                    <h3 className='font-bold text-lg text-gray-600'>No Conversation Found!</h3>
                 </div>
                 :
                 <div className='messages h-min overflow-auto'>

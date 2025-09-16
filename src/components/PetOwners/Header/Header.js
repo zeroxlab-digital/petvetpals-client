@@ -8,6 +8,7 @@ import CartCount from "@/e-commerce/Cart/CartCount";
 import { PawPrint } from "lucide-react";
 import { useUserAuthenticated } from "../../../../hooks/useUserAuthenticated";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const Header = () => {
     const pathname = usePathname();
@@ -45,10 +46,11 @@ const Header = () => {
                     ${responsiveMenu ? "translate-x-0" : "-translate-x-full"}`}>
 
                         {/* Menu Header */}
-                        <div className="flex items-center justify-between p-5 bg-primary text-white ">
+                        <div className="flex items-center justify-between p-5 text-primary border-b border-[#672e5b]">
                             <Link href="/" className="flex items-center gap-2">
-                                <PawPrint className="w-7 h-7" />
-                                <span className="text-2xl  font-bold">PetVetPals</span>
+                                {/* <PawPrint className="w-7 h-7" /> */}
+                                <Image src={"/images/temp-logo-pvp.jpg"} alt="logo" width={55} height={55} priority className="" />
+                                <h2 className="text-2xl font-bold">PetVetPals</h2>
                             </Link>
                             <button onClick={() => setResponsiveMenu(false)}>
                                 <HiXMark className="text-[26px]" />
@@ -85,8 +87,9 @@ const Header = () => {
 
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 text-primary">
-                        <PawPrint className="w-7 h-7 max-lg:hidden" />
-                        <span className="text-2xl font-bold">PetVetPals</span>
+                        {/* <PawPrint className="w-7 h-7 max-lg:hidden" /> */}
+                        <Image src={"/images/temp-logo-pvp.jpg"} alt="logo" width={55} height={55} priority className="max-lg:hidden" />
+                        <h2 className="text-2xl font-bold">PetVetPals</h2>
                     </Link>
 
                     {/* Desktop Navbar */}

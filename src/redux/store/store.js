@@ -9,6 +9,7 @@ import { userApi } from "../services/userApi";
 import { symptomApi } from "../services/symptomApi";
 import { nutritionistApi } from "../services/NutritionistApi";
 import { allergyCoachApi } from "../services/allergyCoachApi";
+import { reminderApi } from "../services/reminderApi";
 import { vetApi } from "../services/vetApi";
 
 const store = configureStore({
@@ -17,6 +18,7 @@ const store = configureStore({
         messageRedu: messageReducer,
         notifications: notificationReducer,
         [userApi.reducerPath]: userApi.reducer,
+        [reminderApi.reducerPath]: reminderApi.reducer,
         [appointmentApi.reducerPath]: appointmentApi.reducer,
         [petApi.reducerPath]: petApi.reducer,
         [symptomApi.reducerPath]: symptomApi.reducer,
@@ -28,6 +30,7 @@ const store = configureStore({
         getDefaultMiddleware({
         })
             .concat(userApi.middleware)
+            .concat(reminderApi.middleware)
             .concat(appointmentApi.middleware)
             .concat(petApi.middleware)
             .concat(symptomApi.middleware)

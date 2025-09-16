@@ -102,7 +102,7 @@ const Vaccinations = ({ petId }) => {
                 </div>
                 <div>
                   <h4 className="text-sm font-semibold mb-0.5 select-none">Provider</h4>
-                  <p className="text-gray-700 leading-relaxed">{displayValue(record.provider?.fullName)}</p>
+                  <p className="text-gray-700 leading-relaxed">{displayValue(record.provider)}</p>
                 </div>
               </section>
             </main>
@@ -176,7 +176,7 @@ const Vaccinations = ({ petId }) => {
                   )}
                 </td>
                 <td className="px-5 py-3 text-sm">{displayValue(record.status)}</td>
-                <td className="px-5 py-3 text-sm">{displayValue(record.provider?.fullName)}</td>
+                <td className="px-5 py-3 text-sm">{displayValue(record.provider)}</td>
                 <td className="px-5 py-3 text-sm flex justify-end gap-1">
                   <span className="relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center">
                     <HiEllipsisVertical className="text-xl text-gray-800" />

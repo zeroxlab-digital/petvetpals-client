@@ -3,14 +3,18 @@ import { useDispatch } from 'react-redux';
 import { addNotification } from '@/redux/features/notificationSlice';
 import { useEffect, useRef } from 'react';
 import axios from 'axios';
+import { useUserAuthenticated } from './useUserAuthenticated';
 
 const useReminderNotifications = () => {
     const dispatch = useDispatch();
 
     // Track shown notifications to avoid duplicates
     const shownReminders = useRef(new Set());
+    
+    const {isAuthenticated, isLoading: authenticationLoading} = useUserAuthenticated();
 
     useEffect(() => {
+        if(!isAuthenticated) return;
         const interval = setInterval(async () => {
             try {
                 const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/api/pet/medications/check-reminder-notifications`, {
@@ -48,7 +52,7 @@ const useReminderNotifications = () => {
         }, 20000); // every 20 seconds
 
         return () => clearInterval(interval);
-    }, [dispatch]);
+    }, [dispatch, isAuthenticated]);
 };
 
 export default useReminderNotifications;

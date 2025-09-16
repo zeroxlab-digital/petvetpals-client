@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import InitialDashboard from './InitialDashboard';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 import Image from 'next/image';
-import { Calendar, ChevronDown, ChevronUp, MessageSquare, Syringe, Check, Heart, PawPrint, PillIcon as Pills, Plus, Thermometer, Weight, Zap, Filter, MoreHorizontal, Activity, AlertCircle } from 'lucide-react';
+import { Calendar, ChevronDown, ChevronUp, MessageSquare, Syringe, Check, Heart, PawPrint, PillIcon as Pills, Plus, Thermometer, Weight, Zap, Filter, MoreHorizontal, Activity, AlertCircle, CalendarClock, Stethoscope, HeartPulse } from 'lucide-react';
 import { Line, LineChart as RechartsLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 import { useRouter } from 'next/navigation';
 import HealthRecords from './HealthRecords/HealthRecords';
@@ -15,6 +15,9 @@ import Link from 'next/link';
 import PetWeightBadge from '@/components/Common/PetWeightBadge/PetWeightBadge';
 import { displayValue } from '@/utils/displayValue';
 import TinySpinner from '@/components/Common/Loader/TinySpinner';
+import SmartReminder from './SmartReminder/SmartReminder';
+import ActivityLevel from './QuickPetInsights/ActivityLevel/ActivityLevel';
+import EnergyLevel from './QuickPetInsights/EnergyLevel/EnergyLevel';
 
 // Sample data for charts and displays
 // const healthData = [
@@ -118,7 +121,9 @@ const notifications = [
 
 const DashboardPage = () => {
     const { data: { pets } = {}, isLoading, error } = useGetPetsQuery();
-    const [selectedPet, setSelectedPet] = useState({})
+    const [selectedPet, setSelectedPet] = useState({});
+    // console.log(selectedPet);
+    
     const [showPetMenu, setShowPetMenu] = useState(false)
     const router = useRouter();
     const [mounted, setMounted] = useState(false)
@@ -133,21 +138,35 @@ const DashboardPage = () => {
         }
     }, [pets])
 
-    const { data: petData, isLoading: petLoading } = useGetPetDataQuery({ id: selectedPet._id });
-    console.log(petData);
+    const { data: petData, isLoading: petLoading } = useGetPetDataQuery({ id: selectedPet._id }, { skip: !selectedPet._id });
+    // console.log("pet data:", petData);
     const confirmed_appointment = petData?.confirmed_appointment;
     const pending_appointments = petData?.pending_appointments;
 
-    const { data: symptom_history = [] } = useGetSymptomHistoryQuery(selectedPet._id)
+    const { data: symptom_history = [] } = useGetSymptomHistoryQuery(selectedPet._id, { skip: !selectedPet._id })
 
-    const { data: medicalHistory = [], isLoading: medicalHistoryLoading } = useGetMedicalHistoryQuery({ petId: selectedPet._id });
+    const { data: medicalHistory = [], isLoading: medicalHistoryLoading } = useGetMedicalHistoryQuery({ petId: selectedPet._id }, { skip: !selectedPet._id });
 
-    const healthData = selectedPet?.weight?.map(({ date, value }) => ({
-        name: new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-        weight: value,
-        activity: 0, // or 0 if later want to show something but no data now
-        energy: 0
-    }));
+    const petWeights = selectedPet?.weight || [];
+    const petActivityLevel = selectedPet?.activity_level || [];
+    const petEnergyLevel = selectedPet?.energy_level || [];
+
+    const healthMap = {};
+
+    const addToMap = (arr, key) => {
+        arr.forEach(({ date, value }) => {
+            const dateKey = new Date(date).toDateString();
+            if (!healthMap[dateKey]) healthMap[dateKey] = { name: new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' }), weight: 0, activity: 0, energy: 0 };
+            healthMap[dateKey][key] = value;
+        });
+    };
+    // Merge all arrays
+    addToMap(petWeights, 'weight');
+    addToMap(petActivityLevel, 'activity');
+    addToMap(petEnergyLevel, 'energy');
+    // Convert map to array sorted by date
+    const healthData = Object.values(healthMap).sort((a, b) => new Date(a.name) - new Date(b.name));
+
 
     if (isLoading) {
         return (
@@ -217,23 +236,23 @@ const DashboardPage = () => {
                 <div className="flex items-center gap-2 text-center">
                     <button
                         onClick={() => router.push("/vet-appointment")}
-                        className=" flex justify-center items-center bg-primary hover:bg-primaryHover duration-200 text-white px-4 max-sm:px-2 py-[10px] rounded-lg transition-colors"
+                        className=" flex justify-center items-center bg-primary hover:bg-primaryHover duration-200 text-white max-sm:w-max w-fit px-4 max-sm:px-3 py-[9px] rounded-lg transition-colors"
                     >
                         <Calendar className="mr-2 h-4 w-4" />
                         Book Appointment
                     </button>
-                    <button onClick={() => router.push("/dashboard/messages")} className=" flex justify-center items-center border border-gray-300 px-4 max-sm:px-2 py-[10px] rounded-lg hover:bg-gray-100 duration-200 transition-colors">
-                        <MessageSquare className="mr-2 h-4 w-4" />
-                        Chat with Vet
+                    <button onClick={() => router.push("/dashboard/vet-gpt")} className=" flex justify-center items-center border border-gray-300 max-sm:w-max w-fit px-4 max-sm:px-3 py-[9px] rounded-lg hover:bg-gray-100 duration-200 transition-colors">
+                        <HeartPulse className="mr-2 h-4 w-4" />
+                        AI Health Tools
                     </button>
                 </div>
             </div>
 
             {/* Dashboard Tabs */}
-            <div className="flex space-x-6 overflow-x-auto mb-7 border-b">
+            <div className="flex space-x-6 max-sm:space-x-5 overflow-x-auto mb-7 border-b">
                 <button
                     onClick={() => setActiveTab("overview")}
-                    className={`py-2 px-1 border-b-[3px] font-medium text-sm whitespace-nowrap ${activeTab === "overview"
+                    className={`py-2 px-1 border-b-[3px] font-semibold text-base whitespace-nowrap ${activeTab === "overview"
                         ? "border-[#672e5b] text-primary"
                         : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
@@ -242,7 +261,7 @@ const DashboardPage = () => {
                 </button>
                 <button
                     onClick={() => setActiveTab("health")}
-                    className={`py-2 px-1 border-b-[3px] font-medium text-sm whitespace-nowrap ${activeTab === "health"
+                    className={`py-2 px-1 border-b-[3px] font-semibold text-base whitespace-nowrap ${activeTab === "health"
                         ? "border-[#672e5b] text-primary"
                         : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
@@ -251,7 +270,7 @@ const DashboardPage = () => {
                 </button>
                 <button
                     onClick={() => setActiveTab("medications")}
-                    className={`py-2 px-1 border-b-[3px] font-medium text-sm whitespace-nowrap ${activeTab === "medications"
+                    className={`py-2 px-1 border-b-[3px] font-semibold text-base whitespace-nowrap ${activeTab === "medications"
                         ? "border-[#672e5b] text-primary"
                         : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
@@ -260,7 +279,7 @@ const DashboardPage = () => {
                 </button>
                 <button
                     onClick={() => setActiveTab("diet")}
-                    className={`py-2 px-1 border-b-[3px] font-medium text-sm whitespace-nowrap ${activeTab === "diet"
+                    className={`py-2 px-1 border-b-[3px] font-semibold text-base whitespace-nowrap ${activeTab === "diet"
                         ? "border-[#672e5b] text-primary"
                         : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
@@ -277,7 +296,7 @@ const DashboardPage = () => {
                         <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center justify-between pb-2">
                                 <h3 className="text-sm font-medium text-gray-600">Overall Health</h3>
-                                <Activity className="h-4 w-4 text-gray-500" />
+                                <Activity className="h-4 w-4 text-green-500" />
                             </div>
                             <div className="text-2xl font-bold text-green-500">Excellent</div>
                             <div className="mt-2 h-2 rounded-full bg-gray-100 overflow-hidden">
@@ -292,7 +311,7 @@ const DashboardPage = () => {
                         <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center justify-between pb-2">
                                 <h3 className="text-sm font-medium text-gray-600">Weight Tracking</h3>
-                                <Weight className="h-4 w-4 text-gray-500" />
+                                <Weight className="h-4 w-4 text-primary" />
                             </div>
                             <div className="text-2xl font-bold">
                                 {
@@ -329,7 +348,7 @@ const DashboardPage = () => {
                         <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
                             <div className="flex items-center justify-between pb-2">
                                 <h3 className="text-sm font-medium text-gray-600">Next Vaccination</h3>
-                                <Syringe className="h-4 w-4 text-gray-500" />
+                                <Syringe className="h-4 w-4 text-violet-500" />
                             </div>
                             {petData?.upcoming_vaccination ?
                                 <>
@@ -390,49 +409,28 @@ const DashboardPage = () => {
                                     :
                                     <div>
                                         <h2>No Recent Issue</h2>
-                                        <p className='font-normal text-xs text-gray-500 mt-2'>Try <Link className='text-blue-600' href="./symptom-checker">Vet GPT</Link> to get professional symptom analysis</p>
+                                        <p className='font-normal text-xs text-gray-500 mt-2'>Try <Link className='text-blue-600' href="/dashboard/vet-gpt">Vet GPT</Link> to get professional symptom analysis</p>
                                     </div>
                                 }
                             </div>
                         </div>
 
-                        <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
-                            <div className="flex items-center justify-between pb-2">
-                                <h3 className="text-sm font-medium text-gray-600">Activity Level</h3>
-                                <PawPrint className="h-4 w-4 text-gray-500" />
-                            </div>
-                            <div className="text-2xl font-bold">85%</div>
-                            <div className="mt-2 h-2 rounded-full bg-gray-100 overflow-hidden">
-                                <div
-                                    className="h-full rounded-full bg-blue-500 transition-all duration-500"
-                                    style={{ width: "85%" }}
-                                ></div>
-                            </div>
-                            <p className="text-xs text-gray-500 mt-2">Above average for breed</p>
-                        </div>
+                        <ActivityLevel petId={selectedPet?._id} activityLevel={petActivityLevel} />
+                        <EnergyLevel petId={selectedPet?._id} energyLevel={petEnergyLevel} />
 
-                        <div className="bg-white rounded-xl border p-4 shadow-sm hover:shadow-md transition-shadow">
-                            <div className="flex items-center justify-between pb-2">
-                                <h3 className="text-sm font-medium text-gray-600">Energy Level</h3>
-                                <Zap className="h-4 w-4 text-yellow-500" />
-                            </div>
-                            <div className="text-2xl font-bold">High</div>
-                            <div className="mt-2 h-2 rounded-full bg-gray-100 overflow-hidden">
-                                <div
-                                    className="h-full rounded-full bg-yellow-500 transition-all duration-500"
-                                    style={{ width: "90%" }}
-                                ></div>
-                            </div>
-                            <p className="text-xs text-gray-500 mt-2">Consistent with breed standard</p>
-                        </div>
                     </div>
 
+                    {/* Smart Reminder */}
+                    <SmartReminder selectedPet={selectedPet} />
 
                     <div className="grid gap-4 grid-cols-1 md:grid-cols-7 overflow-hidden">
                         {/* Medical History */}
                         <div className="bg-white rounded-xl border shadow-sm md:col-span-4 flex flex-col max-md:order-2">
                             <div className="p-4 border-b">
-                                <h3 className="text-lg font-semibold">Medical History</h3>
+                                <h3 className="flex items-center text-lg font-semibold text-blue-600">
+                                    <Stethoscope className="mr-2 h-5 w-5 " />
+                                    Medical Records
+                                </h3>
                                 <p className="text-sm text-gray-500">Recent medical records</p>
                             </div>
                             {
@@ -472,8 +470,8 @@ const DashboardPage = () => {
                                         </>
                                         :
                                         <div className='flex flex-col items-center justify-center gap-3 h-full py-4 text-gray-600'>
-                                            <PawPrint size={30} />
-                                            <h4 className='font-semibold '>No Medical History Found!</h4>
+                                            <PawPrint size={24} />
+                                            <h4 className='font-medium '>No Medical History Found!</h4>
                                         </div>
                             }
                         </div>
@@ -481,7 +479,10 @@ const DashboardPage = () => {
                         {/* Upcoming */}
                         <div className="bg-white rounded-xl border shadow-sm md:col-span-3 max-md:order-1">
                             <div className="p-4 border-b">
-                                <h3 className="text-lg font-semibold">Upcoming</h3>
+                                <h3 className="flex items-center text-lg font-semibold text-primary">
+                                    <CalendarClock className="mr-2 h-5 w-5" />
+                                    Upcoming
+                                </h3>
                                 <p className="text-sm text-gray-500">Next appointments and reminders</p>
                             </div>
                             <div className="p-4 space-y-4">
@@ -537,8 +538,8 @@ const DashboardPage = () => {
                                     </>
                                     :
                                     <div className='flex flex-col items-center justify-center gap-3 h-full py-4 text-gray-600'>
-                                        <PawPrint size={30} />
-                                        <h4 className='font-semibold '>Nothing&apos;s Upcoming!</h4>
+                                        <PawPrint size={24} />
+                                        <h4 className='font-medium'>Nothing&apos;s Upcoming!</h4>
                                     </div>
                                 }
                             </div>
@@ -553,7 +554,10 @@ const DashboardPage = () => {
                     {/* Health Trends and Upcoming */}
                     <div className="bg-white rounded-xl border shadow-sm md:col-span-4">
                         <div className="p-4 border-b">
-                            <h3 className="text-lg font-semibold">Health Trends</h3>
+                            <h3 className="flex items-center text-lg font-semibold text-green-500">
+                                <HeartPulse className="mr-2 h-5 w-5" />
+                                Health Trends
+                            </h3>
                             <p className="text-sm text-gray-500">Weight and activity level over time</p>
                         </div>
                         <div className="p-4">
@@ -579,7 +583,7 @@ const DashboardPage = () => {
                                         <Line
                                             type="monotone"
                                             dataKey="weight"
-                                            stroke="#8884d8"
+                                            stroke="#22C55E"
                                             strokeWidth={2}
                                             name="Weight (lbs)"
                                             activeDot={{ r: 8 }}
@@ -587,7 +591,7 @@ const DashboardPage = () => {
                                         <Line
                                             type="monotone"
                                             dataKey="activity"
-                                            stroke="#82ca9d"
+                                            stroke="#3B82F6"
                                             strokeWidth={2}
                                             name="Activity Level (%)"
                                             activeDot={{ r: 8 }}
@@ -607,11 +611,11 @@ const DashboardPage = () => {
                         <div className="p-4 border-t">
                             <div className="flex gap-4 text-sm">
                                 <div className="flex items-center">
-                                    <div className="w-3 h-3 rounded-full bg-[#8884d8] mr-1"></div>
+                                    <div className="w-3 h-3 rounded-full bg-[#22C55E] mr-1"></div>
                                     <span>Weight</span>
                                 </div>
                                 <div className="flex items-center">
-                                    <div className="w-3 h-3 rounded-full bg-[#82ca9d] mr-1"></div>
+                                    <div className="w-3 h-3 rounded-full bg-[#3B82F6] mr-1"></div>
                                     <span>Activity</span>
                                 </div>
                                 <div className="flex items-center">

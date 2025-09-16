@@ -11,6 +11,18 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
     const isEdit = Boolean(vaccination);
 
     const [providers, setProviders] = useState([]);
+
+    const [inputValue, setInputValue] = useState("");
+
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const detectedProviders = providers.filter(
+        (provider) =>
+            provider.fullName.toLowerCase().includes(inputValue.toLowerCase()) ||
+            provider.works_at.toLowerCase().includes(inputValue.toLowerCase()) ||
+            provider.based_in.toLowerCase().includes(inputValue.toLowerCase())
+    );
+
     const [addVaccination, { isLoading: isAdding }] = useAddVaccinationMutation();
     const [updateVaccination, { isLoading: isUpdating }] = useUpdateVaccinationMutation();
 
@@ -21,21 +33,21 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
 
     const initialData = vaccination
         ? {
-              vaccine: vaccination.vaccine || '',
-              date_given: vaccination.date_given?.split('T')[0] || '',
-              next_due: vaccination.next_due?.split('T')[0] || '',
-              status: vaccination.status || '',
-              provider: vaccination.provider?._id || vaccination.provider || '',
-              notes: vaccination.notes || ''
-          }
+            vaccine: vaccination.vaccine || '',
+            date_given: vaccination.date_given?.split('T')[0] || '',
+            next_due: vaccination.next_due?.split('T')[0] || '',
+            status: vaccination.status || '',
+            provider: vaccination.provider || '',
+            notes: vaccination.notes || ''
+        }
         : {
-              vaccine: '',
-              date_given: new Date().toISOString().split('T')[0],
-              next_due: '',
-              status: '',
-              provider: '',
-              notes: ''
-          };
+            vaccine: '',
+            date_given: new Date().toISOString().split('T')[0],
+            next_due: '',
+            status: '',
+            provider: inputValue,
+            notes: ''
+        };
 
     const [vaccinationData, setVaccinationData] = useState(initialData);
 
@@ -97,20 +109,20 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <div className='grid grid-cols-2 gap-4 max-md:grid-cols-1'>
-                    <div>
-                        <Label htmlFor='vaccine'>Vaccine Name</Label>
-                        <Input
-                            id='vaccine'
-                            type='text'
-                            placeholder='e.g. Rabies'
-                            required
-                            value={vaccinationData.vaccine}
-                            onChange={(e) =>
-                                setVaccinationData({ ...vaccinationData, vaccine: e.target.value })
-                            }
-                        />
-                    </div>
+                <div>
+                    <Label htmlFor='vaccine'>Vaccine Name</Label>
+                    <Input
+                        id='vaccine'
+                        type='text'
+                        placeholder='e.g. Rabies'
+                        required
+                        value={vaccinationData.vaccine}
+                        onChange={(e) =>
+                            setVaccinationData({ ...vaccinationData, vaccine: e.target.value })
+                        }
+                    />
+                </div>
+                <div className='grid grid-cols-2 gap-4 mt-4 max-md:grid-cols-1'>
                     <div>
                         <Label htmlFor='date_given'>Date Given</Label>
                         <Input
@@ -150,52 +162,60 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
                             }
                         />
                     </div>
-                    <div>
-                        <Label htmlFor='providerType'>Provider Type</Label>
-                        <SelectOptions
-                            id='providerType'
-                            name='providerType'
-                            options={[
-                                { label: 'Vet', value: 'vet' },
-                                { label: 'Pharmacist', value: 'pharmacist' },
-                                { label: 'Clinic', value: 'clinic' },
-                                { label: 'Hospital', value: 'hospital' },
-                                { label: 'Other', value: 'other' }
-                            ]}
-                            placeholder='Vet'
-                            value={providerType}
-                            onChange={(e) => setProviderType(e.target.value)}
-                        />
+
+                    {/* Vet or Clinic Selector */}
+                    <div className="relative">
+                        <Label htmlFor="provider">Provider</Label>
+                        <div>
+                            <input
+                                type="text"
+                                id="provider"
+                                placeholder="Vet, Pet Clinic, Hospital, Pet Shelter"
+                                value={inputValue}
+                                onChange={(e) => {
+                                    setInputValue(e.target.value);
+                                    setVaccinationData({
+                                        ...vaccinationData,
+                                        provider: e.target.value, 
+                                    });
+                                    setShowDropdown(true);
+                                }}
+                                className="border border-gray-200 px-2 py-2 rounded outline-none placeholder:font-light placeholder:text-sm w-full"
+                            />
+
+                            {showDropdown &&
+                                detectedProviders.length > 0 &&
+                                inputValue.length > 0 && (
+                                    <ul className="absolute top-full left-0 w-full bg-white rounded-lg border shadow-lg mt-2 max-h-56 overflow-auto p-2 z-10">
+                                        {detectedProviders.map((item, idx) => (
+                                            <li
+                                                key={idx}
+                                                onClick={() => {
+                                                    setInputValue(item.fullName);
+                                                    setVaccinationData({
+                                                        ...vaccinationData,
+                                                        provider: item.fullName,
+                                                    });
+                                                    setShowDropdown(false);
+                                                }}
+                                                className="p-2 cursor-pointer hover:bg-gray-50 duration-100"
+                                            >
+                                                <h5 className="font-medium text-sm">
+                                                    {item.fullName}{" "}
+                                                    {/* <span className="font-normal">
+                                                        - {item.degrees?.[0] || "N/A"}
+                                                    </span> */}
+                                                </h5>
+                                                <p className="text-xs text-gray-600">
+                                                    {item.degrees?.[0] || "N/A"}
+                                                </p>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                        </div>
                     </div>
-                    {providerType === 'vet' ? (
-                        <div>
-                            <Label htmlFor='provider'>Vet</Label>
-                            <SelectOptions
-                                id='provider'
-                                name='provider'
-                                options={providers.map((p) => ({
-                                    label: p.fullName,
-                                    value: p._id
-                                }))}
-                                placeholder='Select Vet'
-                                value={vaccinationData.provider}
-                                onChange={(e) =>
-                                    setVaccinationData({ ...vaccinationData, provider: e.target.value })
-                                }
-                            />
-                        </div>
-                    ) : (
-                        <div>
-                            <Label htmlFor='customProvider'>Specify</Label>
-                            <Input
-                                id='customProvider'
-                                name='customProvider'
-                                placeholder='e.g. Local Clinic'
-                                value={customProvider}
-                                onChange={(e) => setCustomProvider(e.target.value)}
-                            />
-                        </div>
-                    )}
+
                 </div>
 
                 <div className='mt-4'>
@@ -222,15 +242,14 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
                     <button
                         type='submit'
                         disabled={isSubmitDisabled}
-                        className={`bg-primary text-white w-40 h-11 text-center rounded-md hover:bg-primaryHover duration-200 ${
-                            isSubmitDisabled ? 'opacity-50 cursor-not-allowed' : ''
-                        }`}
+                        className={`bg-primary text-white w-40 h-11 text-center rounded-md hover:bg-primaryHover duration-200 ${isSubmitDisabled ? 'opacity-50 cursor-not-allowed' : ''
+                            }`}
                     >
                         {isAdding || isUpdating
                             ? 'Saving...'
                             : isEdit
-                            ? 'Update Vaccination'
-                            : 'Add Vaccination'}
+                                ? 'Update Vaccination'
+                                : 'Add Vaccination'}
                     </button>
                 </div>
             </form>

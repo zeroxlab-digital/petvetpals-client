@@ -18,8 +18,8 @@ const Navbar = ({ setResponsiveMenu = () => { } }) => {
     return (
         <ul className='max-lg:px-5 flex items-center lg:gap-7 max-lg:flex-col max-lg:items-start text-primary'>
             {
-                navs.map((nav, index) => <li key={index} className='max-lg:w-full max-lg:border-b border-gray-100 last:border-none' onClick={() => setResponsiveMenu(false)}>
-                    <Link href={nav.path} className='flex gap-2 max-lg:gap-3 items-center max-lg:py-6'>
+                navs.map((nav, index) => <li key={index} className='max-lg:w-full' onClick={() => setResponsiveMenu(false)}>
+                    <Link href={nav.path} className='flex gap-2 max-lg:gap-3 items-center max-lg:py-5'>
                         <span className='text-lg'>{nav.icon}</span>
                         <span className='text-base'>{nav.title}</span>
                     </Link>

@@ -1,6 +1,7 @@
 import Button from '@/components/Common/Button/Button';
 import TinySpinner from '@/components/Common/Loader/TinySpinner';
 import { useDeleteMedicationMutation, useUpdateMedicationMutation } from '@/redux/services/petApi';
+import { displayValue } from '@/utils/displayValue';
 import React from 'react';
 import { toast } from 'react-toastify';
 
@@ -42,27 +43,27 @@ const MedicationDetails = ({ med, setViewDetails, setOpenPopup }) => {
             <div className='grid grid-cols-2 gap-3'>
                 <div>
                     <span className='text-gray-600 font-medium text-sm'>Medication</span>
-                    <p className=''>{med.medication || 'N/A'}</p>
+                    <p className=''>{displayValue(med.medication)}</p>
                 </div>
                 <div>
                     <span className='text-gray-600 font-medium text-sm'>Dosage</span>
-                    <p className=''>{med.dosage || 'N/A'}</p>
+                    <p className=''>{displayValue(med.dosage)}</p>
                 </div>
                 <div>
                     <span className='text-gray-600 font-medium text-sm'>Time of day</span>
-                    <p>{med.time_of_day || 'N/A'}</p>
+                    <p>{displayValue(med.time_of_day)}</p>
                 </div>
                 <div>
                     <span className='text-gray-600 font-medium text-sm'>Frequency</span>
-                    <p>{med.frequency || 'N/A'}</p>
+                    <p>{displayValue(med.frequency)}</p>
                 </div>
                 <div>
                     <span className='text-gray-600 font-medium text-sm'>Reason</span>
-                    <p>{med.reason || 'N/A'}</p>
+                    <p>{displayValue(med.reason)}</p>
                 </div>
                 <div>
                     <span className='text-gray-600 font-medium text-sm'>Remaining</span>
-                    <p>{med.remaining || 'N/A'}</p>
+                    <p>{displayValue(med.remaining)}</p>
                 </div>
                 <div>
                     <span className='text-gray-600 font-medium text-sm'>Start date</span>
@@ -79,7 +80,7 @@ const MedicationDetails = ({ med, setViewDetails, setOpenPopup }) => {
             </div>
             <div className='mt-3'>
                 <span className='text-gray-600 font-medium text-sm'>Instructions</span>
-                <p>{med.instructions || 'N/A'}</p>
+                <p>{displayValue(med.instructions)}</p>
             </div>
             <div className='my-3'>
                 <span className='text-gray-600 font-medium text-sm'>Status</span>

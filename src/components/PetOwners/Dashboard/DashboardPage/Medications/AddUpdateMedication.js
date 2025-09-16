@@ -12,6 +12,17 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
 
     const [vets, setVets] = useState([]);
 
+    const [inputValue, setInputValue] = useState("");
+
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const detectedVetsAndClinics = vets.filter(
+        (vet) =>
+            vet.fullName.toLowerCase().includes(inputValue.toLowerCase()) ||
+            vet.works_at.toLowerCase().includes(inputValue.toLowerCase()) ||
+            vet.based_in.toLowerCase().includes(inputValue.toLowerCase())
+    );
+
     const [addMedication, { isLoading: isAdding }] = useAddMedicationMutation();
     const [updateMedication, { isLoading: isUpdating }] = useUpdateMedicationMutation();
 
@@ -34,12 +45,14 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
             start_date: new Date().toISOString().split('T')[0],
             end_date: '',
             timeOfDay: '',
-            prescribed_by: '',
+            prescribed_by: inputValue,
             reason: '',
             instructions: ''
         };
 
     const [medicationData, setMedicationData] = useState(initialState);
+
+    console.log(medicationData);
 
     useEffect(() => {
         const fetchAllVets = async () => {
@@ -175,7 +188,7 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
                         />
                     </div>
                 </div>
-                <div className='mb-3'>
+                {/* <div className='mb-3'>
                     <Label htmlFor="prescribedBy">Prescribed by</Label>
                     <SelectOptions
                         id="prescribedBy"
@@ -188,8 +201,60 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
                         placeholder={medicationData.prescribed_by.fullName}
                         onChange={(e) => setMedicationData({ ...medicationData, prescribed_by: e.target.value })}
                     />
+                </div> */}
+                {/* Vet or Clinic Selector */}
+                <div className="relative">
+                    <Label htmlFor="prescribedBy">Prescribed by</Label>
+                    <div>
+                        <input
+                            type="text"
+                            id="prescribedBy"
+                            placeholder="e.g, Dr. Matthew Anderson, Owachita Pet Clinic"
+                            value={inputValue}
+                            onChange={(e) => {
+                                setInputValue(e.target.value);
+                                setMedicationData({
+                                    ...medicationData,
+                                    prescribed_by: e.target.value,
+                                });
+                                setShowDropdown(true);
+                            }}
+                            className="border border-gray-200 px-2 py-2 rounded outline-none placeholder:font-light placeholder:text-sm w-full"
+                        />
+
+                        {showDropdown &&
+                            detectedVetsAndClinics.length > 0 &&
+                            inputValue.length > 0 && (
+                                <ul className="absolute top-full left-0 w-full bg-white rounded-lg border shadow-lg mt-2 max-h-56 overflow-auto p-2 z-10">
+                                    {detectedVetsAndClinics.map((item, idx) => (
+                                        <li
+                                            key={idx}
+                                            onClick={() => {
+                                                setInputValue(item.fullName);
+                                                setMedicationData({
+                                                    ...medicationData,
+                                                    prescribed_by: item.fullName,
+                                                });
+                                                setShowDropdown(false);
+                                            }}
+                                            className="p-3 cursor-pointer hover:bg-gray-50 duration-200"
+                                        >
+                                            <h5 className="font-medium text-sm">
+                                                {item.fullName}{" "}
+                                                <span className="font-normal">
+                                                    - {item.degrees?.[0] || "N/A"}
+                                                </span>
+                                            </h5>
+                                            <p className="text-xs text-gray-600">
+                                                {item.works_at || "N/A"}
+                                            </p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                    </div>
                 </div>
-                <div>
+                <div className='mt-3'>
                     <Label htmlFor="instructions">Instructions</Label>
                     <Textarea
                         id="instructions"

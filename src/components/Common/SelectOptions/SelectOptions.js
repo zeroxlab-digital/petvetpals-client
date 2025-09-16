@@ -38,7 +38,7 @@ const SelectOptions = ({ options, name, default: defaultValue, placeholder, onCh
                 {selectedOption} {selected ? <HiChevronUp /> : <HiChevronDown />}
             </div>
             {selected && (
-                <div className="max-h-52 overflow-auto bg-white p-2 rounded shadow-lg absolute top-full left-0 w-full z-10 mt-1">
+                <div className="max-h-52 overflow-auto bg-white p-2 rounded-lg shadow-xl border absolute top-full left-0 w-full z-10 mt-1">
                     {options.map((option, index) => (
                         <div 
                             key={index} 

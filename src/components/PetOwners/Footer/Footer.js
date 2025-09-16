@@ -1,7 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client"
 import { motion } from "framer-motion"
-import { Facebook, Twitter, Instagram, Youtube, Mail, MapPin, Phone, Heart, PawPrintIcon as Paw, ShoppingBag, Pill, Video, Calendar, Clock, ChevronRight, Send, Shield, Scissors, GraduationCap, Home, Linkedin, Building2Icon, MessageCircle, Stethoscope } from "lucide-react"
+import { Facebook, Twitter, Instagram, Youtube, Mail, MapPin, Phone, Heart, PawPrintIcon as Paw, ShoppingBag, Pill, Video, Calendar, Clock, ChevronRight, Send, Shield, Scissors, GraduationCap, Home, Linkedin, Building2Icon, MessageCircle, Stethoscope, Link } from "lucide-react"
+import Image from "next/image"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -46,7 +47,7 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h3 className="text-2xl font-semibold mb-4">Join Our Pet-Loving Community</h3>
+              <h3 className="text-2xl max-sm:text-xl font-semibold mb-4">Join Our Pet-Loving Community</h3>
               <p className="text-gray-300 mb-8">Subscribe to receive updates, pet care tips, and exclusive offers</p>
               <form className="grid grid-cols-[3fr_1fr] gap-2 sm:w-3/5 mx-auto max-w-max">
                 <input
@@ -74,9 +75,13 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className="flex items-center gap-2 mb-6">
+            {/* <div className="flex items-center gap-2 mb-6">
               <Paw className="w-8 h-8 text-white" />
-              <span className="text-2xl font-bold">PetVetPals</span>
+              <span className="text-2xl font-bold text-white">PetVetPals</span>
+            </div> */}
+            <div className="cursor-pointer flex items-center gap-2 mb-6">
+              <Image src={"/images/nobg-temp-logo-pvp-copy.png"} alt="logo" width={55} height={55} priority className="" />
+              <h2 className="text-2xl font-bold">PetVetPals</h2>
             </div>
             <p className="text-gray-300 mb-6">
               Your one-stop destination for all pet health needs. We're committed to providing the best care for your
@@ -85,11 +90,11 @@ export default function Footer() {
             <div className="space-y-4">
               <div className="flex items-center gap-3 text-gray-300">
                 <MapPin className="w-5 h-5 text-white" />
-                <span>123 Pet Street, Monroe, LA 71203</span>
+                <span>Monroe, LA 71203, USA</span>
               </div>
               <div className="flex items-center gap-3 text-gray-300">
                 <Phone className="w-5 h-5 text-white" />
-                <span>+1 (318) 123-4567</span>
+                <span>+1 (318) 737-0330</span>
               </div>
               <div className="flex items-center gap-3 text-gray-300">
                 <Mail className="w-5 h-5 text-white" />
@@ -114,9 +119,7 @@ export default function Footer() {
                 "Pet Food & Treats",
                 "Toys & Accessories",
                 "Grooming Supplies",
-                "Health Supplements",
                 "Prescription Medicine",
-                "Special Diet Food",
               ].map((item, index) => (
                 <motion.li
                   key={index}
@@ -144,18 +147,16 @@ export default function Footer() {
             <ul className="space-y-4">
               {[
                 { text: "Online Vet Consultation", icon: Video },
-                { text: "AI Symptom Checker", icon: Stethoscope },
-                { text: "Medication Reminder", icon: Clock },
-                { text: "Vaccination Scheduler", icon: Calendar },
-                { text: "Pet Health Tracker", icon: Shield },
-                { text: "Vet Chat", icon: MessageCircle },
+                { text: "AI Health Tools", icon: Stethoscope },
+                { text: "Medication & Vaccination Reminder", icon: Clock },
+                { text: "Health Tracker", icon: Shield },
               ].map((item, index) => (
                 <motion.li
                   key={index}
                   className="flex items-center gap-2 text-gray-300 hover:text-purple-400 transition-colors cursor-pointer group"
                   whileHover={{ x: 5 }}
                 >
-                  <item.icon className="w-4 h-4 group-hover:text-purple-500 transition-colors" />
+                  <ChevronRight className="w-4 h-4" />
                   {item.text}
                 </motion.li>
               ))}
@@ -177,8 +178,7 @@ export default function Footer() {
               {[
                 "Our Stories",
                 "Blog",
-                "Site Map",
-                "Refer Friends",
+                "Site Map"
               ].map((item, index) => (
                 <motion.li
                   key={index}
@@ -249,10 +249,10 @@ export default function Footer() {
               repeat: Number.POSITIVE_INFINITY,
               delay: index * 2,
             }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              bottom: "20%",
-            }}
+          // style={{
+          //   left: `${Math.random() * 100}%`,
+          //   bottom: "20%",
+          // }}
           >
             <Paw className="w-8 h-8" />
           </motion.div>

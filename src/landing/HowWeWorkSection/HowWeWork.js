@@ -4,35 +4,23 @@ import React from 'react';
 
 const HowWeWork = () => {
     return (
-        <section className='pb-16 md:pb-32'>
+        <section className=''>
             <div className='app-container'>
-                <div className='text-center mb-10 md:mb-20'>
+                <div className='text-center mb-5 md:mb-10'>
                     <h3 className='text-2xl text-gray-900'>Care That Puts Your Pet at the Center</h3>
                     <p className='text-gray-800 mt-3 text-sm md:text-base'>
                         PetVetPals focuses on providing pets with continuous care for longer, healthier lives
                     </p>
                 </div>
-                <div className='flex flex-col md:flex-row gap-5 md:gap-16 justify-center '>
+                <div className='flex justify-center w-full'>
                     <Image
-                        src="/images/vet-chat.png"
-                        alt="vet"
-                        width={300}
-                        height={200}
-                        className='w-full max-md:order-2 max-sm:hidden'
-                    />
-                    <Image
-                        src="/images/vet-video.webp"
-                        alt="vet"
-                        width={300}
-                        height={300}
-                        className='w-full  max-md:order-1'
-                    />
-                    <Image
-                        src="/images/vet-result.png"
-                        alt="vet"
-                        width={300}
-                        height={200}
-                        className='w-full  max-lg:hidden'
+                        src="/images/petvetpals-call.png"
+                        alt="vet call"
+                        width={800}
+                        height={800}
+                        quality={100}
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="h-auto rounded-2xl"
                     />
                 </div>
             </div>

@@ -6,29 +6,23 @@ import PawBackground from "@/components/Common/PawBackground/PawBackground";
 const page = () => {
   const features = [
     {
-      title: "Symptom Checker AI",
+      title: "AI Symptom Analyst",
       href: "vet-gpt/symptom-checker",
-      icon: <PawPrint className="w-12 h-12 max-sm:w-11 max-sm:h-11 text-blue-500" />,
-      bg: "from-blue-100 to-blue-300",
+      icon: <PawPrint className="w-12 h-12 max-sm:w-11 max-sm:h-11 text-blue-600" />,
+      bg: "from-blue-300 to-blue-500",
     },
     {
-      title: "Pet Nutritionist AI",
+      title: "AI Pet Nutritionist",
       href: "vet-gpt/nutrition-planner",
-      icon: <Bone className="w-12 h-12 max-sm:w-11 max-sm:h-11 text-green-500" />,
-      bg: "from-green-100 to-green-300",
+      icon: <Bone className="w-12 h-12 max-sm:w-11 max-sm:h-11 text-green-600" />,
+      bg: "from-green-300 to-green-500",
     },
     {
       title: "Allergy & Itch Coach",
       href: "vet-gpt/allergy-itch-coach",
-      icon: <Zap className="w-12 h-12 max-sm:w-11 max-sm:h-11 text-rose-500" />,
-      bg: "from-rose-100 to-rose-300",
-    },
-    // {
-    //   title: "PetFit AI",
-    //   href: "vet-gpt/petfit-ai",
-    //   icon: <Dog className="w-12 h-12 max-sm:w-11 max-sm:h-11 text-yellow-500" />,
-    //   bg: "from-yellow-100 to-yellow-300",
-    // },
+      icon: <Zap className="w-12 h-12 max-sm:w-11 max-sm:h-11 text-rose-600" />,
+      bg: "from-rose-300 to-rose-500",
+    }
   ];
 
   return (
@@ -49,9 +43,9 @@ const page = () => {
               {feature.icon}
             </div>
 
-            <h2 className={`text-slate-800 max-sm:text-lg font-semibold text-center`}>{feature.title}</h2>
-            <div className="sm:opacity-0 group-hover:opacity-100 transition-opacity text-sm text-gray-700 mt-2">
-              Explore →
+            <h2 className={`text-white max-sm:text-lg font-semibold text-center`}>{feature.title}</h2>
+            <div className="sm:opacity-0 group-hover:opacity-100 transition-opacity text-sm text-gray-100 mt-2">
+              Explore Now
             </div>
 
             {/* Optional floating gradient overlay for extra depth */}

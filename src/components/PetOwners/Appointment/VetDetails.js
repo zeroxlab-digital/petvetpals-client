@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Button from "@/components/Common/Button/Button";
-import { HiMiniVideoCamera } from "react-icons/hi2";
+import { HiMiniVideoCamera, HiOutlineAcademicCap } from "react-icons/hi2";
 import VetDetailsTabs from "@/components/PetOwners/Appointment/VetDetailsTabs";
 import BookingPopup from "@/components/PetOwners/Appointment/BookingPopup";
 import { DayPicker } from 'react-day-picker';
@@ -86,12 +86,13 @@ const VetDetails = ({ params }) => {
                 </div>
                 <div className="relative -top-10 grid grid-cols-3 max-lg:grid-cols-1 items-end px-5 pb-0 max-lg:gap-y-10 rounded-md ">
                     <div className="flex max-md:flex-col md:items-end gap-5 col-span-2 ">
-                        <div className=""><Image src={image || "/images/user.jpg"} alt="vet image" width={200} height={200} className="rounded-xl object-cover border-2 border-gray-300 max-sm:w-32" /></div>
+                        <div className=""><Image src={image || "/images/dr-vector.png"} alt="vet image" width={200} height={200} className="rounded-xl object-cover max-sm:w-32" /></div>
                         <div className="md:pb-3">
-                            <h2 className="mb-2 font-bold text-lg">{fullName}</h2>
-                            <p className='mb-2'>{degrees[0] || "N/A"}</p>
+                            <h2 className=" font-bold text-lg">{fullName}</h2>
+                            <p className='mb-2 font-medium text-gray-900 flex items-center gap-2'>{degrees[0] || "Doctor of Veterinarian"}</p>
                             <p className=' text-gray-700 mb-1'>Specialities</p>
-                            <div className='flex flex-wrap gap-1'>{specialities?.map((speciality, index) => <p key={index} className='text-xs bg-[#672e5bd3] px-2 py-[2px] text-white rounded-full'>{speciality}</p>)}</div>
+                            {specialities.length === 0 && <p className='text-sm font-medium'>N/A</p>}
+                            <div className='flex flex-wrap gap-1'>{specialities?.map((speciality, index) => <p key={index} className='text-xs bg-gray-200 px-2 py-[2px] text-gray-700 rounded-full'>{speciality}</p>)}</div>
                         </div>
                     </div>
                     <div className="text-center">

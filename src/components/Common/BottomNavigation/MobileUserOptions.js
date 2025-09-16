@@ -3,7 +3,7 @@ import { useGetPetsQuery } from "@/redux/services/petApi"
 import { useGetUserDetailsQuery } from "@/redux/services/userApi"
 import Image from "next/image"
 import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 import {
     FaCartShopping,
     FaHeart,
@@ -12,10 +12,7 @@ import {
     FaPaw,
     FaCalendarCheck,
     FaStethoscope,
-    FaNewspaper,
-    FaPhone,
     FaBell,
-    FaGear,
     FaCircleQuestion,
     FaChevronRight,
 } from "react-icons/fa6"
@@ -23,39 +20,10 @@ import {
 const MobileUserOptions = () => {
     const pathname = usePathname()
 
-    // Mock user data - replace with actual user data
-    // const user = {
-    //     name: "Sarah Johnson",
-    //     email: "sarah@example.com",
-    //     avatar: "/placeholder.svg?height=60&width=60",
-    //     petCount: 2,
-    //     unreadMessages: 3,
-    //     wishlistCount: 12,
-    //     pendingOrders: 1,
-    // }
-
-    const { data: { user } = {} , isLoading } = useGetUserDetailsQuery();
+    const { data: { user } = {}, isLoading } = useGetUserDetailsQuery();
     const { data: pets = {} } = useGetPetsQuery()
-    console.log(pets);
+
     const navigationSections = [
-        {
-            title: "Communication",
-            links: [
-                {
-                    title: "Messages",
-                    link: "/dashboard/messages",
-                    icon: <FaMessage />,
-                    badge: user.unreadMessages,
-                    description: "Chat with vets and trainers",
-                },
-                {
-                    title: "Notifications",
-                    link: "/dashboard/notifications",
-                    icon: <FaBell />,
-                    description: "Important updates and alerts",
-                },
-            ],
-        },
         {
             title: "My Pets",
             links: [
@@ -76,6 +44,24 @@ const MobileUserOptions = () => {
                     link: "/dashboard/appointments",
                     icon: <FaCalendarCheck />,
                     description: "Vet visits and checkups",
+                },
+            ],
+        },
+        {
+            title: "Communication",
+            links: [
+                {
+                    title: "Messages",
+                    link: "/dashboard/messages",
+                    icon: <FaMessage />,
+                    badge: user.unreadMessages,
+                    description: "Chat with vets and trainers",
+                },
+                {
+                    title: "Notifications",
+                    link: "/dashboard/notifications",
+                    icon: <FaBell />,
+                    description: "Important updates and alerts",
                 },
             ],
         },

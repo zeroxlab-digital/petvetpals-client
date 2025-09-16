@@ -2,7 +2,7 @@ import CategoriesSidebar from '@/e-commerce/CategoriesSidebar/CategoriesSidebar'
 import React from 'react';
 
 export const metadata = {
-    title: "Pet Pharmacy - Medications & Supplements | PetVetPals",
+    title: "Pet Pharmacy – Medications & Supplements | PetVetPals",
     description: "Shop vet-approved pet medications, supplements, and health products at PetVetPals. Keep your pets healthy with trusted pharmacy essentials!",
 };
 

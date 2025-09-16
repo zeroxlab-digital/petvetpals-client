@@ -74,7 +74,7 @@ const UserAccount = () => {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`
-                  py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap
+                  py-4 px-1 border-b-2 font-semibold text-base whitespace-nowrap
                   ${activeTab === tab
                     ? "border-blue-500 text-blue-600"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
@@ -225,7 +225,7 @@ const UserAccount = () => {
                       <div className="flex items-center gap-4">
                         <input
                           type={showPassword ? "text" : "password"}
-                          value={userProfile?.password || "12345678"}
+                          value={userProfile?.password || "********"}
 
                           className="px-3 py-2 border rounded-lg bg-gray-50 text-gray-500"
                         />

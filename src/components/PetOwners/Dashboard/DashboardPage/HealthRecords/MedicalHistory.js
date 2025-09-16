@@ -52,6 +52,7 @@ const MedicalHistory = ({ petId }) => {
       {/* MOBILE: Cards */}
       <div className="md:hidden grid grid-cols-1 gap-6">
         {medicalHistory.map((record, idx) => {
+          console.log(record)
           return (
             <article
               key={idx}
@@ -78,7 +79,7 @@ const MedicalHistory = ({ petId }) => {
               </header>
 
               <main className="flex-grow text-gray-900">
-                <h3 className="text-base font-semibold truncate mb-0.5">{displayValue(record.vet.fullName)}</h3>
+                <h3 className="text-base font-semibold truncate mb-0.5">{displayValue(record.vetOrClinic)}</h3>
                 <p className="uppercase text-xs font-semibold tracking-wider text-gray-600 mb-5 select-none">Doctor</p>
 
                 <section className="mb-5 space-y-3 max-h-max">
@@ -165,7 +166,7 @@ const MedicalHistory = ({ petId }) => {
                   })}
                 </td>
                 <td className="px-5 py-3 text-sm">{displayValue(record.type)}</td>
-                <td className="px-5 py-3 text-sm">{displayValue(record.vet.fullName)}</td>
+                <td className="px-5 py-3 text-sm">{displayValue(record.vetOrClinic)}</td>
                 <td className="px-5 py-3 text-sm">{displayValue(record.diagnosis)}</td>
                 <td className="px-5 py-3 text-sm">{displayValue(record.treatment)}</td>
                 <td className="px-5 py-3 text-sm">
