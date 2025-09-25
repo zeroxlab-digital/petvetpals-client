@@ -18,6 +18,7 @@ import { toast } from 'react-toastify';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import ScheduleReminder from './ScheduleReminder';
 import { Pill } from 'lucide-react';
+import { format, parse } from 'date-fns';
 
 const getReminderDateTime = (dose) => {
     let hours = 0, minutes = 0;
@@ -87,6 +88,7 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
     const [markGivenMedScheduledReminder] = useMarkGivenMedScheduledReminderMutation();
 
     const scheduledMedications = useMemo(() => data?.scheduledReminders || [], [data]);
+
     const [countdowns, setCountdowns] = useState({});
 
     useEffect(() => {
@@ -338,11 +340,13 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
                                                 {new Date(dose?.starting_date).toLocaleDateString("en-US", {
                                                     month: "short",
                                                     day: "numeric",
+                                                    timeZone: "UTC"
                                                 })}{" "}
                                                 -{" "}
                                                 {new Date(dose?.end_date).toLocaleDateString("en-US", {
                                                     month: "short",
                                                     day: "numeric",
+                                                    timeZone: "UTC"
                                                 })}
                                             </p>
                                         </div>
@@ -453,6 +457,13 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
                                             </td>
                                             <td className="p-5 text-sm space-y-1">
                                                 {dose.reminder_times?.map((rt, idx) => {
+
+                                                    const formattedTime = format(
+                                                        parse(rt.time, "HH:mm", new Date()),
+                                                        "hh:mm a"
+                                                    );
+                                                    
+
                                                     const status = getDoseStatus(rt);
                                                     if (status === "invalid") return null;
                                                     const badgeColor = {
@@ -476,7 +487,7 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
                                                             key={idx}
                                                             className="flex items-center justify-between gap-2"
                                                         >
-                                                            <span>{rt.time}</span>
+                                                            <span>{formattedTime}</span>
                                                             <span
                                                                 className={`text-xs px-2 py-0.5 rounded-full ${badgeColor}`}
                                                             >
@@ -580,11 +591,13 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
                                                 {new Date(dose?.starting_date).toLocaleDateString("en-US", {
                                                     month: "short",
                                                     day: "numeric",
+                                                    timeZone: "UTC"
                                                 })}{" "}
                                                 -{" "}
                                                 {new Date(dose?.end_date).toLocaleDateString("en-US", {
                                                     month: "short",
                                                     day: "numeric",
+                                                    timeZone: "UTC"
                                                 })}
                                             </td>
                                             <td className="p-5 text-sm">

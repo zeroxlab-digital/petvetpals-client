@@ -224,22 +224,20 @@ const Medications = ({ petId }) => {
                                         <main className="flex-grow text-gray-900 p-5">
                                             <section className="space-y-3">
                                                 <div>
-                                                    <h4 className="text-sm font-semibold mb-0.5 select-none">Next Due</h4>
+                                                    <h4 className="text-sm font-semibold mb-0.5 select-none">Next due date</h4>
                                                     <p className="text-gray-700 leading-relaxed">
-                                                        {
-                                                            // new Date(med.next_due).toLocaleDateString("en-US", {
-                                                            //     month: "long",
-                                                            //     day: "numeric",
-                                                            //     year: "numeric",
-                                                            // })
-                                                            med.next_due || "N/A"
-                                                        }
+                                                        {new Date(med.next_due).toLocaleDateString("en-US", {
+                                                            day: "numeric",
+                                                            month: "short",
+                                                            year: "numeric",
+                                                            timeZone: "UTC"
+                                                        })}
                                                     </p>
                                                 </div>
-                                                <div>
+                                                {/* <div>
                                                     <h4 className="text-sm font-semibold mb-0.5 select-none">Remaining</h4>
                                                     <p className="text-gray-700 leading-relaxed">{displayValue(med.remaining)}</p>
-                                                </div>
+                                                </div> */}
                                                 <div>
                                                     <h4 className="text-sm font-semibold mb-0.5 select-none">Reason</h4>
                                                     <p className="text-gray-700 leading-relaxed">{displayValue(med.reason)}</p>
@@ -298,8 +296,8 @@ const Medications = ({ petId }) => {
                                             <th className="p-5">Medication</th>
                                             <th className="p-5">Dosage</th>
                                             <th className="p-5">Frequency</th>
-                                            <th className="p-5">Next due</th>
-                                            <th className="p-5">Remaining</th>
+                                            <th className="p-5">Next due date</th>
+                                            {/* <th className="p-5">Remaining</th> */}
                                             <th className="p-5">Reason</th>
                                             <th className="p-5">Prescribed by</th>
                                             <th className="p-5 text-right">Actions</th>
@@ -312,16 +310,14 @@ const Medications = ({ petId }) => {
                                                 <td className="px-5 py-3 text-sm">{med.dosage || "N/A"}</td>
                                                 <td className="px-5 py-3 text-sm">{med.frequency || "N/A"}</td>
                                                 <td className="px-5 py-3 text-sm">
-                                                    {
-                                                        // new Date(med.next_due).toLocaleDateString("en-US", {
-                                                        //     month: "long",
-                                                        //     year: "numeric",
-                                                        //     day: "numeric",
-                                                        // })
-                                                        med.next_due || "N/A"
-                                                    }
+                                                    {new Date(med.next_due).toLocaleDateString("en-US", {
+                                                        day: "numeric",
+                                                        month: "short",
+                                                        year: "numeric",
+                                                        timeZone: "UTC"
+                                                    })}
                                                 </td>
-                                                <td className="px-5 py-3 text-sm">{displayValue(med.remaining)}</td>
+                                                {/* <td className="px-5 py-3 text-sm">{displayValue(med.remaining)}</td> */}
                                                 <td className="px-5 py-3 text-sm">{displayValue(med.reason)}</td>
                                                 <td className="px-5 py-3 text-sm">{displayValue(med.prescribed_by)}</td>
                                                 <td className="px-5 py-3 text-sm flex justify-end ">

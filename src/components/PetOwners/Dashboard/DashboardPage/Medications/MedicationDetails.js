@@ -9,7 +9,7 @@ const MedicationDetails = ({ med, setViewDetails, setOpenPopup }) => {
     const notify = (message, type) => {
         toast(message, { type: type, autoClose: 1000 });
     }
-    const [updateMedication, { isLoading: updating , isError, isSuccess }] = useUpdateMedicationMutation();
+    const [updateMedication, { isLoading: updating, isError, isSuccess }] = useUpdateMedicationMutation();
     const handleMarkComplete = async (medicationId) => {
         try {
             const response = await updateMedication({
@@ -57,26 +57,35 @@ const MedicationDetails = ({ med, setViewDetails, setOpenPopup }) => {
                     <span className='text-gray-600 font-medium text-sm'>Frequency</span>
                     <p>{displayValue(med.frequency)}</p>
                 </div>
+                {/* <div>
+                    <span className='text-gray-600 font-medium text-sm'>Remaining</span>
+                    <p>{displayValue(med.remaining)}</p>
+                </div> */}
                 <div>
                     <span className='text-gray-600 font-medium text-sm'>Reason</span>
                     <p>{displayValue(med.reason)}</p>
                 </div>
-                <div>
-                    <span className='text-gray-600 font-medium text-sm'>Remaining</span>
-                    <p>{displayValue(med.remaining)}</p>
-                </div>
+            </div>
+            <div className='grid grid-cols-2 gap-3 my-3'>
                 <div>
                     <span className='text-gray-600 font-medium text-sm'>Start date</span>
-                    <p>{new Date(med.start_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }) || 'N/A'}</p>
+                    <p>{new Date(med.start_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric', timeZone: 'UTC' }) || 'N/A'}</p>
                 </div>
                 <div>
                     <span className='text-gray-600 font-medium text-sm'>End date</span>
-                    <p>{new Date(med.end_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' }) || 'N/A'}</p>
+                    <p>{new Date(med.end_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric', timeZone: 'UTC' }) || 'N/A'}</p>
                 </div>
-                <div>
-                    <span className='text-gray-600 font-medium text-sm'>Next due</span>
-                    <p>{med.next_due || 'N/A'}</p>
-                </div>
+            </div>
+            <div>
+                <span className='text-gray-600 font-medium text-sm'>Next due</span>
+                <p>
+                    {new Date(med.next_due).toLocaleDateString("en-US", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                        timeZone: "UTC"
+                    })}
+                </p>
             </div>
             <div className='mt-3'>
                 <span className='text-gray-600 font-medium text-sm'>Instructions</span>
