@@ -127,7 +127,7 @@ const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
 
                 {/* Vet or Clinic Selector */}
                 <div className="my-4 relative">
-                    <Label htmlFor="vetOrClinic">Vet or Clinic</Label>
+                    <Label htmlFor="vetOrClinic" optional>Vet or Clinic</Label>
                     <div>
                         <input
                             type="text"
@@ -193,12 +193,11 @@ const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
                     />
                 </div>
                 <div className='mt-4'>
-                    <Label htmlFor="treatment">Treatment</Label>
+                    <Label htmlFor="treatment" optional>Treatment</Label>
                     <Input
                         type="text"
                         id="treatment"
                         name="treatment"
-                        required
                         placeholder="Describe the treatment"
                         value={medicalHistoryData.treatment}
                         onChange={(e) =>

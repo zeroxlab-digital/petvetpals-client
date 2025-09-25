@@ -183,7 +183,7 @@ const ScheduleReminder = ({ onClose, ongoingMedications, petId, schedule = null,
                     />
                 </div>
                 <div>
-                    <Label htmlFor="endDate">End date (Optional)</Label>
+                    <Label htmlFor="endDate" optional>End date</Label>
                     <Input
                         id="endDate"
                         type="date"

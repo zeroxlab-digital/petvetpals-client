@@ -104,7 +104,8 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
     };
 
     const isSubmitDisabled =
-        providerType === 'vet' ? !vaccinationData.provider : !customProvider;
+        // providerType === 'vet' ? !vaccinationData.provider : !customProvider;
+        vaccinationData.vaccine === '' || vaccinationData.status === '' || !vaccinationData.date_given;
 
     return (
         <div>
@@ -124,7 +125,7 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
                 </div>
                 <div className='grid grid-cols-2 gap-4 mt-4 max-md:grid-cols-1'>
                     <div>
-                        <Label htmlFor='date_given'>Date Given</Label>
+                        <Label htmlFor='date_given'>Date given</Label>
                         <Input
                             id='date_given'
                             type='date'
@@ -135,7 +136,7 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
                         />
                     </div>
                     <div>
-                        <Label htmlFor='next_due'>Next Due Date</Label>
+                        <Label htmlFor='next_due' optional>Next due</Label>
                         <Input
                             id='next_due'
                             type='date'
@@ -165,7 +166,7 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
 
                     {/* Vet or Clinic Selector */}
                     <div className="relative">
-                        <Label htmlFor="provider">Provider</Label>
+                        <Label htmlFor="provider" optional>Provider</Label>
                         <div>
                             <input
                                 type="text"
@@ -219,7 +220,7 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
                 </div>
 
                 <div className='mt-4'>
-                    <Label htmlFor='notes'>Notes</Label>
+                    <Label htmlFor='notes' optional>Notes</Label>
                     <Textarea
                         id='notes'
                         name='notes'

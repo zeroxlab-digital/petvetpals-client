@@ -1,7 +1,7 @@
 
 const Label = ({children, htmlFor, ...props}) => {
     return (
-        <label className="block mb-[5px] text-sm text-gray-800" htmlFor={htmlFor}>{children}</label>
+        <label className="block mb-[5px] text-base text-gray-900" htmlFor={htmlFor}>{children} {props.optional && <span className="text-xs text-gray-500">(optional)</span>}</label>
     );
 };
 

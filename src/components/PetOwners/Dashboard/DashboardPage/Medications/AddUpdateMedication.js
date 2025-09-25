@@ -119,7 +119,7 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
                 </div>
                 <div className='grid grid-cols-2 gap-3 max-md:grid-cols-1 my-3'>
                     <div>
-                        <Label htmlFor="dosage">Dosage</Label>
+                        <Label htmlFor="dosage" optional>Dosage</Label>
                         <Input
                             id="dosage"
                             type="text"
@@ -173,12 +173,13 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
                             id="startDate"
                             type="date"
                             name="startDate"
+                            required
                             value={medicationData.start_date}
                             onChange={(e) => setMedicationData({ ...medicationData, start_date: e.target.value })}
                         />
                     </div>
                     <div>
-                        <Label htmlFor="endDate">End date</Label>
+                        <Label htmlFor="endDate" optional>End date</Label>
                         <Input
                             id="endDate"
                             type="date"
@@ -188,23 +189,9 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
                         />
                     </div>
                 </div>
-                {/* <div className='mb-3'>
-                    <Label htmlFor="prescribedBy">Prescribed by</Label>
-                    <SelectOptions
-                        id="prescribedBy"
-                        name="prescribedBy"
-                        options={vets.map(vet => ({
-                            label: vet.fullName,
-                            value: vet._id
-                        }))}
-                        value={medicationData.prescribed_by}
-                        placeholder={medicationData.prescribed_by.fullName}
-                        onChange={(e) => setMedicationData({ ...medicationData, prescribed_by: e.target.value })}
-                    />
-                </div> */}
                 {/* Vet or Clinic Selector */}
                 <div className="relative">
-                    <Label htmlFor="prescribedBy">Prescribed by</Label>
+                    <Label htmlFor="prescribedBy" optional>Prescribed by</Label>
                     <div>
                         <input
                             type="text"
@@ -255,7 +242,7 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
                     </div>
                 </div>
                 <div className='mt-3'>
-                    <Label htmlFor="instructions">Instructions</Label>
+                    <Label htmlFor="instructions" optional>Instructions</Label>
                     <Textarea
                         id="instructions"
                         placeholder="Any special instructions for the medication"
@@ -275,8 +262,8 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
                     </button>
                     <button
                         type="submit"
-                        className={`bg-primary text-white w-40 h-11 text-center rounded-md hover:bg-primaryHover duration-200 ${!medicationData.prescribed_by ? 'opacity-50 cursor-not-allowed' : ''}`}
-                        disabled={!medicationData.prescribed_by}
+                        className={`bg-primary text-white w-40 h-11 text-center rounded-md hover:bg-primaryHover duration-200 ${!medicationData.medication || !medicationData.frequency ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        disabled={!medicationData.medication || !medicationData.frequency}
                     >
                         {(isAdding || isUpdating) ? 'Saving...' : isEdit ? 'Update Medication' : 'Add Medication'}
                     </button>
