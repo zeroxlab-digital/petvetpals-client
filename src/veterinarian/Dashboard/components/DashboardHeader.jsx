@@ -14,7 +14,7 @@ export default function DashboardHeader() {
       className="flex flex-col lg:flex-row items-start justify-between gap-6">
       <div className="space-y-2">
         <h1 className="text-3xl font-bold text-gray-900">Welcome Back, Dr. Smith</h1>
-        <p className="text-gray-600">Here's what's happening with your practice today</p>
+        <p className="text-gray-600">Here&apos;s what&apos;s happening with your practice today</p>
       </div>
       <div className="flex items-center space-x-4">
         <div

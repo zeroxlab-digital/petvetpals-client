@@ -9,7 +9,7 @@ export default function StatsCards({ stats }) {
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
       <Card className="shadow-sm border border-gray-200 space-y-4">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium text-gray-600">Today's Appointments</CardTitle>
+          <CardTitle className="text-sm font-medium text-gray-600">Today&apos;s Appointments</CardTitle>
           <Calendar className="h-5 w-5 text-[#672e5b]" />
         </CardHeader>
         <CardContent>

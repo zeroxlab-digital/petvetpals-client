@@ -26,7 +26,7 @@ export default function PatientDetailsModal({ patient, isOpen, onClose }) {
       <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-gray-900">
-            {patient.name}'s Complete Medical Record
+            {patient.name}&apos;s Complete Medical Record
           </DialogTitle>
         </DialogHeader>
 
@@ -97,8 +97,8 @@ export default function PatientDetailsModal({ patient, isOpen, onClose }) {
                 </CardHeader>
                 <CardContent className="p-4 space-y-4">
                   <div>
-                    <p className="text-sm text-gray-600">Health Status</p>
-                    <Badge className={getStatusColor(patient.status)} className="mt-1">
+                    <p className="text-sm text-gray-600 mb-1">Health Status</p>
+                    <Badge className={getStatusColor(patient.status)}>
                       {patient.status.charAt(0).toUpperCase() + patient.status.slice(1)}
                     </Badge>
                   </div>

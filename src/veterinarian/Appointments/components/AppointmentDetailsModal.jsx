@@ -17,7 +17,7 @@ export default function AppointmentDetailsModal({ selectedAppointment, setSelect
       <DialogContent className="h-96 overflow-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-gray-900">
-            {selectedAppointment.pet.name}'s Appointment Details
+            {selectedAppointment.pet.name}&apos;s Appointment Details
           </DialogTitle>
           <DialogDescription>Complete patient information and medical history</DialogDescription>
         </DialogHeader>

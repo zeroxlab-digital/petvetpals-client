@@ -26,7 +26,7 @@ export default function PerformanceInsights({ stats }) {
       <CardHeader>
         <CardTitle className="text-lg font-semibold flex items-center">
           <Activity className="w-5 h-5 mr-2" />
-          This Week's Insights
+          This Week&apos;s Insights
         </CardTitle>
       </CardHeader>
       <CardContent className="h-64">

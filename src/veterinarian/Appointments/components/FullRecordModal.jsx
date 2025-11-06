@@ -8,7 +8,7 @@ export default function FullRecordModal({ showFullRecordModal, setShowFullRecord
       <DialogContent className="h-96 overflow-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-gray-900">
-            {selectedPatientRecord?.pet.name}'s Complete Medical Record
+            {selectedPatientRecord?.pet.name}&apos;s Complete Medical Record
           </DialogTitle>
           <DialogDescription>Comprehensive patient history and current status</DialogDescription>
         </DialogHeader>
