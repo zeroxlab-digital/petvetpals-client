@@ -123,7 +123,7 @@ const DashboardPage = () => {
     const { data: { pets } = {}, isLoading, error } = useGetPetsQuery();
     const [selectedPet, setSelectedPet] = useState({});
     // console.log(selectedPet);
-    
+
     const [showPetMenu, setShowPetMenu] = useState(false)
     const router = useRouter();
     const [mounted, setMounted] = useState(false)
@@ -233,17 +233,29 @@ const DashboardPage = () => {
                         </p>
                     </div>
                 </div>
-                <div className="flex items-center gap-2 text-center">
+                <div className="flex items-center gap-2 text-center max-sm:w-full">
                     <button
-                        onClick={() => router.push("/vet-appointment")}
-                        className=" flex justify-center items-center bg-primary hover:bg-primaryHover duration-200 text-white max-sm:w-max w-fit px-4 max-sm:px-3 py-[9px] rounded-lg transition-colors"
+                        onClick={() => router.push("/dashboard/vet-gpt")}
+                        className="flex justify-center items-center 
+               w-fit max-sm:w-1/2 px-4 max-sm:px-3 py-[9px] 
+               rounded-lg sm:font-semibold text-white 
+               bg-gradient-to-tr from-blue-600 to-pink-900/50 
+               duration-200 transition-colors"
                     >
-                        <Calendar className="mr-2 h-4 w-4" />
-                        Book Appointment
-                    </button>
-                    <button onClick={() => router.push("/dashboard/vet-gpt")} className=" flex justify-center items-center border border-gray-300 max-sm:w-max w-fit px-4 max-sm:px-3 py-[9px] rounded-lg hover:bg-gray-100 duration-200 transition-colors">
                         <HeartPulse className="mr-2 h-4 w-4" />
                         AI Health Tools
+                    </button>
+
+                    <button
+                        onClick={() => router.push("/vet-appointment")}
+                        className="flex justify-center items-center 
+               w-fit max-sm:w-1/2 px-4 max-sm:px-3 py-[9px] 
+               rounded-lg sm:font-semibold text-white 
+               bg-primary hover:bg-primaryHover 
+               duration-200 transition-colors"
+                    >
+                        <Calendar className="mr-2 h-4 w-4" />
+                        Vet Appointment
                     </button>
                 </div>
             </div>

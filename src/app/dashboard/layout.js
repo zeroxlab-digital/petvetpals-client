@@ -26,7 +26,7 @@ const DashboardLayout = ({ children }) => {
     return (
         <div className='dashboard relative'>
             <Header />
-            <div className='app-container lg:h-[calc(100vh-5.1rem)] grid grid-cols-10 py-5 max-lg:pb-20'>
+            <div className='app-container lg:h-[calc(100vh-5.5rem)] grid grid-cols-10 py-5 max-lg:pb-20'>
 
                 {/* Sidebar for desktop */}
                 <div className={`col-span-2 max-lg:hidden`}>
