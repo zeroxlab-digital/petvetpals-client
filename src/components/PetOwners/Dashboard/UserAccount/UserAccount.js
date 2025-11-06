@@ -208,9 +208,12 @@ const UserAccount = () => {
                   }
                 </div>
               </form>
+              <div>
+                <button onClick={handleUserLogout} className="lg:hidden mt-auto w-full  rounded-md h-12 px-3 text-red-500  font-medium bg-red-500/5 hover:bg-red-500/10 duration-200 flex justify-center items-center gap-2 "><HiArrowRightOnRectangle className='text-xl' /> Log out</button>
+              </div>
 
               {/* Security Settings */}
-              <div className="grid gap-6">
+              {/* <div className="grid gap-6">
                 <div className="bg-white rounded-xl border shadow-sm p-6">
                   <h3 className="text-lg font-semibold mb-6">Security Settings</h3>
                   <div className="space-y-6">
@@ -237,8 +240,7 @@ const UserAccount = () => {
                         </button>
                       </div>
                     </div>
-
-                    {/* <div>
+                    <div>
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
                           <Key className="h-5 w-5 text-gray-500" />
@@ -254,13 +256,10 @@ const UserAccount = () => {
                           <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">Active Now</span>
                         </div>
                       </div>
-                    </div> */}
-                    {/* Logout */}
-                    <button onClick={handleUserLogout} className="lg:hidden mt-auto w-full  rounded-md h-12 px-3 text-red-500  font-medium bg-red-500/5 hover:bg-red-500/10 duration-200 flex justify-center items-center gap-2 "><HiArrowRightOnRectangle className='text-xl' /> Log out</button>
-
+                    </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           )}
 

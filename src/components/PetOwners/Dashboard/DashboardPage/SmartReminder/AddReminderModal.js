@@ -32,7 +32,7 @@ const AddReminderModal = ({ isOpen, onClose }) => {
         reminder_type: null,
         frequency: 'one_time',
         reminder_date: null,
-        starting_date: null,
+        starting_date: new Date().toISOString().split('T')[0],
         end_date: null,
         reminder_times: [{ time: '', remind_before: '10' }],
         reminder_methods: [],
@@ -81,7 +81,7 @@ const AddReminderModal = ({ isOpen, onClose }) => {
         <form onSubmit={handleSubmitSchedule}>
             {/* Reminder Type */}
             <div className='mb-3'>
-                <Label htmlFor="reminder_type">Reminder Type</Label>
+                <Label htmlFor="reminder_type">Reminder type</Label>
                 <SelectOptions
                     id="reminder_type"
                     value={formData.reminder_type}
@@ -113,12 +113,13 @@ const AddReminderModal = ({ isOpen, onClose }) => {
                             <Input
                                 id="startDate"
                                 type="date"
+                                required
                                 value={formData.starting_date}
                                 onChange={(e) => setFormData({ ...formData, starting_date: e.target.value })}
                             />
                         </div>
                         <div>
-                            <Label htmlFor="endDate">End date (Optional)</Label>
+                            <Label htmlFor="endDate" optional>End date</Label>
                             <Input
                                 id="endDate"
                                 type="date"
@@ -131,10 +132,11 @@ const AddReminderModal = ({ isOpen, onClose }) => {
                 :
                 (
                     <div className='my-3'>
-                        <Label htmlFor="reminderDate">Reminder Date</Label>
+                        <Label htmlFor="reminderDate">Reminder date</Label>
                         <Input
                             id="reminderDate"
                             type="date"
+                            required
                             value={formData.reminder_date}
                             onChange={(e) => setFormData({ ...formData, reminder_date: e.target.value })}
                         />
@@ -243,8 +245,8 @@ const AddReminderModal = ({ isOpen, onClose }) => {
                 </button>
                 <button
                     type="submit"
-                    disabled={isScheduling}
-                    className='bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryHover duration-200'
+                    disabled={isScheduling || !formData.reminder_type || !formData.frequency}
+                    className={`bg-primary text-white px-4 py-2 rounded-md hover:bg-primaryHover duration-200 ${formData.reminder_type && formData.frequency ? '' : 'cursor-not-allowed opacity-50'}`}
                 >
                     {isScheduling ? 'Saving...' : 'Schedule Reminder'}
                 </button>

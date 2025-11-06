@@ -95,14 +95,14 @@ export const petApi = createApi({
         }),
         getScheduledReminders: build.query({
             query: ({ petId }) => ({
-                url: '/medications/get-scheduled-reminders',
+                url: '/medications/get-med-reminders',
                 params: { petId }
             }),
             providesTags: ["Pet"]
         }),
         addMedScheduleReminder: build.mutation({
             query: ({ petId, formData }) => ({
-                url: '/medications/add-schedule-reminder',
+                url: '/medications/add-med-reminder',
                 method: 'POST',
                 params: { petId },
                 body: { ...formData },
@@ -111,7 +111,7 @@ export const petApi = createApi({
         }),
         updateMedScheduleReminder: build.mutation({
             query: ({ scheduleId, scheduleData }) => ({
-                url: '/medications/update-scheduled-reminder',
+                url: '/medications/update-med-reminder',
                 method: 'PATCH',
                 params: { id: scheduleId },
                 body: { ...scheduleData },
@@ -120,7 +120,7 @@ export const petApi = createApi({
         }),
         deleteMedScheduledReminder: build.mutation({
             query: ({ id }) => ({
-                url: '/medications/delete-scheduled-reminder',
+                url: '/medications/delete-med-reminder',
                 method: "DELETE",
                 params: { id }
             }),
@@ -128,7 +128,7 @@ export const petApi = createApi({
         }),
         markGivenMedScheduledReminder: build.mutation({
             query: ({ id, index }) => ({
-                url: '/medications/markgiven-scheduled-reminder',
+                url: '/medications/markgiven-med-reminder',
                 method: "PATCH",
                 params: { id, index }
             }),
