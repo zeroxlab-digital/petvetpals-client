@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import useCategories from '../../../hooks/useCategories';
+import useCategories from '../../../../hooks/useCategories';
 
 const ShopDeals = () => {
     const categories = useCategories();

@@ -4,11 +4,11 @@ import Navbar from "./Navbar";
 import { HiBars3CenterLeft, HiOutlineUser, HiOutlineUserCircle, HiOutlineUserPlus, HiXMark } from "react-icons/hi2";
 import { useEffect, useState } from "react";
 import Search from "./Search";
-import CartCount from "@/e-commerce/Cart/CartCount";
 import { PawPrint } from "lucide-react";
 import { useUserAuthenticated } from "../../../../hooks/useUserAuthenticated";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import CartCount from "@/components/E-commerce/Cart/CartCount";
 
 const Header = () => {
     const pathname = usePathname();

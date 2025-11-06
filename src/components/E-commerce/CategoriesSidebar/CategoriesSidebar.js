@@ -3,7 +3,7 @@ import Link from "next/link";
 import { HiChevronDown, HiChevronRight, HiSquares2X2 } from "react-icons/hi2";
 import { LuDog } from "react-icons/lu";
 import { usePathname } from "next/navigation";
-import useCategories from "../../../hooks/useCategories";
+import useCategories from "../../../../hooks/useCategories";
 
 const CategoriesSidebar = () => {
     const categories = useCategories();

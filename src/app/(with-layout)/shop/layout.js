@@ -1,4 +1,4 @@
-import CategoriesSidebar from '@/e-commerce/CategoriesSidebar/CategoriesSidebar';
+import CategoriesSidebar from '@/components/E-commerce/CategoriesSidebar/CategoriesSidebar';
 import React from 'react';
 
 export const metadata = {

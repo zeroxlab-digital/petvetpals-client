@@ -1,7 +1,7 @@
 import Breadcrumb from '@/components/Common/Breadcrumb/Breadcrumb';
-import ProductDetails from '@/e-commerce/ProductDetails/ProductDetails';
-import Products from '@/e-commerce/Products/Products';
-import ShopCategories from '@/e-commerce/ShopCategories/ShopCategories';
+import ProductDetails from '@/components/E-commerce/ProductDetails/ProductDetails';
+import Products from '@/components/E-commerce/Products/Products';
+import ShopCategories from '@/components/E-commerce/ShopCategories/ShopCategories';
 import React from 'react';
 
 const page = ({ params }) => {
