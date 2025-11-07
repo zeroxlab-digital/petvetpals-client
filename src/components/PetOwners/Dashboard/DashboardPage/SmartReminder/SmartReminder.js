@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Activity, Bell, Calendar, Calendar1, CalendarClock, Check, ChevronDown, ChevronUp, Clock, Clock12, Droplets, Heart, HeartPulse, Minus, PawPrint, Pill, PillBottle, Plus, Settings, Smartphone, Syringe, TrendingUp } from 'lucide-react';
+import { Bell, Calendar, Calendar1, CalendarClock, Check, ChevronDown, ChevronUp, Clock12, Droplets, HeartPulse, Minus, PawPrint, Pill, Plus, Smartphone, Syringe, TrendingUp } from 'lucide-react';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import AddReminderModal from './AddReminderModal';
 import Button from '@/components/Common/Button/Button';
@@ -8,13 +8,19 @@ import { toast } from 'react-toastify';
 
 // Countdown
 const getTimeUntil = (reminder) => {
-    const baseDate = reminder.reminder_date || reminder.starting_date;
-    if (!baseDate) return null;
+    const baseDateStr = reminder.reminder_date || reminder.starting_date;
+    if (!baseDateStr) return null;
 
     const now = new Date();
-    const targetDate = new Date(baseDate);
 
-    // This aads first reminder time if exists
+    // Remove time part if it exists ('T00:00:00Z')
+    const pureDate = baseDateStr.split('T')[0];
+    const [year, month, day] = pureDate.split('-').map(Number);
+
+    // Parse safely as local date (no timezone shift)
+    const targetDate = new Date(year, month - 1, day);
+
+    // Add reminder time if exists
     const firstTime = reminder.reminder_times?.[0]?.time;
     if (firstTime) {
         const [hours, minutes] = firstTime.split(':').map(Number);
@@ -30,6 +36,7 @@ const getTimeUntil = (reminder) => {
 
     return { days, hours, minutes };
 };
+
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -65,6 +72,7 @@ const Badge = ({ children, variant = "default", className, ...props }) => {
 // Reminder Component
 const ReminderCard = ({ reminder, onToggle, onDelete }) => {
     const [timeLeft, setTimeLeft] = useState(getTimeUntil(reminder));
+    console.log(timeLeft);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -119,10 +127,10 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
                                 return new Date(`1970-01-01T${rt.time}`).toLocaleTimeString([], {
                                     hour: 'numeric',
                                     minute: '2-digit',
-                                    hour12: true
+                                    hour12: true,
                                 }) || '00:00';
                             })}</span>
-                            <p className='flex gap-2 items-center font-semibold capitalize'><Calendar1 size={15} />
+                            <p className='flex gap-2 items-center font-semibold capitalize max-sm:hidden'><Calendar1 size={15} />
                                 {
                                     reminder.frequency === 'daily_once' ? 'Daily' :
                                         reminder.frequency === 'daily_twice' ? 'Twice Daily' :
@@ -179,6 +187,49 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
                                 </Badge>
                             )}
                         </div>
+                        <p className='flex gap-2 items-center font-semibold capitalize mt-2 text-xs text-gray-500 sm:hidden'><Calendar1 size={15} />
+                            {
+                                reminder.frequency === 'daily_once' ? 'Daily' :
+                                    reminder.frequency === 'daily_twice' ? 'Twice Daily' :
+                                        reminder.frequency === 'weekly' ? 'Weekly' :
+                                            reminder.frequency === 'bi-weekly' ? 'Bi-Weekly' :
+                                                reminder.frequency === 'monthly' ? 'Monthly' : 'One Time'
+                            }
+
+                            <span>•</span>
+
+                            {
+                                reminder.frequency === 'one_time' ?
+                                    (
+                                        new Date(reminder.reminder_date).toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: 'numeric',
+                                            // year: 'numeric',
+                                            timeZone: 'UTC'
+                                        })
+                                    )
+                                    :
+                                    (
+                                        `
+                                            ${new Date(reminder.starting_date).toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: 'numeric',
+                                            // year: 'numeric',
+                                            timeZone: 'UTC'
+                                        })
+                                        }
+                                             - 
+                                            ${new Date(reminder.end_date).toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: 'numeric',
+                                            // year: 'numeric',
+                                            timeZone: 'UTC'
+                                        })
+                                        }
+                                            `
+                                    )
+                            }
+                        </p>
                     </div>
                 </div>
 
@@ -299,13 +350,13 @@ const SmartReminder = ({ selectedPet }) => {
                             {
                                 reminders.filter(r => {
                                     const today = new Date();
-                                    const targetDate = r.starting_date
-                                        ? new Date(r.starting_date)
-                                        : r.reminder_date
-                                            ? new Date(r.reminder_date)
-                                            : null;
+                                    const baseDateStr = r.starting_date || r.reminder_date;
+                                    if (!baseDateStr) return false;
 
-                                    if (!targetDate) return false;
+                                    // Parse date safely (ignore timezone)
+                                    const pureDate = baseDateStr.split('T')[0];
+                                    const [year, month, day] = pureDate.split('-').map(Number);
+                                    const targetDate = new Date(year, month - 1, day);
 
                                     const isSameDay =
                                         targetDate.getFullYear() === today.getFullYear() &&
@@ -314,7 +365,7 @@ const SmartReminder = ({ selectedPet }) => {
 
                                     return (
                                         isSameDay &&
-                                        r.reminder_times.some(t => !t.is_given && !t.skipped)
+                                        r.reminder_times?.some(t => !t.is_given && !t.skipped)
                                     );
                                 }).length || 0
                             }
