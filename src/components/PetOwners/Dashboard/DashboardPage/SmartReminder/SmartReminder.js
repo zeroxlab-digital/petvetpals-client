@@ -115,15 +115,56 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
                         <p className="text-sm text-gray-600">{reminder.notes || "Notes..."}</p>
                         <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
                             <span className='flex gap-2 items-center font-semibold'><Clock12 size={15} /> {reminder.reminder_times.map(rt => {
-                                return rt.time || '00:00'
+                                // return rt.time || '00:00'
+                                return new Date(`1970-01-01T${rt.time}`).toLocaleTimeString([], {
+                                    hour: 'numeric',
+                                    minute: '2-digit',
+                                    hour12: true
+                                }) || '00:00';
                             })}</span>
-                            <span className='flex gap-2 items-center font-semibold capitalize'><Calendar1 size={15} /> {
-                                reminder.frequency === 'one_time' ? 'One Time' : reminder.frequency === 'daily_once' ? 'Daily' :
-                                    reminder.frequency === 'daily_twice' ? 'Twice Daily' :
-                                        reminder.frequency === 'weekly' ? 'Weekly' :
-                                            reminder.frequency === 'bi-weekly' ? 'Bi-Weekly' :
-                                                reminder.frequency === 'monthly' ? 'Monthly' : 'Custom'
-                            }</span>
+                            <p className='flex gap-2 items-center font-semibold capitalize'><Calendar1 size={15} />
+                                {
+                                    reminder.frequency === 'daily_once' ? 'Daily' :
+                                        reminder.frequency === 'daily_twice' ? 'Twice Daily' :
+                                            reminder.frequency === 'weekly' ? 'Weekly' :
+                                                reminder.frequency === 'bi-weekly' ? 'Bi-Weekly' :
+                                                    reminder.frequency === 'monthly' ? 'Monthly' : 'One Time'
+                                }
+
+                                <span>•</span>
+
+                                {
+                                    reminder.frequency === 'one_time' ?
+                                        (
+                                            new Date(reminder.reminder_date).toLocaleDateString('en-US', {
+                                                month: 'short',
+                                                day: 'numeric',
+                                                // year: 'numeric',
+                                                timeZone: 'UTC'
+                                            })
+                                        )
+                                        :
+                                        (
+                                            `
+                                            ${new Date(reminder.starting_date).toLocaleDateString('en-US', {
+                                                month: 'short',
+                                                day: 'numeric',
+                                                // year: 'numeric',
+                                                timeZone: 'UTC'
+                                            })
+                                            }
+                                             - 
+                                            ${new Date(reminder.end_date).toLocaleDateString('en-US', {
+                                                month: 'short',
+                                                day: 'numeric',
+                                                // year: 'numeric',
+                                                timeZone: 'UTC'
+                                            })
+                                            }
+                                            `
+                                        )
+                                }
+                            </p>
                             {isOverdue ? (
                                 <Badge variant="danger" className="text-xs">
                                     Overdue
@@ -166,48 +207,49 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
 }
 
 const SmartReminder = ({ selectedPet }) => {
-    const mockReminders = [
-        {
-            id: "1",
-            type: "medication",
-            title: "Give Apoquel",
-            description: "Daily allergy medication for Buddy",
-            time: "08:00",
-            frequency: "daily",
-            nextDue: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(),
-            active: true,
-            petId: "1",
-        },
-        {
-            id: "2",
-            type: "treatment",
-            title: "Apply medicated shampoo",
-            description: "Weekly antifungal shampoo treatment",
-            time: "10:00",
-            frequency: "weekly",
-            nextDue: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
-            active: true,
-            petId: "1",
-        },
-        {
-            id: "3",
-            type: "checkup",
-            title: "Severity assessment",
-            description: "Rate current itch severity and document progress",
-            time: "19:00",
-            frequency: "daily",
-            nextDue: new Date(Date.now() + 5 * 60 * 60 * 1000).toISOString(),
-            active: true,
-            petId: "1",
-        },
-    ]
-    const remindersData = selectedPet ? mockReminders.filter((r) => r.petId === selectedPet._id) : []
+    // const mockReminders = [
+    //     {
+    //         id: "1",
+    //         type: "medication",
+    //         title: "Give Apoquel",
+    //         description: "Daily allergy medication for Buddy",
+    //         time: "08:00",
+    //         frequency: "daily",
+    //         nextDue: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(),
+    //         active: true,
+    //         petId: "1",
+    //     },
+    //     {
+    //         id: "2",
+    //         type: "treatment",
+    //         title: "Apply medicated shampoo",
+    //         description: "Weekly antifungal shampoo treatment",
+    //         time: "10:00",
+    //         frequency: "weekly",
+    //         nextDue: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+    //         active: true,
+    //         petId: "1",
+    //     },
+    //     {
+    //         id: "3",
+    //         type: "checkup",
+    //         title: "Severity assessment",
+    //         description: "Rate current itch severity and document progress",
+    //         time: "19:00",
+    //         frequency: "daily",
+    //         nextDue: new Date(Date.now() + 5 * 60 * 60 * 1000).toISOString(),
+    //         active: true,
+    //         petId: "1",
+    //     },
+    // ]
+    // const remindersData = selectedPet ? mockReminders.filter((r) => r.petId === selectedPet._id) : []
+
     const [showReminders, setShowReminders] = useState(false)
 
     // const [reminders, setReminders] = useState(mockReminders);
     const { data, isLoading: remindersLoading, error } = useGetRemindersQuery();
     const reminders = data?.reminders || [];
-
+    console.log("reminders:", reminders);
     const toggleReminder = (reminderId) => {
         // setReminders((prev) =>
         //     prev.map((reminder) => (reminder.id === reminderId ? { ...reminder, active: !reminder.active } : reminder)),

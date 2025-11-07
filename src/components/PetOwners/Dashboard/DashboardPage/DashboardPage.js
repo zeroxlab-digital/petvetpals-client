@@ -239,7 +239,7 @@ const DashboardPage = () => {
                         className="flex justify-center items-center 
                w-fit max-sm:w-1/2 px-4 max-sm:px-3 py-[9px] 
                rounded-lg sm:font-semibold text-white 
-               bg-gradient-to-tr from-blue-600 to-pink-900/50 
+               bg-primary hover:bg-primaryHover
                duration-200 transition-colors"
                     >
                         <HeartPulse className="mr-2 h-4 w-4" />
@@ -251,7 +251,7 @@ const DashboardPage = () => {
                         className="flex justify-center items-center 
                w-fit max-sm:w-1/2 px-4 max-sm:px-3 py-[9px] 
                rounded-lg sm:font-semibold text-white 
-               bg-primary hover:bg-primaryHover 
+               bg-secondary hover:bg-secondaryHover
                duration-200 transition-colors"
                     >
                         <Calendar className="mr-2 h-4 w-4" />
