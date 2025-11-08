@@ -83,7 +83,7 @@ const formatCountdown = (targetTime) => {
 };
 
 const ScheduledReminders = ({ petId, ongoingMedications }) => {
-    const { data, isLoading } = useGetScheduledRemindersQuery({ petId });
+    const { data, isLoading, refetch } = useGetScheduledRemindersQuery({ petId });
     const [deleteMedScheduledReminder] = useDeleteMedScheduledReminderMutation();
     const [markGivenMedScheduledReminder] = useMarkGivenMedScheduledReminderMutation();
 
@@ -143,7 +143,16 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
         }
     };
 
-    // console.log(scheduledMedications)
+    useEffect(() => {
+        const refetchInterval = setInterval(() => {
+            refetch(); // from useGetScheduledRemindersQuery
+        }, 1 * 60 * 1000); // every 1 minutes
+
+        return () => clearInterval(refetchInterval);
+    }, [refetch]);
+
+
+    console.log("med reminders:", scheduledMedications)
 
     if (isLoading) return <PetSpinner />;
 
@@ -207,35 +216,43 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
                                             </h4>
                                             <div className="space-y-1">
                                                 {dose.reminder_times?.map((rt, idx) => {
-                                                    const rtStatus = getDoseStatus(rt);
-                                                    if (rtStatus === "invalid") return null;
-                                                    const rtBadgeColor = {
+
+                                                    const formattedTime = format(
+                                                        parse(rt.time, "HH:mm", new Date()),
+                                                        "hh:mm a"
+                                                    );
+
+
+                                                    const status = getDoseStatus(rt);
+                                                    if (status === "invalid") return null;
+                                                    const badgeColor = {
                                                         given: "bg-green-200 text-green-800",
                                                         overdue: "bg-red-200 text-red-800",
                                                         upcoming: "bg-blue-100 text-blue-700",
                                                         pending: "bg-yellow-100 text-yellow-800",
                                                         countdown: "bg-purple-100 text-purple-800",
-                                                    }[rtStatus];
-                                                    const rtBadgeLabel = {
+                                                    }[status];
+
+                                                    const badgeLabel = {
                                                         given: "Given",
                                                         overdue: "Overdue",
                                                         upcoming: "Upcoming",
                                                         pending: "Soon",
                                                         countdown: "Almost",
-                                                    }[rtStatus];
+                                                    }[status];
 
                                                     return (
                                                         <div
                                                             key={idx}
                                                             className="flex items-center justify-between gap-2"
                                                         >
-                                                            <span>{rt.time}</span>
+                                                            <span>{formattedTime}</span>
                                                             <span
-                                                                className={`text-xs px-2 py-0.5 rounded-full ${rtBadgeColor}`}
+                                                                className={`text-xs px-2 py-0.5 rounded-full ${badgeColor}`}
                                                             >
-                                                                {rtBadgeLabel}
+                                                                {badgeLabel}
                                                             </span>
-                                                            {rtStatus !== "given" && (
+                                                            {status !== "given" && (
                                                                 <button
                                                                     onClick={() => handleMarkGiven(dose._id, idx)}
                                                                     className="text-xs text-blue-600 underline hover:text-blue-800"
@@ -462,7 +479,7 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
                                                         parse(rt.time, "HH:mm", new Date()),
                                                         "hh:mm a"
                                                     );
-                                                    
+
 
                                                     const status = getDoseStatus(rt);
                                                     if (status === "invalid") return null;

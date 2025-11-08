@@ -98,17 +98,17 @@ const Medications = ({ petId }) => {
                 <h2 className="font-semibold text-lg">Medications & Treatment</h2>
                 {activeTab === "schedule-reminders" && (
                     <>
-                        <div className="flex items-center gap-2 max-sm:grid max-sm:grid-cols-2 max-sm:mt-2">
-                            <Button
+                        <div className="flex items-center gap-2 ">
+                            {/* <Button
                                 variant={"primaryOutline"}
                                 classNames={"max-sm:px-3 text-sm !hover:bg-gray-200"}
                             >
                                 <HiOutlineDownload className="text-lg" /> Export Calendar
-                            </Button>
+                            </Button> */}
                             <Button
                                 onClick={() => setOpenPopup(true)}
-                                variant={"primary"}
-                                classNames={"max-sm:px-3 text-sm "}
+                                variant={"primaryOutline"}
+                                classNames={"max-sm:px-3 text-sm font-semibold"}
                             >
                                 <HiPlus className="text-lg" /> Add to Reminder
                             </Button>
@@ -133,7 +133,7 @@ const Medications = ({ petId }) => {
                         <Button
                             onClick={() => setOpenPopup(true)}
                             variant={"primaryOutline"}
-                            classNames={"max-sm:mt-2 text-sm"}
+                            classNames={" text-sm font-semibold"}
                         >
                             <HiPlus className="text-lg" /> Add Medication
                         </Button>
