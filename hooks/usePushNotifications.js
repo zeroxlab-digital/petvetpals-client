@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect } from "react";
 import axios from "axios";
 
@@ -8,36 +9,44 @@ const urlBase64ToUint8Array = (base64String) => {
     const padding = "=".repeat((4 - base64String.length % 4) % 4);
     const base64 = (base64String + padding).replace(/\-/g, "+").replace(/_/g, "/");
     const rawData = atob(base64);
-    const outputArray = new Uint8Array(rawData.length);
-    for (let i = 0; i < rawData.length; ++i) {
-        outputArray[i] = rawData.charCodeAt(i);
-    }
-    return outputArray;
+    return Uint8Array.from([...rawData].map((c) => c.charCodeAt(0)));
 };
 
 const usePushNotifications = () => {
     useEffect(() => {
         const subscribeUserToPush = async () => {
             if (!("serviceWorker" in navigator)) return;
+
             const registration = await navigator.serviceWorker.ready;
 
-            const existingSubscription = await registration.pushManager.getSubscription();
-            if (existingSubscription) return; // Already subscribed
+            // Check for existing subscription
+            let subscription = await registration.pushManager.getSubscription();
 
             const permission = await Notification.requestPermission();
             if (permission !== "granted") return;
 
-            const subscription = await registration.pushManager.subscribe({
-                userVisibleOnly: true,
-                applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
-            });
+            if (!subscription) {
+                // Subscribe if not yet
+                subscription = await registration.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
+                });
+                console.log("New subscription created:", subscription);
+            } else {
+                console.log("Existing subscription found:", subscription);
+            }
 
-            // Send to backend to save
-            await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/push/subscribe`, subscription, {
-                withCredentials: true,
-            });
-
-            console.log("User is subscribed to push:", subscription);
+            // Send subscription to backend (always)
+            try {
+                await axios.post(
+                    `${process.env.NEXT_PUBLIC_API_BASE}/api/push/subscribe`,
+                    subscription,
+                    { withCredentials: true }
+                );
+                console.log("Subscription saved to backend successfully.");
+            } catch (err) {
+                console.error("Failed to save subscription:", err);
+            }
         };
 
         subscribeUserToPush();

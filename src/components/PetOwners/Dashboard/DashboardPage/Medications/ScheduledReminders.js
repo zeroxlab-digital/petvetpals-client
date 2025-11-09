@@ -152,7 +152,7 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
     }, [refetch]);
 
 
-    console.log("med reminders:", scheduledMedications)
+    // console.log("med reminders:", scheduledMedications)
 
     if (isLoading) return <PetSpinner />;
 

@@ -6,7 +6,7 @@ import { removeNotification } from '@/redux/features/notificationSlice';
 const NotificationCenter = () => {
 
     const notifications = useSelector(state => state.notifications);
-    // console.log(notifications)
+    console.log(notifications)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -14,7 +14,7 @@ const NotificationCenter = () => {
             if (notifications.length > 0) {
                 dispatch(removeNotification(notifications[0].id));
             }
-        }, 10000); // auto-dismiss after 10s
+        }, 30000); // auto-dismiss after 10s
 
         return () => clearInterval(interval);
     }, [notifications]);

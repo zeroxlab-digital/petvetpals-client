@@ -1,13 +1,14 @@
 self.addEventListener('push', function (event) {
+    if (!event.data) return; // This will ignore the empty pushes
     const data = event.data.json();
 
     const title = data.title || "Reminder";
     const options = {
-        body: data.message,
-        icon: "./images/pawheart.png",
-        badge: "/icons/badge.png",
-        requireInteraction: true,
-        data: data.data, // Pass the reminderId/index for later use
+        body: data.message || "",
+        icon: data.icon || "/icons/icon-192x192.png",
+        badge: data.badge || "/icons/badge.png",
+        requireInteraction: data.requireInteraction || true,
+        data: data.data || {},
         actions: data.actions || []
     };
 
@@ -17,15 +18,14 @@ self.addEventListener('push', function (event) {
 });
 
 self.addEventListener("notificationclick", function (event) {
-    if (event.action === "mark-as-given") {
-        const { reminderId, index } = event.notification.data;
+    const { action } = event;
+    const { reminderId, index } = event.notification.data || {};
 
+    if (action === "mark-as-given" && reminderId !== undefined) {
         event.waitUntil(
-            fetch(`http://localhost:8000/api/pet/medications/markgiven-scheduled-reminder`, {
+            fetch(`${self.registration.scope}api/pet/medications/markgiven-med-reminder`, {
                 method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 credentials: "include",
                 body: JSON.stringify({ id: reminderId, index })
             })
@@ -36,10 +36,10 @@ self.addEventListener("notificationclick", function (event) {
                     icon: "/icons/icon-192x192.png"
                 });
             })
-            .catch((err) => {
-                console.error("Mark as Given failed", err);
+            .catch(() => {
                 return self.registration.showNotification("❌ Failed", {
                     body: "Could not mark medication. Try again.",
+                    icon: "/icons/icon-192x192.png"
                 });
             })
         );

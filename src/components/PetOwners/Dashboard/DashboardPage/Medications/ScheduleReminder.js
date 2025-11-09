@@ -23,7 +23,7 @@ const getReminderSlots = (frequency) => {
 };
 
 const ScheduleReminder = ({ onClose, ongoingMedications, petId, schedule = null, refetch }) => {
-    console.log(schedule);
+    // console.log(schedule);
     const isEdit = Boolean(schedule);
 
     const [formData, setFormData] = useState({
@@ -35,7 +35,7 @@ const ScheduleReminder = ({ onClose, ongoingMedications, petId, schedule = null,
         reminder_methods: [],
         repeat_reminder: false,
     });
-    console.log(formData)
+    // console.log(formData)
     const [addMedScheduleReminder, { isLoading: isAdding }] = useAddMedScheduleReminderMutation();
     const [updateMedScheduleReminder, { isLoading: isUpdating }] = useUpdateMedScheduleReminderMutation();
 

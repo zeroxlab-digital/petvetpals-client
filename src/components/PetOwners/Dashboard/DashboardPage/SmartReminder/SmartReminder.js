@@ -300,7 +300,7 @@ const SmartReminder = ({ selectedPet }) => {
     // const [reminders, setReminders] = useState(mockReminders);
     const { data, isLoading: remindersLoading, error } = useGetRemindersQuery();
     const reminders = data?.reminders || [];
-    console.log("reminders:", reminders);
+    // console.log("reminders:", reminders);
     const toggleReminder = (reminderId) => {
         // setReminders((prev) =>
         //     prev.map((reminder) => (reminder.id === reminderId ? { ...reminder, active: !reminder.active } : reminder)),
