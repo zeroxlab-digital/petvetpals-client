@@ -84,7 +84,7 @@ const ReminderCard = ({ reminder, onMarkGiven, onDelete }) => {
         return () => clearInterval(interval);
     }, [reminder]);
 
-    const isOverdue = !timeLeft || (timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0);
+    const isOverdue = !timeLeft || (timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0) && reminder.reminder_times.some(t => !t.is_given && !t.skipped);
 
     const reminderIcons = {
         Medication: <Pill className="h-4 w-4" />,
