@@ -7,7 +7,7 @@ export const reminderApi = createApi({
         credentials: 'include',
     }),
     prepareHeaders: (headers, { body }) => {
-        if(!(body instanceof FormData)) {
+        if (!(body instanceof FormData)) {
             headers.set('Content-Type', 'application/json');
         }
         return headers;
@@ -29,6 +29,14 @@ export const reminderApi = createApi({
             }),
             providesTags: ['Reminder']
         }),
+        markGivenReminder: build.mutation({
+            query: ({ reminderId, timeIndex }) => ({
+                url: 'markgiven-reminder',
+                method: 'PATCH',
+                params: { id: reminderId, timeIndex }
+            }),
+            invalidatesTags: ['Reminder']
+        }),
         deleteReminder: build.mutation({
             query: (id) => ({
                 url: `/delete-reminder/${id}`,
@@ -40,4 +48,4 @@ export const reminderApi = createApi({
     })
 })
 
-export const { useScheduleReminderMutation, useGetRemindersQuery, useDeleteReminderMutation } = reminderApi;
+export const { useScheduleReminderMutation, useGetRemindersQuery, useMarkGivenReminderMutation, useDeleteReminderMutation } = reminderApi;

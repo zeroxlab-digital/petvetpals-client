@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Bell, Calendar, Calendar1, CalendarClock, Check, ChevronDown, ChevronUp, Clock12, Droplets, HeartPulse, Minus, PawPrint, Pill, Plus, Smartphone, Syringe, TrendingUp } from 'lucide-react';
+import { Bell, Calendar, Calendar1, CalendarClock, Check, CheckCircle, ChevronDown, ChevronUp, Clock12, Droplets, HeartPulse, Minus, PawPrint, Pill, Plus, Smartphone, Syringe, TrendingUp } from 'lucide-react';
 import ModalPopup from '@/components/Common/ModalPopup/ModalPopup';
 import AddReminderModal from './AddReminderModal';
 import Button from '@/components/Common/Button/Button';
-import { useDeleteReminderMutation, useGetRemindersQuery } from '@/redux/services/reminderApi';
+import { useDeleteReminderMutation, useGetRemindersQuery, useMarkGivenReminderMutation } from '@/redux/services/reminderApi';
 import { toast } from 'react-toastify';
 
 // Countdown
@@ -70,9 +70,11 @@ const Badge = ({ children, variant = "default", className, ...props }) => {
 }
 
 // Reminder Component
-const ReminderCard = ({ reminder, onToggle, onDelete }) => {
+const ReminderCard = ({ reminder, onMarkGiven, onDelete }) => {
+
+
     const [timeLeft, setTimeLeft] = useState(getTimeUntil(reminder));
-    console.log(timeLeft);
+    // console.log(timeLeft);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -122,14 +124,18 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
                         <h3 className="font-bold text-gray-800">{reminder.type || "Reminder title..."}</h3>
                         <p className="text-sm text-gray-600">{reminder.notes || "Notes..."}</p>
                         <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
-                            <span className='flex gap-2 items-center font-semibold'><Clock12 size={15} /> {reminder.reminder_times.map(rt => {
-                                // return rt.time || '00:00'
-                                return new Date(`1970-01-01T${rt.time}`).toLocaleTimeString([], {
-                                    hour: 'numeric',
-                                    minute: '2-digit',
-                                    hour12: true,
-                                }) || '00:00';
-                            })}</span>
+                            <span className='flex gap-2 items-center font-semibold'>
+                                <Clock12 size={15} />
+                                {reminder.reminder_times
+                                    .map(rt =>
+                                        new Date(`1970-01-01T${rt.time}`).toLocaleTimeString([], {
+                                            hour: 'numeric',
+                                            minute: '2-digit',
+                                            hour12: true,
+                                        }) || '00:00'
+                                    )
+                                    .join(' & ')}
+                            </span>
                             <p className='flex gap-2 items-center font-semibold capitalize max-sm:hidden'><Calendar1 size={15} />
                                 {
                                     reminder.frequency === 'daily_once' ? 'Daily' :
@@ -173,13 +179,22 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
                                         )
                                 }
                             </p>
-                            {isOverdue ? (
+                            {reminder.reminder_times.every(t => t.is_given) ? (
+                                <Badge variant="success" className="text-xs">
+                                    Given
+                                </Badge>
+                            ) : reminder.reminder_times.some(t => t.is_given) ? (
+                                <Badge variant="warning" className="text-xs">
+                                    Partially Given
+                                </Badge>
+                            ) : isOverdue ? (
                                 <Badge variant="danger" className="text-xs">
                                     Overdue
                                 </Badge>
                             ) : timeLeft ? (
                                 <Badge variant="info" className="text-xs font-medium px-1 py-0.5">
-                                    {timeLeft.days > 0 && `${timeLeft.days}d `}{timeLeft.hours}h {timeLeft.minutes}m
+                                    {timeLeft.days > 0 && `${timeLeft.days}d `}
+                                    {timeLeft.hours}h {timeLeft.minutes}m
                                 </Badge>
                             ) : (
                                 <Badge variant="success" className="text-xs">
@@ -232,19 +247,26 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
                         </p>
                     </div>
                 </div>
-
                 <div className="flex items-center gap-2">
-                    <button
-                        onClick={() => onToggle(reminder._id)}
-                        className={cn(
-                            "w-8 h-8 rounded-lg flex items-center justify-center transition-all",
-                            reminder
-                                ? "bg-green-100 text-green-600 hover:bg-green-200"
-                                : "bg-gray-100 text-gray-400 hover:bg-gray-200",
-                        )}
-                    >
-                        <Check className="h-4 w-4" />
-                    </button>
+                    {reminder.reminder_times.map((rt, index) => (
+                        <button
+                            key={index}
+                            onClick={() => onMarkGiven(reminder._id, index)}
+                            disabled={rt.is_given}
+                            className={cn(
+                                `w-8 h-8 rounded-lg flex items-center justify-center transition-all ${rt.is_given && 'cursor-not-allowed opacity-50'}`,
+                                reminder
+                                    ? "bg-green-100 text-green-600 hover:bg-green-200"
+                                    : "bg-gray-100 text-gray-400 hover:bg-gray-200",
+                            )}
+                        >
+                            {rt.is_given ?
+                                <CheckCircle className="h-4 w-4" />
+                                :
+                                <Check className="h-4 w-4" />
+                            }
+                        </button>
+                    ))}
                     <button
                         onClick={() => onDelete(reminder._id)}
                         className="w-8 h-8 rounded-lg flex items-center justify-center bg-red-100 text-red-600 hover:bg-red-200 transition-all"
@@ -258,53 +280,24 @@ const ReminderCard = ({ reminder, onToggle, onDelete }) => {
 }
 
 const SmartReminder = ({ selectedPet }) => {
-    // const mockReminders = [
-    //     {
-    //         id: "1",
-    //         type: "medication",
-    //         title: "Give Apoquel",
-    //         description: "Daily allergy medication for Buddy",
-    //         time: "08:00",
-    //         frequency: "daily",
-    //         nextDue: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(),
-    //         active: true,
-    //         petId: "1",
-    //     },
-    //     {
-    //         id: "2",
-    //         type: "treatment",
-    //         title: "Apply medicated shampoo",
-    //         description: "Weekly antifungal shampoo treatment",
-    //         time: "10:00",
-    //         frequency: "weekly",
-    //         nextDue: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
-    //         active: true,
-    //         petId: "1",
-    //     },
-    //     {
-    //         id: "3",
-    //         type: "checkup",
-    //         title: "Severity assessment",
-    //         description: "Rate current itch severity and document progress",
-    //         time: "19:00",
-    //         frequency: "daily",
-    //         nextDue: new Date(Date.now() + 5 * 60 * 60 * 1000).toISOString(),
-    //         active: true,
-    //         petId: "1",
-    //     },
-    // ]
-    // const remindersData = selectedPet ? mockReminders.filter((r) => r.petId === selectedPet._id) : []
 
     const [showReminders, setShowReminders] = useState(false)
 
-    // const [reminders, setReminders] = useState(mockReminders);
     const { data, isLoading: remindersLoading, error } = useGetRemindersQuery();
     const reminders = data?.reminders || [];
     // console.log("reminders:", reminders);
-    const toggleReminder = (reminderId) => {
-        // setReminders((prev) =>
-        //     prev.map((reminder) => (reminder.id === reminderId ? { ...reminder, active: !reminder.active } : reminder)),
-        // )
+
+    const [markGivenReminder, { isLoading: markLoading, error: markError }] = useMarkGivenReminderMutation();
+    const handleMarkGivenReminder = async (reminderId, timeIndex) => {
+        try {
+            console.log("markGivenReminder called with:", reminderId, timeIndex);
+            const res = await markGivenReminder({ reminderId, timeIndex }).unwrap();
+            console.log(res);
+            toast.success("Reminder marked as given", { autoClose: 2000 });
+        } catch (error) {
+            console.log(error);
+            toast.error("Failed to mark reminder as given. Please try again.", { autoClose: 2000 });
+        }
     }
 
     const [deleteReminder, { isLoading: deleteLoading, error: deleteError }] = useDeleteReminderMutation();
@@ -389,7 +382,8 @@ const SmartReminder = ({ selectedPet }) => {
                                 <ReminderCard
                                     key={reminder._id}
                                     reminder={reminder}
-                                    onToggle={toggleReminder}
+                                    // onToggle={toggleReminder}
+                                    onMarkGiven={handleMarkGivenReminder}
                                     onDelete={handleDeleteReminder}
                                 />
                             ))}

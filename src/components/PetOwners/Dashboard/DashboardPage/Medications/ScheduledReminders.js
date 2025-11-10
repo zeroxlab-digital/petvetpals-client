@@ -151,9 +151,6 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
         return () => clearInterval(refetchInterval);
     }, [refetch]);
 
-
-    // console.log("med reminders:", scheduledMedications)
-
     if (isLoading) return <PetSpinner />;
 
     return (

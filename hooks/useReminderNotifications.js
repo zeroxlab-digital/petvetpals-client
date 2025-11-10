@@ -17,7 +17,7 @@ const useReminderNotifications = () => {
         if(!isAuthenticated) return;
         const interval = setInterval(async () => {
             try {
-                const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/api/pet/medications/check-reminder-notifications`, {
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/api/pet/medications/check-med-reminder-notifications`, {
                     withCredentials: true
                 });
 
