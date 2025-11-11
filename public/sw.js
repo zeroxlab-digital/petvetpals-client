@@ -22,28 +22,52 @@ self.addEventListener("notificationclick", function (event) {
     const { reminderId, index } = event.notification.data || {};
 
     if (action === "mark-as-given" && reminderId !== undefined) {
+        console.log("self registration scrope:", self.registration.scope);
         event.waitUntil(
-            fetch(`${self.registration.scope}api/pet/medications/markgiven-med-reminder`, {
+            fetch(`/api/pet/medications/markgiven-med-reminder`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
                 body: JSON.stringify({ id: reminderId, index })
             })
-            .then(() => {
-                event.notification.close();
-                return self.registration.showNotification("✅ Marked as Given", {
-                    body: "Medication has been marked successfully.",
-                    icon: "/icons/icon-192x192.png"
-                });
-            })
-            .catch(() => {
-                return self.registration.showNotification("❌ Failed", {
-                    body: "Could not mark medication. Try again.",
-                    icon: "/icons/icon-192x192.png"
-                });
-            })
+                .then(() => {
+                    event.notification.close();
+                    return self.registration.showNotification("✅ Marked as Given", {
+                        body: "Medication has been marked successfully.",
+                        icon: "/icons/icon-192x192.png"
+                    });
+                })
+                .catch(() => {
+                    return self.registration.showNotification("❌ Failed", {
+                        body: "Could not mark medication. Try again.",
+                        icon: "/icons/icon-192x192.png"
+                    });
+                })
         );
-    } else {
+    } else if (action === "mark-as-done" && reminderId !== undefined) {
+        event.waitUntil(
+            fetch(`/api/reminder/markgiven-reminder`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ id: reminderId, timeIndex: index })
+            })
+                .then(() => {
+                    event.notification.close();
+                    return self.registration.showNotification("✅ Marked as Done", {
+                        body: "Reminder has been marked successfully.",
+                        icon: "/icons/icon-192x192.png"
+                    });
+                })
+                .catch(() => {
+                    return self.registration.showNotification("❌ Failed", {
+                        body: "Could not mark reminder. Try again.",
+                        icon: "/icons/icon-192x192.png"
+                    });
+                })
+        );
+    }
+    else {
         event.notification.close();
     }
 });
