@@ -18,6 +18,7 @@ import TinySpinner from '@/components/Common/Loader/TinySpinner';
 import SmartReminder from './SmartReminder/SmartReminder';
 import ActivityLevel from './QuickPetInsights/ActivityLevel/ActivityLevel';
 import EnergyLevel from './QuickPetInsights/EnergyLevel/EnergyLevel';
+import { useUpdateUserTimezone } from '../../../../../hooks/useUpdateUserTimezone';
 
 // Sample data for charts and displays
 // const healthData = [
@@ -120,6 +121,9 @@ const notifications = [
 ]
 
 const DashboardPage = () => {
+
+    useUpdateUserTimezone();
+
     const { data: { pets } = {}, isLoading, error } = useGetPetsQuery();
     const [selectedPet, setSelectedPet] = useState({});
     // console.log(selectedPet);
