@@ -1,5 +1,5 @@
 import PatientCard from "./PatientCard"
-import { Card, CardContent } from "../../../components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { PawPrint } from "lucide-react"
 
 export default function PatientGrid({ patients, onViewRecord, onScheduleAppointment }) {

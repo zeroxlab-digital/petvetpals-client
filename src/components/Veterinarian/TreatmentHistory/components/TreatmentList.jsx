@@ -1,5 +1,5 @@
 import TreatmentCard from "./TreatmentCard"
-import { Card, CardContent } from "../../../components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { FileText } from "lucide-react"
 
 export default function TreatmentList({ treatments, onViewFullRecord, onScheduleFollowUp }) {

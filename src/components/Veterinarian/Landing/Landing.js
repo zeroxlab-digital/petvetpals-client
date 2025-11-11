@@ -3,7 +3,7 @@ import { Stethoscope } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import { HiOutlineUser, HiOutlineUserCircle, HiOutlineUserPlus } from 'react-icons/hi2';
-import { useVetAuthenticated } from '../../../hooks/useVetAuthenticated';
+import { useVetAuthenticated } from '../../../../hooks/useVetAuthenticated';
 
 const Landing = () => {
     const { isAuthenticated } = useVetAuthenticated();

@@ -1,8 +1,8 @@
 "use client"
 
 import { HiOutlineSearch, HiSearch } from "react-icons/hi"
-import { Button } from "../../../components/ui/button"
-import { Input } from "../../../components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { Search, Plus } from "lucide-react"
 
 export default function AppointmentsHeader({ searchTerm, setSearchTerm }) {

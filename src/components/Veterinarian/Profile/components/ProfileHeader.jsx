@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "../../../components/ui/button"
+import { Button } from "@/components/ui/button"
 import { Calendar, Edit, Save, X } from "lucide-react"
 
 export default function ProfileHeader({

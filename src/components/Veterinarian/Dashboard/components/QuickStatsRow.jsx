@@ -1,6 +1,6 @@
 "use client"
 
-import { Card, CardContent } from "../../../components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { MessageSquare, FileText, AlertCircle } from "lucide-react"
 
 export default function QuickStatsRow() {

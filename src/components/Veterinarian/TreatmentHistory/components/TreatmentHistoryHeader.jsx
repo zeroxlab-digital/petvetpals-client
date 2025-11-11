@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "../../../components/ui/button"
+import { Button } from "@/components/ui/button"
 import { Download, Plus } from "lucide-react"
 
 export default function TreatmentHistoryHeader({ onExportRecords, onAddTreatment }) {

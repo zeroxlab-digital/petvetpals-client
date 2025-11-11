@@ -1,9 +1,9 @@
 "use client"
 
-import { Card, CardContent } from "../../../components/ui/card"
-import { Button } from "../../../components/ui/button"
-import { Badge } from "../../../components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "../../../components/ui/avatar"
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { User, Clock, PawPrint, FileText, Video, Edit, Eye, Calendar } from "lucide-react"
 
 export default function AppointmentCard({

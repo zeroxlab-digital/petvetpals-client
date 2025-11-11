@@ -1,8 +1,7 @@
-
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useUserAuthenticated } from '../../../../hooks/useUserAuthenticated';
 import { useVetAuthenticated } from '../../../../hooks/useVetAuthenticated';
+import { useUserAuthenticated } from '../../../../hooks/useUserAuthenticated';
 
 const ProtectedPage = (Component, role = "any") => {
     return function ProtectedComponent(props) {

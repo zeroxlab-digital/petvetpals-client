@@ -1,4 +1,4 @@
-import Profile from "../../../../veterinarian/Profile"
+import Profile from "@/components/Veterinarian/Profile";
 
 export default function ProfilePage() {
   return <Profile />;

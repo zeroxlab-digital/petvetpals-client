@@ -1,9 +1,9 @@
 "use client"
 
-import { Card, CardContent, CardHeader } from "../../../components/ui/card"
-import { Button } from "../../../components/ui/button"
-import { Textarea } from "../../../components/ui/textarea"
-import { Avatar, AvatarFallback, AvatarImage } from "../../../components/ui/avatar"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Textarea } from "@/components/ui/textarea"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { MessageSquare, Phone, Video, Send, PawPrint } from "lucide-react"
 import MessageBubble from "./MessageBubble"
 

@@ -1,9 +1,9 @@
 "use client"
 
-import { Card, CardContent } from "../../../components/ui/card"
-import { Button } from "../../../components/ui/button"
-import { Badge } from "../../../components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "../../../components/ui/avatar"
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { PawPrint, CheckCircle, Clock, AlertCircle, FileText, Eye, Calendar } from "lucide-react"
 
 export default function TreatmentCard({ treatment, onViewFullRecord, onScheduleFollowUp }) {

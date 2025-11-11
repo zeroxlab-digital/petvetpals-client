@@ -1,7 +1,7 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card"
-import { Progress } from "../../../components/ui/progress"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Progress } from "@/components/ui/progress"
 import { Calendar, DollarSign, TrendingUp, Users, Heart, CheckCircle, Clock } from "lucide-react"
 
 export default function StatsCards({ stats }) {
