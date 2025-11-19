@@ -68,9 +68,8 @@ const PetProfiles = () => {
                                     }
                                 </li>
                             </ul>
-                            <div className='grid grid-cols-2 items-center gap-2'>
-                                <Button onClick={() => handleShowModal("update", pet)} variant={"primaryOutline"} classNames={"!w-full text-sm"}><HiOutlinePencilAlt /> Update pet</Button>
-                                <Link className='!w-full text-sm' href={
+                            <div className='flex items-center gap-5'>
+                                <Link className='!w-full' href={
                                     {
                                         pathname: `${currentPathname}/${pet._id}`,
                                         query: {
@@ -80,6 +79,7 @@ const PetProfiles = () => {
                                 }>
                                     <Button variant={"primary"} classNames={"w-full"}>View details</Button>
                                 </Link>
+                                <button onClick={() => handleShowModal("update", pet)} className={"p-2 text-2xl text-primary"}><HiOutlinePencilAlt /></button>
                             </div>
                         </div>
                     </div>

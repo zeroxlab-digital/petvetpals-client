@@ -72,9 +72,9 @@ const AddUpdatePet = ({ popup, setPopup }) => {
 
   return (
     <div className="max-h-[80vh] overflow-y-auto space-y-5">
-      <h3 className="text-lg font-bold text-gray-800">
+      {/* <h3 className="text-lg font-bold text-gray-800">
         {isUpdate ? 'Edit Pet Profile' : 'Add Pet Profile'}
-      </h3>
+      </h3> */}
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
