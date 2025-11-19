@@ -1,13 +1,14 @@
 "use client"
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { AlertTriangle, ArrowRight, Calendar, Check, ChevronDown, Heart, Loader2, MessageSquare, ThumbsUp, Download, Sparkles, Activity, Clock, Shield, Target, TrendingUp, Zap, Eye, Droplets, Wind, Sun, Leaf, Home, AlertCircle, Bell, BarChart3, MapPin, Thermometer, SprayCanIcon as Spray, Settings, Smartphone, Database, Brain, Cpu, Wifi, Monitor, Plus, Minus, PawPrint, ShoppingCart, BookOpen, Info, } from "lucide-react"
+import { AlertTriangle, ArrowRight, Calendar, Check, ChevronDown, Heart, Loader2, MessageSquare, ThumbsUp, Download, Sparkles, Activity, Clock, Shield, Target, TrendingUp, Zap, Eye, Droplets, Wind, Sun, Leaf, Home, AlertCircle, Bell, BarChart3, MapPin, Thermometer, SprayCanIcon as Spray, Settings, Smartphone, Database, Brain, Cpu, Wifi, Monitor, Plus, Minus, PawPrint, ShoppingCart, BookOpen, Info, Video, } from "lucide-react"
 import Image from "next/image"
 import html2pdf from "html2pdf.js"
 import TagInput from "@/components/Common/TagInput/TagInput"
 import { useGetAllergiesConditionsQuery, useGetMedicationsQuery, useGetPetsQuery } from "@/redux/services/petApi"
 import { useGetAllergyCoachResponseMutation } from "@/redux/services/allergyCoachApi"
 import { HiOutlineFaceFrown } from "react-icons/hi2"
+import { useRouter } from "next/navigation"
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -250,6 +251,9 @@ const StepIndicator = ({ currentStep, totalSteps }) => {
 }
 
 export default function AllergyItchCoach() {
+
+  const router = useRouter();
+
   const { data: { pets } = {}, isLoading: petsLoading } = useGetPetsQuery();
   const [selectedPet, setSelectedPet] = useState(null)
   const { data: { allergiesConditions } = {}, isLoading: allergyConditionLoading } = useGetAllergiesConditionsQuery({ petId: selectedPet?._id }, { skip: !selectedPet?._id });
@@ -1235,19 +1239,11 @@ export default function AllergyItchCoach() {
                         </div>
                       </Button>
 
-                      <Button variant="outline" className="w-full justify-start h-auto py-4 bg-transparent">
-                        <MessageSquare className="h-5 w-5 text-blue-500 mr-3" />
+                      <Button onClick={() => router.push("/vet-appointment")} variant="outline" className="w-full justify-start h-auto py-4 bg-transparent">
+                        <Video className="h-5 w-5 text-blue-500 mr-3" />
                         <div className="text-left">
-                          <div className="font-bold">Chat with Vet</div>
+                          <div className="font-bold">Consult a Vet</div>
                           <div className="text-xs text-gray-500">Get professional guidance</div>
-                        </div>
-                      </Button>
-
-                      <Button variant="outline" className="w-full justify-start h-auto py-4 bg-transparent">
-                        <Bell className="h-5 w-5 text-green-500 mr-3" />
-                        <div className="text-left">
-                          <div className="font-bold">Set Reminders</div>
-                          <div className="text-xs text-gray-500">Track progress and follow-ups</div>
                         </div>
                       </Button>
                     </CardContent>
@@ -1291,7 +1287,8 @@ export default function AllergyItchCoach() {
                       </Badge>
                     </div>
 
-                    {progressDataFiltered.length > 0 && (
+                    {/* Integrate later when implemented */}
+                    {/* {progressDataFiltered.length > 0 && (
                       <div className="pt-4 border-t border-gray-200">
                         <div className="flex justify-between items-center mb-2">
                           <span className="text-gray-600">Progress Trend</span>
@@ -1307,7 +1304,7 @@ export default function AllergyItchCoach() {
                           {calculateTrends(progressDataFiltered).severity}% change in severity
                         </div>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </CardContent>
               </Card>

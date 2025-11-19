@@ -8,6 +8,7 @@ import { useGetAllergiesConditionsQuery, useGetPetsQuery } from "@/redux/service
 import { useGetNutritionistGptMutation } from "@/redux/services/NutritionistApi"
 import { HiFaceFrown, HiOutlineFaceFrown } from "react-icons/hi2"
 import TagInput from "@/components/Common/TagInput/TagInput"
+import { useRouter } from "next/navigation"
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -307,6 +308,8 @@ export default function PetNutritionist() {
     "Excessive Thirst",
     "Excessive Licking"
   ]);
+
+  const router = useRouter();
 
   const { data: { pets } = {}, isLoading: petsLoading } = useGetPetsQuery();
   const [selectedPet, setSelectedPet] = useState(null)
@@ -1221,7 +1224,7 @@ export default function PetNutritionist() {
                         </div>
                       </Button>
 
-                      <Button variant="outline" className="w-full justify-start h-auto py-4 bg-transparent">
+                      <Button onClick={() => router.push("/vet-appointment")} variant="outline" className="w-full justify-start h-auto py-4 bg-transparent">
                         <MessageSquare className="h-5 w-5 text-blue-500 mr-3" />
                         <div className="text-left">
                           <div className="font-bold">Consult with Nutritionist</div>
@@ -1229,13 +1232,13 @@ export default function PetNutritionist() {
                         </div>
                       </Button>
 
-                      <Button variant="outline" className="w-full justify-start h-auto py-4 bg-transparent">
+                      {/* <Button variant="outline" className="w-full justify-start h-auto py-4 bg-transparent">
                         <Calendar className="h-5 w-5 text-green-500 mr-3" />
                         <div className="text-left">
                           <div className="font-bold">Schedule Follow-up</div>
                           <div className="text-xs text-gray-500">Track progress and adjust plan</div>
                         </div>
-                      </Button>
+                      </Button> */}
                     </CardContent>
                   </Card>
                 </motion.div>
