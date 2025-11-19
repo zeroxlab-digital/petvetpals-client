@@ -11,6 +11,7 @@ import {
 import { petSymptomDatabase } from "./pet-symptom-database"
 import html2pdf from "html2pdf.js"
 import { useGetPetsQuery } from "@/redux/services/petApi"
+import { useRouter } from "next/navigation"
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -222,6 +223,9 @@ const StepIndicator = ({ currentStep, totalSteps }) => {
 }
 
 export default function AdvancedSymptomChecker() {
+
+  const router = useRouter();
+
   const [selectedPet, setSelectedPet] = useState(null)
   const [showPetMenu, setShowPetMenu] = useState(false)
   const [selectedBodyPart, setSelectedBodyPart] = useState(null)
@@ -392,18 +396,6 @@ export default function AdvancedSymptomChecker() {
     <div className="">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        {/* <motion.div
-          className=" mb-8"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className='mb-5'>
-            <h2 className='font-bold text-2xl mb-2 flex items-center gap-3'><span className="bg-primary rounded-md w-10 h-10 flex items-center justify-center text-white"><Stethoscope /></span>Symptom Checker</h2>
-            <p className='text-gray-500'>Advanced AI-powered symptom analysis for your beloved pets</p>
-          </div>
-        </motion.div> */}
-        {/* Header */}
         <motion.div
           className="text-center mb-8"
           initial={{ opacity: 0, y: -20 }}
@@ -428,9 +420,6 @@ export default function AdvancedSymptomChecker() {
               </Badge>
             </div>
           </div>
-          {/* <p className="text-gray-600 text-xl max-w-3xl mx-auto leading-relaxed">
-            Advanced AI-powered symptom analysis for your beloved pets. Get professional insights in minutes.
-          </p> */}
         </motion.div>
 
         {/* Step Indicator */}
@@ -605,18 +594,6 @@ export default function AdvancedSymptomChecker() {
                                 <p className="text-sm text-gray-500">{part.description}</p>
                               </div>
                             </div>
-                            {/* {selectedBodyPart === part.id && (
-                              <motion.div
-                                initial={{ opacity: 0, scale: 0 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                className="flex items-center justify-center"
-                              >
-                                <Badge variant="success">
-                                  <Check className="h-3 w-3 mr-1" />
-                                  Selected
-                                </Badge>
-                              </motion.div>
-                            )} */}
                           </motion.button>
                         ))}
                       </div>
@@ -716,7 +693,7 @@ export default function AdvancedSymptomChecker() {
 
                   {/* AI Recommendation */}
                   {showResults && !isGptLoading && selectedSymptoms.length > 0 && (
-                    <Card className={"mt-7"}>
+                    <Card className={"mt-7 max-lg:hidden"}>
                       <CardHeader gradient>
                         <CardTitle className="flex items-center gap-4">
                           {/* <Brain className="mr-3 h-6 w-6 text-purple-600" /> */}
@@ -732,14 +709,7 @@ export default function AdvancedSymptomChecker() {
                       <CardContent className="pt-5">
                         <div className="">
                           <div className="flex items-start gap-4">
-                            {/* <motion.div
-                              animate={{ rotate: 360 }}
-                              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                            >
-                              <Sparkles className="h-6 w-6 text-blue-600 mt-1" />
-                            </motion.div> */}
                             <div>
-                              {/* <h3 className="font-bold text-blue-800 mb-2">Professional Recommendation</h3> */}
                               <p className="text-gray-700 leading-relaxed">
                                 {gptResponse || "Analyzing your pet's symptoms..."}
                               </p>
@@ -817,12 +787,12 @@ export default function AdvancedSymptomChecker() {
                             >
                               <div className="flex justify-between items-start mb-3">
                                 <h3 className="font-semibold text-gray-800">{condition.name}</h3>
-                                <Badge
+                                {/* <Badge
                                   variant={condition.matchPercentage > 70 ? "warning" : "default"}
                                   className="ml-2 font-medium px-2 py-[2px]"
                                 >
                                   {condition.matchPercentage}% match
-                                </Badge>
+                                </Badge> */}
                               </div>
                               <p className="text-gray-500 text-sm mb-4 leading-relaxed">{condition.description}</p>
 
@@ -870,6 +840,35 @@ export default function AdvancedSymptomChecker() {
                     </CardContent>
                   </Card>
 
+                  {/* AI Recommendation Mobile */}
+                  {showResults && !isGptLoading && selectedSymptoms.length > 0 && (
+                    <Card className={"lg:hidden"}>
+                      <CardHeader gradient>
+                        <CardTitle className="flex items-center gap-4">
+                          {/* <Brain className="mr-3 h-6 w-6 text-purple-600" /> */}
+                          <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                          >
+                            <Sparkles className="h-6 w-6 text-blue-600 mt-1" />
+                          </motion.div>
+                          AI-Powered Analysis
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="pt-5">
+                        <div className="">
+                          <div className="flex items-start gap-4">
+                            <div>
+                              <p className="text-gray-700 leading-relaxed">
+                                {gptResponse || "Analyzing your pet's symptoms..."}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+
                   {/* Action Buttons */}
                   <Card>
                     <CardHeader gradient>
@@ -879,22 +878,13 @@ export default function AdvancedSymptomChecker() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="pt-6 space-y-3">
-                      <Button variant="outline" className="w-full justify-start h-auto py-4 bg-transparent">
-                        <MessageSquare className="h-5 w-5 text-blue-500 mr-3" />
-                        <div className="text-left">
-                          <div className="font-bold">Chat with a Vet</div>
-                          <div className="text-xs text-gray-500">Get instant professional advice</div>
-                        </div>
-                      </Button>
-
-                      <Button variant="outline" className="w-full justify-start h-auto py-4 bg-transparent">
+                      <Button onClick={() => router.push('/vet-appointment')} variant="outline" className="w-full justify-start h-auto py-4 bg-transparent">
                         <Calendar className="h-5 w-5 text-green-500 mr-3" />
                         <div className="text-left">
                           <div className="font-bold">Book Appointment</div>
                           <div className="text-xs text-gray-500">Schedule a visit with your vet</div>
                         </div>
                       </Button>
-
                       <Button
                         onClick={exportReport}
                         variant="outline"
