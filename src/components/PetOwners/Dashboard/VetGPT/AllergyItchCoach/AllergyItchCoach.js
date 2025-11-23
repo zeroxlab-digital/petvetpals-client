@@ -6,7 +6,7 @@ import Image from "next/image"
 import html2pdf from "html2pdf.js"
 import TagInput from "@/components/Common/TagInput/TagInput"
 import { useGetAllergiesConditionsQuery, useGetMedicationsQuery, useGetPetsQuery } from "@/redux/services/petApi"
-import { useGetAllergyCoachResponseMutation, useSaveAllergyReportMutation } from "@/redux/services/allergyCoachApi"
+import { useGetAllergyCoachResponseMutation, useGetAllergyItchReportHistoryQuery, useSaveAllergyReportMutation } from "@/redux/services/allergyCoachApi"
 import { HiOutlineFaceFrown } from "react-icons/hi2"
 import { useRouter } from "next/navigation"
 
@@ -262,6 +262,8 @@ export default function AllergyItchCoach() {
   const currentMedications = medications?.medications?.filter((med) => med.is_ongoing === true).map(med => ({ name: med.medication, dosage: med.dosage })).map(i => i.name) || [];
   const [getAllergyCoachResponse, { isLoading: allergyCoachResLoading }] = useGetAllergyCoachResponseMutation();
   const [saveAllergyReport, { isLoading: saveReportLoading }] = useSaveAllergyReportMutation();
+  const { data: history = {}, isLoading: historyLoading } = useGetAllergyItchReportHistoryQuery(selectedPet?._id, { skip: !selectedPet?._id });
+  console.log("history:", history);
 
   const [showPetMenu, setShowPetMenu] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
@@ -304,18 +306,18 @@ export default function AllergyItchCoach() {
 
 
   // Mock data
-  const mockAllergyHistory = [
-    // {
-    //   createdAt: new Date().toISOString(),
-    //   episode: { severity: 7, areas: ["paws", "ears"] },
-    //   triggers: ["pollen", "new food"],
-    // },
-    // {
-    //   createdAt: new Date(Date.now() - 86400000 * 14).toISOString(),
-    //   episode: { severity: 4, areas: ["abdomen"] },
-    //   triggers: ["flea treatment"],
-    // },
-  ]
+  // const mockAllergyHistory = [
+  //   {
+  //     createdAt: new Date().toISOString(),
+  //     episode: { severity: 7, areas: ["paws", "ears"] },
+  //     triggers: ["pollen", "new food"],
+  //   },
+  //   {
+  //     createdAt: new Date(Date.now() - 86400000 * 14).toISOString(),
+  //     episode: { severity: 4, areas: ["abdomen"] },
+  //     triggers: ["flea treatment"],
+  //   },
+  // ]
 
   const mockProgressData = [
     { date: "2024-01-01", severity: 8, areas: 3, treatments: 2, notes: "Started new treatment plan" },
@@ -1331,9 +1333,9 @@ export default function AllergyItchCoach() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-6">
-                  {mockAllergyHistory.length > 0 ? (
+                  {history?.reports?.length > 0 ? (
                     <div className="space-y-3 max-h-64 overflow-y-auto">
-                      {mockAllergyHistory.map((episode, index) => (
+                      {history.reports.map((report, index) => (
                         <motion.div
                           key={index}
                           initial={{ opacity: 0, y: 10 }}
@@ -1343,7 +1345,7 @@ export default function AllergyItchCoach() {
                         >
                           <div className="flex items-center justify-between mb-2">
                             <p className="text-sm font-medium text-gray-600">
-                              {new Date(episode.createdAt).toLocaleDateString("en-US", {
+                              {new Date(report.createdAt).toLocaleDateString("en-US", {
                                 year: "numeric",
                                 month: "short",
                                 day: "numeric",
@@ -1351,28 +1353,28 @@ export default function AllergyItchCoach() {
                             </p>
                             <Badge
                               variant={
-                                episode.episode.severity >= 7
+                                Number(report.episode.severity) >= 7
                                   ? "danger"
-                                  : episode.episode.severity >= 4
+                                  : Number(report.episode.severity) >= 4
                                     ? "warning"
                                     : "success"
                               }
                               className="text-xs"
                             >
-                              {episode.episode.severity}/10
+                              {Number(report.episode.severity)}/10
                             </Badge>
                           </div>
                           <div className="flex flex-wrap gap-1 mb-2">
-                            {episode.episode.areas.map((area, i) => (
+                            {report.episode.affected_areas.map((area, i) => (
                               <Badge key={i} variant="outline" className="text-xs bg-white">
                                 {area}
                               </Badge>
                             ))}
                           </div>
                           <div className="flex flex-wrap gap-1">
-                            {episode.triggers.map((trigger, i) => (
+                            {report.episode.visible_signs.map((sign, i) => (
                               <Badge key={i} variant="info" className="text-xs">
-                                {trigger}
+                                {sign}
                               </Badge>
                             ))}
                           </div>

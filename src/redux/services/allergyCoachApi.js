@@ -29,8 +29,12 @@ export const allergyCoachApi = createApi({
                 body: { pet, episode }
             }),
             invalidatesTags: ['AllergyCoach']
+        }),
+        getAllergyItchReportHistory: builder.query({
+            query: (petId) => `/history/${petId}`,
+            providesTags: ['AllergyCoach'],
         })
     })
 })
 
-export const { useGetAllergyCoachResponseMutation, useSaveAllergyReportMutation } = allergyCoachApi;
+export const { useGetAllergyCoachResponseMutation, useSaveAllergyReportMutation, useGetAllergyItchReportHistoryQuery } = allergyCoachApi;
