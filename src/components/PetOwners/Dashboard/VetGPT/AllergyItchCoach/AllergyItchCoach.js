@@ -263,7 +263,7 @@ export default function AllergyItchCoach() {
   const [getAllergyCoachResponse, { isLoading: allergyCoachResLoading }] = useGetAllergyCoachResponseMutation();
   const [saveAllergyReport, { isLoading: saveReportLoading }] = useSaveAllergyReportMutation();
   const { data: history = {}, isLoading: historyLoading } = useGetAllergyItchReportHistoryQuery(selectedPet?._id, { skip: !selectedPet?._id });
-  console.log("history:", history);
+  // console.log("history:", history);
 
   const [showPetMenu, setShowPetMenu] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
@@ -507,8 +507,8 @@ export default function AllergyItchCoach() {
           <div className="flex items-center justify-center gap-4 mb-6">
             <motion.div
               className="p-4 bg-gradient-to-r from-pink-600 to-rose-600 rounded-3xl shadow-xl max-md:hidden"
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.6 }}
+              // whileHover={{ rotate: 360 }}
+              // transition={{ duration: 0.6 }}
             >
               <Shield className="h-10 w-10 text-white" />
             </motion.div>
@@ -522,9 +522,6 @@ export default function AllergyItchCoach() {
               </Badge>
             </div>
           </div>
-          {/* <p className="text-gray-600 text-xl max-w-3xl mx-auto leading-relaxed">
-            Personalized guidance for managing pet allergies, itching, and skin conditions with expert care plans.
-          </p> */}
         </motion.div>
 
         {/* Step Indicator */}

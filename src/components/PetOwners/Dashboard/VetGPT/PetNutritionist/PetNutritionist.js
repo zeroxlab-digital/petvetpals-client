@@ -313,7 +313,7 @@ export default function PetNutritionist() {
 
   const { data: { pets } = {}, isLoading: petsLoading } = useGetPetsQuery();
   const [selectedPet, setSelectedPet] = useState(null)
-  console.log("pet:", selectedPet);
+  // console.log("pet:", selectedPet);
   const { data: { allergiesConditions } = {}, isLoading: allergyConditionLoading } = useGetAllergiesConditionsQuery({ petId: selectedPet?._id }, { skip: !selectedPet?._id });
   const allergies = allergiesConditions?.filter(i => i.type == 'allergy').map(i => i.name);
   const conditions = allergiesConditions?.filter(i => i.type == 'condition').map(i => ({ name: i.name, severity: i.severity, diagnosed_date: i.diagnosedDate, description: i.description })) || [];
@@ -338,7 +338,7 @@ export default function PetNutritionist() {
   const [showPetMenu, setShowPetMenu] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
   const [nutritionPlan, setNutritionPlan] = useState(null);
-  console.log("Nutrtion Plan:", nutritionPlan);
+  // console.log("Nutrtion Plan:", nutritionPlan);
   const [isGenerating, setIsGenerating] = useState(false)
 
   // Form data
@@ -367,67 +367,7 @@ export default function PetNutritionist() {
       treatmentGoals: [],
     })
   }, [allergiesConditions, selectedPet])
-  console.log("Form data:", formData);
-
-
-  // const mockNutritionHistory = [
-  //   {
-  //     createdAt: new Date().toISOString(),
-  //     goals: ["Weight Loss", "Joint Health"],
-  //   },
-  //   {
-  //     createdAt: new Date(Date.now() - 86400000 * 7).toISOString(),
-  //     goals: ["Maintenance", "Skin Health"],
-  //   },
-  // ]
-
-  // Mock functions
-  // const mockGetNutritionRecommendation = async (data) => {
-  //   await new Promise((resolve) => setTimeout(resolve, 3000)) // Simulate API delay
-  //   return {
-  //     data: {
-  //       dailyCalories: 850,
-  //       proteinNeeds: "25-30%",
-  //       fatNeeds: "12-15%",
-  //       carbNeeds: "45-50%",
-  //       feedingSchedule: [
-  //         { time: "7:00 AM", portion: "1/2 cup", meal: "Breakfast" },
-  //         { time: "12:00 PM", portion: "1/4 cup", meal: "Lunch" },
-  //         { time: "6:00 PM", portion: "1/2 cup", meal: "Dinner" },
-  //       ],
-  //       recommendedIngredients: [
-  //         { name: "Chicken", type: "Protein", benefit: "High-quality protein for muscle maintenance" },
-  //         { name: "Sweet Potato", type: "Carbohydrate", benefit: "Complex carbs for sustained energy" },
-  //         { name: "Salmon Oil", type: "Fat", benefit: "Omega-3 for skin and coat health" },
-  //         { name: "Blueberries", type: "Antioxidant", benefit: "Immune system support" },
-  //       ],
-  //       avoidIngredients: ["Chocolate", "Grapes", "Onions", "Garlic", "Xylitol"],
-  //       brandRecommendations: [
-  //         {
-  //           name: "Royal Canin Breed Health Nutrition",
-  //           price: "$45.99",
-  //           rating: 4.8,
-  //           affiliate: true,
-  //           reason: "Breed-specific formula with optimal nutrition",
-  //         },
-  //         {
-  //           name: "Hill's Science Diet Adult",
-  //           price: "$52.99",
-  //           rating: 4.7,
-  //           affiliate: true,
-  //           reason: "Veterinarian recommended for overall health",
-  //         },
-  //         {
-  //           name: "Blue Buffalo Life Protection",
-  //           price: "$38.99",
-  //           rating: 4.6,
-  //           affiliate: true,
-  //           reason: "Natural ingredients with LifeSource Bits",
-  //         },
-  //       ],
-  //     },
-  //   }
-  // }
+  // console.log("Form data:", formData);
 
   const mockSaveNutritionPlan = async (data) => {
     console.log("Saving nutrition plan:", data)
@@ -468,7 +408,7 @@ export default function PetNutritionist() {
         pet: petData,
         ...formDataWithoutAgeWeight
       })
-      console.log("DATA:", data);
+      // console.log("DATA:", data);
 
       setNutritionPlan(data?.plan)
       setCurrentStep(4)
@@ -507,49 +447,6 @@ export default function PetNutritionist() {
     }
   }
 
-  // Mock nutrition plan data for demonstration
-  // const mockNutritionPlan = {
-  //   dailyCalories: 850,
-  //   proteinNeeds: "25-30%",
-  //   fatNeeds: "12-15%",
-  //   carbNeeds: "45-50%",
-  //   feedingSchedule: [
-  //     { time: "7:00 AM", portion: "1/2 cup", meal: "Breakfast" },
-  //     { time: "12:00 PM", portion: "1/4 cup", meal: "Lunch" },
-  //     { time: "6:00 PM", portion: "1/2 cup", meal: "Dinner" },
-  //   ],
-  //   recommendedIngredients: [
-  //     { name: "Chicken", type: "Protein", benefit: "High-quality protein for muscle maintenance" },
-  //     { name: "Sweet Potato", type: "Carbohydrate", benefit: "Complex carbs for sustained energy" },
-  //     { name: "Salmon Oil", type: "Fat", benefit: "Omega-3 for skin and coat health" },
-  //     { name: "Blueberries", type: "Antioxidant", benefit: "Immune system support" },
-  //   ],
-  //   avoidIngredients: ["Chocolate", "Grapes", "Onions", "Garlic", "Xylitol"],
-  //   brandRecommendations: [
-  //     {
-  //       name: "Royal Canin Breed Health Nutrition",
-  //       price: "$45.99",
-  //       rating: 4.8,
-  //       affiliate: true,
-  //       reason: "Breed-specific formula with optimal nutrition",
-  //     },
-  //     {
-  //       name: "Hill's Science Diet Adult",
-  //       price: "$52.99",
-  //       rating: 4.7,
-  //       affiliate: true,
-  //       reason: "Veterinarian recommended for overall health",
-  //     },
-  //     {
-  //       name: "Blue Buffalo Life Protection",
-  //       price: "$38.99",
-  //       rating: 4.6,
-  //       affiliate: true,
-  //       reason: "Natural ingredients with LifeSource Bits",
-  //     },
-  //   ],
-  // }
-
   return (
     <div className="">
       <div className="relative">
@@ -563,8 +460,8 @@ export default function PetNutritionist() {
           <div className="flex items-center justify-center gap-4 mb-6">
             <motion.div
               className="p-4 bg-gradient-to-r from-green-600 to-emerald-600 rounded-3xl shadow-xl max-md:hidden"
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.6 }}
+              // whileHover={{ rotate: 360 }}
+              // transition={{ duration: 0.6 }}
             >
               <Utensils className="h-10 w-10 text-white " />
             </motion.div>
@@ -578,9 +475,6 @@ export default function PetNutritionist() {
               </Badge>
             </div>
           </div>
-          {/* <p className="text-gray-600 text-xl max-w-3xl mx-auto leading-relaxed">
-            Get personalized nutrition plans tailored to your pet&apos;s breed, age, health, and lifestyle needs.
-          </p> */}
         </motion.div>
 
         {/* Step Indicator */}
