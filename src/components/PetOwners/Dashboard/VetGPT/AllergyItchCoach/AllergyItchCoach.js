@@ -304,21 +304,6 @@ export default function AllergyItchCoach() {
     })
   }, [selectedPet, allergiesConditions, medications.medications])
 
-
-  // Mock data
-  // const mockAllergyHistory = [
-  //   {
-  //     createdAt: new Date().toISOString(),
-  //     episode: { severity: 7, areas: ["paws", "ears"] },
-  //     triggers: ["pollen", "new food"],
-  //   },
-  //   {
-  //     createdAt: new Date(Date.now() - 86400000 * 14).toISOString(),
-  //     episode: { severity: 4, areas: ["abdomen"] },
-  //     triggers: ["flea treatment"],
-  //   },
-  // ]
-
   const mockProgressData = [
     { date: "2024-01-01", severity: 8, areas: 3, treatments: 2, notes: "Started new treatment plan" },
     { date: "2024-01-03", severity: 7, areas: 3, treatments: 2, notes: "Slight improvement in paw area" },
@@ -1299,25 +1284,6 @@ export default function AllergyItchCoach() {
                           : "Not set"}
                       </Badge>
                     </div>
-
-                    {/* Integrate later when implemented */}
-                    {/* {progressDataFiltered.length > 0 && (
-                      <div className="pt-4 border-t border-gray-200">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-gray-600">Progress Trend</span>
-                          <Badge
-                            variant={
-                              calculateTrends(progressDataFiltered).improvement === "improving" ? "success" : "warning"
-                            }
-                          >
-                            {calculateTrends(progressDataFiltered).improvement}
-                          </Badge>
-                        </div>
-                        <div className="text-xs text-gray-500">
-                          {calculateTrends(progressDataFiltered).severity}% change in severity
-                        </div>
-                      </div>
-                    )} */}
                   </div>
                 </CardContent>
               </Card>
@@ -1333,61 +1299,77 @@ export default function AllergyItchCoach() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-6">
-                  {history?.reports?.length > 0 ? (
-                    <div className="space-y-3 max-h-64 overflow-y-auto">
-                      {history.reports.map((report, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.05 }}
-                          className="p-4 bg-gradient-to-r from-gray-50 to-pink-50 rounded-xl border border-gray-100 hover:shadow-md transition-all duration-200"
-                        >
-                          <div className="flex items-center justify-between mb-2">
-                            <p className="text-sm font-medium text-gray-600">
-                              {new Date(report.createdAt).toLocaleDateString("en-US", {
-                                year: "numeric",
-                                month: "short",
-                                day: "numeric",
-                              })}
-                            </p>
-                            <Badge
-                              variant={
-                                Number(report.episode.severity) >= 7
-                                  ? "danger"
-                                  : Number(report.episode.severity) >= 4
-                                    ? "warning"
-                                    : "success"
-                              }
-                              className="text-xs"
+                  {historyLoading ? (
+                    <div>
+                      <Skeleton className="h-28 w-full mb-4" />
+                    </div>
+                  )
+                    :
+                    <>
+                      {history?.reports?.length > 0 ? (
+                        <div className="space-y-3 max-h-64 overflow-y-auto">
+                          {history.reports.map((report, index) => (
+                            <motion.div
+                              key={index}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: index * 0.05 }}
+                              className="p-4 bg-gradient-to-r from-gray-50 to-pink-50 rounded-xl border border-gray-100 hover:shadow-md transition-all duration-200"
                             >
-                              {Number(report.episode.severity)}/10
-                            </Badge>
-                          </div>
-                          <div className="flex flex-wrap gap-1 mb-2">
-                            {report.episode.affected_areas.map((area, i) => (
-                              <Badge key={i} variant="outline" className="text-xs bg-white">
-                                {area}
-                              </Badge>
-                            ))}
-                          </div>
-                          <div className="flex flex-wrap gap-1">
-                            {report.episode.visible_signs.map((sign, i) => (
-                              <Badge key={i} variant="info" className="text-xs">
-                                {sign}
-                              </Badge>
-                            ))}
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-center py-8 text-gray-500">
-                      <BarChart3 className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-                      <p className="font-medium">No allergy history</p>
-                      <p className="text-sm">Start tracking episodes to identify patterns</p>
-                    </div>
-                  )}
+                              <div className="flex items-center justify-between mb-2">
+                                <p className="text-sm font-medium text-gray-600">
+                                  {new Date(report.createdAt).toLocaleDateString("en-US", {
+                                    year: "numeric",
+                                    month: "short",
+                                    day: "numeric",
+                                  })}
+                                </p>
+                                <Badge
+                                  variant={
+                                    Number(report.episode.severity) >= 7
+                                      ? "danger"
+                                      : Number(report.episode.severity) >= 4
+                                        ? "warning"
+                                        : "success"
+                                  }
+                                  className="text-xs"
+                                >
+                                  {Number(report.episode.severity)}/10
+                                </Badge>
+                              </div>
+                              <div className="flex items-center justify-between mb-2">
+                                <p className="text-gray-700 text-sm">Episode length</p>
+                                <p className="text-gray-800 text-sm font-semibold">{report.episode.length.split(".").slice(0, 1)} days</p>
+                              </div>
+                              <div className="flex items-center justify-between mb-2">
+                                <p className="text-gray-700 text-sm">Affected areas</p>
+                                <div className="flex gap-0.5 justify-end">
+                                  {report.episode.affected_areas.map((area, i) => (
+                                    <Badge key={i} variant="outline" className="font-semibold text-xs bg-white capitalize">
+                                      {area}
+                                    </Badge>
+                                  ))}
+                                </div>
+                              </div>
+                              <div className="flex flex-wrap gap-1">
+                                {report.episode.visible_signs.map((sign, i) => (
+                                  <Badge key={i} variant="info" className="font-semibold text-xs capitalize">
+                                    {sign.replace(/_/g, " ")}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </motion.div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="text-center py-8 text-gray-500">
+                          <BarChart3 className="h-12 w-12 mx-auto mb-3 text-gray-300" />
+                          <p className="font-medium">No allergy history</p>
+                          <p className="text-sm">Start tracking episodes to identify patterns</p>
+                        </div>
+                      )}
+                    </>
+                  }
                 </CardContent>
               </Card>
             )}
