@@ -6,7 +6,7 @@ import Image from "next/image"
 import html2pdf from "html2pdf.js"
 import TagInput from "@/components/Common/TagInput/TagInput"
 import { useGetAllergiesConditionsQuery, useGetMedicationsQuery, useGetPetsQuery } from "@/redux/services/petApi"
-import { useGetAllergyCoachResponseMutation } from "@/redux/services/allergyCoachApi"
+import { useGetAllergyCoachResponseMutation, useSaveAllergyReportMutation } from "@/redux/services/allergyCoachApi"
 import { HiOutlineFaceFrown } from "react-icons/hi2"
 import { useRouter } from "next/navigation"
 
@@ -261,6 +261,7 @@ export default function AllergyItchCoach() {
   const { data: medications = {}, isLoading: medicationsLoading } = useGetMedicationsQuery({ petId: selectedPet?._id }, { skip: !selectedPet?._id });
   const currentMedications = medications?.medications?.filter((med) => med.is_ongoing === true).map(med => ({ name: med.medication, dosage: med.dosage })).map(i => i.name) || [];
   const [getAllergyCoachResponse, { isLoading: allergyCoachResLoading }] = useGetAllergyCoachResponseMutation();
+  const [saveAllergyReport, { isLoading: saveReportLoading }] = useSaveAllergyReportMutation();
 
   const [showPetMenu, setShowPetMenu] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
@@ -463,9 +464,19 @@ export default function AllergyItchCoach() {
         pet,
         ...formData
       })
-      console.log("data:", data)
       setCarePlan(data?.coach_response)
       setCurrentStep(4)
+      if (data?.success && data?.coach_response) {
+        await saveAllergyReport({
+          pet: selectedPet._id,
+          episode: {
+            length: (new Date() - new Date(formData.startDate)) / (1000 * 60 * 60 * 24),
+            affected_areas: formData.affectedAreas,
+            severity: formData.severity,
+            visible_signs: formData.visibleSigns,
+          }
+        })
+      }
     } catch (err) {
       console.error("Error generating care plan:", err)
       alert("Something went wrong while generating the care plan.")

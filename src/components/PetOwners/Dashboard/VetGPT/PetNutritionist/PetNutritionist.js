@@ -370,16 +370,16 @@ export default function PetNutritionist() {
   console.log("Form data:", formData);
 
 
-  const mockNutritionHistory = [
-    // {
-    //   createdAt: new Date().toISOString(),
-    //   goals: ["Weight Loss", "Joint Health"],
-    // },
-    // {
-    //   createdAt: new Date(Date.now() - 86400000 * 7).toISOString(),
-    //   goals: ["Maintenance", "Skin Health"],
-    // },
-  ]
+  // const mockNutritionHistory = [
+  //   {
+  //     createdAt: new Date().toISOString(),
+  //     goals: ["Weight Loss", "Joint Health"],
+  //   },
+  //   {
+  //     createdAt: new Date(Date.now() - 86400000 * 7).toISOString(),
+  //     goals: ["Maintenance", "Skin Health"],
+  //   },
+  // ]
 
   // Mock functions
   // const mockGetNutritionRecommendation = async (data) => {
@@ -435,7 +435,7 @@ export default function PetNutritionist() {
   }
 
   const saveNutritionPlan = mockSaveNutritionPlan
-  const nutritionHistory = selectedPet ? mockNutritionHistory : []
+  // const nutritionHistory = selectedPet ? mockNutritionHistory : []
 
   const updateFormData = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -1318,7 +1318,7 @@ export default function PetNutritionist() {
             )}
 
             {/* Nutrition History */}
-            {selectedPet && (
+            {/* {selectedPet && (
               <Card>
                 <CardHeader gradient>
                   <CardTitle className="flex items-center">
@@ -1366,7 +1366,7 @@ export default function PetNutritionist() {
                   )}
                 </CardContent>
               </Card>
-            )}
+            )} */}
 
           </div>
         </div>

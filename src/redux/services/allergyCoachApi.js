@@ -21,8 +21,16 @@ export const allergyCoachApi = createApi({
                 body: body,
             }),
             invalidatesTags: ['AllergyCoach']
+        }),
+        saveAllergyReport: builder.mutation({
+            query: ({ pet, episode }) => ({
+                url: '/save',
+                method: 'POST',
+                body: { pet, episode }
+            }),
+            invalidatesTags: ['AllergyCoach']
         })
     })
 })
 
-export const { useGetAllergyCoachResponseMutation } = allergyCoachApi;
+export const { useGetAllergyCoachResponseMutation, useSaveAllergyReportMutation } = allergyCoachApi;
