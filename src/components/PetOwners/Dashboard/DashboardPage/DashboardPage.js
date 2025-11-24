@@ -208,7 +208,7 @@ const DashboardPage = () => {
                 <div className="space-y-5">
                     {/* Health Overview Cards */}
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                        <OverallHealth petData={petData} />
+                        <OverallHealth overall_health={petData?.overall_health} />
                         <WeightTracker selectedPet={selectedPet} />
                         <NextVaccination petData={petData} />
                     </div>
