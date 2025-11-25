@@ -52,7 +52,7 @@ const MedicalHistory = ({ petId }) => {
       {/* MOBILE: Cards */}
       <div className="md:hidden grid grid-cols-1 gap-6">
         {medicalHistory.map((record, idx) => {
-          console.log(record)
+          // console.log(record)
           return (
             <article
               key={idx}
