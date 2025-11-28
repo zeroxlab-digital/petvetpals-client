@@ -47,7 +47,7 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h3 className="text-2xl max-sm:text-xl font-semibold mb-4">Join Our Pet-Loving Community</h3>
+              <h3 className="text-2xl max-sm:text-xl font-semibold mb-2">Join Our Pet-Loving Community</h3>
               <p className="text-gray-300 mb-8">Subscribe to receive updates, pet care tips, and exclusive offers</p>
               <form className="grid grid-cols-[3fr_1fr] gap-2 sm:w-3/5 mx-auto max-w-max">
                 <input
@@ -55,7 +55,7 @@ export default function Footer() {
                   placeholder="Enter your email"
                   className="bg-transparent bg-white text-gray-800 outline-none placeholder:text-gray-500 rounded-md p-3"
                 />
-                <button className="bg-primary border duration-100 text-white font-semibold p-3 rounded-md flex items-center gap-0">
+                <button className="bg-secondary hover:bg-black duration-200 text-white font-semibold p-3 rounded-md flex items-center gap-0">
                   Subscribe
                   <Send className="w-4 h-4 ml-2 max-sm:hidden" />
                 </button>
@@ -92,10 +92,10 @@ export default function Footer() {
                 <MapPin className="w-5 h-5 text-white" />
                 <span>Monroe, LA 71203, USA</span>
               </div>
-              <div className="flex items-center gap-3 text-gray-300">
+              {/* <div className="flex items-center gap-3 text-gray-300">
                 <Phone className="w-5 h-5 text-white" />
                 <span>+1 (318) 737-0330</span>
-              </div>
+              </div> */}
               <div className="flex items-center gap-3 text-gray-300">
                 <Mail className="w-5 h-5 text-white" />
                 <span>hello@petvetpals.com</span>
@@ -177,7 +177,7 @@ export default function Footer() {
             <ul className="space-y-4">
               {[
                 "Our Stories",
-                "Blog",
+                // "Blog",
                 "Site Map"
               ].map((item, index) => (
                 <motion.li
