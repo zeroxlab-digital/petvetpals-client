@@ -99,11 +99,11 @@ const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
             <form onSubmit={handleSubmit}>
                 <div className='grid grid-cols-2 gap-4 max-md:grid-cols-1'>
                     <div>
-                        <Label htmlFor="type">Record Type</Label>
+                        <Label htmlFor="type">Record type</Label>
                         <Input
                             id="type"
                             type="text"
-                            placeholder="e.g. Surgery, Check-up"
+                            placeholder="e.g., Check-up, Vaccination, Surgery"
                             required
                             value={medicalHistoryData.type}
                             onChange={(e) =>
@@ -132,13 +132,13 @@ const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
                         <input
                             type="text"
                             id="vetOrClinic"
-                            placeholder="e.g, Dr. Matthew Anderson, Owachita Pet Clinic"
+                            placeholder="e.g., Dr. Matthew Anderson, Owachita Pet Clinic"
                             value={inputValue}
                             onChange={(e) => {
                                 setInputValue(e.target.value);
                                 setMedicalHistoryData({
                                     ...medicalHistoryData,
-                                    vetOrClinic: e.target.value,  // ✅ keep in sync
+                                    vetOrClinic: e.target.value,
                                 });
                                 setShowDropdown(true);
                             }}
@@ -156,7 +156,7 @@ const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
                                                 setInputValue(item.fullName);
                                                 setMedicalHistoryData({
                                                     ...medicalHistoryData,
-                                                    vetOrClinic: item.fullName, // ✅ update on selection
+                                                    vetOrClinic: item.fullName,
                                                 });
                                                 setShowDropdown(false);
                                             }}
@@ -185,7 +185,7 @@ const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
                         id="diagnosis"
                         name="diagnosis"
                         required
-                        placeholder="Describe the diagnosis"
+                        placeholder="e.g., ear infection, skin allergy, dental disease"
                         value={medicalHistoryData.diagnosis}
                         onChange={(e) =>
                             setMedicalHistoryData({ ...medicalHistoryData, diagnosis: e.target.value })
@@ -198,7 +198,7 @@ const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
                         type="text"
                         id="treatment"
                         name="treatment"
-                        placeholder="Describe the treatment"
+                        placeholder="e.g., prescribed meds, injections, care instructions"
                         value={medicalHistoryData.treatment}
                         onChange={(e) =>
                             setMedicalHistoryData({ ...medicalHistoryData, treatment: e.target.value })
@@ -206,11 +206,11 @@ const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
                     />
                 </div>
                 <div className='mt-4'>
-                    <Label htmlFor="description">Description</Label>
+                    <Label htmlFor="description" optional>Description</Label>
                     <Textarea
                         id="description"
                         name="description"
-                        placeholder="Describe the medical record"
+                        placeholder="Write what happened in your own words..."
                         value={medicalHistoryData.description}
                         onChange={(e) =>
                             setMedicalHistoryData({ ...medicalHistoryData, description: e.target.value })
@@ -222,14 +222,14 @@ const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
                     <button
                         type="button"
                         onClick={onClose}
-                        className='w-24 h-11 text-center bg-transparent border border-red-400 text-red-400 hover:text-white px-4 py-2 rounded-md hover:bg-red-400 duration-200'
+                        className='w-24 max-sm:w-full h-11 text-center bg-transparent border border-red-400 text-red-400 hover:text-white px-4 py-2 rounded-md hover:bg-red-400 duration-200'
                     >
                         Cancel
                     </button>
                     <button
                         type="submit"
                         disabled={!medicalHistoryData.type}
-                        className={`bg-primary text-white w-40 h-11 text-center rounded-md hover:bg-primaryHover duration-200 ${!medicalHistoryData.type ? 'opacity-50 cursor-not-allowed' : ''
+                        className={`bg-primary text-white w-40 max-sm:w-full h-11 text-center rounded-md hover:bg-primaryHover duration-200 ${!medicalHistoryData.type ? 'opacity-50 cursor-not-allowed' : ''
                             }`}
                     >
                         {(isAdding || isUpdating) ? 'Saving...' : isEdit ? 'Update Record' : 'Add Record'}
