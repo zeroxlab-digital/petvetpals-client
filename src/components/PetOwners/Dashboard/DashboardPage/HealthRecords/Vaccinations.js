@@ -60,9 +60,11 @@ const Vaccinations = ({ petId }) => {
             className="bg-white border border-gray-200 border-opacity-30 rounded-2xl p-5 flex flex-col justify-between shadow-md hover:shadow-xl duration-200"
           >
             <header className="flex justify-between items-center mb-5">
-              <div className="flex items-center gap-2 text-primary">
-                <Syringe size={18} />
-                <span className="font-semibold tracking-wide text-base">Vaccination</span>
+              <div className="flex items-center gap-2.5 text-primary">
+                <Syringe size={22} />
+                <p className="font-bold text-base">
+                  {displayValue(record.vaccine)}
+                </p>
               </div>
               <span className="select-none rounded-full px-3 py-.5 font-semibold text-sm border border-gray-300 bg-gray-50 text-indigo-600">
                 {displayValue(record.status)}
@@ -70,10 +72,10 @@ const Vaccinations = ({ petId }) => {
             </header>
 
             <main className="flex-grow text-gray-900">
-              <h3 className="text-base font-semibold truncate mb-0.5">{displayValue(record.vaccine)}</h3>
+              {/* <h3 className="text-base font-semibold truncate mb-0.5">{displayValue(record.vaccine)}</h3>
               <p className="uppercase text-xs font-semibold tracking-wider text-gray-600 mb-5 select-none">
                 Vaccine
-              </p>
+              </p> */}
 
               <section className="mb-5 space-y-3 max-h-max">
                 <div>
@@ -175,7 +177,12 @@ const Vaccinations = ({ petId }) => {
                     })
                   )}
                 </td>
-                <td className="px-5 py-3 text-sm">{displayValue(record.status)}</td>
+                <td className="">
+                  {/* {displayValue(record.status)} */}
+                  <span className="select-none rounded-full px-2 py-.5 font-medium text-xs border border-gray-300 bg-gray-50 text-indigo-600">
+                    {displayValue(record.status)}
+                  </span>
+                </td>
                 <td className="px-5 py-3 text-sm">{displayValue(record.provider)}</td>
                 <td className="px-5 py-3 text-sm flex justify-end gap-1">
                   <span className="relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center">

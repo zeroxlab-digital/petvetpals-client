@@ -12,8 +12,8 @@ const AddAllergyCondition = ({ petId, type = 'allergy', onClose }) => {
     const [data, setData] = useState({
         name: '',
         severity: '',
-        diagnosedDate: new Date().toISOString().split('T')[0],
-        description: ''
+        diagnosedDate: null,
+        description: null
     });
 
     const notify = (message, type) => {
@@ -47,7 +47,7 @@ const AddAllergyCondition = ({ petId, type = 'allergy', onClose }) => {
     return (
         <form onSubmit={handleSubmit} className='space-y-4'>
             <div>
-                <Label htmlFor="name">{type === 'allergy' ? 'Allergy Name' : 'Condition Name'}</Label>
+                <Label htmlFor="name">{type === 'allergy' ? 'Allergy' : 'Condition'}</Label>
                 <Input
                     id="name"
                     type="text"
@@ -72,7 +72,7 @@ const AddAllergyCondition = ({ petId, type = 'allergy', onClose }) => {
             </div>
 
             <div>
-                <Label htmlFor="diagnosedDate">Diagnosed Date</Label>
+                <Label htmlFor="diagnosedDate" optional>Diagnosed date</Label>
                 <Input
                     id="diagnosedDate"
                     type="date"
@@ -82,7 +82,7 @@ const AddAllergyCondition = ({ petId, type = 'allergy', onClose }) => {
             </div>
 
             <div>
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="description" optional>Description</Label>
                 <Textarea
                     id="description"
                     placeholder={`Details about this ${type}`}

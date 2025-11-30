@@ -54,7 +54,7 @@ const AllergiesConditions = ({ petId }) => {
                                         <span className={`${allergy.severity === 'mild' ? 'bg-yellow-400 bg-opacity-15 border border-yellow-400 text-yellow-400' : allergy.severity === 'moderate' ? 'bg-yellow-600 bg-opacity-20 border border-yellow-600 text-yellow-600' : 'bg-red-400 bg-opacity-15 border border-red-400 text-red-400'} text-xs rounded-full font-normal px-2`}>{allergy.severity || 'N/A'}</span>
                                     </h6>
                                     <p className="text-gray-700 text-sm">{displayValue(allergy.description)}</p>
-                                    <span className="text-gray-600 text-sm">{new Date(allergy.diagnosedDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' })}</span>
+                                    <span className="text-gray-600 text-sm">{allergy.diagnosedDate && new Date(allergy.diagnosedDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' })}</span>
                                 </div>
                                 <div className="flex item-center gap-1 max-sm:gap-0">
                                     {/* <Button size="small"><HiOutlinePencilAlt className="text-blue-400 hover:text-blue-500 duration-150 text-2xl" /></Button> */}
@@ -105,7 +105,7 @@ const AllergiesConditions = ({ petId }) => {
                                         <span className={`${condition.severity === 'mild' ? 'bg-yellow-400 bg-opacity-15 border border-yellow-400 text-yellow-400' : condition.severity === 'moderate' ? 'bg-yellow-600 bg-opacity-20 border border-yellow-400 text-yellow-600' : 'bg-red-400 bg-opacity-15 border border-red-400 text-red-400'} text-xs rounded-full font-normal px-2`}>{condition.severity || 'N/A'}</span>
                                     </h6>
                                     <p className="text-gray-700 text-sm">{displayValue(condition.description)}</p>
-                                    <span className="text-gray-600 text-sm">{new Date(condition.diagnosedDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' })}</span>
+                                    <span className="text-gray-600 text-sm">{condition.diagnosedDate && new Date(condition.diagnosedDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' })}</span>
                                 </div>
                                 <div className="flex item-center gap-1 max-sm:gap-0">
                                     {/* <Button size="small"><HiOutlinePencilAlt className="text-blue-400 hover:text-blue-500 duration-150 text-2xl" /></Button> */}
