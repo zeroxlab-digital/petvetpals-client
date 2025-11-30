@@ -2,6 +2,7 @@ import Button from '@/components/Common/Button/Button';
 import TinySpinner from '@/components/Common/Loader/TinySpinner';
 import { useDeleteVaccinationMutation } from '@/redux/services/petApi';
 import { displayValue } from '@/utils/displayValue';
+import { Trash } from 'lucide-react';
 import React from 'react';
 import { toast } from 'react-toastify';
 
@@ -42,13 +43,15 @@ const VaccinationDetails = ({ vaccination, onClose }) => {
             </div>
             <div className='my-3'>
                 <span className='text-gray-600 font-medium text-sm'>Status</span>
-                <p>{displayValue(status)}</p>
+                <p className="w-fit select-none rounded-full px-3 py-.5 font-semibold text-sm border border-gray-300 bg-gray-50 text-indigo-600">
+                    {displayValue(status)}
+                </p>
             </div>
             <div>
                 <span className='text-gray-600 font-medium text-sm'>Notes</span>
                 <p>{displayValue(notes)}</p>
             </div>
-            <Button onClick={() => handleDelete(_id)} classNames={'mt-5 py-2 cursor-pointer text-white rounded-md bg-red-500 hover:bg-red-600 duration-200'}>{isLoading ? <TinySpinner /> : 'Delete Vaccine'}</Button>
+            <Button onClick={() => handleDelete(_id)} classNames={'mt-5 py-2 cursor-pointer font-medium text-white text-sm rounded-lg bg-red-500 hover:bg-red-600/90 duration-200'}><Trash size={14} className='' /> {isLoading ? <TinySpinner /> : 'Delete vaccine'}</Button>
         </div>
     );
 };

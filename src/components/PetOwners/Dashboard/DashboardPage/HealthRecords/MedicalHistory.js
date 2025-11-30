@@ -62,9 +62,9 @@ const MedicalHistory = ({ petId }) => {
               <header className="flex justify-between items-center mb-5">
                 <time
                   dateTime={record.date}
-                  className={`flex items-center gap-2 font-semibold text-sm text-primary`}
+                  className={`flex items-center gap-2 font-bold text-base text-primary`}
                 >
-                  <CalendarClock size={16} />
+                  <CalendarClock size={22} />
                   {new Date(record.date).toLocaleDateString('en-US', {
                     month: 'short',
                     day: 'numeric',

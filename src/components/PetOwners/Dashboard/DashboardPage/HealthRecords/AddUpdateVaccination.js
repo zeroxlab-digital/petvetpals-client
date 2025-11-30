@@ -36,7 +36,7 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
             vaccine: vaccination.vaccine || '',
             date_given: vaccination.date_given?.split('T')[0] || '',
             next_due: vaccination.next_due?.split('T')[0] || '',
-            status: vaccination.status || '',
+            // status: vaccination.status || '',
             provider: vaccination.provider || '',
             notes: vaccination.notes || ''
         }
@@ -44,12 +44,43 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
             vaccine: '',
             date_given: new Date().toISOString().split('T')[0],
             next_due: '',
-            status: '',
+            // status: '',
             provider: inputValue,
             notes: ''
         };
 
     const [vaccinationData, setVaccinationData] = useState(initialData);
+
+    useEffect(() => {
+        const intervals = {
+            Rabies: 365,
+            DHPP: 365,
+            Bordetella: 180,
+            Leptospirosis: 365,
+            Influenza: 365,
+            FVRCP: 365,
+            FeLV: 365,
+            Lyme: 365
+        };
+
+        const days = intervals[vaccinationData.vaccine];
+        if (!days) return;
+
+        const givenDate = new Date(vaccinationData.date_given);
+        const nextDue = new Date(givenDate);
+        nextDue.setDate(givenDate.getDate() + days);
+
+        const nextDueStr = nextDue.toISOString().split("T")[0];
+
+        if (vaccinationData.next_due !== nextDueStr) {
+            setVaccinationData(prev => ({
+                ...prev,
+                next_due: nextDueStr
+            }));
+        }
+    }, [vaccinationData.vaccine, vaccinationData.date_given, vaccinationData.next_due]);
+
+    console.log("vaccinationData:", vaccinationData);
 
     useEffect(() => {
         const fetchProviders = async () => {
@@ -105,18 +136,28 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
 
     const isSubmitDisabled =
         // providerType === 'vet' ? !vaccinationData.provider : !customProvider;
-        vaccinationData.vaccine === '' || vaccinationData.status === '' || !vaccinationData.date_given;
+        vaccinationData.vaccine === '' || !vaccinationData.date_given;
 
     return (
         <div>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <Label htmlFor='vaccine'>Vaccine Name</Label>
-                    <Input
+                    <Label htmlFor='vaccine'>Vaccination</Label>
+                    <SelectOptions
                         id='vaccine'
-                        type='text'
-                        placeholder='e.g. Rabies'
-                        required
+                        name='vaccine'
+                        options={[
+                            { label: 'Rabies', value: 'Rabies' },
+                            { label: 'DHPP', value: 'DHPP' },
+                            { label: 'Bordetella', value: 'Bordetella' },
+                            { label: 'Leptospirosis', value: 'Leptospirosis' },
+                            { label: 'Influenza', value: 'Influenza' },
+                            { label: 'FVRCP', value: 'FVRCP' },
+                            { label: 'FeLV', value: 'FeLV' },
+                            { label: 'Lyme', value: 'Lyme' },
+                            { label: 'Other', value: 'Other' }
+                        ]}
+                        placeholder='Select vaccine'
                         value={vaccinationData.vaccine}
                         onChange={(e) =>
                             setVaccinationData({ ...vaccinationData, vaccine: e.target.value })
@@ -146,7 +187,7 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
                             }
                         />
                     </div>
-                    <div>
+                    {/* <div>
                         <Label htmlFor='status'>Status</Label>
                         <SelectOptions
                             id='status'
@@ -162,61 +203,61 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
                                 setVaccinationData({ ...vaccinationData, status: e.target.value })
                             }
                         />
-                    </div>
+                    </div> */}
+                </div>
 
-                    {/* Vet or Clinic Selector */}
-                    <div className="relative">
-                        <Label htmlFor="provider" optional>Provider</Label>
-                        <div>
-                            <input
-                                type="text"
-                                id="provider"
-                                placeholder="Vet, Pet Clinic, Hospital, Pet Shelter"
-                                value={inputValue}
-                                onChange={(e) => {
-                                    setInputValue(e.target.value);
-                                    setVaccinationData({
-                                        ...vaccinationData,
-                                        provider: e.target.value, 
-                                    });
-                                    setShowDropdown(true);
-                                }}
-                                className="border border-gray-200 px-2 py-2 rounded outline-none placeholder:font-light placeholder:text-sm w-full"
-                            />
 
-                            {showDropdown &&
-                                detectedProviders.length > 0 &&
-                                inputValue.length > 0 && (
-                                    <ul className="absolute top-full left-0 w-full bg-white rounded-lg border shadow-lg mt-2 max-h-56 overflow-auto p-2 z-10">
-                                        {detectedProviders.map((item, idx) => (
-                                            <li
-                                                key={idx}
-                                                onClick={() => {
-                                                    setInputValue(item.fullName);
-                                                    setVaccinationData({
-                                                        ...vaccinationData,
-                                                        provider: item.fullName,
-                                                    });
-                                                    setShowDropdown(false);
-                                                }}
-                                                className="p-2 cursor-pointer hover:bg-gray-50 duration-100"
-                                            >
-                                                <h5 className="font-medium text-sm">
-                                                    {item.fullName}{" "}
-                                                    {/* <span className="font-normal">
+                {/* Vet or Clinic Selector */}
+                <div className="relative mt-4">
+                    <Label htmlFor="provider" optional>Provider</Label>
+                    <div>
+                        <input
+                            type="text"
+                            id="provider"
+                            placeholder="Vet, Clinic, Hospital, Pet Shelter"
+                            value={inputValue}
+                            onChange={(e) => {
+                                setInputValue(e.target.value);
+                                setVaccinationData({
+                                    ...vaccinationData,
+                                    provider: e.target.value,
+                                });
+                                setShowDropdown(true);
+                            }}
+                            className="border border-gray-200 px-2 py-2 rounded outline-none placeholder:font-light placeholder:text-sm w-full"
+                        />
+
+                        {showDropdown &&
+                            detectedProviders.length > 0 &&
+                            inputValue.length > 0 && (
+                                <ul className="absolute top-full left-0 w-full bg-white rounded-lg border shadow-lg mt-2 max-h-56 overflow-auto p-2 z-10">
+                                    {detectedProviders.map((item, idx) => (
+                                        <li
+                                            key={idx}
+                                            onClick={() => {
+                                                setInputValue(item.fullName);
+                                                setVaccinationData({
+                                                    ...vaccinationData,
+                                                    provider: item.fullName,
+                                                });
+                                                setShowDropdown(false);
+                                            }}
+                                            className="p-2 cursor-pointer hover:bg-gray-50 duration-100"
+                                        >
+                                            <h5 className="font-medium text-sm">
+                                                {item.fullName}{" "}
+                                                {/* <span className="font-normal">
                                                         - {item.degrees?.[0] || "N/A"}
                                                     </span> */}
-                                                </h5>
-                                                <p className="text-xs text-gray-600">
-                                                    {item.degrees?.[0] || "N/A"}
-                                                </p>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
-                        </div>
+                                            </h5>
+                                            <p className="text-xs text-gray-600">
+                                                {item.degrees?.[0] || "N/A"}
+                                            </p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                     </div>
-
                 </div>
 
                 <div className='mt-4'>
