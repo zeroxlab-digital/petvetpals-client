@@ -9,7 +9,7 @@ const RecentSymptoms = ({ symptom_history }) => {
                 <h3 className="text-sm font-medium text-gray-600">Recent Symptom</h3>
                 <Heart className="h-4 w-4 text-red-500" />
             </div>
-            <div className="text-2xl font-bold">
+            <div className="text-2xl">
                 {symptom_history?.length > 0
                     ? [...symptom_history]
                         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
