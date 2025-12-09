@@ -1,6 +1,7 @@
 'use client';
 import FileUpload from '@/components/Common/FileUpload/FileUpload';
 import Input from '@/components/Common/Form/Input';
+import InputSelector from '@/components/Common/Form/InputSelector';
 import Label from '@/components/Common/Form/Label';
 import WeightInput from '@/components/Common/Form/WeightInput';
 import Weight from '@/components/Common/Form/WeightInput';
@@ -126,9 +127,9 @@ const AddUpdatePet = ({ popup, setPopup }) => {
     "exotic shorthair",
     "korat"
   ];
-  const [inputValue, setInputValue] = useState("");
-  const [showDropdown, setShowDropdown] = useState(false);
-  const breedList = breeds.filter(breed => breed.toLowerCase().includes(inputValue.toLowerCase()));
+  // const [inputValue, setInputValue] = useState("");
+  // const [showDropdown, setShowDropdown] = useState(false);
+  // const breedList = breeds.filter(breed => breed.toLowerCase().includes(inputValue.toLowerCase()));
 
   return (
     <div className="max-h-[80vh] overflow-y-auto space-y-5">
@@ -191,42 +192,13 @@ const AddUpdatePet = ({ popup, setPopup }) => {
         {/* Breed Selector */}
         <div className="my-4 relative">
           <Label htmlFor="breed" optional>Breed</Label>
-          <div>
-            <input
-              type="text"
-              id="breed"
-              placeholder="e.g., German Shepher, American Curl"
-              value={formState.breed}
-              onChange={(e) => {
-                setInputValue(e.target.value);
-                handleChange('breed', e.target.value,);
-                setShowDropdown(true);
-              }}
-              className="border border-gray-200 px-2 py-2 rounded outline-none placeholder:font-light placeholder:text-sm w-full"
-            />
-
-            {showDropdown &&
-              breedList.length > 0 &&
-              inputValue.length > 0 && (
-                <ul className="absolute top-full left-0 w-full bg-white rounded-lg border shadow-lg mt-2 max-h-56 overflow-auto p-2 z-10">
-                  {breedList.map((item, idx) => (
-                    <li
-                      key={idx}
-                      onClick={() => {
-                        setInputValue(item);
-                        handleChange('breed', item,);
-                        setShowDropdown(false);
-                      }}
-                      className="p-3 cursor-pointer hover:bg-gray-50 duration-200"
-                    >
-                      <h5 className="font-medium text-sm">
-                        {item}
-                      </h5>
-                    </li>
-                  ))}
-                </ul>
-              )}
-          </div>
+          <InputSelector
+            id={"breed"}
+            placeholder={"e.g., German Shepher, American Curl"}
+            value={formState.breed}
+            onChange={(val) => handleChange('breed', val)}
+            options={breeds}
+          />
         </div>
 
         <FileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
