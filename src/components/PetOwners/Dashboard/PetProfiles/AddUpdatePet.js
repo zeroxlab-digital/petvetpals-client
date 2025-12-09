@@ -2,6 +2,8 @@
 import FileUpload from '@/components/Common/FileUpload/FileUpload';
 import Input from '@/components/Common/Form/Input';
 import Label from '@/components/Common/Form/Label';
+import WeightInput from '@/components/Common/Form/WeightInput';
+import Weight from '@/components/Common/Form/WeightInput';
 import TinySpinner from '@/components/Common/Loader/TinySpinner';
 import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
 import { useAddPetMutation, useUpdateAPetMutation } from '@/redux/services/petApi';
@@ -83,6 +85,7 @@ const AddUpdatePet = ({ popup, setPopup }) => {
             type="text"
             id="petname"
             value={formState.name}
+            placeholder={'Enter name'}
             onChange={(e) => handleChange('name', e.target.value)}
             required
           />
@@ -123,17 +126,10 @@ const AddUpdatePet = ({ popup, setPopup }) => {
               step="0.1"
             />
           </div>
-          <div>
-            <Label htmlFor="weight">Weight (lbs)</Label>
-            <Input
-              type="number"
-              id="weight"
-              value={formState.weight}
-              onChange={(e) => handleChange('weight', e.target.value)}
-              min="0"
-              step="0.1"
-            />
-          </div>
+          <WeightInput
+            value={formState.weight}
+            onChange={(lbs) => handleChange("weight", lbs)}
+          />
         </div>
 
         <div>
