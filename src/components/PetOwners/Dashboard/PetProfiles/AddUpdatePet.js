@@ -127,7 +127,6 @@ const AddUpdatePet = ({ popup, setPopup }) => {
     "korat"
   ];
   const [inputValue, setInputValue] = useState("");
-  console.log("input value:", inputValue)
   const [showDropdown, setShowDropdown] = useState(false);
   const breedList = breeds.filter(breed => breed.toLowerCase().includes(inputValue.toLowerCase()));
 
@@ -136,7 +135,7 @@ const AddUpdatePet = ({ popup, setPopup }) => {
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <Label htmlFor="petname">Pet Name</Label>
+          <Label htmlFor="petname">Name</Label>
           <Input
             type="text"
             id="petname"
@@ -147,9 +146,9 @@ const AddUpdatePet = ({ popup, setPopup }) => {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-2 gap-5">
           <div>
-            <Label htmlFor="type">Pet Type</Label>
+            <Label htmlFor="type">Pet type</Label>
             <SelectOptions
               options={['Cat', 'Dog', 'Other']}
               name="type"

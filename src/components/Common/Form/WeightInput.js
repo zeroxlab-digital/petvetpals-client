@@ -45,7 +45,7 @@ const WeightInput = ({ value, onChange }) => {
                     min="0"
                     step="0.1"
                     value={displayedValue}
-                    placeholder={'Enter weight'}
+                    placeholder={"Pet's estimate weight"}
                     onChange={(e) => handleValueChange(e.target.value)}
                 />
 
