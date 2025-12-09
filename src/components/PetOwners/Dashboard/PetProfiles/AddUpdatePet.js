@@ -72,11 +72,67 @@ const AddUpdatePet = ({ popup, setPopup }) => {
     }
   };
 
+  const breeds = [
+    "labrador retriever",
+    "german shepherd",
+    "golden retriever",
+    "french bulldog",
+    "bulldog",
+    "poodle (standard)",
+    "poodle (miniature)",
+    "poodle (toy)",
+    "beagle",
+    "rottweiler",
+    "yorkshire terrier",
+    "boxer",
+    "dachshund (standard)",
+    "dachshund (miniature)",
+    "siberian husky",
+    "doberman pinscher",
+    "great dane",
+    "shih tzu",
+    "pomeranian",
+    "chihuahua",
+    "border collie",
+    "australian shepherd",
+    "boston terrier",
+    "maltese",
+    "cocker spaniel",
+    "basset hound",
+    "pug",
+    "staffordshire bull terrier",
+    "akita",
+    "newfoundland",
+    "bernese mountain dog",
+    "cavalier king charles spaniel",
+    "weimaraner",
+    "whippet",
+    "american curl",
+    "maine coon",
+    "persian",
+    "siamese",
+    "domestic shorthair",
+    "ragdoll",
+    "sphynx",
+    "british shorthair",
+    "scottish fold",
+    "bengal",
+    "norwegian forest cat",
+    "abyssinian",
+    "oriental shorthair",
+    "burmese",
+    "manx",
+    "turkish angora",
+    "exotic shorthair",
+    "korat"
+  ];
+  const [inputValue, setInputValue] = useState("");
+  console.log("input value:", inputValue)
+  const [showDropdown, setShowDropdown] = useState(false);
+  const breedList = breeds.filter(breed => breed.toLowerCase().includes(inputValue.toLowerCase()));
+
   return (
     <div className="max-h-[80vh] overflow-y-auto space-y-5">
-      {/* <h3 className="text-lg font-bold text-gray-800">
-        {isUpdate ? 'Edit Pet Profile' : 'Add Pet Profile'}
-      </h3> */}
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
@@ -121,6 +177,7 @@ const AddUpdatePet = ({ popup, setPopup }) => {
               type="number"
               id="age"
               value={formState.age}
+              placeholder={'e.g., 0.5, 1, 5'}
               onChange={(e) => handleChange('age', e.target.value)}
               min="0"
               step="0.1"
@@ -132,14 +189,45 @@ const AddUpdatePet = ({ popup, setPopup }) => {
           />
         </div>
 
-        <div>
-          <Label htmlFor="breed">Breed</Label>
-          <Input
-            type="text"
-            id="breed"
-            value={formState.breed}
-            onChange={(e) => handleChange('breed', e.target.value)}
-          />
+        {/* Breed Selector */}
+        <div className="my-4 relative">
+          <Label htmlFor="breed" optional>Breed</Label>
+          <div>
+            <input
+              type="text"
+              id="breed"
+              placeholder="e.g., German Shepher, American Curl"
+              value={formState.breed}
+              onChange={(e) => {
+                setInputValue(e.target.value);
+                handleChange('breed', e.target.value,);
+                setShowDropdown(true);
+              }}
+              className="border border-gray-200 px-2 py-2 rounded outline-none placeholder:font-light placeholder:text-sm w-full"
+            />
+
+            {showDropdown &&
+              breedList.length > 0 &&
+              inputValue.length > 0 && (
+                <ul className="absolute top-full left-0 w-full bg-white rounded-lg border shadow-lg mt-2 max-h-56 overflow-auto p-2 z-10">
+                  {breedList.map((item, idx) => (
+                    <li
+                      key={idx}
+                      onClick={() => {
+                        setInputValue(item);
+                        handleChange('breed', item,);
+                        setShowDropdown(false);
+                      }}
+                      className="p-3 cursor-pointer hover:bg-gray-50 duration-200"
+                    >
+                      <h5 className="font-medium text-sm">
+                        {item}
+                      </h5>
+                    </li>
+                  ))}
+                </ul>
+              )}
+          </div>
         </div>
 
         <FileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
