@@ -1,7 +1,10 @@
 'use client';
 import FileUpload from '@/components/Common/FileUpload/FileUpload';
 import Input from '@/components/Common/Form/Input';
+import InputSelector from '@/components/Common/Form/InputSelector';
 import Label from '@/components/Common/Form/Label';
+import WeightInput from '@/components/Common/Form/WeightInput';
+import Weight from '@/components/Common/Form/WeightInput';
 import TinySpinner from '@/components/Common/Loader/TinySpinner';
 import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
 import { useAddPetMutation, useUpdateAPetMutation } from '@/redux/services/petApi';
@@ -70,27 +73,83 @@ const AddUpdatePet = ({ popup, setPopup }) => {
     }
   };
 
+  const breeds = [
+    "labrador retriever",
+    "german shepherd",
+    "golden retriever",
+    "french bulldog",
+    "bulldog",
+    "poodle (standard)",
+    "poodle (miniature)",
+    "poodle (toy)",
+    "beagle",
+    "rottweiler",
+    "yorkshire terrier",
+    "boxer",
+    "dachshund (standard)",
+    "dachshund (miniature)",
+    "siberian husky",
+    "doberman pinscher",
+    "great dane",
+    "shih tzu",
+    "pomeranian",
+    "chihuahua",
+    "border collie",
+    "australian shepherd",
+    "boston terrier",
+    "maltese",
+    "cocker spaniel",
+    "basset hound",
+    "pug",
+    "staffordshire bull terrier",
+    "akita",
+    "newfoundland",
+    "bernese mountain dog",
+    "cavalier king charles spaniel",
+    "weimaraner",
+    "whippet",
+    "american curl",
+    "maine coon",
+    "persian",
+    "siamese",
+    "domestic shorthair",
+    "ragdoll",
+    "sphynx",
+    "british shorthair",
+    "scottish fold",
+    "bengal",
+    "norwegian forest cat",
+    "abyssinian",
+    "oriental shorthair",
+    "burmese",
+    "manx",
+    "turkish angora",
+    "exotic shorthair",
+    "korat"
+  ];
+  // const [inputValue, setInputValue] = useState("");
+  // const [showDropdown, setShowDropdown] = useState(false);
+  // const breedList = breeds.filter(breed => breed.toLowerCase().includes(inputValue.toLowerCase()));
+
   return (
     <div className="max-h-[80vh] overflow-y-auto space-y-5">
-      {/* <h3 className="text-lg font-bold text-gray-800">
-        {isUpdate ? 'Edit Pet Profile' : 'Add Pet Profile'}
-      </h3> */}
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <Label htmlFor="petname">Pet Name</Label>
+          <Label htmlFor="petname">Name</Label>
           <Input
             type="text"
             id="petname"
             value={formState.name}
+            placeholder={'Enter name'}
             onChange={(e) => handleChange('name', e.target.value)}
             required
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-2 gap-5">
           <div>
-            <Label htmlFor="type">Pet Type</Label>
+            <Label htmlFor="type">Pet type</Label>
             <SelectOptions
               options={['Cat', 'Dog', 'Other']}
               name="type"
@@ -118,31 +177,27 @@ const AddUpdatePet = ({ popup, setPopup }) => {
               type="number"
               id="age"
               value={formState.age}
+              placeholder={'e.g., 0.5, 1, 5'}
               onChange={(e) => handleChange('age', e.target.value)}
               min="0"
               step="0.1"
             />
           </div>
-          <div>
-            <Label htmlFor="weight">Weight (lbs)</Label>
-            <Input
-              type="number"
-              id="weight"
-              value={formState.weight}
-              onChange={(e) => handleChange('weight', e.target.value)}
-              min="0"
-              step="0.1"
-            />
-          </div>
+          <WeightInput
+            value={formState.weight}
+            onChange={(lbs) => handleChange("weight", lbs)}
+          />
         </div>
 
-        <div>
-          <Label htmlFor="breed">Breed</Label>
-          <Input
-            type="text"
-            id="breed"
+        {/* Breed Selector */}
+        <div className="my-4 relative">
+          <Label htmlFor="breed" optional>Breed</Label>
+          <InputSelector
+            id={"breed"}
+            placeholder={"e.g., German Shepher, American Curl"}
             value={formState.breed}
-            onChange={(e) => handleChange('breed', e.target.value)}
+            onChange={(val) => handleChange('breed', val)}
+            options={breeds}
           />
         </div>
 
