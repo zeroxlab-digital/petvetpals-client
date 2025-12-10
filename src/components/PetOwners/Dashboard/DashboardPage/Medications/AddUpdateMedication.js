@@ -1,4 +1,5 @@
 import Input from '@/components/Common/Form/Input';
+import InputSelector from '@/components/Common/Form/InputSelector';
 import Label from '@/components/Common/Form/Label';
 import Textarea from '@/components/Common/Form/Textarea';
 import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
@@ -10,18 +11,8 @@ import { toast } from 'react-toastify';
 const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
     const isEdit = Boolean(medication);
 
-    const [vets, setVets] = useState([]);
-
-    const [inputValue, setInputValue] = useState("");
-
-    const [showDropdown, setShowDropdown] = useState(false);
-
-    const detectedVetsAndClinics = vets.filter(
-        (vet) =>
-            vet.fullName.toLowerCase().includes(inputValue.toLowerCase()) ||
-            vet.works_at.toLowerCase().includes(inputValue.toLowerCase()) ||
-            vet.based_in.toLowerCase().includes(inputValue.toLowerCase())
-    );
+    // const [vets, setVets] = useState([]);
+    // console.log(vets)
 
     const [addMedication, { isLoading: isAdding }] = useAddMedicationMutation();
     const [updateMedication, { isLoading: isUpdating }] = useUpdateMedicationMutation();
@@ -34,7 +25,7 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
             start_date: medication.start_date?.split('T')[0] || new Date().toISOString().split('T')[0],
             end_date: medication.end_date?.split('T')[0] || '',
             timeOfDay: medication.time_of_day || '',
-            prescribed_by: medication.prescribed_by || '',
+            // prescribed_by: medication.prescribed_by || '',
             reason: medication.reason || '',
             instructions: medication.instructions || ''
         }
@@ -45,28 +36,26 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
             start_date: '',
             end_date: '',
             timeOfDay: '',
-            prescribed_by: inputValue,
+            // prescribed_by: '',
             reason: '',
             instructions: ''
         };
 
     const [medicationData, setMedicationData] = useState(initialState);
 
-    console.log(medicationData);
-
-    useEffect(() => {
-        const fetchAllVets = async () => {
-            try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/api/vet/all-vets`);
-                if (response.status === 200) {
-                    setVets(response.data.vets);
-                }
-            } catch (error) {
-                console.error("Error fetching vets:", error);
-            }
-        };
-        fetchAllVets();
-    }, []);
+    // useEffect(() => {
+    //     const fetchAllVets = async () => {
+    //         try {
+    //             const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/api/vet/all-vets`);
+    //             if (response.status === 200) {
+    //                 setVets(response.data.vets);
+    //             }
+    //         } catch (error) {
+    //             console.error("Error fetching vets:", error);
+    //         }
+    //     };
+    //     fetchAllVets();
+    // }, []);
 
     const notify = (message, type) => {
         toast(message, { type, autoClose: 1000 });
@@ -190,8 +179,15 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
                     </div>
                 </div>
                 {/* Vet or Clinic Selector */}
-                <div className="relative">
+                {/* <div className="relative">
                     <Label htmlFor="prescribedBy" optional>Prescribed by</Label>
+                    <InputSelector
+                        id={"prescribedBy"}
+                        placeholder="e.g, Dr. Matthew Anderson, Owachita Pet Clinic"
+                        value={medicationData.prescribed_by || ""}
+                        onChange={(val) => setMedicationData({ ...medicationData, prescribed_by: val })}
+                        options={vets}
+                    />
                     <div>
                         <input
                             type="text"
@@ -240,7 +236,7 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
                                 </ul>
                             )}
                     </div>
-                </div>
+                </div> */}
                 <div className='mt-3'>
                     <Label htmlFor="instructions" optional>Instructions</Label>
                     <Textarea
