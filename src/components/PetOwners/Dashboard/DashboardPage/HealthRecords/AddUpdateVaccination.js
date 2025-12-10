@@ -6,22 +6,12 @@ import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
 import { useAddVaccinationMutation, useUpdateVaccinationMutation } from '@/redux/services/petApi';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import InputSelector from '@/components/Common/Form/InputSelector';
 
 const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
     const isEdit = Boolean(vaccination);
 
     const [providers, setProviders] = useState([]);
-
-    const [inputValue, setInputValue] = useState("");
-
-    const [showDropdown, setShowDropdown] = useState(false);
-
-    const detectedProviders = providers.filter(
-        (provider) =>
-            provider.fullName.toLowerCase().includes(inputValue.toLowerCase()) ||
-            provider.works_at.toLowerCase().includes(inputValue.toLowerCase()) ||
-            provider.based_in.toLowerCase().includes(inputValue.toLowerCase())
-    );
 
     const [addVaccination, { isLoading: isAdding }] = useAddVaccinationMutation();
     const [updateVaccination, { isLoading: isUpdating }] = useUpdateVaccinationMutation();
@@ -45,7 +35,7 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
             date_given: new Date().toISOString().split('T')[0],
             next_due: '',
             // status: '',
-            provider: inputValue,
+            provider: '',
             notes: ''
         };
 
@@ -79,8 +69,6 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
             }));
         }
     }, [vaccinationData.vaccine, vaccinationData.date_given, vaccinationData.next_due]);
-
-    console.log("vaccinationData:", vaccinationData);
 
     useEffect(() => {
         const fetchProviders = async () => {
@@ -187,78 +175,20 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
                             }
                         />
                     </div>
-                    {/* <div>
-                        <Label htmlFor='status'>Status</Label>
-                        <SelectOptions
-                            id='status'
-                            name='status'
-                            options={[
-                                { label: 'Up-to-date', value: 'up-to-date' },
-                                { label: 'Due', value: 'due' },
-                                { label: 'Overdue', value: 'overdue' }
-                            ]}
-                            placeholder='Select Status'
-                            value={vaccinationData.status}
-                            onChange={(e) =>
-                                setVaccinationData({ ...vaccinationData, status: e.target.value })
-                            }
-                        />
-                    </div> */}
                 </div>
 
 
                 {/* Vet or Clinic Selector */}
                 <div className="relative mt-4">
                     <Label htmlFor="provider" optional>Provider</Label>
-                    <div>
-                        <input
-                            type="text"
-                            id="provider"
-                            placeholder="Vet, Clinic, Hospital, Pet Shelter"
-                            value={inputValue}
-                            onChange={(e) => {
-                                setInputValue(e.target.value);
-                                setVaccinationData({
-                                    ...vaccinationData,
-                                    provider: e.target.value,
-                                });
-                                setShowDropdown(true);
-                            }}
-                            className="border border-gray-200 px-2 py-2 rounded outline-none placeholder:font-light placeholder:text-sm w-full"
-                        />
-
-                        {showDropdown &&
-                            detectedProviders.length > 0 &&
-                            inputValue.length > 0 && (
-                                <ul className="absolute top-full left-0 w-full bg-white rounded-lg border shadow-lg mt-2 max-h-56 overflow-auto p-2 z-10">
-                                    {detectedProviders.map((item, idx) => (
-                                        <li
-                                            key={idx}
-                                            onClick={() => {
-                                                setInputValue(item.fullName);
-                                                setVaccinationData({
-                                                    ...vaccinationData,
-                                                    provider: item.fullName,
-                                                });
-                                                setShowDropdown(false);
-                                            }}
-                                            className="p-2 cursor-pointer hover:bg-gray-50 duration-100"
-                                        >
-                                            <h5 className="font-medium text-sm">
-                                                {item.fullName}{" "}
-                                                {/* <span className="font-normal">
-                                                        - {item.degrees?.[0] || "N/A"}
-                                                    </span> */}
-                                            </h5>
-                                            <p className="text-xs text-gray-600">
-                                                {item.degrees?.[0] || "N/A"}
-                                            </p>
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
-                    </div>
-                </div>
+                    <InputSelector
+                        id={"provider"}
+                        placeholder={"Vet, Clinic, Hospital or Pet shelter"}
+                        onChange={(val) => setVaccinationData({ ...vaccinationData, provider: val })}
+                        value={vaccinationData.provider || ""}
+                        options={providers}
+                    />
+                </div >
 
                 <div className='mt-4'>
                     <Label htmlFor='notes' optional>Notes</Label>
@@ -294,8 +224,8 @@ const AddUpdateVaccination = ({ petId, onClose, vaccination = null }) => {
                                 : 'Add Vaccination'}
                     </button>
                 </div>
-            </form>
-        </div>
+            </form >
+        </div >
     );
 };
 
