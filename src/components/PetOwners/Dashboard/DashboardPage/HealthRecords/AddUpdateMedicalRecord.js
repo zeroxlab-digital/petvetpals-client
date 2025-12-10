@@ -5,22 +5,12 @@ import Textarea from '@/components/Common/Form/Textarea';
 import { useAddMedicalHistoryMutation, useUpdateMedicalHistoryMutation } from '@/redux/services/petApi';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import InputSelector from '@/components/Common/Form/InputSelector';
 
 const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
     const isEdit = Boolean(record);
 
     const [vets, setVets] = useState([]);
-
-    const [inputValue, setInputValue] = useState("");
-
-    const [showDropdown, setShowDropdown] = useState(false);
-
-    const detectedVetsAndClinics = vets.filter(
-        (vet) =>
-            vet.fullName.toLowerCase().includes(inputValue.toLowerCase()) ||
-            vet.works_at.toLowerCase().includes(inputValue.toLowerCase()) ||
-            vet.based_in.toLowerCase().includes(inputValue.toLowerCase())
-    );
 
     const [addMedicalHistory, { isLoading: isAdding }] = useAddMedicalHistoryMutation();
     const [updateMedicalHistory, { isLoading: isUpdating }] = useUpdateMedicalHistoryMutation();
@@ -37,7 +27,7 @@ const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
         : {
             type: '',
             date: new Date().toISOString().split('T')[0],
-            vetOrClinic: inputValue,
+            vetOrClinic: '',
             diagnosis: '',
             treatment: '',
             description: ''
@@ -128,54 +118,13 @@ const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
                 {/* Vet or Clinic Selector */}
                 <div className="my-4 relative">
                     <Label htmlFor="vetOrClinic" optional>Vet or Clinic</Label>
-                    <div>
-                        <input
-                            type="text"
-                            id="vetOrClinic"
-                            placeholder="e.g., Dr. Matthew Anderson, Owachita Pet Clinic"
-                            value={inputValue}
-                            onChange={(e) => {
-                                setInputValue(e.target.value);
-                                setMedicalHistoryData({
-                                    ...medicalHistoryData,
-                                    vetOrClinic: e.target.value,
-                                });
-                                setShowDropdown(true);
-                            }}
-                            className="border border-gray-200 px-2 py-2 rounded outline-none placeholder:font-light placeholder:text-sm w-full"
-                        />
-
-                        {showDropdown &&
-                            detectedVetsAndClinics.length > 0 &&
-                            inputValue.length > 0 && (
-                                <ul className="absolute top-full left-0 w-full bg-white rounded-lg border shadow-lg mt-2 max-h-56 overflow-auto p-2 z-10">
-                                    {detectedVetsAndClinics.map((item, idx) => (
-                                        <li
-                                            key={idx}
-                                            onClick={() => {
-                                                setInputValue(item.fullName);
-                                                setMedicalHistoryData({
-                                                    ...medicalHistoryData,
-                                                    vetOrClinic: item.fullName,
-                                                });
-                                                setShowDropdown(false);
-                                            }}
-                                            className="p-3 cursor-pointer hover:bg-gray-50 duration-200"
-                                        >
-                                            <h5 className="font-medium text-sm">
-                                                {item.fullName}{" "}
-                                                <span className="font-normal">
-                                                    - {item.degrees?.[0] || "N/A"}
-                                                </span>
-                                            </h5>
-                                            <p className="text-xs text-gray-600">
-                                                {item.works_at || "N/A"}
-                                            </p>
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
-                    </div>
+                    <InputSelector
+                        id={"vetOrClinic"}
+                        placeholder={"e.g., Dr. Matthew Anderson, Owachita Pet Clinic"}
+                        onChange={(val) => setMedicalHistoryData({...medicalHistoryData, vetOrClinic: val})}
+                        value={medicalHistoryData.vetOrClinic?.fullName || ""}
+                        options={vets}
+                    />
                 </div>
 
                 <div>

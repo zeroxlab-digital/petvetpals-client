@@ -6,7 +6,7 @@ const InputSelector = ({ id, value, onChange, options = [], placeholder }) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const filteredList = options.filter((item) =>
-    item.toLowerCase().includes(inputValue.toLowerCase())
+    typeof item === "string" ? item.toLowerCase().includes(inputValue.toLowerCase()) : item.fullName.toLowerCase().includes(inputValue.toLowerCase())
   );
 
   const containerRef = useRef(null);
@@ -43,13 +43,30 @@ const InputSelector = ({ id, value, onChange, options = [], placeholder }) => {
               <li
                 key={idx}
                 onClick={() => {
-                  setInputValue(item);
+                  setInputValue(typeof item === "string" ? item : item.fullName);
                   onChange(item);
                   setShowDropdown(false);
                 }}
                 className="p-3 cursor-pointer hover:bg-gray-50 duration-200"
               >
-                <h5 className="font-medium text-sm">{item}</h5>
+                {
+                  typeof item === "string" ?
+                    <h5 className="font-medium text-sm">
+                      {item}
+                    </h5>
+                    :
+                    <>
+                      <h5 className="font-medium text-sm">
+                        {item.fullName}{" "}
+                        <span className="font-normal">
+                          - {item.degrees?.[0] || "N/A"}
+                        </span>
+                      </h5>
+                      <p className="text-xs text-gray-600">
+                        {item.works_at || "N/A"}
+                      </p>
+                    </>
+                }
               </li>
             ))}
           </ul>
