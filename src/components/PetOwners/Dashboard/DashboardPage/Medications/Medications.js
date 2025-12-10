@@ -521,7 +521,7 @@ const Medications = ({ petId }) => {
                                                     }) || "N/A"}
                                                 </td>
                                                 <td className="px-5 py-3 text-sm">{med.reason || "N/A"}</td>
-                                                <td className="px-5 py-3 text-sm">{med.prescribed_by || "N/A"}</td>
+                                                {/* <td className="px-5 py-3 text-sm">{med.prescribed_by || "N/A"}</td> */}
                                                 <td className="px-5 py-3 text-sm flex justify-end">
                                                     <span
                                                         onClick={() => {

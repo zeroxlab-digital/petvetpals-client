@@ -1,6 +1,6 @@
 "use client";
 import { useGetMedicalHistoryQuery, useGetPetDataQuery, useGetPetsQuery } from '@/redux/services/petApi';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import InitialDashboard from './InitialDashboard';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
 import Image from 'next/image';
@@ -32,6 +32,17 @@ const DashboardPage = () => {
     // console.log("Selected pet:", selectedPet);
 
     const [showPetMenu, setShowPetMenu] = useState(false)
+    const petListContainerRef = useRef(null);
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (petListContainerRef.current && !petListContainerRef.current.contains(e.target)) {
+                setShowPetMenu(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside)
+    }, [])
+
     const router = useRouter();
 
     const [activeTab, setActiveTab] = useState("overview");
@@ -109,7 +120,7 @@ const DashboardPage = () => {
                                 {showPetMenu ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                             </button>
                             {showPetMenu && (
-                                <div className="absolute top-full left-0 mt-1 w-[15rem] bg-white rounded-lg shadow-lg border p-1 z-10 max-h-60 overflow-auto ">
+                                <div ref={petListContainerRef} className="absolute top-full left-0 mt-1 w-[15rem] bg-white rounded-lg shadow-lg border p-1 z-10 max-h-60 overflow-auto ">
                                     {pets.map((pet) => (
                                         <button
                                             key={pet._id}
