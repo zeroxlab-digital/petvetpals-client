@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Input from '@/components/Common/Form/Input';
 import Label from '@/components/Common/Form/Label';
 import Textarea from '@/components/Common/Form/Textarea';
-import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
+import SelectOptions from '@/components/Common/Form/SelectOptions';
 import { toast } from 'react-toastify';
 import { useAddAllergyConditionMutation } from '@/redux/services/petApi';
 

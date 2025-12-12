@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Bell, Check, Droplets, Briefcase, BookOpen, HeartPulse } from "lucide-react";
 import Input from '@/components/Common/Form/Input';
 import Label from '@/components/Common/Form/Label';
-import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
+import SelectOptions from '@/components/Common/Form/SelectOptions';
 import { Switch } from '@mui/material';
 import { askNotificationPermission } from '@/utils/askNotificationPermission';
 import Textarea from '@/components/Common/Form/Textarea';

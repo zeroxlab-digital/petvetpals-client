@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Input from '@/components/Common/Form/Input';
 import Label from '@/components/Common/Form/Label';
-import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
+import SelectOptions from '@/components/Common/Form/SelectOptions';
 import { Switch } from '@mui/material';
 import { useAddMedScheduleReminderMutation, useUpdateMedScheduleReminderMutation } from '@/redux/services/petApi';
 import { toast } from 'react-toastify';

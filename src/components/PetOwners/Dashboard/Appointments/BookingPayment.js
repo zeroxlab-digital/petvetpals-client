@@ -1,6 +1,6 @@
 import Input from '@/components/Common/Form/Input';
 import Label from '@/components/Common/Form/Label';
-import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
+import SelectOptions from '@/components/Common/Form/SelectOptions';
 import React, { useState } from 'react';
 import { HiOutlineLockClosed } from 'react-icons/hi2';
 import CreditCard from '/public/images/cr.png';

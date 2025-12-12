@@ -2,7 +2,7 @@ import Input from '@/components/Common/Form/Input';
 import InputSelector from '@/components/Common/Form/InputSelector';
 import Label from '@/components/Common/Form/Label';
 import Textarea from '@/components/Common/Form/Textarea';
-import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
+import SelectOptions from '@/components/Common/Form/SelectOptions';
 import { useAddMedicationMutation, useUpdateMedicationMutation } from '@/redux/services/petApi';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';

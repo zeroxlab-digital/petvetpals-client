@@ -6,7 +6,7 @@ import Label from '@/components/Common/Form/Label';
 import WeightInput from '@/components/Common/Form/WeightInput';
 import Weight from '@/components/Common/Form/WeightInput';
 import TinySpinner from '@/components/Common/Loader/TinySpinner';
-import SelectOptions from '@/components/Common/SelectOptions/SelectOptions';
+import SelectOptions from '@/components/Common/Form/SelectOptions';
 import { useAddPetMutation, useUpdateAPetMutation } from '@/redux/services/petApi';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
