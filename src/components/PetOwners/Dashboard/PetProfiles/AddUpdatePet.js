@@ -194,7 +194,7 @@ const AddUpdatePet = ({ popup, setPopup }) => {
           <Label htmlFor="breed" optional>Breed</Label>
           <InputSelector
             id={"breed"}
-            placeholder={"e.g., German Shepher, American Curl"}
+            placeholder={"e.g., Labrador Retriever, Golden Retriever, American Curl"}
             value={formState.breed}
             onChange={(val) => handleChange('breed', val)}
             options={breeds}

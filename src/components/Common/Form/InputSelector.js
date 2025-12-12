@@ -20,7 +20,7 @@ const InputSelector = ({ id, value, onChange, options = [], placeholder }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [])
   return (
-    <div className="my-4 relative" ref={containerRef}>
+    <div className=" relative" ref={containerRef}>
       <input
         type="text"
         id={id}
@@ -51,7 +51,7 @@ const InputSelector = ({ id, value, onChange, options = [], placeholder }) => {
               >
                 {
                   typeof item === "string" ?
-                    <h5 className="font-medium text-sm">
+                    <h5 className="font-medium text-sm capitalize">
                       {item}
                     </h5>
                     :

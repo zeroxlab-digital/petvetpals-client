@@ -108,10 +108,12 @@ const PetDetails = ({ petId }) => {
                                 <Activity className="w-5 h-5 opacity-80 mb-1" />
                                 <span className="text-[11px] text-white/80">Activity</span>
                                 <span className="font-semibold text-white sm:text-lg mt-0.5 leading-none">
-                                    {
+                                    { pet.activity_level.length > 0 ?
                                         pet.activity_level.reduce((a, b) =>
                                             new Date(b.date) > new Date(a.date) ? b : a
                                         ).value
+                                        :
+                                        'N/A'
                                     }%
                                 </span>
                             </div>
@@ -121,10 +123,12 @@ const PetDetails = ({ petId }) => {
                                 <BatteryCharging className="w-5 h-5 opacity-80 mb-1" />
                                 <span className="text-[11px] text-white/80">Energy</span>
                                 <span className="font-semibold text-white sm:text-lg mt-0.5 leading-none">
-                                    {
+                                    { pet.energy_level.length > 0 ?
                                         pet.energy_level.reduce((a, b) =>
                                             new Date(b.date) > new Date(a.date) ? b : a
                                         ).value
+                                        :
+                                        'N/A'
                                     }%
                                 </span>
                             </div>
