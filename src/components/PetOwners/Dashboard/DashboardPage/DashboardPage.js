@@ -116,7 +116,7 @@ const DashboardPage = () => {
                                 onClick={() => setShowPetMenu(!showPetMenu)}
                                 className="flex items-center gap-1 text-lg font-semibold rounded-lg transition-colors"
                             >
-                                {selectedPet.name} <span className="text-gray-500 text-base font-normal">({selectedPet.breed})</span>
+                                {selectedPet.name} <span className="text-gray-500 text-base font-normal capitalize">({selectedPet.breed})</span>
                                 {showPetMenu ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                             </button>
                             {showPetMenu && (
@@ -129,7 +129,7 @@ const DashboardPage = () => {
                                             }}
                                             className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md transition-colors"
                                         >
-                                            <span>{pet.name}</span> <span className="text-sm">({pet.breed})</span>
+                                            <span>{pet.name}</span> <span className="text-sm capitalize">({pet.breed})</span>
                                         </button>
                                     ))}
                                 </div>

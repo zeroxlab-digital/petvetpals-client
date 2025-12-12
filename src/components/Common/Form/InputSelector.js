@@ -32,7 +32,7 @@ const InputSelector = ({ id, value, onChange, options = [], placeholder }) => {
           setShowDropdown(true);
         }}
         onFocus={() => setShowDropdown(true)}
-        className="border border-gray-200 px-2 py-2 rounded outline-none placeholder:font-light placeholder:text-sm w-full"
+        className="capitalize border border-gray-200 px-2 py-2 rounded outline-none placeholder:font-light placeholder:text-sm w-full"
       />
 
       {showDropdown &&
