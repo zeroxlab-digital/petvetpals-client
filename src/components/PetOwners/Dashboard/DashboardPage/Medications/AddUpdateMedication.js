@@ -11,9 +11,6 @@ import { toast } from 'react-toastify';
 const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
     const isEdit = Boolean(medication);
 
-    // const [vets, setVets] = useState([]);
-    // console.log(vets)
-
     const [addMedication, { isLoading: isAdding }] = useAddMedicationMutation();
     const [updateMedication, { isLoading: isUpdating }] = useUpdateMedicationMutation();
 
@@ -25,8 +22,6 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
             start_date: medication.start_date?.split('T')[0] || new Date().toISOString().split('T')[0],
             end_date: medication.end_date?.split('T')[0] || '',
             timeOfDay: medication.time_of_day || '',
-            // prescribed_by: medication.prescribed_by || '',
-            reason: medication.reason || '',
             instructions: medication.instructions || ''
         }
         : {
@@ -36,26 +31,10 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
             start_date: '',
             end_date: '',
             timeOfDay: '',
-            // prescribed_by: '',
-            reason: '',
             instructions: ''
         };
 
     const [medicationData, setMedicationData] = useState(initialState);
-
-    // useEffect(() => {
-    //     const fetchAllVets = async () => {
-    //         try {
-    //             const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/api/vet/all-vets`);
-    //             if (response.status === 200) {
-    //                 setVets(response.data.vets);
-    //             }
-    //         } catch (error) {
-    //             console.error("Error fetching vets:", error);
-    //         }
-    //     };
-    //     fetchAllVets();
-    // }, []);
 
     const notify = (message, type) => {
         toast(message, { type, autoClose: 1000 });
@@ -94,66 +73,59 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
     return (
         <div>
             <form onSubmit={handleSubmitMedication}>
-                <div>
-                    <Label htmlFor="medication">Medication</Label>
-                    <Input
-                        id="medication"
-                        type="text"
-                        placeholder="Medication name"
-                        name="medication"
-                        required
-                        value={medicationData.medication}
-                        onChange={(e) => setMedicationData({ ...medicationData, medication: e.target.value })}
-                    />
-                </div>
-                <div className='grid grid-cols-2 gap-3 max-md:grid-cols-1 my-3'>
+                <div className='grid grid-cols-2 gap-3 max-md:grid-cols-1'>
+                    <div>
+                        <Label htmlFor="medication">Medication</Label>
+                        <Input
+                            id="medication"
+                            type="text"
+                            placeholder="Medication name"
+                            name="medication"
+                            required
+                            value={medicationData.medication}
+                            onChange={(e) => setMedicationData({ ...medicationData, medication: e.target.value })}
+                        />
+                    </div>
                     <div>
                         <Label htmlFor="dosage" optional>Dosage</Label>
                         <Input
                             id="dosage"
                             type="text"
-                            placeholder="Medication dosage"
+                            placeholder="e.g., 1 tablet, 5 ml"
                             name="dosage"
                             required
                             value={medicationData.dosage}
                             onChange={(e) => setMedicationData({ ...medicationData, dosage: e.target.value })}
                         />
                     </div>
+
                     <div>
                         <Label htmlFor="frequency">Frequency</Label>
-                        <Input
+                        <SelectOptions
                             id="frequency"
-                            type="text"
-                            placeholder="e.g. Daily, Weekly, Monthly"
-                            name="frequency"
-                            required
                             value={medicationData.frequency}
+                            required
+                            options={[
+                                { label: 'Once Daily', value: 'once_daily' },
+                                { label: 'Twice Daily', value: 'twice_daily' },
+                                { label: 'Every Other Day', value: 'every_other_day' },
+                                { label: 'Once Weekly', value: 'once_weekly' },
+                                { label: 'Bi-Weekly', value: 'twice_weekly' },
+                                { label: 'Once Monthly', value: 'once_monthly' }
+                            ]}
                             onChange={(e) => setMedicationData({ ...medicationData, frequency: e.target.value })}
                         />
                     </div>
 
                     <div>
-                        <Label htmlFor="timeOfDay">Time of day</Label>
+                        <Label htmlFor="timeOfDay" optional>Time of day</Label>
                         <Input
                             id="timeOfDay"
                             type="text"
                             placeholder="e.g. Morning, Afternoon, Evening"
                             name="timeOfDay"
-                            required
                             value={medicationData.timeOfDay}
                             onChange={(e) => setMedicationData({ ...medicationData, timeOfDay: e.target.value })}
-                        />
-                    </div>
-                    <div>
-                        <Label htmlFor="reason">Reason of medication</Label>
-                        <Input
-                            id="reason"
-                            type="text"
-                            placeholder="e.g. Itching"
-                            name="reason"
-                            required
-                            value={medicationData.reason}
-                            onChange={(e) => setMedicationData({ ...medicationData, reason: e.target.value })}
                         />
                     </div>
                     <div>
@@ -178,65 +150,7 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
                         />
                     </div>
                 </div>
-                {/* Vet or Clinic Selector */}
-                {/* <div className="relative">
-                    <Label htmlFor="prescribedBy" optional>Prescribed by</Label>
-                    <InputSelector
-                        id={"prescribedBy"}
-                        placeholder="e.g, Dr. Matthew Anderson, Owachita Pet Clinic"
-                        value={medicationData.prescribed_by || ""}
-                        onChange={(val) => setMedicationData({ ...medicationData, prescribed_by: val })}
-                        options={vets}
-                    />
-                    <div>
-                        <input
-                            type="text"
-                            id="prescribedBy"
-                            placeholder="e.g, Dr. Matthew Anderson, Owachita Pet Clinic"
-                            value={inputValue}
-                            onChange={(e) => {
-                                setInputValue(e.target.value);
-                                setMedicationData({
-                                    ...medicationData,
-                                    prescribed_by: e.target.value,
-                                });
-                                setShowDropdown(true);
-                            }}
-                            className="border border-gray-200 px-2 py-2 rounded outline-none placeholder:font-light placeholder:text-sm w-full"
-                        />
 
-                        {showDropdown &&
-                            detectedVetsAndClinics.length > 0 &&
-                            inputValue.length > 0 && (
-                                <ul className="absolute top-full left-0 w-full bg-white rounded-lg border shadow-lg mt-2 max-h-56 overflow-auto p-2 z-10">
-                                    {detectedVetsAndClinics.map((item, idx) => (
-                                        <li
-                                            key={idx}
-                                            onClick={() => {
-                                                setInputValue(item.fullName);
-                                                setMedicationData({
-                                                    ...medicationData,
-                                                    prescribed_by: item.fullName,
-                                                });
-                                                setShowDropdown(false);
-                                            }}
-                                            className="p-3 cursor-pointer hover:bg-gray-50 duration-200"
-                                        >
-                                            <h5 className="font-medium text-sm">
-                                                {item.fullName}{" "}
-                                                <span className="font-normal">
-                                                    - {item.degrees?.[0] || "N/A"}
-                                                </span>
-                                            </h5>
-                                            <p className="text-xs text-gray-600">
-                                                {item.works_at || "N/A"}
-                                            </p>
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
-                    </div>
-                </div> */}
                 <div className='mt-3'>
                     <Label htmlFor="instructions" optional>Instructions</Label>
                     <Textarea

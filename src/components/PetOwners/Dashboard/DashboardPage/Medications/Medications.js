@@ -92,6 +92,20 @@ const Medications = ({ petId }) => {
         }
     }
 
+    const formatFrequency = (value) => {
+        const map = {
+            once_daily: "Once Daily",
+            twice_daily: "Twice Daily",
+            every_other_day: "Every Other Day",
+            once_weekly: "Once Weekly",
+            twice_weekly: "Bi-Weekly",
+            once_monthly: "Once Monthly"
+        };
+
+        return map[value] || value;
+    };
+
+
     return (
         <div className="space-y-5">
             <div className="flex items-center justify-between max-sm:flex-wrap">
@@ -190,7 +204,7 @@ const Medications = ({ petId }) => {
                                             <div>
                                                 <h3 className="text-lg font-semibold text-white truncate mb-1">{displayValue(med.medication)}</h3>
                                                 <p className="uppercase text-xs font-semibold tracking-wider text-gray-200 select-none">
-                                                    {displayValue(med.dosage)} - {displayValue(med.frequency)}
+                                                    {displayValue(med.dosage)} - {formatFrequency(med.frequency)}
                                                 </p>
                                             </div>
                                             <div className="relative cursor-pointer duration-150 rounded-md border w-9 h-9 flex items-center justify-center">
@@ -234,18 +248,36 @@ const Medications = ({ petId }) => {
                                                         })}
                                                     </p>
                                                 </div>
-                                                {/* <div>
-                                                    <h4 className="text-sm font-semibold mb-0.5 select-none">Remaining</h4>
-                                                    <p className="text-gray-700 leading-relaxed">{displayValue(med.remaining)}</p>
-                                                </div> */}
                                                 <div>
-                                                    <h4 className="text-sm font-semibold mb-0.5 select-none">Reason</h4>
-                                                    <p className="text-gray-700 leading-relaxed">{displayValue(med.reason)}</p>
+                                                    <h4 className="text-sm font-semibold mb-0.5 select-none">Start date</h4>
+                                                    <p className="text-gray-700 leading-relaxed">
+                                                    {
+                                                        new Date(med.start_date).toLocaleDateString("en-US", {
+                                                            day: "numeric",
+                                                            month: "short",
+                                                            year: "numeric",
+                                                            timeZone: "UTC"
+                                                        })
+                                                    }
+                                                    </p>
                                                 </div>
-                                                {/* <div>
-                                                    <h4 className="text-sm font-semibold mb-0.5 select-none">Prescribed by</h4>
-                                                    <p className="text-gray-700 leading-relaxed">{displayValue(med.prescribed_by)}</p>
-                                                </div> */}
+                                                <div>
+                                                    <h4 className="text-sm font-semibold mb-0.5 select-none">End date</h4>
+                                                    <p className="text-gray-700 leading-relaxed">
+                                                    {
+                                                        new Date(med.end_date).toLocaleDateString("en-US", {
+                                                            day: "numeric",
+                                                            month: "short",
+                                                            year: "numeric",
+                                                            timeZone: "UTC"
+                                                        })
+                                                    }
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <h4 className="text-sm font-semibold mb-0.5 select-none">Instructions</h4>
+                                                    <p className="text-gray-700 leading-relaxed">{displayValue(med.instructions)}</p>
+                                                </div>
                                             </section>
                                         </main>
                                         {/* View Details Modal */}
@@ -257,7 +289,7 @@ const Medications = ({ petId }) => {
                                                 icon={<Info />}
                                                 className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50"
                                             >
-                                                <MedicationDetails med={selectedMed} setViewDetails={setViewDetails} />
+                                                <MedicationDetails med={selectedMed} setViewDetails={setViewDetails} formatFrequency={formatFrequency} />
                                             </ModalPopup>
                                         )}
                                         {/* Edit Medication Modal */}
@@ -297,9 +329,8 @@ const Medications = ({ petId }) => {
                                             <th className="p-5">Dosage</th>
                                             <th className="p-5">Frequency</th>
                                             <th className="p-5">Next due date</th>
-                                            {/* <th className="p-5">Remaining</th> */}
-                                            <th className="p-5">Reason</th>
-                                            {/* <th className="p-5">Prescribed by</th> */}
+                                            <th className="p-5">Start date</th>
+                                            <th className="p-5">End date</th>
                                             <th className="p-5 text-right">Actions</th>
                                         </tr>
                                     </thead>
@@ -308,7 +339,7 @@ const Medications = ({ petId }) => {
                                             <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
                                                 <td className="px-5 py-3 text-sm">{med.medication || "N/A"}</td>
                                                 <td className="px-5 py-3 text-sm">{med.dosage || "N/A"}</td>
-                                                <td className="px-5 py-3 text-sm">{med.frequency || "N/A"}</td>
+                                                <td className="px-5 py-3 text-sm">{formatFrequency(med.frequency) || "N/A"}</td>
                                                 <td className="px-5 py-3 text-sm">
                                                     {new Date(med.next_due).toLocaleDateString("en-US", {
                                                         day: "numeric",
@@ -317,9 +348,26 @@ const Medications = ({ petId }) => {
                                                         timeZone: "UTC"
                                                     })}
                                                 </td>
-                                                {/* <td className="px-5 py-3 text-sm">{displayValue(med.remaining)}</td> */}
-                                                <td className="px-5 py-3 text-sm">{displayValue(med.reason)}</td>
-                                                {/* <td className="px-5 py-3 text-sm">{displayValue(med.prescribed_by)}</td> */}
+                                                <td className="px-5 py-3 text-sm">
+                                                    {
+                                                        new Date(med.start_date).toLocaleDateString("en-US", {
+                                                            day: "numeric",
+                                                            month: "short",
+                                                            year: "numeric",
+                                                            timeZone: "UTC"
+                                                        })
+                                                    }
+                                                </td>
+                                                <td className="px-5 py-3 text-sm">
+                                                    {
+                                                        new Date(med.end_date).toLocaleDateString("en-US", {
+                                                            day: "numeric",
+                                                            month: "short",
+                                                            year: "numeric",
+                                                            timeZone: "UTC"
+                                                        })
+                                                    }
+                                                </td>
                                                 <td className="px-5 py-3 text-sm flex justify-end ">
                                                     <span className="relative cursor-pointer hover:bg-gray-100 duration-150 rounded-md w-9 h-9 flex items-center justify-center">
                                                         {/* <HiEllipsisHorizontal className="text-2xl text-gray-800" /> */}
@@ -362,7 +410,7 @@ const Medications = ({ petId }) => {
                                         icon={<Info />}
                                     // className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50"
                                     >
-                                        <MedicationDetails med={selectedMed} setViewDetails={setViewDetails} />
+                                        <MedicationDetails med={selectedMed} setViewDetails={setViewDetails} formatFrequency={formatFrequency} />
                                     </ModalPopup>
                                 )}
                                 {/* Edit Medication Modal */}
@@ -413,7 +461,7 @@ const Medications = ({ petId }) => {
                                             <div>
                                                 <h3 className="text-lg font-semibold truncate mb-1">{displayValue(med.medication)}</h3>
                                                 <p className="uppercase text-xs font-semibold tracking-wider text-gray-200 select-none">
-                                                    {displayValue(med.dosage)} - {displayValue(med.frequency)}
+                                                    {displayValue(med.dosage)} - {formatFrequency(med.frequency)}
                                                 </p>
                                             </div>
                                             <span
@@ -452,10 +500,10 @@ const Medications = ({ petId }) => {
                                                         )}
                                                     </p>
                                                 </div>
-                                                <div>
+                                                {/* <div>
                                                     <h4 className="text-sm font-semibold mb-0.5 select-none">Reason</h4>
                                                     <p className="text-gray-700 leading-relaxed">{displayValue(med.reason)}</p>
-                                                </div>
+                                                </div> */}
                                                 {/* <div>
                                                     <h4 className="text-sm font-semibold mb-0.5 select-none">Prescribed by</h4>
                                                     <p className="text-gray-700 leading-relaxed">{displayValue(med.prescribed_by)}</p>
@@ -470,7 +518,7 @@ const Medications = ({ petId }) => {
                                                 icon={<Info />}
                                             // className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50"
                                             >
-                                                <MedicationDetails med={selectedMed} setOpenPopup={setOpenPopup} />
+                                                <MedicationDetails med={selectedMed} setOpenPopup={setOpenPopup} formatFrequency={formatFrequency} />
                                             </ModalPopup>
                                         )}
                                     </article>
@@ -495,7 +543,7 @@ const Medications = ({ petId }) => {
                                             <th className="p-5">Frequency</th>
                                             <th className="p-5">Start date</th>
                                             <th className="p-5">End date</th>
-                                            <th className="p-5">Reason</th>
+                                            {/* <th className="p-5">Reason</th> */}
                                             {/* <th className="p-5">Prescribed by</th> */}
                                             <th className="p-5 text-right">Details</th>
                                         </tr>
@@ -505,7 +553,7 @@ const Medications = ({ petId }) => {
                                             <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
                                                 <td className="px-5 py-3 text-sm">{med.medication}</td>
                                                 <td className="px-5 py-3 text-sm">{med.dosage}</td>
-                                                <td className="px-5 py-3 text-sm">{med.frequency}</td>
+                                                <td className="px-5 py-3 text-sm">{formatFrequency(med.frequency)}</td>
                                                 <td className="px-5 py-3 text-sm">
                                                     {new Date(med.start_date).toLocaleDateString("en-US", {
                                                         month: "long",
@@ -520,7 +568,7 @@ const Medications = ({ petId }) => {
                                                         day: "numeric",
                                                     }) || "N/A"}
                                                 </td>
-                                                <td className="px-5 py-3 text-sm">{med.reason || "N/A"}</td>
+                                                {/* <td className="px-5 py-3 text-sm">{med.reason || "N/A"}</td> */}
                                                 {/* <td className="px-5 py-3 text-sm">{med.prescribed_by || "N/A"}</td> */}
                                                 <td className="px-5 py-3 text-sm flex justify-end">
                                                     <span
@@ -545,7 +593,7 @@ const Medications = ({ petId }) => {
                                         icon={<Info />}
                                     // className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50"
                                     >
-                                        <MedicationDetails med={selectedMed} setOpenPopup={setOpenPopup} />
+                                        <MedicationDetails med={selectedMed} setOpenPopup={setOpenPopup} formatFrequency={formatFrequency} />
                                     </ModalPopup>
                                 )}
                             </div>

@@ -5,7 +5,7 @@ import { displayValue } from '@/utils/displayValue';
 import React from 'react';
 import { toast } from 'react-toastify';
 
-const MedicationDetails = ({ med, setViewDetails, setOpenPopup }) => {
+const MedicationDetails = ({ med, setViewDetails, setOpenPopup, formatFrequency }) => {
     const notify = (message, type) => {
         toast(message, { type: type, autoClose: 1000 });
     }
@@ -55,16 +55,16 @@ const MedicationDetails = ({ med, setViewDetails, setOpenPopup }) => {
                 </div>
                 <div>
                     <span className='text-gray-600 font-medium text-sm'>Frequency</span>
-                    <p>{displayValue(med.frequency)}</p>
+                    <p>{formatFrequency(med.frequency)}</p>
                 </div>
                 {/* <div>
                     <span className='text-gray-600 font-medium text-sm'>Remaining</span>
                     <p>{displayValue(med.remaining)}</p>
                 </div> */}
-                <div>
+                {/* <div>
                     <span className='text-gray-600 font-medium text-sm'>Reason</span>
                     <p>{displayValue(med.reason)}</p>
-                </div>
+                </div> */}
             </div>
             <div className='grid grid-cols-2 gap-3 my-3'>
                 <div>
