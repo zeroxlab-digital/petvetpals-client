@@ -145,8 +145,8 @@ const MobileUserOptions = () => {
                         <h2 className="text-xl font-bold">{user.fullName}</h2>
                         <p className="text-gray-200 text-sm">{user.email}</p>
                         <div className="flex items-center gap-2 mt-1">
-                            <FaPaw className="text-blue-200 text-sm" />
-                            <span className="text-sm text-gray-200">{pets?.pets?.length || 0} pets</span>
+                            <FaPaw className="relative top-0.5 text-sm" />
+                            <span className="text-sm text-gray-200">{pets?.pets?.length || 0} {pets?.pets?.length < 2 ? 'pet' : 'pets'}</span>
                         </div>
                     </div>
                 </div>

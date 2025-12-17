@@ -264,7 +264,7 @@ const DashboardPage = () => {
                                                         {
                                                             medicalHistory.medicalHistory.slice(0, 3).map((record, index) => (
                                                                 <tr key={index} className="border-b last:border-none hover:bg-gray-50 ">
-                                                                    <td className="px-5 py-3 text-sm">{new Date(record.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' })}</td>
+                                                                    <td className="px-5 py-3 text-sm">{new Date(record.date).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: '2-digit' })}</td>
                                                                     <td className="px-5 py-3 text-sm">{displayValue(record.type)}</td>
                                                                     {/* <td className="px-5 py-3 text-sm">{displayValue(record.vet.fullName)}</td> */}
                                                                     <td className="px-5 py-3 text-sm">{displayValue(record.diagnosis)}</td>

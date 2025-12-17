@@ -106,7 +106,7 @@ const UserAccount = () => {
                     <div>
                       <h2 className="text-xl font-semibold">{userProfile?.fullName}</h2>
                       <p className="text-sm text-gray-500">Member since {new Date(userProfile?.createdAt).toLocaleString("en-US", { month: "long", year: "numeric" })}</p>
-                      <p className="text-sm text-blue-500">Premium Member</p>
+                      <p className="text-sm text-blue-500">{userProfile?.membership_status || "N/A"} plan</p>
                     </div>
                   </div>
                   <div
@@ -148,15 +148,6 @@ const UserAccount = () => {
                         className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
                       />
                     </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number <span className="text-gray-500 font-normal">(optional)</span></label>
-                      <input
-                        type="tel"
-                        defaultValue=""
-                        disabled={!editMode}
-                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
-                      />
-                    </div>
                   </div>
                   <div className="space-y-4">
                     <div>
@@ -165,6 +156,16 @@ const UserAccount = () => {
                         type="text"
                         defaultValue={userProfile?.address || ''}
                         onChange={(e) => setUserProfile({ ...userProfile, address: e.target.value })}
+                        disabled={!editMode}
+                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
+                      <input
+                        type="string"
+                        defaultValue={userProfile?.state || ''}
+                        onChange={(e) => setUserProfile({ ...userProfile, state: e.target.value })}
                         disabled={!editMode}
                         className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
                       />
