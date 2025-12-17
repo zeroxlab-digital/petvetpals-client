@@ -68,13 +68,13 @@ const MobileUserOptions = () => {
         {
             title: "Shopping & Services",
             links: [
-                {
-                    title: "Wishlist",
-                    link: "/dashboard/wishlist",
-                    icon: <FaHeart />,
-                    badge: user.wishlistCount,
-                    description: "Saved items and favorites",
-                },
+                // {
+                //     title: "Wishlist",
+                //     link: "/dashboard/wishlist",
+                //     icon: <FaHeart />,
+                //     badge: user.wishlistCount,
+                //     description: "Saved items and favorites",
+                // },
                 {
                     title: "Order History",
                     link: "/dashboard/orders",

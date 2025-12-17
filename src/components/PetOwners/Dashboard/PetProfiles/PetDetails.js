@@ -21,7 +21,7 @@ const PetDetails = ({ petId }) => {
     return (
         <div>
             <div className="relative mb-6">
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#5252ff69] to-[#672e5b] opacity-60"></div>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#671455] to-[#672e5b]"></div>
                 <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 shadow-xl rounded-xl p-5 sm:p-7 flex flex-col sm:flex-row gap-6">
 
                     <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 w-full sm:w-auto">
@@ -47,7 +47,7 @@ const PetDetails = ({ petId }) => {
                                     {pet.name}
                                 </h1>
 
-                                <p className="text-white/90 text-sm mb-1">{pet.breed}</p>
+                                <p className="text-white/90 text-sm mb-1 capitalize">{pet.breed}</p>
 
                                 <p className="text-xs text-white/90">
                                     {pet.type} • {pet.age} Years Old
@@ -56,8 +56,8 @@ const PetDetails = ({ petId }) => {
 
                             <div
                                 className={`mt-1 text-xs font-medium px-3 py-1 h-max rounded-full flex items-center gap-1 w-max ${pet.gender === "male"
-                                    ? "bg-blue-500/10 text-blue-500"
-                                    : "bg-pink-500/10 text-pink-600"
+                                    ? "bg-blue-400/10 text-blue-500"
+                                    : "bg-pink-400/10 text-pink-500"
                                     }`}
                             >
                                 {pet.gender === "male" ? "♂" : "♀"} {pet.gender}
