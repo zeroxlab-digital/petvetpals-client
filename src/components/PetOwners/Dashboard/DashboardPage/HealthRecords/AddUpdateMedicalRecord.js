@@ -34,7 +34,7 @@ const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
         };
 
     const [medicalHistoryData, setMedicalHistoryData] = useState(initialState);
-
+    // console.log("medicalHistoryData:", medicalHistoryData);
     useEffect(() => {
         const fetchAllVets = async () => {
             try {
@@ -122,7 +122,7 @@ const AddUpdateMedicalRecord = ({ petId, onClose, record = null }) => {
                         id={"vetOrClinic"}
                         placeholder={"e.g., Dr. Matthew Anderson, Owachita Pet Clinic"}
                         onChange={(val) => setMedicalHistoryData({...medicalHistoryData, vetOrClinic: val})}
-                        value={medicalHistoryData.vetOrClinic?.fullName || ""}
+                        value={medicalHistoryData.vetOrClinic || ""}
                         options={vets}
                     />
                 </div>
