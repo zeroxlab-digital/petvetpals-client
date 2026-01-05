@@ -20,9 +20,9 @@ const protocols = [
     age: "10 Years",
     indicator: "Senior Dog Wellness",
     overview:
-      "Senior, large-breed dog with age-related wellness considerations.",
+      "Senior, large-breed dog with age-related wellness considerations",
     logic:
-      "Based on age and breed, joint-support and mobility-focused supplements are commonly recommended for senior large dogs.",
+      "Based on age and breed, joint-support and mobility-focused supplements are commonly recommended for senior large dogs",
     product: "Omega-3 Joint Support Supplement",
     tag: "Demographic Match",
     image: "/images/omega3.webp",
@@ -34,9 +34,9 @@ const protocols = [
     age: "5 Months",
     indicator: "Puppy Growth Support",
     overview:
-      "Young, small-breed puppy in an early growth and development stage.",
+      "Young, small-breed puppy in an early growth and development stage",
     logic:
-      "Puppies may benefit from balanced multivitamins to support normal growth when transitioning diets.",
+      "Puppies may benefit from balanced multivitamins to support normal growth when transitioning diets",
     product: "Daily Puppy Multivitamin",
     tag: "Life-Stage Match",
     image: "/images/multivitamin.webp",
@@ -72,9 +72,7 @@ const SmartShopSection = () => {
 
           <h2 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-8">
             Smarter product choices <br />
-            <span className="italic font-light text-slate-400">
-              for every stage of life.
-            </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-900">For every stage of life</span>
           </h2>
 
           <p className="text-xl text-slate-500 font-medium leading-relaxed max-w-2xl">
@@ -97,11 +95,10 @@ const SmartShopSection = () => {
                 <button
                   key={p.id}
                   onClick={() => setActive(p)}
-                  className={`w-full text-left p-6 rounded-3xl transition-all duration-500 border ${
-                    active.id === p.id
+                  className={`w-full text-left p-6 rounded-3xl transition-all duration-500 border ${active.id === p.id
                       ? "bg-white border-pink-100 shadow-xl shadow-pink-100/20 scale-105"
                       : "border-transparent text-slate-400 grayscale opacity-60 hover:opacity-100"
-                  }`}
+                    }`}
                 >
                   <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1">
                     {p.breed}

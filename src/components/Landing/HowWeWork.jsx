@@ -24,11 +24,11 @@ const HowWeWorkSection = () => {
                             </div>
                             
                             <h3 className='text-5xl md:text-7xl font-black text-slate-900 leading-[0.9] tracking-tighter'>
-                                Care That Puts Your Pet at the <span className='text-primary italic font-light'>Center.</span>
+                                Care That Puts Your Pet at the <span className='text-primary italic font-light'>Center</span>
                             </h3>
 
                             <p className='text-xl text-slate-500 leading-relaxed max-w-lg'>
-                                PetVetPals focuses on providing pets with continuous, data-driven care for longer, healthier lives through a seamless digital ecosystem.
+                                PetVetPals focuses on providing pets with continuous, data-driven care for longer, healthier lives through a seamless digital ecosystem
                             </p>
 
                             <div className='flex flex-col sm:flex-row gap-6 pt-4'>

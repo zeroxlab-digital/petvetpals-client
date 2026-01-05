@@ -93,7 +93,7 @@ const HeroSection = () => {
                         >
                             <FaPaw size={16} className="text-base text-blue-600 animate-pulse" />
                             <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.3em]">
-                                AI Pet Health Assistant
+                                AI-Powered Pet Health
                             </span>
                         </motion.div>
 
@@ -104,11 +104,11 @@ const HeroSection = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 className="text-6xl md:text-[100px] font-black text-slate-900 leading-[0.85] tracking-tighter"
                             >
-                                Smarter <br />
-                                <span className="text-primary italic font-light">Pet Care.</span>
+                                Smarter <div className="md:hidden" />
+                                <span className="text-primary italic font-light"> Pet Care</span>
                             </motion.h2>
                             <p className="text-slate-500 text-xl md:text-2xl max-w-xl leading-relaxed font-medium">
-                                Track symptoms, manage medications, and get AI-powered care insights — all in one place for pets you love.
+                                Track symptoms, manage medications, and get AI-powered care insights — all in one place for pets you love
                             </p>
                         </div>
 
@@ -134,11 +134,11 @@ const HeroSection = () => {
                             </div>
                         </div>
 
-                        <div className="max-md:flex justify-center">
-                            <Link href={'/dashboard/pets'} className=" px-12 py-5 bg-primary text-white rounded-full font-black uppercase tracking-widest text-sm hover:bg-primaryHover transition-all shadow-xl shadow-pink-200 flex items-center justify-center gap-4">
+                        <button className="max-md:flex justify-center w-64 max-md:w-full">
+                            <Link href={'/dashboard/pets'} className="py-5 w-full bg-primary text-white rounded-full font-black uppercase tracking-widest text-sm hover:bg-primaryHover transition-all shadow-xl shadow-pink-200 flex items-center justify-center gap-4">
                                 Create Pet Profile <HiOutlineArrowRight className="text-lg" />
                             </Link>
-                        </div>
+                        </button>
                     </div>
 
                     {/* Right Side: The Frosted AI Suggestion HUD */}

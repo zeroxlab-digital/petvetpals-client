@@ -20,17 +20,17 @@ const SymptomCheckerSection = () => {
                     </div>
                     
                     <h2 className="text-4xl md:text-6xl font-extrabold text-[#2d152a] leading-[1.1]">
-                        From Worry to <span className="text-primary">Certainty</span> in Seconds.
+                        From Worry to <span className="text-primary">Certainty</span> in Seconds
                     </h2>
                     
                     <p className="text-gray-600 text-lg leading-relaxed">
-                        Don't guess with your pet's health. Our proprietary AI engine identifies issues by analyzing visual signs, affected areas, and behavioral data.
+                        Don't guess with your pet's health. Our proprietary AI engine identifies issues by analyzing visual signs, affected areas, and behavioral data
                     </p>
 
                     <div className="grid sm:grid-cols-2 gap-6">
                         {[
-                            { icon: <HiOutlineFingerPrint />, title: "Pet Specific", desc: "Results tailored to breed & age." },
-                            { icon: <HiOutlineDocumentMagnifyingGlass />, title: "Clinical Logic", desc: "Cross-referenced with vet logs." },
+                            { icon: <HiOutlineFingerPrint />, title: "Pet Specific", desc: "Results tailored to breed & age" },
+                            { icon: <HiOutlineDocumentMagnifyingGlass />, title: "Clinical Logic", desc: "Cross-referenced with vet logs" },
                         ].map((feature, i) => (
                             <div key={i} className="flex gap-4">
                                 <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-primary text-2xl shadow-sm">

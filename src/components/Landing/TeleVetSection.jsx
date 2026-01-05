@@ -9,6 +9,7 @@ import {
     HiOutlineDocumentText
 } from "react-icons/hi2";
 import Image from "next/image";
+import Link from "next/link";
 
 const TeleVetSection = () => {
     return (
@@ -81,11 +82,11 @@ const TeleVetSection = () => {
                     
                     <h2 className="text-4xl md:text-6xl font-black text-slate-900 leading-[1.1]">
                         Expert Care, <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-900">Whenever</span> You Need It.
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-900">Whenever</span> You Need It
                     </h2>
                     
                     <p className="text-lg text-slate-500 leading-relaxed">
-                        When the AI detects something that needs a human touch, connect with a licensed veterinarian in under 2 minutes. Our vets see your pet's full AI health history instantly.
+                        When the AI detects something that needs a human touch, connect with a licensed veterinarian in under 2 minutes. Our vets see your pet's full AI health history instantly
                     </p>
 
                     <div className="grid gap-4">
@@ -93,13 +94,13 @@ const TeleVetSection = () => {
                             { 
                                 icon: <HiOutlineClock />, 
                                 title: "2-Minute Connection", 
-                                desc: "No appointments. No waiting rooms. Just instant care.",
+                                desc: "No appointments. No waiting rooms. Just instant care",
                                 color: "text-blue-600"
                             },
                             { 
                                 icon: <HiOutlineDocumentText />, 
                                 title: "Data-Rich Consults", 
-                                desc: "Vets receive the AI-generated report before the call starts.",
+                                desc: "Vets receive the AI-generated report before the call starts",
                                 color: "text-cyan-500"
                             }
                         ].map((item, i) => (
@@ -115,9 +116,9 @@ const TeleVetSection = () => {
                         ))}
                     </div>
 
-                    <button className="px-10 py-5 bg-primary text-white rounded-full font-semibold text-base shadow-xl shadow-pink-200 hover:bg-primaryHover transition-all transform hover:-translate-y-1">
+                    <Link href={"/vet-appointment"} className="flex px-10 py-4 max-w-64 bg-primary text-white rounded-full font-semibold text-base shadow-xl shadow-pink-200 hover:bg-primaryHover">
                         Book a Discovery Call
-                    </button>
+                    </Link>
                 </div>
             </div>
         </section>

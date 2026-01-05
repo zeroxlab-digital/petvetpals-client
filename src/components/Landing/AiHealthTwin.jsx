@@ -152,7 +152,7 @@ const AiHealthTwin = () => {
                                 </div>
 
                                 {/* CTA Button */}
-                                <button className="w-full sm:w-fit px-10 py-5 bg-blue-600 text-white rounded-full font-semibold text-base hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-200 transition-all flex items-center justify-center gap-3 group">
+                                <button className="w-full sm:w-fit px-10 py-4 bg-blue-600 text-white rounded-full font-semibold text-base hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-200 transition-all flex items-center justify-center gap-3 group">
                                     {activeTab.action}
                                     <motion.span animate={{ x: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
                                         <HiArrowRight />
