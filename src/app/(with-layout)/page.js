@@ -1,13 +1,14 @@
-import FeaturesSection from "@/components/Landing/FeaturesSection/FeaturesSection";
-import HowWeWork from "@/components/Landing/HowWeWorkSection/HowWeWork";
-import PetHealthTrackerSection from "@/components/Landing/PetHealthTrackerSection/PetHealthTrackerSection";
-import BlogsSection from "@/components/Landing/BlogsSection/BlogsSection";
+import React from "react";
 import Footer from "@/components/PetOwners/Footer/Footer";
-import AiHealthTwin from "@/components/Landing/AiHealthTwin/AiHealthTwin";
-import SymptomCheckerSection from "@/components/Landing/SymptomCheckerSection/SymptomCheckerSection";
-import TeleVetSection from "@/components/Landing/TeleVetSection/TeleVetSection";
-import SmartShopSection from "@/components/Landing/SmartShopSection/SmartShopSection";
-import HeroSection from "@/components/Landing/HeroSection/HeroSection";
+import HeroSection from "@/components/Landing/HeroSection";
+import FeaturesSection from "@/components/Landing/FeaturesSection";
+import SymptomCheckerSection from "@/components/Landing/SymptomCheckerSection";
+import AiHealthTwin from "@/components/Landing/AiHealthTwin";
+import TeleVetSection from "@/components/Landing/TeleVetSection";
+import HowWeWorkSection from "@/components/Landing/HowWeWork";
+import SmartShopSection from "@/components/Landing/SmartShopSection";
+import PetHealthTrackerSection from "@/components/Landing/PetHealthTrackerSection";
+import BlogsSection from "@/components/Landing/BlogsSection";
 
 const Home = () => {
   return (
@@ -18,7 +19,7 @@ const Home = () => {
         <SymptomCheckerSection />
         <AiHealthTwin />
         <TeleVetSection />
-        <HowWeWork />
+        <HowWeWorkSection />
         <SmartShopSection />
         <PetHealthTrackerSection />
         <BlogsSection />

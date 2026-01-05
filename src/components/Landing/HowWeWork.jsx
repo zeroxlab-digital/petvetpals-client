@@ -5,7 +5,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { HiOutlineSparkles } from "react-icons/hi2";
 
-const HowWeWork = () => {
+const HowWeWorkSection = () => {
     return (
         <section className='py-24 bg-white overflow-hidden'>
             <div className='app-container'>
@@ -93,4 +93,4 @@ const HowWeWork = () => {
     );
 };
 
-export default HowWeWork;
+export default HowWeWorkSection;
