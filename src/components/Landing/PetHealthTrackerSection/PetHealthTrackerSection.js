@@ -32,7 +32,7 @@ const PetHealthTrackerSection = () => {
   ]
 
   return (
-    <section className="py-24 bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 overflow-hidden relative">
+    <section className="py-24 my-24 bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 overflow-hidden relative">
       <FloatingIcons />
 
       <div className="container mx-auto px-4">

@@ -38,7 +38,7 @@ export default function Footer() {
       </div>
 
       {/* Newsletter Section */}
-      <div className="relative border-b border-gray-300 border-opacity-20">
+      {/* <div className="relative border-b border-gray-300 border-opacity-20">
         <div className="app-container py-16">
           <div className=" text-center">
             <motion.div
@@ -63,10 +63,10 @@ export default function Footer() {
             </motion.div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Footer Content */}
-      <div className="relative app-container mx-auto  py-10">
+      <div className="relative app-container mx-auto  py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <motion.div
