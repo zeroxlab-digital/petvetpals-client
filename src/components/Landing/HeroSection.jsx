@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { HiOutlineArrowRight, HiOutlineCpuChip, HiOutlineCubeTransparent, HiOutlineFingerPrint, HiOutlineSparkles, HiSparkles } from "react-icons/hi2";
 import { Activity, PawPrint } from "lucide-react";
 import { FaPaw } from "react-icons/fa6";
+import Image from "next/image";
+import Link from "next/link";
 
 const petProfiles = [
     {
@@ -42,7 +44,7 @@ const HeroSection = () => {
     }, []);
 
     return (
-        <section className="relative h-[95vh] w-full bg-white overflow-hidden flex items-center">
+        <section className=" relative lg:h-[95vh] h-full max-lg:py-20 w-full bg-white overflow-hidden flex items-center">
 
             {/* SEO STRUCTURE */}
             <h1 className="sr-only">
@@ -61,9 +63,10 @@ const HeroSection = () => {
                         className="relative w-full h-full"
                     >
                         {/* High-Key Photo with Soft Vignette */}
-                        <img
+                        <Image
                             src={active.image}
                             alt={`${active.breed} biometric scan`}
+                            fill
                             className="w-full h-full object-cover grayscale-[10%]"
                         />
                         {/* Light Gradients for Content Legibility */}
@@ -82,7 +85,7 @@ const HeroSection = () => {
                 <div className="grid lg:grid-cols-12 gap-12 items-center">
 
                     {/* Left Side: Content-Heavy Narrative */}
-                    <div className="lg:col-span-7 space-y-10">
+                    <div className="lg:col-span-7 space-y-10 max-md:text-center">
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -131,10 +134,10 @@ const HeroSection = () => {
                             </div>
                         </div>
 
-                        <div className="">
-                            <button className="px-12 py-5 bg-primary text-white rounded-full font-black uppercase tracking-widest text-xs hover:bg-primaryHover transition-all shadow-xl shadow-pink-200 flex items-center justify-center gap-4">
+                        <div className="max-md:flex justify-center">
+                            <Link href={'/dashboard/pets'} className=" px-12 py-5 bg-primary text-white rounded-full font-black uppercase tracking-widest text-sm hover:bg-primaryHover transition-all shadow-xl shadow-pink-200 flex items-center justify-center gap-4">
                                 Create Pet Profile <HiOutlineArrowRight className="text-lg" />
-                            </button>
+                            </Link>
                         </div>
                     </div>
 
