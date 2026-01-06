@@ -21,6 +21,7 @@ import WeightTracker from './QuickPetInsights/WeightTracker';
 import NextVaccination from './QuickPetInsights/NextVaccination';
 import RecentSymptoms from './QuickPetInsights/RecentSymptoms';
 import HealthTrends from './HealthTrends/HealthTrends';
+import SmartShopping from './SmartShopping/SmartShopping';
 
 const DashboardPage = () => {
 
@@ -233,6 +234,9 @@ const DashboardPage = () => {
 
                     {/* Smart Reminder */}
                     <SmartReminder selectedPet={selectedPet} />
+
+                    {/* Smart Shopping */}
+                    <SmartShopping selectedPet={selectedPet} />
 
                     <div className="grid gap-4 grid-cols-1 md:grid-cols-7 overflow-hidden">
                         {/* Medical History */}
