@@ -38,7 +38,7 @@ const Participants = () => {
             <ul className='flex justify-start items-start flex-col '>
                 {participants.map(participant => <li key={participant._id} onClick={() => dispatch(setClickedParticipant(participant))} className={`border-b last:border-none py-2 px-2 text-center w-full flex  items-center gap-3 cursor-pointer hover:bg-gray-50 duration-200 rounded-md  ${clickedParticipant?._id === participant._id && 'md:bg-gray-100'}`}>
                     <Image src="/images/dr-vector.png" alt="participant-profile" width={30} height={30} className='rounded-full w-10 h-10 max-md:w-12 max-md:h-12 object-cover' />
-                    <span className=' text-gray-800 '>{participant.fullName}</span>
+                    <h4 className='font-medium text-gray-800 '>{participant.fullName}</h4>
                 </li>)}
             </ul>
         </div>
