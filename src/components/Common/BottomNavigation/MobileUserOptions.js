@@ -31,14 +31,14 @@ const MobileUserOptions = () => {
                     title: "Pet Profiles",
                     link: "/dashboard/pets",
                     icon: <FaPaw />,
-                    description: `Manage your ${user.petCount} pets`,
+                    description: `Manage your pets`,
                 },
-                {
-                    title: "Health Records",
-                    link: "/dashboard/health",
-                    icon: <FaStethoscope />,
-                    description: "Medical history and records",
-                },
+                // {
+                //     title: "Health Records",
+                //     link: "/dashboard/health",
+                //     icon: <FaStethoscope />,
+                //     description: "Medical history and records",
+                // },
                 {
                     title: "Appointments",
                     link: "/dashboard/appointments",
@@ -57,12 +57,12 @@ const MobileUserOptions = () => {
                     badge: user.unreadMessages,
                     description: "Chat with vets and trainers",
                 },
-                {
-                    title: "Notifications",
-                    link: "/dashboard/notifications",
-                    icon: <FaBell />,
-                    description: "Important updates and alerts",
-                },
+                // {
+                //     title: "Notifications",
+                //     link: "/dashboard/notifications",
+                //     icon: <FaBell />,
+                //     description: "Important updates and alerts",
+                // },
             ],
         },
         {
@@ -139,13 +139,13 @@ const MobileUserOptions = () => {
                             height={50}
                             className="w-16 h-16 object-cover rounded-full border-3 border-white shadow-lg"
                         />
-                        <div className="absolute -bottom-1 -right-1 bg-green-400 w-5 h-5 rounded-full border-2 border-white"></div>
+                        <div className="absolute -bottom-1 -right-1 bg-green-400 w-4 h-4 rounded-full border-2 border-white"></div>
                     </div>
                     <div className="flex-1">
                         <h2 className="text-xl font-bold">{user.fullName}</h2>
                         <p className="text-gray-200 text-sm">{user.email}</p>
                         <div className="flex items-center gap-2 mt-1">
-                            <FaPaw className="relative top-0.5 text-sm" />
+                            <FaPaw className="text-sm" />
                             <span className="text-sm text-gray-200">{pets?.pets?.length || 0} {pets?.pets?.length < 2 ? 'pet' : 'pets'}</span>
                         </div>
                     </div>
