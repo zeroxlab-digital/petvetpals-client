@@ -7,18 +7,21 @@ const page = () => {
   const features = [
     {
       title: "AI Symptom Analyst",
+      description: "Quickly assess unusual behaviors or physical symptoms",
       href: "vet-gpt/symptom-checker",
       icon: <PawPrint className="w-12 h-12 max-sm:w-11 max-sm:h-11 text-blue-600" />,
       bg: "from-blue-300 to-blue-500",
     },
     {
       title: "AI Pet Nutritionist",
+      description: "Tailored meal plans and dietary advice for your pet's breed",
       href: "vet-gpt/nutrition-planner",
       icon: <Bone className="w-12 h-12 max-sm:w-11 max-sm:h-11 text-green-600" />,
       bg: "from-green-300 to-green-500",
     },
     {
       title: "Allergy & Itch Coach",
+      description: "Identify triggers and manage skin sensitivities effectively",
       href: "vet-gpt/allergy-itch-coach",
       icon: <Zap className="w-12 h-12 max-sm:w-11 max-sm:h-11 text-rose-600" />,
       bg: "from-rose-300 to-rose-500",
@@ -44,9 +47,9 @@ const page = () => {
             </div>
 
             <h2 className={`text-white max-sm:text-lg font-semibold text-center`}>{feature.title}</h2>
-            <div className="sm:opacity-0 group-hover:opacity-100 transition-opacity text-sm text-gray-100 mt-2">
-              Explore Now
-            </div>
+            <span className="sm:opacity-0 group-hover:opacity-100 transition-opacity text-sm text-gray-100 mt-1 text-center">
+              {feature.description}
+            </span>
 
             {/* Optional floating gradient overlay for extra depth */}
             <div className="absolute inset-0 rounded-3xl pointer-events-none bg-gradient-to-tr from-white/10 to-black/5"></div>
