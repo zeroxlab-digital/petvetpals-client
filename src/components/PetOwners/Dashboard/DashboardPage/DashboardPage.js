@@ -30,7 +30,7 @@ const DashboardPage = () => {
 
     const { data: { pets } = {}, isLoading, error } = useGetPetsQuery();
     const [selectedPet, setSelectedPet] = useState({});
-    // console.log("Selected pet:", selectedPet);
+    console.log("Selected pet:", selectedPet);
 
     const [showPetMenu, setShowPetMenu] = useState(false)
     const petListContainerRef = useRef(null);
@@ -55,7 +55,7 @@ const DashboardPage = () => {
     }, [pets])
 
     const { data: petData, isLoading: petLoading } = useGetPetDataQuery({ id: selectedPet._id }, { skip: !selectedPet._id });
-    // console.log("pet data:", petData);
+    console.log("pet data:", petData);
     const confirmed_appointment = petData?.confirmed_appointment;
     const pending_appointments = petData?.pending_appointments;
 
@@ -63,25 +63,74 @@ const DashboardPage = () => {
 
     const { data: medicalHistory = [], isLoading: medicalHistoryLoading } = useGetMedicalHistoryQuery({ petId: selectedPet._id }, { skip: !selectedPet._id });
 
+
+    // ---------------------------------------------
+    // Prepare pet health timeline with carry-forward
+    // ---------------------------------------------
+
     const petWeights = selectedPet?.weight || [];
     const petActivityLevel = selectedPet?.activity_level || [];
     const petEnergyLevel = selectedPet?.energy_level || [];
 
     const healthMap = {};
 
+    // Helper to normalize date key
+    const getDateKey = (date) => new Date(date).toDateString();
+
+    // this merges metric arrays into a date map
     const addToMap = (arr, key) => {
         arr.forEach(({ date, value }) => {
-            const dateKey = new Date(date).toDateString();
-            if (!healthMap[dateKey]) healthMap[dateKey] = { name: new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' }), weight: 0, activity: 0, energy: 0 };
+            const d = new Date(date);
+            const dateKey = getDateKey(d);
+
+            if (!healthMap[dateKey]) {
+                healthMap[dateKey] = {
+                    date: d, // this keeps real Date for sorting
+                    name: d.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: '2-digit'
+                    }),
+                    weight: null,
+                    activity: null,
+                    energy: null
+                };
+            }
+
             healthMap[dateKey][key] = value;
         });
     };
-    // Merge all arrays
+
+    // Merge all metrics
     addToMap(petWeights, 'weight');
     addToMap(petActivityLevel, 'activity');
     addToMap(petEnergyLevel, 'energy');
-    // Convert map to array sorted by date
-    const healthData = Object.values(healthMap).sort((a, b) => new Date(a.name) - new Date(b.name));
+
+    // Convert map to sorted array (by real date)
+    const healthDataRaw = Object.values(healthMap).sort(
+        (a, b) => a.date - b.date
+    );
+
+    // ---------------------------------------------
+    // Carry forward last known values
+    // ---------------------------------------------
+    let lastWeight = null;
+    let lastActivity = null;
+    let lastEnergy = null;
+
+    const healthData = healthDataRaw.map(day => {
+        if (day.weight !== null) lastWeight = day.weight;
+        if (day.activity !== null) lastActivity = day.activity;
+        if (day.energy !== null) lastEnergy = day.energy;
+
+        return {
+            ...day,
+            weight: lastWeight ?? 0,
+            activity: lastActivity ?? 0,
+            energy: lastEnergy ?? 0
+        };
+    });
+
 
     if (isLoading) {
         return (
