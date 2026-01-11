@@ -4,7 +4,6 @@ import Input from '@/components/Common/Form/Input';
 import InputSelector from '@/components/Common/Form/InputSelector';
 import Label from '@/components/Common/Form/Label';
 import WeightInput from '@/components/Common/Form/WeightInput';
-import Weight from '@/components/Common/Form/WeightInput';
 import TinySpinner from '@/components/Common/Loader/TinySpinner';
 import SelectOptions from '@/components/Common/Form/SelectOptions';
 import { useAddPetMutation, useUpdateAPetMutation } from '@/redux/services/petApi';
@@ -127,9 +126,6 @@ const AddUpdatePet = ({ popup, setPopup }) => {
     "exotic shorthair",
     "korat"
   ];
-  // const [inputValue, setInputValue] = useState("");
-  // const [showDropdown, setShowDropdown] = useState(false);
-  // const breedList = breeds.filter(breed => breed.toLowerCase().includes(inputValue.toLowerCase()));
 
   return (
     <div className="max-h-[80vh] overflow-y-auto space-y-5">
@@ -176,7 +172,7 @@ const AddUpdatePet = ({ popup, setPopup }) => {
             <Input
               type="date"
               id="dob"
-              value={formState.date_of_birth}
+              value={formState.date_of_birth?.split("T")[0] || ""}
               onChange={(e) => handleChange('date_of_birth', e.target.value)}
             />
           </div>
