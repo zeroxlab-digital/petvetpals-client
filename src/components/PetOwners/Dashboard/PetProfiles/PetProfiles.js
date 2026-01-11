@@ -13,10 +13,11 @@ import { FaPaw } from 'react-icons/fa6';
 import PetDetails from './PetDetails';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { getPetAge } from '@/utils/getPetAge';
 
 const PetProfiles = () => {
     const { data, isLoading, isError, error } = useGetPetsQuery();
-
+    console.log(data)
     const [popup, setPopup] = useState({
         show: false,
         type: null,
@@ -47,7 +48,7 @@ const PetProfiles = () => {
                         <div className='relative'>
                             <Image src={pet.image || "/images/no-image.png"} alt="pet's-img" width={200} height={200} className='object-cover w-full h-56 rounded-lg' />
                             <div className='absolute top-2 left-3 right-3 flex items-center justify-between'>
-                                <span className={`rounded-full px-2 py-[2px] text-xs font-medium flex items-center gap-1 max-w-max ${pet.gender == 'male' ? 'bg-[#DBEAFE] text-blue-500' : 'bg-[#FCE7F3] text-pink-500'}`}>
+                                <span className={`capitalize rounded-full px-2 py-[2px] text-xs font-medium flex items-center gap-1 max-w-max ${pet.gender == 'male' ? 'bg-[#DBEAFE] text-blue-500' : 'bg-[#FCE7F3] text-pink-500'}`}>
                                     <span>{pet.gender == 'male' ? '♂' : '♀'}</span>
                                     {pet.gender}
                                 </span>
@@ -57,7 +58,8 @@ const PetProfiles = () => {
                             <ul className='text-gray-600 flex flex-col gap-2 mb-4'>
                                 <li className='mb-2 flex items-center gap-1 text-lg font-semibold text-gray-700 capitalize'>
                                     <h4>{pet.name}</h4>
-                                    <span className='text-sm font-normal text-gray-600 '>• {pet.type} • {pet.age} years old</span>
+                                    <span className='text-sm font-normal text-gray-600 '>• {pet.type} • {getPetAge(pet.date_of_birth)}
+                                    </span>
                                 </li>
                                 <li className='flex items-center justify-between text-sm capitalize'><span className='flex items-center gap-2'><Dna size={17} className='text-primary' /> Breed</span> {pet.breed}</li>
                                 <li className='flex items-center justify-between text-sm'><span className='flex items-center gap-2'><Scale size={17} className='text-primary' /> Weight (lbs)</span>

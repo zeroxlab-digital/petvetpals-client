@@ -6,6 +6,7 @@ import HealthRecords from '../DashboardPage/HealthRecords/HealthRecords';
 import Medications from '../DashboardPage/Medications/Medications';
 import { useGetPetsQuery } from '@/redux/services/petApi';
 import { PetSpinner } from '@/components/Common/Loader/PetSpinner';
+import { getPetAge } from '@/utils/getPetAge';
 
 const PetDetails = ({ petId }) => {
     const { data, isLoading, isError, error } = useGetPetsQuery();
@@ -50,12 +51,12 @@ const PetDetails = ({ petId }) => {
                                 <p className="text-white/90 text-sm mb-1 capitalize">{pet.breed}</p>
 
                                 <p className="text-xs text-white/90">
-                                    {pet.type} • {pet.age} Years Old
+                                    {pet.type} • {getPetAge(pet.date_of_birth)}
                                 </p>
                             </div>
 
                             <div
-                                className={`mt-1 text-xs font-medium px-3 py-1 h-max rounded-full flex items-center gap-1 w-max ${pet.gender === "male"
+                                className={`capitalize mt-1 text-xs font-medium px-3 py-1 h-max rounded-full flex items-center gap-1 w-max ${pet.gender === "male"
                                     ? "bg-blue-400/10 text-blue-500"
                                     : "bg-pink-400/10 text-pink-500"
                                     }`}
@@ -74,7 +75,7 @@ const PetDetails = ({ petId }) => {
                             </h1>
 
                             <span
-                                className={`text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1 w-max ${pet.gender === "male"
+                                className={`capitalize text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1 w-max ${pet.gender === "male"
                                     ? "bg-blue-500/20 text-blue-300"
                                     : "bg-pink-500/20 text-pink-300"
                                     }`}
@@ -83,8 +84,8 @@ const PetDetails = ({ petId }) => {
                             </span>
                         </div>
 
-                        <p className="hidden sm:block text-sm text-white/90 mt-1">
-                            {pet.type} • {pet.age} Years Old • {pet.breed}
+                        <p className="hidden sm:block text-sm text-white/90 mt-1 capitalize">
+                            {pet.type} • {getPetAge(pet.date_of_birth)} • {pet.breed}
                         </p>
 
                         {/* STATS */}

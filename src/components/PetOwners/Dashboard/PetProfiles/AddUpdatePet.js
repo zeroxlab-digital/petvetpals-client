@@ -21,7 +21,7 @@ const AddUpdatePet = ({ popup, setPopup }) => {
   const [formState, setFormState] = useState({
     name: isUpdate ? popup.pet?.name || '' : '',
     type: isUpdate ? popup.pet?.type || '' : '',
-    age: isUpdate ? popup.pet?.age || '' : '',
+    date_of_birth: isUpdate ? popup.pet?.date_of_birth || '' : '',
     breed: isUpdate ? popup.pet?.breed || '' : '',
     gender: isUpdate ? popup.pet?.gender || '' : '',
     weight: isUpdate ? recentWeight.value || '' : '',
@@ -50,7 +50,7 @@ const AddUpdatePet = ({ popup, setPopup }) => {
     const formData = new FormData();
     formData.append('name', formState.name);
     formData.append('type', formState.type);
-    formData.append('age', formState.age);
+    formData.append('date_of_birth', formState.date_of_birth);
     formData.append('breed', formState.breed);
     formData.append('gender', formState.gender);
     formData.append('weight', formState.weight);
@@ -172,15 +172,12 @@ const AddUpdatePet = ({ popup, setPopup }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
-            <Label htmlFor="age">Age (years)</Label>
+            <Label htmlFor="ob">Date of birth (est.)</Label>
             <Input
-              type="number"
-              id="age"
-              value={formState.age}
-              placeholder={'e.g., 0.5, 1, 5'}
-              onChange={(e) => handleChange('age', e.target.value)}
-              min="0"
-              step="0.1"
+              type="date"
+              id="dob"
+              value={formState.date_of_birth}
+              onChange={(e) => handleChange('date_of_birth', e.target.value)}
             />
           </div>
           <WeightInput
