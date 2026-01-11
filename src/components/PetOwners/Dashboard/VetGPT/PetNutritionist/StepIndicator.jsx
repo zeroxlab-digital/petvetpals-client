@@ -1,0 +1,54 @@
+import React from "react";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { Activity, Check, Heart, Sparkles, Utensils } from "lucide-react";
+
+const StepIndicator = ({ currentStep, totalSteps }) => {
+  const steps = [
+    { number: 1, title: "Pet Info", icon: <Heart className="h-4 w-4" /> },
+    { number: 2, title: "Health & Activity", icon: <Activity className="h-4 w-4" /> },
+    { number: 3, title: "Diet Analysis", icon: <Utensils className="h-4 w-4" /> },
+    { number: 4, title: "Nutrition Plan", icon: <Sparkles className="h-4 w-4" /> },
+  ]
+
+  return (
+    <div className="flex items-center justify-center mb-8 max-sm:hidden">
+      <div className="flex items-center space-x-4">
+        {steps.map((step, index) => (
+          <div key={step.number} className="flex items-center">
+            <motion.div
+              className={cn(
+                "flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300",
+                currentStep >= step.number
+                  ? "bg-gradient-to-r from-green-500 to-emerald-500 border-green-500 text-white shadow-lg"
+                  : currentStep === step.number - 1
+                    ? "border-green-300 bg-green-50 text-green-600"
+                    : "border-gray-200 bg-gray-50 text-gray-400",
+              )}
+              whileHover={{ scale: 1.1 }}
+              animate={currentStep === step.number ? { scale: [1, 1.1, 1] } : {}}
+              transition={{ duration: 0.5, repeat: currentStep === step.number ? 2 : 0 }}
+            >
+              {currentStep > step.number ? <Check className="h-5 w-5" /> : step.icon}
+            </motion.div>
+            <div className="ml-2 hidden sm:block">
+              <p className={cn("text-sm font-medium", currentStep >= step.number ? "text-green-600" : "text-gray-500")}>
+                {step.title}
+              </p>
+            </div>
+            {index < steps.length - 1 && (
+              <div
+                className={cn(
+                  "w-8 h-0.5 mx-4 transition-all duration-300",
+                  currentStep > step.number ? "bg-gradient-to-r from-green-500 to-emerald-500" : "bg-gray-200",
+                )}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export default StepIndicator;

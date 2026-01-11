@@ -10,11 +10,8 @@ import { useGetAllergyCoachResponseMutation, useGetAllergyItchReportHistoryQuery
 import { HiOutlineFaceFrown } from "react-icons/hi2"
 import { useRouter } from "next/navigation"
 import { getPetAge } from "@/utils/getPetAge"
-
-// Custom utility function to conditionally join class names
-const cn = (...classes) => {
-  return classes.filter(Boolean).join(" ")
-}
+import { cn } from "@/lib/utils"
+import { Skeleton } from "@/components/ui/skeleton"
 
 // Custom Button component
 const Button = ({
@@ -132,16 +129,6 @@ const Badge = ({ children, variant = "default", className, ...props }) => {
     >
       {children}
     </span>
-  )
-}
-
-// Skeleton component
-const Skeleton = ({ className, ...props }) => {
-  return (
-    <div
-      className={cn("animate-pulse rounded-xl bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200", className)}
-      {...props}
-    />
   )
 }
 
@@ -563,7 +550,7 @@ export default function AllergyItchCoach() {
                             alt={selectedPet.name}
                             width={40}
                             height={40}
-                            className="object-contain p-2 w-full h-full"
+                            className={`${selectedPet.image ? "object-cover" : "object-contain p-2"} w-full h-full`}
                           />
                         </div>
                         <div className="text-left">
