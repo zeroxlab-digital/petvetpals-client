@@ -1,97 +1,181 @@
 "use client";
+import React, { useState } from "react";
 import Link from "next/link";
-import Input from "../Form/Input";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 import Image from "next/image";
-import TinySpinner from "../Loader/TinySpinner";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { toast } from "react-toastify";
+import { HiOutlineArrowRight, HiOutlineEnvelope, HiOutlineLockClosed } from "react-icons/hi2";
+import { PawPrint, Stethoscope, Sparkles } from "lucide-react";
 import { useSignInUserMutation } from "@/redux/services/userApi";
-import { PawPrint, Stethoscope } from "lucide-react";
-import PawBackground from "../PawBackground/PawBackground";
 import { useLoginVetMutation } from "@/redux/services/vetApi";
 
+import Input from "../Form/Input";
+import TinySpinner from "../Loader/TinySpinner";
+
 const SignInPage = ({ mode }) => {
-    console.log(mode)
-    const notify = (message, type) => {
-        toast(message, { type: type, autoClose: 1000 });
-    }
     const router = useRouter();
     const [formData, setFormData] = useState({
         email: "",
         password: ""
-    })
+    });
 
     const [signInUser, { isLoading: userLoading, error: userError }] = useSignInUserMutation();
     const [loginVet, { isLoading: vetLoading, error: vetError }] = useLoginVetMutation();
+
+    const isLoading = userLoading || vetLoading;
+    const apiError = userError || vetError;
+
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            if (mode === 'user') {
-                const response = await signInUser(formData);
-                console.log(response)
-                if (response.data?.success === "true") {
-                    notify("User login successfull!", "success");
-                    router.push("/");
-                }
-            } else if (mode === 'vet') {
-                const response = await loginVet(formData);
-                console.log(response)
-                if (response.data?.success) {
-                    notify("Vet login successfull!", "success");
-                    router.push("/veterinarian/dashboard");
-                }
+            const mutation = mode === 'user' ? signInUser : loginVet;
+            const response = await mutation(formData);
+
+            if (response.data?.success || response.data?.success === "true") {
+                toast.success("Welcome back!", { autoClose: 2000 });
+                router.push(mode === 'user' ? "/dashboard" : "/veterinarian/dashboard");
             }
         } catch (error) {
-            console.log(error);
+            console.error("Login Error:", error);
         }
-    }
+    };
+
     return (
-        <div className="relative bg-pink-900 bg-opacity-5">
-            <PawBackground />
-            <div className="w-full sm:w-[21rem] max-md:px-7 text-center flex justify-center items-center h-screen mx-auto ">
-                <div className="w-full mx-auto">
-                    <>
-                        <h2 className="text-2xl font-bold text-primary mb-7 flex items-center justify-center">
-                            {mode === 'user' ?
-                                <><PawPrint className="mr-3" /> Login Pawfile</>
-                                :
-                                <><Stethoscope className="mr-3 text-blue-600" /> Login Pet<span className="text-blue-600">Vet</span>Pals</>
-                            }
+        <div className="min-h-screen w-full flex bg-white overflow-hidden">
+
+            <div className="hidden lg:flex lg:w-1/2 relative bg-slate-50 items-center justify-center p-12 overflow-hidden">
+                <div className="absolute inset-0 z-0 opacity-40">
+                    <Image
+                        src={mode === 'user' ? "/images/dog-white-yellow.jpg" : "/images/cat-vet.jpg"}
+                        alt="Background"
+                        fill
+                        className="object-cover grayscale-[20%]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-l from-white via-white/20 to-transparent" />
+                </div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="relative z-10 max-w-md text-white"
+                >
+                    <div className="mb-8 w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-2xl shadow-pink-500/20">
+                        {mode === 'user' ? <PawPrint className="w-8 h-8" /> : <Stethoscope className="w-8 h-8" />}
+                    </div>
+                    <h1 className="text-5xl text-primary font-black leading-tight tracking-tighter mb-6">
+                        Good to see <br />
+                        <span className="text-primary italic font-light">you again.</span>
+                    </h1>
+                    <p className="text-slate-500 text-lg font-medium leading-relaxed">
+                        {mode === 'user'
+                            ? "Your pet's health insights and AI-powered records are just a few clicks away."
+                            : "Access your clinical dashboard and stay connected with your patients effortlessly."}
+                    </p>
+
+                    <div className="mt-12 p-4 rounded-2xl bg-white/30 border border-white/10 backdrop-blur-2xl inline-flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
+                            <Sparkles className="w-4 h-4 text-blue-400" />
+                        </div>
+                        <span className="text-xs text-blue-400 font-bold tracking-wide">Syncing your digital clinic...</span>
+                    </div>
+                </motion.div>
+            </div>
+
+            <div className="w-full lg:w-1/2 flex items-center justify-center p-6 md:p-12 bg-white relative">
+
+                <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+                    style={{ backgroundImage: `linear-gradient(#2563eb 1px, transparent 1px), linear-gradient(90deg, #2563eb 1px, transparent 1px)`, backgroundSize: '40px 40px' }}
+                />
+
+                <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="w-full max-w-md z-10"
+                >
+                    <header className="mb-10 max-lg:text-center">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 mb-4">
+                            <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">
+                                {mode === 'user' ? "Pet Parent Access" : "Veterinary Partner"}
+                            </span>
+                        </div>
+                        <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+                            {mode === "user" ? "Sign In" : "Vet Portal"}
                         </h2>
-                        <form onSubmit={handleLogin} action="#" className="flex flex-col gap-3">
-                            <Input type="email" placeholder="Email address"
-                                name="email"
+                        <p className="text-slate-500 font-medium mt-2">Access your PetVetPals account.</p>
+                    </header>
+
+                    <form onSubmit={handleLogin} className="space-y-4">
+                        <div className="relative group">
+                            <Input
+                                type="email"
+                                placeholder="Email Address"
                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                 value={formData.email}
-                                classNames={"bg-transparent text-gray-900 border-gray-300"}
+                                classNames="pl-12 py-4 bg-slate-50 border-transparent focus:border-primary focus:bg-white transition-all rounded-2xl text-sm"
                             />
-                            <Input type="password" placeholder="Password"
-                                name="password"
+                            <HiOutlineEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl group-focus-within:text-primary transition-colors" />
+                        </div>
+
+                        <div className="relative group">
+                            <Input
+                                type="password"
+                                placeholder="Password"
                                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                 value={formData.password}
-                                classNames={"bg-transparent text-gray-900 border-gray-300"}
+                                classNames="pl-12 py-4 bg-slate-50 border-transparent focus:border-primary focus:bg-white transition-all rounded-2xl text-sm"
                             />
-                            <div className="flex">
-                                <Link className="text-sm text-gray-800" href="/forgot-password">Forgot password?</Link>
-                            </div>
-                            {(userError || vetError) && <p className="text-red-400">{(userError || vetError).data?.message}</p>}
-                            <button type="submit" className={`bg-primary hover:bg-primaryHover duration-200 p-3 rounded-full cursor-pointer text-white mt-5 ${(userError || vetError) && '!mt-0'}`}>{userLoading || vetLoading ? <TinySpinner /> : 'Sign In'}</button>
-                        </form>
-                        <div className="my-5">
-                            <p className="text-sm text-gray-800">Dont have an account? <Link href="/signup" className="text-primary">Sign Up</Link></p>
+                            <HiOutlineLockClosed className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl group-focus-within:text-primary transition-colors" />
                         </div>
-                    </>
-                    <div className="flex items-center justify-between gap-4">
-                        <hr className="flex-grow border-t border-gray-600" />
-                        <p className="text-sm text-gray-800">OR</p>
-                        <hr className="flex-grow border-t border-gray-600" />
+
+                        <div className="flex justify-end px-1">
+                            <Link href="/forgot-password" size="sm" className="text-xs font-black text-primary uppercase tracking-widest hover:underline">
+                                Forgot Password?
+                            </Link>
+                        </div>
+
+                        {apiError && (
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-3 bg-red-50 border border-red-100 rounded-xl">
+                                <p className="text-xs text-red-500 font-bold text-center">
+                                    {apiError?.data?.message || "Invalid credentials. Please try again."}
+                                </p>
+                            </motion.div>
+                        )}
+
+                        <button
+                            type="submit"
+                            disabled={isLoading}
+                            className="w-full py-4 bg-primary hover:bg-primaryHover text-white rounded-2xl font-black uppercase tracking-widest text-sm transition-all shadow-xl shadow-slate-200 flex items-center justify-center gap-3 active:scale-[0.98] group"
+                        >
+                            {isLoading ? <TinySpinner /> : (
+                                <>Sign In <HiOutlineArrowRight className="group-hover:translate-x-1 transition-transform" /></>
+                            )}
+                        </button>
+                    </form>
+
+                    <div className="mt-8">
+                        <div className="relative flex items-center justify-center mb-8">
+                            <hr className="w-full border-slate-100" />
+                            <span className="absolute bg-white px-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Or Continue With</span>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <button className="flex items-center justify-center gap-3 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all text-xs font-bold text-slate-700">
+                                <Image src="/images/google.webp" alt="Google" width={16} height={16} /> Google
+                            </button>
+                            <button className="flex items-center justify-center gap-3 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all text-xs font-bold text-slate-700">
+                                <Image src="/images/facebook-icon.png" alt="Facebook" width={16} height={16} /> Facebook
+                            </button>
+                        </div>
+
+                        <p className="text-center text-slate-500 text-sm mt-10 font-medium">
+                            Don't have an account?{" "}
+                            <Link href={mode === "user" ? "/signup" : "/veterinarian/signup"} className="text-primary font-black tracking-widest hover:underline ml-1">
+                                Create One
+                            </Link>
+                        </p>
                     </div>
-                    <div className="text-left flex flex-col gap-2 mt-5">
-                        <button className="text-sm w-full hover:bg-[#e5e5e5a5] duration-200 text-gray-800 border border-gray-400 px-5 py-3 rounded-full  flex items-center gap-3"><Image src="/images/google.webp" alt="google-icon" width={20} height={20} /> Continue with Google</button>
-                        <button className="text-sm w-full hover:bg-[#e5e5e5a5] duration-200 text-gray-800 border border-gray-400 px-5 py-3 rounded-full flex items-center gap-3"><Image src="/images/facebook-icon.png" alt="google-icon" width={20} height={20} /> Continue with Facebook</button>
-                    </div>
-                </div>
+                </motion.div>
             </div>
         </div>
     );

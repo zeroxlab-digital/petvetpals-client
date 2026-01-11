@@ -1,22 +1,19 @@
 "use client";
+import React, { useState } from "react";
 import Link from "next/link";
-import Input from "../Form/Input";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 import Image from "next/image";
-import TinySpinner from "../Loader/TinySpinner";
-import { useRegisterUserMutation } from "@/redux/services/userApi";
-import { useRegisterVetMutation } from "@/redux/services/vetApi"; // <-- add this for vet
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { toast } from "react-toastify";
+import { HiOutlineArrowRight, HiOutlineEnvelope, HiOutlineLockClosed, HiOutlineUser } from "react-icons/hi2";
 import { PawPrint, Stethoscope } from "lucide-react";
-import PawBackground from "../PawBackground/PawBackground";
+import { useRegisterUserMutation } from "@/redux/services/userApi";
+import { useRegisterVetMutation } from "@/redux/services/vetApi";
+
+import Input from "../Form/Input";
+import TinySpinner from "../Loader/TinySpinner";
 
 const SignUpPage = ({ mode }) => {
-    console.log(mode)
-    const notify = (message, type) => {
-        toast(message, { type: type, autoClose: 1000 });
-    };
-
     const router = useRouter();
     const [formData, setFormData] = useState({
         fullName: "",
@@ -28,126 +25,167 @@ const SignUpPage = ({ mode }) => {
     const [registerUser, { isLoading: userLoading, error: userError }] = useRegisterUserMutation();
     const [registerVet, { isLoading: vetLoading, error: vetError }] = useRegisterVetMutation();
 
+    const notify = (message, type) => {
+        toast(message, { type: type, autoClose: 2000 });
+    };
+
     const handleRegistration = async (e) => {
         e.preventDefault();
         try {
-            if (mode === "user") {
-                const response = await registerUser(formData);
-                console.log(response);
-                if (response.data?.status === "success") {
-                    notify("User registration successful! Please sign in.", "success");
-                    router.push("/signin");
-                }
-            } else if (mode === "vet") {
-                const response = await registerVet(formData);
-                console.log(response);
-                if (response.data) {
-                    notify("Vet registration successful! Please sign in.", "success");
-                    router.push("/veterinarian/signin");
-                }
+            const mutation = mode === "user" ? registerUser : registerVet;
+            const response = await mutation(formData);
+            
+            if (response.data) {
+                notify(`${mode === "user" ? "User" : "Vet"} registration successful!`, "success");
+                router.push(mode === "user" ? "/signin" : "/veterinarian/signin");
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     };
 
     return (
-        <div className="relative bg-pink-900 bg-opacity-5">
-            <PawBackground />
-            <div className="w-full sm:w-[21rem] max-md:px-7 text-center flex justify-center items-center h-screen mx-auto">
-                <div className="w-full mx-auto">
-                    <>
-                        <h2 className="text-2xl font-bold text-primary mb-7 flex items-center justify-center">
-                            {mode === "user" ? (
-                                <>
-                                    <PawPrint className="mr-3" /> Create Pawfile
-                                </>
-                            ) : (
-                                <>
-                                    <Stethoscope className="mr-3 text-blue-600" /> Create Pet
-                                    <span className="text-blue-600">Vet</span>Pals
-                                </>
-                            )}
-                        </h2>
+        <div className="min-h-screen w-full flex bg-white overflow-hidden">
 
-                        <form onSubmit={handleRegistration} className="flex flex-col gap-3">
+            <div className="hidden lg:flex lg:w-1/2 relative bg-slate-50 items-center justify-center p-12">
+                <div className="absolute inset-0 z-0 opacity-40">
+                    <Image 
+                        src={mode === 'user' ? "/images/dog-white-yellow.jpg" : "/images/cat-vet.jpg"} 
+                        alt="Background" 
+                        fill 
+                        className="object-cover grayscale-[20%]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-l from-white via-white/20 to-transparent" />
+                </div>
+                
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="relative z-10 max-w-md"
+                >
+                    <div className="mb-8 w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-200">
+                        {mode === 'user' ? <PawPrint className="text-white w-8 h-8" /> : <Stethoscope className="text-white w-8 h-8" />}
+                    </div>
+                    <h1 className="text-5xl font-black text-slate-900 leading-tight tracking-tighter mb-6">
+                        Join the future of <span className="text-primary italic font-light">pet wellness.</span>
+                    </h1>
+                    <p className="text-slate-500 text-lg font-medium leading-relaxed">
+                        {mode === 'user' 
+                            ? "Start tracking symptoms and managing your pet's health with AI-powered insights today." 
+                            : "Provide world-class digital care and stay connected with pet parents effortlessly."}
+                    </p>
+                </motion.div>
+            </div>
+
+            <div className="w-full lg:w-1/2 flex items-center justify-center p-6 md:p-12 bg-white relative">
+
+                <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+                    style={{ backgroundImage: `linear-gradient(#2563eb 1px, transparent 1px), linear-gradient(90deg, #2563eb 1px, transparent 1px)`, backgroundSize: '40px 40px' }}
+                />
+
+                <motion.div 
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="w-full max-w-md z-10"
+                >
+                    <header className="mb-10 max-lg:text-center">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 mb-4">
+                            <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">
+                                {mode === 'user' ? "Pet Parent Access" : "Veterinary Partner"}
+                            </span>
+                        </div>
+                        <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+                            {mode === "user" ? "Create Pawfile" : "Vet Registration"}
+                        </h2>
+                        <p className="text-slate-500 font-medium mt-2">Enter your details to get started.</p>
+                    </header>
+
+                    <form onSubmit={handleRegistration} className="space-y-4">
+                        <div className="relative">
                             <Input
                                 type="text"
-                                placeholder="Full name"
-                                name="fullName"
+                                placeholder="Full Name"
                                 onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                                 value={formData.fullName}
-                                classNames={"bg-transparent text-gray-900 border-gray-300"}
+                                classNames="pl-12 py-4 bg-slate-50/50 border-slate-200 focus:border-primary focus:bg-white transition-all rounded-2xl"
                             />
+                            <HiOutlineUser className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl" />
+                        </div>
+
+                        <div className="relative">
                             <Input
                                 type="email"
-                                placeholder="Email address"
-                                name="email"
+                                placeholder="Email Address"
                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                 value={formData.email}
-                                classNames={"bg-transparent text-gray-900 border-gray-300"}
+                                classNames="pl-12 py-4 bg-slate-50/50 border-slate-200 focus:border-primary focus:bg-white transition-all rounded-2xl"
                             />
-                            <Input
-                                type="password"
-                                placeholder="Password"
-                                name="password"
-                                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                value={formData.password}
-                                classNames={"bg-transparent text-gray-900 border-gray-300"}
-                            />
-                            <Input
-                                type="password"
-                                placeholder="Confirm password"
-                                name="confirmPassword"
-                                onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                                value={formData.confirmPassword}
-                                classNames={"bg-transparent text-gray-900 border-gray-300"}
-                            />
-
-                            {(userError || vetError) && (
-                                <p className="text-red-400">
-                                    {(userError || vetError)?.data?.message}
-                                </p>
-                            )}
-
-                            <button
-                                type="submit"
-                                className={`bg-primary hover:bg-primaryHover duration-200 p-3 rounded-full cursor-pointer text-white mt-5 ${
-                                    (userError || vetError) && "!mt-0"
-                                }`}
-                            >
-                                {userLoading || vetLoading ? <TinySpinner /> : "Sign Up"}
-                            </button>
-                        </form>
-
-                        <div className="my-5">
-                            <p className="text-sm text-gray-800">
-                                Already have an account?{" "}
-                                <Link
-                                    href={mode === "user" ? "/signin" : "/veterinarian/signin"}
-                                    className="text-primary"
-                                >
-                                    Sign In
-                                </Link>
-                            </p>
+                            <HiOutlineEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl" />
                         </div>
-                    </>
 
-                    <div className="flex items-center justify-between gap-4">
-                        <hr className="flex-grow border-t border-gray-600" />
-                        <p className="text-sm text-gray-800">OR</p>
-                        <hr className="flex-grow border-t border-gray-600" />
-                    </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="relative">
+                                <Input
+                                    type="password"
+                                    placeholder="Password"
+                                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                    value={formData.password}
+                                    classNames="pl-12 py-4 bg-slate-50/50 border-slate-200 focus:border-primary focus:bg-white transition-all rounded-2xl"
+                                />
+                                <HiOutlineLockClosed className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl" />
+                            </div>
+                            <div className="relative">
+                                <Input
+                                    type="password"
+                                    placeholder="Confirm"
+                                    onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                                    value={formData.confirmPassword}
+                                    classNames="pl-12 py-4 bg-slate-50/50 border-slate-200 focus:border-primary focus:bg-white transition-all rounded-2xl"
+                                />
+                                <HiOutlineLockClosed className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl" />
+                            </div>
+                        </div>
 
-                    <div className="text-left flex flex-col gap-2 mt-5">
-                        <button className="text-sm w-full hover:bg-[#e5e5e5a5] duration-200 text-gray-800 border border-gray-400 px-5 py-3 rounded-full flex items-center gap-3">
-                            <Image src="/images/google.webp" alt="google-icon" width={20} height={20} /> Continue with Google
+                        {(userError || vetError) && (
+                            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-sm text-red-500 font-bold px-2">
+                                {(userError || vetError)?.data?.message || "An error occurred"}
+                            </motion.p>
+                        )}
+
+                        <button
+                            type="submit"
+                            disabled={userLoading || vetLoading}
+                            className="w-full py-4 bg-primary hover:bg-primaryHover text-white rounded-2xl font-black uppercase tracking-widest text-sm transition-all shadow-lg shadow-pink-100 flex items-center justify-center gap-3 active:scale-[0.98]"
+                        >
+                            {userLoading || vetLoading ? <TinySpinner /> : (
+                                <>Sign Up <HiOutlineArrowRight /></>
+                            )}
                         </button>
-                        <button className="text-sm w-full hover:bg-[#e5e5e5a5] duration-200 text-gray-800 border border-gray-400 px-5 py-3 rounded-full flex items-center gap-3">
-                            <Image src="/images/facebook-icon.png" alt="facebook-icon" width={20} height={20} /> Continue with Facebook
-                        </button>
+                    </form>
+
+                    <div className="mt-8">
+                        <div className="relative flex items-center justify-center mb-6">
+                            <hr className="w-full border-slate-100" />
+                            <span className="absolute bg-white px-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Or continue with</span>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <button className="flex items-center justify-center gap-3 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all text-sm font-bold text-slate-700">
+                                <Image src="/images/google.webp" alt="Google" width={18} height={18} /> Google
+                            </button>
+                            <button className="flex items-center justify-center gap-3 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all text-sm font-bold text-slate-700">
+                                <Image src="/images/facebook-icon.png" alt="Facebook" width={18} height={18} /> Facebook
+                            </button>
+                        </div>
+
+                        <p className="text-center text-slate-500 text-sm mt-8 font-medium">
+                            Already have an account?{" "}
+                            <Link href={mode === "user" ? "/signin" : "/veterinarian/signin"} className="text-primary font-black hover:underline">
+                                Sign In
+                            </Link>
+                        </p>
                     </div>
-                </div>
+                </motion.div>
             </div>
         </div>
     );
