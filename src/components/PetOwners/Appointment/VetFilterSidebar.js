@@ -161,7 +161,7 @@ const VetFilterSidebar = ({ setFilterChange, vets, isLoading }) => {
                                                 key={o.id}
                                                 onClick={() => handleSort(o.id)}
                                                 className={`py-3 px-4 rounded-xl text-xs font-bold border transition-all ${
-                                                    filters.sortBy === o.id ? 'bg-slate-900 text-white border-slate-900' : 'border-slate-100 text-slate-500'
+                                                    filters.sortBy === o.id ? 'bg-primary text-white border-slate-900' : 'border-slate-100 text-slate-500'
                                                 }`}
                                             >
                                                 {o.label}

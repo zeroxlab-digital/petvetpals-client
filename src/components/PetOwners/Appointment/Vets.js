@@ -34,10 +34,8 @@ const Vets = ({ vets, isLoading, error, currentPath }) => {
                             >
                                 <div className='grid md:grid-cols-[1fr_auto] items-center p-6 lg:p-8 gap-6'>
                                     
-                                    {/* Left Content: Profile & Experience */}
                                     <div className='flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-10'>
                                         
-                                        {/* Avatar & Badge */}
                                         <div className='relative flex-shrink-0 w-24 h-24'>
                                             <div className='absolute inset-0 bg-primary/10 rounded-full scale-110 group-hover:scale-125 transition-transform duration-500' />
                                             <Image 
@@ -50,7 +48,6 @@ const Vets = ({ vets, isLoading, error, currentPath }) => {
                                             <div className='absolute bottom-0 right-0 z-20 bg-green-500 border-2 border-white w-5 h-5 rounded-full' title='Available' />
                                         </div>
 
-                                        {/* Info Bio */}
                                         <div className='space-y-3'>
                                             <div>
                                                 <h4 className='text-xl font-black text-slate-900 tracking-tight group-hover:text-primary transition-colors flex items-center gap-2'>
@@ -62,7 +59,6 @@ const Vets = ({ vets, isLoading, error, currentPath }) => {
                                                 </p>
                                             </div>
 
-                                            {/* Specialities Chips */}
                                             <div className='flex flex-wrap gap-2'>
                                                 {specialities.slice(0, 3).map((s, i) => (
                                                     <span key={i} className='px-3 py-1 bg-slate-50 text-slate-600 text-[10px] font-bold rounded-lg border border-slate-100 group-hover:bg-white transition-colors uppercase tracking-wider'>
@@ -76,7 +72,6 @@ const Vets = ({ vets, isLoading, error, currentPath }) => {
                                         </div>
                                     </div>
 
-                                    {/* Right Content: Business Details & CTA */}
                                     <div className='flex flex-col md:flex-row items-center gap-6 md:gap-12 border-t md:border-t-0 md:border-l border-slate-100 pt-6 md:pt-0 md:pl-12'>
                                         
                                         <div className='flex flex-row md:flex-col gap-8 md:gap-3 w-full md:w-auto'>
@@ -94,17 +89,16 @@ const Vets = ({ vets, isLoading, error, currentPath }) => {
                                             </div>
                                         </div>
 
-                                        {/* Pricing Box */}
-                                        <div className='bg-slate-900 group-hover:bg-primary transition-colors duration-300 p-5 rounded-2xl w-full md:w-40 text-center relative overflow-hidden'>
+                                        <div className='bg-primary transition-colors duration-300 p-5 rounded-2xl w-full md:w-40 text-center relative overflow-hidden'>
                                             <div className='relative z-10'>
                                                 <p className='text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1'>Fee</p>
-                                                <h3 className='text-xl font-black text-white'>${fees.toFixed(0)}</h3>
+                                                <h3 className='text-xl font-black text-white'>${fees.toFixed(2)}</h3>
                                                 <div className='mt-2 flex items-center justify-center gap-1 text-white/80 group-hover:text-white'>
                                                     <span className='text-[9px] font-black uppercase tracking-tighter'>Book Now</span>
                                                     <ArrowUpRight className='w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform' />
                                                 </div>
                                             </div>
-                                            {/* Decorative Background Icon */}
+
                                             <Stethoscope className='absolute -bottom-2 -right-2 w-16 h-16 text-white/10 rotate-12' />
                                         </div>
                                     </div>
