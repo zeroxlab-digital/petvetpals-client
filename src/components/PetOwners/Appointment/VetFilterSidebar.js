@@ -1,287 +1,204 @@
 "use client";
 import React, { useState } from 'react';
-import { HiBars4, HiBarsArrowUp, HiMiniAdjustmentsHorizontal, HiOutlineBarsArrowDown, HiOutlineXCircle } from 'react-icons/hi2';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+    HiOutlineAdjustmentsHorizontal, 
+    HiOutlineArrowPath, 
+    HiCheck,
+    HiChevronDown
+} from 'react-icons/hi2';
 
 const VetFilterSidebar = ({ setFilterChange, vets, isLoading }) => {
+    const [filters, setFilters] = useState({ specialities: [], sortBy: "Relevance" });
+    const [openMobile, setOpenMobile] = useState(false);
 
-    const [filters, setFilters] = useState({
-        specialities: [],
-        sortBy: "Relevance"
-    });
+    const specialties = ["General Veterinary", "Dermatology", "Dentistry", "Internal Medicine"];
+    const sortOptions = [
+        { id: 'Relevance', label: 'Recommended' },
+        { id: 'Popularity', label: 'Top Rated' },
+        { id: 'Experience', label: 'Most Experienced' },
+        { id: 'Fee', label: 'Price: Low to High' }
+    ];
 
-    const handleSpecialityChange = (e) => {
-        const { value, checked } = e.target;
-        const updatedSpecialities = checked
-            ? [...filters.specialities, value]
-            : filters.specialities.filter(speciality => speciality !== value);
-
-        setFilters({ ...filters, specialities: updatedSpecialities });
-        setFilterChange({ ...filters, specialities: updatedSpecialities });
+    const handleSpeciality = (val) => {
+        const updated = filters.specialities.includes(val)
+            ? filters.specialities.filter(s => s !== val)
+            : [...filters.specialities, val];
+        const state = { ...filters, specialities: updated };
+        setFilters(state);
+        setFilterChange(state);
     };
 
-    const handleSortChange = (e) => {
-        setFilters({ ...filters, sortBy: e.target.value });
-        setFilterChange({ ...filters, sortBy: e.target.value });
-        setShowResponsiveSort(false);
+    const handleSort = (val) => {
+        const state = { ...filters, sortBy: val };
+        setFilters(state);
+        setFilterChange(state);
     };
-
-    const resetFilters = () => {
-        const resetValues = { specialities: [], sortBy: 'Relevance' };
-        setFilters(resetValues);
-        setFilterChange(resetValues);
-    };
-
-    const [showResponsiveSort, setShowResponsiveSort] = useState(false);
-    const [showResponsiveFilter, setShowResponsiveFilter] = useState(false);
 
     return (
-        <>
-            <div className={`filter-header xl:hidden flex items-center justify-between bg-white p-3 rounded-md max-h-max ${isLoading && 'hidden'}`}>
-                <p className='text-gray-800 text-sm'>{vets.length} vets found</p>
-                <div className='flex gap-2'>
-                    <button onClick={() => { setShowResponsiveFilter(true), setShowResponsiveSort(false) }} className='rounded px-2 py-[2px] border text-gray-800 text-sm flex items-center gap-1'><HiMiniAdjustmentsHorizontal className='text-xs' /> Filter</button>
-                    <button onClick={() => { setShowResponsiveSort(true), setShowResponsiveFilter(false) }} className='rounded px-2 py-[2px] border text-gray-800 text-sm flex items-center gap-1'><HiOutlineBarsArrowDown className='text-sm' /> Sort by</button>
-                    <button onClick={resetFilters} className='rounded px-2 py-[2px] border text-gray-800 text-sm flex items-center gap-1'><HiBarsArrowUp className='text-sm' /> Reset</button>
-                </div>
-                {showResponsiveSort && (
-                    <div className="fixed bottom-0 left-0 w-full bg-white shadow-black shadow-2xl rounded-t-xl z-50 p-4 max-h-[80vh] overflow-y-auto">
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg font-semibold text-gray-700">Sort by</h3>
-                            <button onClick={() => setShowResponsiveSort(false)}>
-                                <HiOutlineXCircle className="text-3xl text-gray-700" />
-                            </button>
-                        </div>
-                        <div className="space-y-4">
-                            <div className="flex items-center gap-2">
-                                <input
-                                    type="radio"
-                                    id="relevance"
-                                    name="sortBy"
-                                    value="Relevance"
-                                    onChange={handleSortChange}
-                                    checked={filters.sortBy === 'Relevance'}
-                                    className="w-4 h-4 text-primary cursor-pointer"
-                                />
-                                <label htmlFor="relevance" className="text-gray-600 cursor-pointer">Relevance</label>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <input
-                                    type="radio"
-                                    id="popularity"
-                                    name="sortBy"
-                                    value="Popularity"
-                                    onChange={handleSortChange}
-                                    checked={filters.sortBy === 'Popularity'}
-                                    className="w-4 h-4 text-primary cursor-pointer"
-                                />
-                                <label htmlFor="popularity" className="text-gray-600 cursor-pointer">Popularity</label>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <input
-                                    type="radio"
-                                    id="experience"
-                                    name="sortBy"
-                                    value="Experience"
-                                    onChange={handleSortChange}
-                                    checked={filters.sortBy === 'Experience'}
-                                    className="w-4 h-4 text-primary cursor-pointer"
-                                />
-                                <label htmlFor="experience" className="text-gray-600 cursor-pointer">Years of Experience</label>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <input
-                                    type="radio"
-                                    id="fee"
-                                    name="sortBy"
-                                    value="Fee"
-                                    onChange={handleSortChange}
-                                    checked={filters.sortBy === 'Fee'}
-                                    className="w-4 h-4 text-primary cursor-pointer"
-                                />
-                                <label htmlFor="fee" className="text-gray-600 cursor-pointer">Low Consultation Fee</label>
-                            </div>
-                        </div>
+        <div className='border-r border-r-slate-100'>
+            {/* MOBILE NAVIGATION BAR with thump reach*/}
+            <div className="xl:hidden flex items-center gap-2 mb-6 w-full">
+                <button 
+                    onClick={() => setOpenMobile(true)}
+                    className="flex-1 flex items-center justify-between bg-white border border-slate-200 px-5 py-3 rounded-2xl shadow-sm active:bg-slate-50"
+                >
+                    <div className="flex items-center gap-3">
+                        <HiOutlineAdjustmentsHorizontal className="text-slate-500" />
+                        <span className="text-sm font-semibold text-slate-700">Filter & Sort</span>
                     </div>
-                )}
-
-                {showResponsiveFilter && (
-                    <div className="fixed bottom-0 left-0 w-full bg-white shadow-2xl shadow-black rounded-t-xl z-50 p-4 max-h-[80vh] overflow-y-auto">
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg font-semibold text-gray-700">Filter by</h3>
-                            <button onClick={() => setShowResponsiveFilter(false)}>
-                                <HiOutlineXCircle className="text-3xl text-gray-700" />
-                            </button>
-                        </div>
-                        <div className="space-y-6">
-                            <div>
-                                <h4 className="font-semibold text-gray-700 mb-3">Consultation Fee (USD)</h4>
-                                <input type="range" min="10" max="500" step="10" className="w-full cursor-pointer" />
-                                <div className="flex justify-between text-sm text-gray-500 mt-1">
-                                    <span>$10</span>
-                                    <span>$500+</span>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 className="font-semibold text-gray-700 mb-3">Specialities</h4>
-                                <div className="flex items-center gap-2 mb-3">
-                                    <input
-                                        type="checkbox"
-                                        id="general"
-                                        value="General Veterinary"
-                                        onChange={handleSpecialityChange}
-                                        className="w-4 h-4 text-primary cursor-pointer"
-                                    />
-                                    <label htmlFor="general" className="text-gray-600 cursor-pointer">General Veterinary</label>
-                                </div>
-                                <div className="flex items-center gap-2 mb-3">
-                                    <input
-                                        type="checkbox"
-                                        id="dermatology"
-                                        value="Dermatology"
-                                        onChange={handleSpecialityChange}
-                                        className="w-4 h-4 text-primary cursor-pointer"
-                                    />
-                                    <label htmlFor="dermatology" className="text-gray-600 cursor-pointer">Dermatology</label>
-                                </div>
-                                <div className="flex items-center gap-2 mb-3">
-                                    <input
-                                        type="checkbox"
-                                        id="dentistry"
-                                        value="Dentistry"
-                                        onChange={handleSpecialityChange}
-                                        className="w-4 h-4 text-primary cursor-pointer"
-                                    />
-                                    <label htmlFor="dentistry" className="text-gray-600 cursor-pointer">Dentistry</label>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <input
-                                        type="checkbox"
-                                        id="internal"
-                                        value="Internal Medicine"
-                                        onChange={handleSpecialityChange}
-                                        className="w-4 h-4 text-primary cursor-pointer"
-                                    />
-                                    <label htmlFor="internal" className="text-gray-600 cursor-pointer">Internal Medicine</label>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 className="font-semibold text-gray-700 mb-3">Availability</h4>
-                                <div className="flex items-center gap-2 mb-2">
-                                    <input
-                                        type="checkbox"
-                                        id="available-now"
-                                        value="Available Now"
-                                        onChange={handleSpecialityChange}
-                                        className="w-4 h-4 text-primary"
-                                    />
-                                    <label htmlFor="available-now" className="text-gray-600">Available Now</label>
-                                </div>
-                                <div className="flex items-center gap-2 mb-2">
-                                    <input
-                                        type="checkbox"
-                                        id="weekends"
-                                        value="Weekends"
-                                        onChange={handleSpecialityChange}
-                                        className="w-4 h-4 text-primary"
-                                    />
-                                    <label htmlFor="weekends" className="text-gray-600">Available on Weekends</label>
-                                </div>
-                                {/* <div className="flex items-center gap-2">
-                                    <input
-                                        type="checkbox"
-                                        id="house-visits"
-                                        value="House Visits"
-                                        onChange={handleSpecialityChange}
-                                        className="w-4 h-4 text-primary"
-                                    />
-                                    <label htmlFor="house-visits" className="text-gray-600">Offers House Visits</label>
-                                </div> */}
-                            </div>
-                        </div>
-                    </div>
-                )}
+                    <span className="bg-primary/10 text-primary text-[10px] font-bold px-2 py-1 rounded-md">
+                        {filters.specialities.length > 0 ? filters.specialities.length : vets.length}
+                    </span>
+                </button>
             </div>
 
-            <aside className="sticky top-28 h-fit overflow-auto bg-white border-r pr-6 max-xl:hidden">
-                <div className="flex justify-between items-center mb-6">
-                    <h3 className="font-bold text-lg text-gray-800">Filter Veterinarian</h3>
-                    <button onClick={resetFilters} className="bg-primary hover:bg-primaryHover duration-200 px-4 py-1 rounded text-white text-sm font-medium">
-                        Reset
-                    </button>
+            {/* THIS DESKTOP SIDEBAR */}
+            <aside className="sticky top-28 max-xl:hidden w-72 h-fit space-y-8">
+
+                <div className="pb-6 border-b border-slate-100">
+                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-tight">Search Directory</h3>
+                    <p className="text-xs text-slate-500 mt-1">Showing {vets.length} verified specialists</p>
                 </div>
 
-                <form action="#">
-                    {/* Vet Specialties Filter */}
-                    <div className="mb-6">
-                        <h4 className="font-semibold text-gray-700 mb-3 text-base">Select Vet Specialties</h4>
-                        <div className="flex items-center gap-2 mb-2 ">
-                            <input type="checkbox" id="general" value="General Veterinary" onChange={handleSpecialityChange} className="w-4 h-4 text-primary cursor-pointer" />
-                            <label htmlFor="general" className="text-gray-600 cursor-pointer">General Veterinary</label>
-                        </div>
-                        <div className="flex items-center gap-2 mb-2">
-                            <input type="checkbox" id="dermatology" value="Dermatology" onChange={handleSpecialityChange} className="w-4 h-4 text-primary cursor-pointer" />
-                            <label htmlFor="dermatology" className="text-gray-600 cursor-pointer">Dermatology</label>
-                        </div>
-                        <div className="flex items-center gap-2 mb-2">
-                            <input type="checkbox" id="dentistry" value="Dentistry" onChange={handleSpecialityChange} className="w-4 h-4 text-primary cursor-pointer" />
-                            <label htmlFor="dentistry" className="text-gray-600 cursor-pointer">Dentistry</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input type="checkbox" id="internal" value="Internal Medicine" onChange={handleSpecialityChange} className="w-4 h-4 text-primary cursor-pointer" />
-                            <label htmlFor="internal" className="text-gray-600 cursor-pointer">Internal Medicine</label>
-                        </div>
+                <section>
+                    <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-4 block">Sort Results</label>
+                    <div className="space-y-1">
+                        {sortOptions.map((opt) => (
+                            <button
+                                key={opt.id}
+                                onClick={() => handleSort(opt.id)}
+                                className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm transition-all ${
+                                    filters.sortBy === opt.id 
+                                    ? 'bg-slate-900 text-white font-medium shadow-md shadow-slate-200' 
+                                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                                }`}
+                            >
+                                {opt.label}
+                                {filters.sortBy === opt.id && <HiCheck className="text-white" />}
+                            </button>
+                        ))}
                     </div>
+                </section>
 
-                    {/* Sorting Options */}
-                    <div className="mb-6">
-                        <h4 className="font-semibold text-gray-700 mb-3 text-base">Sort By</h4>
-                        <div className="flex items-center gap-2 mb-2 ">
-                            <input type="radio" id="relevance" name="sortBy" value="Relevance" onChange={handleSortChange} checked={filters.sortBy === 'Relevance'} className="w-4 h-4 text-primary cursor-pointer" />
-                            <label htmlFor="relevance" className="text-gray-600 cursor-pointer">Relevance</label>
-                        </div>
-                        <div className="flex items-center gap-2 mb-2">
-                            <input type="radio" id="popularity" name="sortBy" value="Popularity" onChange={handleSortChange} checked={filters.sortBy === 'Popularity'} className="w-4 h-4 text-primary cursor-pointer" />
-                            <label htmlFor="popularity" className="text-gray-600 cursor-pointer">Popularity</label>
-                        </div>
-                        <div className="flex items-center gap-2 mb-2">
-                            <input type="radio" id="experience" name="sortBy" value="Experience" onChange={handleSortChange} checked={filters.sortBy === 'Experience'} className="w-4 h-4 text-primary cursor-pointer" />
-                            <label htmlFor="experience" className="text-gray-600 cursor-pointer">Years of Experience</label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <input type="radio" id="fee" name="sortBy" value="Fee" onChange={handleSortChange} checked={filters.sortBy === 'Fee'} className="w-4 h-4 text-primary cursor-pointer" />
-                            <label htmlFor="fee" className="text-gray-600 cursor-pointer">Low Consultation Fee</label>
-                        </div>
+                <section>
+                    <div className="flex items-center justify-between mb-4">
+                        <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Specialties</label>
+                        {filters.specialities.length > 0 && (
+                            <button 
+                                onClick={() => {
+                                    const reset = { ...filters, specialities: [] };
+                                    setFilters(reset);
+                                    setFilterChange(reset);
+                                }}
+                                className="text-[10px] font-bold text-primary hover:underline"
+                            >
+                                Clear
+                            </button>
+                        )}
                     </div>
+                    <div className="space-y-2">
+                        {specialties.map((s) => (
+                            <div 
+                                key={s}
+                                onClick={() => handleSpeciality(s)}
+                                className="group flex items-center gap-3 cursor-pointer"
+                            >
+                                <div className={`w-5 h-5 rounded-md border transition-all flex items-center justify-center ${
+                                    filters.specialities.includes(s) 
+                                    ? 'bg-primary border-primary' 
+                                    : 'bg-white border-slate-200 group-hover:border-slate-400'
+                                }`}>
+                                    {filters.specialities.includes(s) && <HiCheck className="text-white text-xs" />}
+                                </div>
+                                <span className={`text-sm transition-colors ${
+                                    filters.specialities.includes(s) ? 'text-slate-900 font-semibold' : 'text-slate-600'
+                                }`}>
+                                    {s}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </section>
 
-                    {/* Consultation Fee Range */}
-                    <div className="mb-6">
-                        <h4 className="font-semibold text-gray-700 mb-3 text-base">Consultation Fee (USD)</h4>
-                        <input type="range" min="10" max="500" step="10" className="w-full cursor-pointer" />
-                        <div className="flex justify-between text-sm text-gray-500 mt-2">
-                            <span>$10</span>
-                            <span>$500+</span>
+                <section className="pt-4">
+                    <div className="bg-slate-50 p-6 rounded-[2rem] border border-slate-100">
+                        <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-4 block text-center">Price Range</label>
+                        <input 
+                            type="range" min="10" max="500" 
+                            className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary" 
+                        />
+                        <div className="flex items-center justify-between mt-4">
+                            <span className="text-xs font-bold text-slate-700">$10</span>
+                            <div className="h-px w-8 bg-slate-200" />
+                            <span className="text-xs font-bold text-slate-700">$500+</span>
                         </div>
                     </div>
-
-                    {/* Availability Filter */}
-                    <div>
-                        <h4 className="font-semibold text-gray-700 mb-3 text-base">Availability</h4>
-                        <div className="flex items-center gap-2 mb-2">
-                            <input type="checkbox" id="available-now" value="Available Now" onChange={handleSpecialityChange} className="w-4 h-4 text-primary" />
-                            <label htmlFor="available-now" className="text-gray-600">Available Now</label>
-                        </div>
-                        <div className="flex items-center gap-2 mb-2">
-                            <input type="checkbox" id="weekends" value="Weekends" onChange={handleSpecialityChange} className="w-4 h-4 text-primary" />
-                            <label htmlFor="weekends" className="text-gray-600">Available on Weekends</label>
-                        </div>
-                        {/* <div className="flex items-center gap-2">
-                            <input type="checkbox" id="house-visits" value="House Visits" onChange={handleSpecialityChange} className="w-4 h-4 text-primary" />
-                            <label htmlFor="house-visits" className="text-gray-600">Offers House Visits</label>
-                        </div> */}
-                    </div>
-                </form>
+                </section>
             </aside>
-        </>
+
+            {/* Mobile Modal */}
+            <AnimatePresence>
+                {openMobile && (
+                    <>
+                        <motion.div 
+                            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                            onClick={() => setOpenMobile(false)}
+                            className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100]"
+                        />
+                        <motion.div 
+                            initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }}
+                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                            className="fixed bottom-0 left-0 w-full bg-white rounded-t-[2.5rem] z-[110] p-8 shadow-2xl overflow-hidden"
+                        >
+                            <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mb-8" />
+                            <div className="space-y-8 max-h-[70vh] overflow-y-auto">
+                                <section>
+                                    <h4 className="text-lg font-bold text-slate-900 mb-4">Sort By</h4>
+                                    <div className="grid grid-cols-2 gap-2">
+                                        {sortOptions.map(o => (
+                                            <button 
+                                                key={o.id}
+                                                onClick={() => handleSort(o.id)}
+                                                className={`py-3 px-4 rounded-xl text-xs font-bold border transition-all ${
+                                                    filters.sortBy === o.id ? 'bg-slate-900 text-white border-slate-900' : 'border-slate-100 text-slate-500'
+                                                }`}
+                                            >
+                                                {o.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </section>
+
+                                <section>
+                                    <h4 className="text-lg font-bold text-slate-900 mb-4">Specialties</h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {specialties.map(s => (
+                                            <button 
+                                                key={s}
+                                                onClick={() => handleSpeciality(s)}
+                                                className={`py-3 px-5 rounded-full text-xs font-bold transition-all ${
+                                                    filters.specialities.includes(s) ? 'bg-primary text-white' : 'bg-slate-100 text-slate-600'
+                                                }`}
+                                            >
+                                                {s}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </section>
+                                
+                                <button 
+                                    onClick={() => setOpenMobile(false)}
+                                    className="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold mt-4 shadow-lg shadow-slate-200"
+                                >
+                                    Show {vets.length} Results
+                                </button>
+                            </div>
+                        </motion.div>
+                    </>
+                )}
+            </AnimatePresence>
+        </div>
     );
 };
 
