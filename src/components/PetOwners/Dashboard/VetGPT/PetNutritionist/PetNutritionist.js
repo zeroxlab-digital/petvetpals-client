@@ -402,7 +402,7 @@ export default function PetNutritionist() {
         return new Date(current.date) > new Date(latest.date) ? current : latest
       }).value || 0;
       const petData = {
-        type: selectedPet.type, name: selectedPet.name, age: selectedPet.age, weight: latestWeight, gender: selectedPet.gender, breed: selectedPet.breed,
+        type: selectedPet.type, name: selectedPet.name, age: getPetAge(selectedPet.date_of_birth), weight: latestWeight, gender: selectedPet.gender, breed: selectedPet.breed,
       }
       const { age, weight, ...formDataWithoutAgeWeight } = formData;
 

@@ -340,10 +340,11 @@ export default function AdvancedSymptomChecker() {
       ]
 
       const { data } = await getGptRecommendation({
-        pet: selectedPet,
+        pet: {...selectedPet, age: getPetAge(selectedPet.date_of_birth)},
         symptoms: symptomsFormatted,
         conditions: matched,
       })
+
       setGptResponse(data?.recommendation || "No recommendation returned.")
       await saveReport({
         petId: selectedPet._id,

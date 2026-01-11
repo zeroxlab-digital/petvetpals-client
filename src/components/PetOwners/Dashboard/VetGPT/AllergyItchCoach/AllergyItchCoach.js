@@ -9,6 +9,7 @@ import { useGetAllergiesConditionsQuery, useGetMedicationsQuery, useGetPetsQuery
 import { useGetAllergyCoachResponseMutation, useGetAllergyItchReportHistoryQuery, useSaveAllergyReportMutation } from "@/redux/services/allergyCoachApi"
 import { HiOutlineFaceFrown } from "react-icons/hi2"
 import { useRouter } from "next/navigation"
+import { getPetAge } from "@/utils/getPetAge"
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -446,7 +447,7 @@ export default function AllergyItchCoach() {
     setIsGenerating(true)
     try {
 
-      const pet = { type: selectedPet.type, name: selectedPet.name, breed: selectedPet.breed, gender: selectedPet.gender, age: selectedPet.age }
+      const pet = { type: selectedPet.type, name: selectedPet.name, breed: selectedPet.breed, gender: selectedPet.gender, age: getPetAge(selectedPet.date_of_birth) }
       const { data } = await getAllergyCoachResponse({
         pet,
         ...formData
