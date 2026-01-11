@@ -10,7 +10,7 @@ import { useAddPetMutation, useUpdateAPetMutation } from '@/redux/services/petAp
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-const AddUpdatePet = ({ popup, setPopup }) => {
+const AddUpdatePet = ({ popup = () => {}, setPopup = () => {}, setPetDetailsOption = () => {} }) => {
   const weightHistory = popup.pet?.weight;
   const recentWeight = weightHistory?.reduce((latest, current) => {
     return new Date(current.date) > new Date(latest.date) ? current : latest;
@@ -63,6 +63,7 @@ const AddUpdatePet = ({ popup, setPopup }) => {
       } else {
         await addPet(formData).unwrap();
         notify('New pet added!');
+        setPetDetailsOption("selector");
       }
 
       setPopup({ show: false, type: null, pet: null });

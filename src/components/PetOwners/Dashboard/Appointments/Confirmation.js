@@ -1,3 +1,4 @@
+import { getPetAge } from '@/utils/getPetAge';
 import Image from 'next/image';
 import React from 'react';
 import { HiOutlineCalendar, HiOutlineClock, HiOutlineCreditCard, HiOutlineSparkles } from 'react-icons/hi2';
@@ -18,7 +19,7 @@ const Confirmation = ({ setBookingState, appt, selectedPet }) => {
                     <Image src={selectedPet?.image || '/images/user.jpg'} alt={`pet image`} height={70} width={70} className='rounded-full w-16 h-16 object-cover' />
                     <div>
                         <h3 className='text-base font-semibold'>{selectedPet?.name}</h3>
-                        <p className='text-sm text-gray-700'>{selectedPet?.breed} • {selectedPet?.age} years old • {selectedPet?.gender}</p>
+                        <p className='text-sm text-gray-700'>{selectedPet?.breed} • {getPetAge(selectedPet?.date_of_birth)} • {selectedPet?.gender}</p>
                     </div>
                 </div>
                 <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
