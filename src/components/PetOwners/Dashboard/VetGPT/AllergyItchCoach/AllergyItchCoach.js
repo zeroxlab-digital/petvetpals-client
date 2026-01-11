@@ -9,6 +9,7 @@ import { useGetAllergiesConditionsQuery, useGetMedicationsQuery, useGetPetsQuery
 import { useGetAllergyCoachResponseMutation, useGetAllergyItchReportHistoryQuery, useSaveAllergyReportMutation } from "@/redux/services/allergyCoachApi"
 import { HiOutlineFaceFrown } from "react-icons/hi2"
 import { useRouter } from "next/navigation"
+import { getPetAge } from "@/utils/getPetAge"
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -446,7 +447,7 @@ export default function AllergyItchCoach() {
     setIsGenerating(true)
     try {
 
-      const pet = { type: selectedPet.type, name: selectedPet.name, breed: selectedPet.breed, gender: selectedPet.gender, age: selectedPet.age }
+      const pet = { type: selectedPet.type, name: selectedPet.name, breed: selectedPet.breed, gender: selectedPet.gender, age: getPetAge(selectedPet.date_of_birth) }
       const { data } = await getAllergyCoachResponse({
         pet,
         ...formData
@@ -560,14 +561,14 @@ export default function AllergyItchCoach() {
                           <Image
                             src={selectedPet.image || "/images/paw-heart.webp"}
                             alt={selectedPet.name}
-                            width={48}
-                            height={48}
-                            className="object-cover w-full h-full"
+                            width={40}
+                            height={40}
+                            className="object-contain p-2 w-full h-full"
                           />
                         </div>
                         <div className="text-left">
                           <p className="font-bold text-gray-800">{selectedPet.name}</p>
-                          <p className="text-gray-500 text-sm font-medium">{selectedPet.breed}</p>
+                          <p className="text-gray-500 text-sm font-medium capitalize">{selectedPet.breed}</p>
                         </div>
                       </div>
                     ) : (
@@ -608,7 +609,7 @@ export default function AllergyItchCoach() {
                           >
                             <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-pink-100 shadow-md">
                               <Image
-                                src={pet.image || "/images/paw-heart.webp"}
+                                src={pet.image || "/images/paw-primary.svg"}
                                 alt={pet.name}
                                 width={48}
                                 height={48}

@@ -9,6 +9,7 @@ import { useGetNutritionistGptMutation } from "@/redux/services/NutritionistApi"
 import { HiFaceFrown, HiOutlineFaceFrown } from "react-icons/hi2"
 import TagInput from "@/components/Common/TagInput/TagInput"
 import { useRouter } from "next/navigation"
+import { getPetAge } from "@/utils/getPetAge"
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -334,6 +335,7 @@ export default function PetNutritionist() {
     }
   }, [conditions, selectedPet]);
 
+  console.log("selected pet:", selectedPet)
 
   const [showPetMenu, setShowPetMenu] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
@@ -354,7 +356,7 @@ export default function PetNutritionist() {
   })
   useEffect(() => {
     setFormData({
-      age: selectedPet?.age || '',
+      age: getPetAge(selectedPet?.date_of_birth),
       weight:
         selectedPet?.weight?.reduce((latest, current) => {
           return new Date(current.date) > new Date(latest.date) ? current : latest
@@ -367,7 +369,7 @@ export default function PetNutritionist() {
       treatmentGoals: [],
     })
   }, [allergiesConditions, selectedPet])
-  // console.log("Form data:", formData);
+  console.log("Form data:", formData);
 
   const mockSaveNutritionPlan = async (data) => {
     console.log("Saving nutrition plan:", data)
@@ -400,7 +402,7 @@ export default function PetNutritionist() {
         return new Date(current.date) > new Date(latest.date) ? current : latest
       }).value || 0;
       const petData = {
-        type: selectedPet.type, name: selectedPet.name, age: selectedPet.age, weight: latestWeight, gender: selectedPet.gender, breed: selectedPet.breed,
+        type: selectedPet.type, name: selectedPet.name, age: getPetAge(selectedPet.date_of_birth), weight: latestWeight, gender: selectedPet.gender, breed: selectedPet.breed,
       }
       const { age, weight, ...formDataWithoutAgeWeight } = formData;
 
@@ -513,14 +515,14 @@ export default function PetNutritionist() {
                           <Image
                             src={selectedPet.image || "/images/paw-heart.webp"}
                             alt={selectedPet.name}
-                            width={48}
-                            height={48}
-                            className="object-cover w-full h-full"
+                            width={40}
+                            height={40}
+                            className="object-contain p-2 w-full h-full"
                           />
                         </div>
                         <div className="text-left">
                           <p className="font-bold text-gray-800">{selectedPet.name}</p>
-                          <p className="text-gray-500 text-sm font-medium">{selectedPet.breed}</p>
+                          <p className="text-gray-500 text-sm font-medium capitalize">{selectedPet.breed}</p>
                         </div>
                       </div>
                     ) : (
@@ -574,7 +576,7 @@ export default function PetNutritionist() {
                             >
                               <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-green-100 shadow-md">
                                 <Image
-                                  src={pet.image || "/images/paw-heart.webp"}
+                                  src={pet.image || "/images/paw-primary.svg"}
                                   alt={pet.name}
                                   width={48}
                                   height={48}
@@ -583,7 +585,7 @@ export default function PetNutritionist() {
                               </div>
                               <div className="text-left">
                                 <p className="font-bold text-gray-800">{pet.name}</p>
-                                <p className="text-gray-500 text-sm font-medium">{pet.breed}</p>
+                                <p className="text-gray-500 text-sm font-medium capitalize">{pet.breed}</p>
                               </div>
                             </motion.button>
                           ))
@@ -639,10 +641,10 @@ export default function PetNutritionist() {
                       {/* Basic Info */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-sm font-semibold text-gray-800 mb-2">Age (years)</label>
+                          <label className="block text-sm font-semibold text-gray-800 mb-2">Age</label>
                           <Input
-                            type="number"
-                            placeholder="e.g., 3"
+                            type="text"
+                            placeholder="e.g., 3 years old"
                             value={formData.age}
                           // onChange={(e) => updateFormData("age", e.target.value)}
                           />
@@ -1190,7 +1192,7 @@ export default function PetNutritionist() {
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Pet Age</span>
-                      <Badge variant="outline">{formData.age || "Not set"} years</Badge>
+                      <Badge variant="outline">{formData.age || "Not set"}</Badge>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Weight</span>

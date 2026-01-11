@@ -4,14 +4,13 @@ import Input from '@/components/Common/Form/Input';
 import InputSelector from '@/components/Common/Form/InputSelector';
 import Label from '@/components/Common/Form/Label';
 import WeightInput from '@/components/Common/Form/WeightInput';
-import Weight from '@/components/Common/Form/WeightInput';
 import TinySpinner from '@/components/Common/Loader/TinySpinner';
 import SelectOptions from '@/components/Common/Form/SelectOptions';
 import { useAddPetMutation, useUpdateAPetMutation } from '@/redux/services/petApi';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-const AddUpdatePet = ({ popup, setPopup }) => {
+const AddUpdatePet = ({ popup = () => {}, setPopup = () => {}, setPetDetailsOption = () => {} }) => {
   const weightHistory = popup.pet?.weight;
   const recentWeight = weightHistory?.reduce((latest, current) => {
     return new Date(current.date) > new Date(latest.date) ? current : latest;
@@ -21,7 +20,7 @@ const AddUpdatePet = ({ popup, setPopup }) => {
   const [formState, setFormState] = useState({
     name: isUpdate ? popup.pet?.name || '' : '',
     type: isUpdate ? popup.pet?.type || '' : '',
-    age: isUpdate ? popup.pet?.age || '' : '',
+    date_of_birth: isUpdate ? popup.pet?.date_of_birth || '' : '',
     breed: isUpdate ? popup.pet?.breed || '' : '',
     gender: isUpdate ? popup.pet?.gender || '' : '',
     weight: isUpdate ? recentWeight.value || '' : '',
@@ -50,7 +49,7 @@ const AddUpdatePet = ({ popup, setPopup }) => {
     const formData = new FormData();
     formData.append('name', formState.name);
     formData.append('type', formState.type);
-    formData.append('age', formState.age);
+    formData.append('date_of_birth', formState.date_of_birth);
     formData.append('breed', formState.breed);
     formData.append('gender', formState.gender);
     formData.append('weight', formState.weight);
@@ -64,6 +63,7 @@ const AddUpdatePet = ({ popup, setPopup }) => {
       } else {
         await addPet(formData).unwrap();
         notify('New pet added!');
+        setPetDetailsOption("selector");
       }
 
       setPopup({ show: false, type: null, pet: null });
@@ -127,9 +127,6 @@ const AddUpdatePet = ({ popup, setPopup }) => {
     "exotic shorthair",
     "korat"
   ];
-  // const [inputValue, setInputValue] = useState("");
-  // const [showDropdown, setShowDropdown] = useState(false);
-  // const breedList = breeds.filter(breed => breed.toLowerCase().includes(inputValue.toLowerCase()));
 
   return (
     <div className="max-h-[80vh] overflow-y-auto space-y-5">
@@ -172,15 +169,12 @@ const AddUpdatePet = ({ popup, setPopup }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
-            <Label htmlFor="age">Age (years)</Label>
+            <Label htmlFor="ob">Date of birth (est.)</Label>
             <Input
-              type="number"
-              id="age"
-              value={formState.age}
-              placeholder={'e.g., 0.5, 1, 5'}
-              onChange={(e) => handleChange('age', e.target.value)}
-              min="0"
-              step="0.1"
+              type="date"
+              id="dob"
+              value={formState.date_of_birth?.split("T")[0] || ""}
+              onChange={(e) => handleChange('date_of_birth', e.target.value)}
             />
           </div>
           <WeightInput

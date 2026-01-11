@@ -22,6 +22,7 @@ import NextVaccination from './QuickPetInsights/NextVaccination';
 import RecentSymptoms from './QuickPetInsights/RecentSymptoms';
 import HealthTrends from './HealthTrends/HealthTrends';
 import SmartShopping from './SmartShopping/SmartShopping';
+import { getPetAge } from '@/utils/getPetAge';
 
 const DashboardPage = () => {
 
@@ -186,7 +187,7 @@ const DashboardPage = () => {
                             )}
                         </div>
                         <p className="text-sm text-gray-500 capitalize">
-                            {selectedPet.age} years old • {selectedPet.gender} •
+                            {getPetAge(selectedPet.date_of_birth)} • {selectedPet.gender} •
                             <span className='ml-1 normal-case'>{
                                 selectedPet?.weight?.reduce((latest, current) => {
                                     return new Date(current.date) > new Date(latest.date) ? current : latest;

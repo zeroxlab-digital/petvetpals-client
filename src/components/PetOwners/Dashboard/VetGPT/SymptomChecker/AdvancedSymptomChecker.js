@@ -12,6 +12,7 @@ import { petSymptomDatabase } from "./pet-symptom-database"
 import html2pdf from "html2pdf.js"
 import { useGetPetsQuery } from "@/redux/services/petApi"
 import { useRouter } from "next/navigation"
+import { getPetAge } from "@/utils/getPetAge"
 
 // Custom utility function to conditionally join class names
 const cn = (...classes) => {
@@ -339,10 +340,11 @@ export default function AdvancedSymptomChecker() {
       ]
 
       const { data } = await getGptRecommendation({
-        pet: selectedPet,
+        pet: {...selectedPet, age: getPetAge(selectedPet.date_of_birth)},
         symptoms: symptomsFormatted,
         conditions: matched,
       })
+
       setGptResponse(data?.recommendation || "No recommendation returned.")
       await saveReport({
         petId: selectedPet._id,
@@ -458,14 +460,14 @@ export default function AdvancedSymptomChecker() {
                           <Image
                             src={selectedPet.image || "/images/paw-heart.webp"}
                             alt={selectedPet.name}
-                            width={48}
-                            height={48}
-                            className="object-cover w-full h-full"
+                            width={40}
+                            height={40}
+                            className="object-contain p-2 w-full h-full"
                           />
                         </div>
                         <div className="text-left">
                           <p className="font-bold text-gray-800">{selectedPet.name}</p>
-                          <p className="text-gray-500 text-sm max-sm:font-normal">{selectedPet.breed} • {selectedPet.age} Years Old</p>
+                          <p className="text-gray-500 text-sm max-sm:font-normal"><span className="capitalize">{selectedPet.breed}</span> • {getPetAge(selectedPet.date_of_birth)}</p>
                         </div>
                       </div>
                     ) : (
@@ -519,7 +521,7 @@ export default function AdvancedSymptomChecker() {
                             >
                               <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-blue-100 shadow-md">
                                 <Image
-                                  src={pet.image || "/placeholder.svg?height=48&width=48"}
+                                  src={pet.image || "/images/paw-primary.svg"}
                                   alt={pet.name}
                                   width={48}
                                   height={48}
@@ -528,7 +530,7 @@ export default function AdvancedSymptomChecker() {
                               </div>
                               <div className="text-left">
                                 <p className="font-bold text-gray-800">{pet.name}</p>
-                                <p className="text-gray-500 text-sm">{pet.breed}</p>
+                                <p className="text-gray-500 text-sm capitalize">{pet.breed}</p>
                               </div>
                             </motion.button>
                           ))
