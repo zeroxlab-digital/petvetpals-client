@@ -7,6 +7,7 @@ import {
   HiOutlineCheckCircle,
   HiOutlineShoppingBag,
   HiOutlineShoppingCart,
+  HiOutlineSparkles,
   HiShoppingCart,
   HiSparkles,
 } from "react-icons/hi2";
@@ -64,10 +65,11 @@ const SmartShopSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             className="flex items-center gap-3 mb-6"
           >
-            <span className="h-px w-12 bg-primary" />
-            <span className="text-[10px] font-black text-primary uppercase tracking-[0.4em]">
+            {/* <span className="h-px w-12 bg-primary" /> */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-bold uppercase tracking-widest">
+              <HiOutlineSparkles className="animate-pulse" />
               Demographic-Based Recommendations
-            </span>
+            </div>
           </motion.div>
 
           <h2 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-8">
@@ -96,8 +98,8 @@ const SmartShopSection = () => {
                   key={p.id}
                   onClick={() => setActive(p)}
                   className={`w-full text-left p-6 rounded-3xl transition-all duration-500 border ${active.id === p.id
-                      ? "bg-white border-pink-100 shadow-xl shadow-pink-100/20 scale-105"
-                      : "border-transparent text-slate-400 grayscale opacity-60 hover:opacity-100"
+                    ? "bg-white border-pink-100 shadow-xl shadow-pink-100/20 scale-105"
+                    : "border-transparent text-slate-400 grayscale opacity-60 hover:opacity-100"
                     }`}
                 >
                   <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1">
