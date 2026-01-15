@@ -119,10 +119,11 @@ const AddReminderModal = ({ isOpen, onClose }) => {
                             />
                         </div>
                         <div>
-                            <Label htmlFor="endDate" optional>End date</Label>
+                            <Label htmlFor="endDate">End date</Label>
                             <Input
                                 id="endDate"
                                 type="date"
+                                required
                                 value={formData.end_date}
                                 onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
                             />

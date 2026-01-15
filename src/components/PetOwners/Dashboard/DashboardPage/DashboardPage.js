@@ -31,7 +31,7 @@ const DashboardPage = () => {
 
     const { data: { pets } = {}, isLoading, error } = useGetPetsQuery();
     const [selectedPet, setSelectedPet] = useState({});
-    console.log("Selected pet:", selectedPet);
+    // console.log("Selected pet:", selectedPet);
 
     const [showPetMenu, setShowPetMenu] = useState(false)
     const petListContainerRef = useRef(null);
@@ -56,7 +56,7 @@ const DashboardPage = () => {
     }, [pets])
 
     const { data: petData, isLoading: petLoading } = useGetPetDataQuery({ id: selectedPet._id }, { skip: !selectedPet._id });
-    console.log("pet data:", petData);
+    // console.log("pet data:", petData);
     const confirmed_appointment = petData?.confirmed_appointment;
     const pending_appointments = petData?.pending_appointments;
 

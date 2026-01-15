@@ -285,7 +285,7 @@ const SmartReminder = ({ selectedPet }) => {
 
     const { data, isLoading: remindersLoading, error } = useGetRemindersQuery();
     const reminders = data?.reminders || [];
-    // console.log("reminders:", reminders);
+    console.log("reminders:", reminders);
 
     const [markGivenReminder, { isLoading: markLoading, error: markError }] = useMarkGivenReminderMutation();
     const handleMarkGivenReminder = async (reminderId, timeIndex) => {
@@ -328,7 +328,7 @@ const SmartReminder = ({ selectedPet }) => {
                 </Button>
             </div>
             <div className="pt-6 p-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200 text-center">
                         <Smartphone className="h-8 w-8 text-green-600 mx-auto mb-2" />
                         <div className="text-2xl font-bold text-gray-800">
@@ -364,12 +364,6 @@ const SmartReminder = ({ selectedPet }) => {
                             }
                         </div>
                         <div className="text-sm text-gray-600">Due Today</div>
-                    </div>
-
-                    <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200 text-center">
-                        <TrendingUp className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-                        <div className="text-2xl font-bold text-gray-800">0%</div>
-                        <div className="text-sm text-gray-600">Compliance Rate</div>
                     </div>
                 </div>
 

@@ -140,11 +140,12 @@ const AddUpdateMedication = ({ onClose, petId, medication = null }) => {
                         />
                     </div>
                     <div>
-                        <Label htmlFor="endDate" optional>End date</Label>
+                        <Label htmlFor="endDate">End date</Label>
                         <Input
                             id="endDate"
                             type="date"
                             name="endDate"
+                            required
                             value={medicationData.end_date}
                             onChange={(e) => setMedicationData({ ...medicationData, end_date: e.target.value })}
                         />
