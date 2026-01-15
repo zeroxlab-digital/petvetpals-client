@@ -12,12 +12,13 @@ import ModalPopup from "@/components/Common/ModalPopup/ModalPopup"
 import Actions from "@/components/Common/Actions/Actions"
 import MedicationDetails from "./MedicationDetails"
 import { toast } from "react-toastify"
-import ScheduledReminders from "./ScheduledReminders"
+import ScheduledReminders from "./MedicationReminders"
 import AddUpdateMedication from "./AddUpdateMedication"
 import ScheduleReminder from "./ScheduleReminder"
 import { displayValue } from "@/utils/displayValue"
 import { HiEllipsisHorizontal, HiInformationCircle, HiOutlineCheckCircle, HiOutlineInformationCircle, HiOutlineTrash, HiPlus } from "react-icons/hi2"
 import { HiDocumentDownload, HiOutlineDownload, HiOutlinePencilAlt } from "react-icons/hi"
+import MedicationReminders from "./MedicationReminders"
 
 const Medications = ({ petId }) => {
     const [activeTab, setActiveTab] = useState("current-medications")
@@ -110,7 +111,7 @@ const Medications = ({ petId }) => {
         <div className="space-y-5">
             <div className="flex items-center justify-between max-sm:flex-wrap">
                 <h2 className="font-semibold text-lg">Medications & Treatment</h2>
-                {activeTab === "schedule-reminders" && (
+                {activeTab === "medication-reminders" && (
                     <>
                         <div className="flex items-center gap-2 ">
                             {/* <Button
@@ -124,7 +125,7 @@ const Medications = ({ petId }) => {
                                 variant={"primaryOutline"}
                                 classNames={"max-sm:px-3 text-sm font-semibold"}
                             >
-                                <HiPlus className="text-lg" /> Add to Reminder
+                                <HiPlus className="text-lg" /> Schedule Reminder
                             </Button>
                         </div>
                         <ModalPopup
@@ -167,7 +168,7 @@ const Medications = ({ petId }) => {
             <div className=" space-x-3 overflow-x-auto whitespace-nowrap max-md:max-w-max bg-gray-50 border border-gray-200 rounded-md p-2 scrollbar-thin scrollbar-thumb-gray-300">
                 {[
                     { key: "current-medications", label: "Current Medications" },
-                    { key: "schedule-reminders", label: "Schedule & Reminders" },
+                    { key: "medication-reminders", label: "Medication Reminders" },
                     { key: "medication-history", label: "Medication History" },
                 ].map((tab) => (
                     <button
@@ -607,9 +608,9 @@ const Medications = ({ petId }) => {
                     </>
                 ))}
 
-            {/* Schedule & Reminders */}
-            {activeTab === "schedule-reminders" && (
-                <ScheduledReminders petId={petId} ongoingMedications={ongoingMedications} />
+            {/* Medication & Reminders */}
+            {activeTab === "medication-reminders" && (
+                <MedicationReminders petId={petId} ongoingMedications={ongoingMedications} />
             )}
         </div>
     )

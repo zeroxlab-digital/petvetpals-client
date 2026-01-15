@@ -82,7 +82,7 @@ const formatCountdown = (targetTime) => {
     return `${days}d ${hours}h ${minutes}m ${seconds}s`;
 };
 
-const ScheduledReminders = ({ petId, ongoingMedications }) => {
+const MedicationReminders = ({ petId, ongoingMedications }) => {
     const { data, isLoading, refetch } = useGetScheduledRemindersQuery({ petId });
     const [deleteMedScheduledReminder] = useDeleteMedScheduledReminderMutation();
     const [markGivenMedScheduledReminder] = useMarkGivenMedScheduledReminderMutation();
@@ -678,4 +678,4 @@ const ScheduledReminders = ({ petId, ongoingMedications }) => {
     );
 };
 
-export default ScheduledReminders;
+export default MedicationReminders;
