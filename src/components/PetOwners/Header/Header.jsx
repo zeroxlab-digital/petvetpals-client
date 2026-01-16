@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import Navbar from "./Navbar";
 import { HiBars3CenterLeft, HiOutlineUser, HiOutlineUserCircle, HiOutlineUserPlus, HiXMark } from "react-icons/hi2";
 import { useEffect, useState } from "react";
 import Search from "./Search";
@@ -9,6 +8,7 @@ import { useUserAuthenticated } from "../../../../hooks/useUserAuthenticated";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import CartCount from "@/components/E-commerce/Cart/CartCount";
+import Navbar from "./Navbar";
 
 const Header = () => {
     const pathname = usePathname();
