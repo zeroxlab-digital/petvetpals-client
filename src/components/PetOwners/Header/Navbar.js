@@ -11,9 +11,9 @@ const Navbar = ({ setResponsiveMenu = () => { } }) => {
     const pathname = usePathname();
     const navs = [
         // { title: "Home", path: "/", icon: pathname == '/' ? <HiHome /> : <HiOutlineHome /> },
-        { title: "Shop", path: "/shop", icon: pathname.startsWith('/shop') ? <HiShoppingCart /> : <HiOutlineShoppingCart /> },
+        // { title: "Shop", path: "/shop", icon: pathname.startsWith('/shop') ? <HiShoppingCart /> : <HiOutlineShoppingCart /> },
+        { title: "Vet Appointment", path: "/vet-appointment", icon: pathname.startsWith('/vet-appointment') ? <LuStethoscope /> : <LuStethoscope /> },
         { title: "Pharmacy", path: "/pharmacy", icon: pathname.startsWith('/pharmacy') ? <CgPill /> : <LuPill /> },
-        { title: "Vet Appointment", path: "/vet-appointment", icon: pathname.startsWith('/vet-appointment') ? <LuStethoscope /> : <LuStethoscope /> }
     ]
     return (
         <ul className='max-lg:px-5 flex items-center lg:gap-7 max-lg:flex-col max-lg:items-start text-primary'>
