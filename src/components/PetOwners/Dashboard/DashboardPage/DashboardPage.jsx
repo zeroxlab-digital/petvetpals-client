@@ -8,7 +8,6 @@ import { Calendar, ChevronDown, ChevronUp, Syringe, PawPrint, PillIcon as Pills,
 import { useRouter } from 'next/navigation';
 import HealthRecords from './HealthRecords/HealthRecords';
 import Medications from './Medications/Medications';
-import DietActivity from './DietActivity/DietActivity';
 import { useGetSymptomHistoryQuery } from '@/redux/services/symptomApi';
 import { displayValue } from '@/utils/displayValue';
 import TinySpinner from '@/components/Common/Loader/TinySpinner';
@@ -23,6 +22,7 @@ import RecentSymptoms from './QuickPetInsights/RecentSymptoms';
 import HealthTrends from './HealthTrends/HealthTrends';
 import SmartShopping from './SmartShopping/SmartShopping';
 import { getPetAge } from '@/utils/getPetAge';
+import DietActivity from './DietActivity/DietActivity';
 
 const DashboardPage = () => {
 
@@ -254,7 +254,7 @@ const DashboardPage = () => {
                 >
                     Medications
                 </button>
-                <button
+                {/* <button
                     onClick={() => setActiveTab("diet")}
                     className={`py-2 px-1 border-b-[3px] font-semibold text-base whitespace-nowrap ${activeTab === "diet"
                         ? "border-[#672e5b] text-primary"
@@ -262,7 +262,7 @@ const DashboardPage = () => {
                         }`}
                 >
                     Diet & Activity
-                </button>
+                </button> */}
             </div>
 
             {/* OverView Tab */}
@@ -418,6 +418,7 @@ const DashboardPage = () => {
                 <Medications petId={selectedPet?._id} />
             )}
             {activeTab === "diet" && (
+                // <DietActivity />
                 <DietActivity />
             )}
         </div>

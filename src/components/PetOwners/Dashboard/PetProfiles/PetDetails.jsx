@@ -14,7 +14,7 @@ const PetDetails = ({ petId }) => {
     const pet = data?.pets?.find(pet => pet._id === petId);
     console.log(pet)
     const [activeTab, setActiveTab] = useState("Health Records");
-    const tabs = ["Health Records", "Medications", "Diet & Activity"];
+    const tabs = ["Health Records", "Medications",];
 
     if (isLoading) {
         return <PetSpinner />
@@ -148,7 +148,7 @@ const PetDetails = ({ petId }) => {
                 </div>
             </div>
 
-            <ul className='grid grid-cols-3 gap-2 max-sm:gap-0'>
+            <ul className='grid grid-cols-2 gap-2 max-sm:gap-0'>
                 {tabs.map((tab, index) => {
                     const isActive = activeTab === tab;
                     return (
@@ -171,7 +171,7 @@ const PetDetails = ({ petId }) => {
             <div className="mt-4">
                 {activeTab === "Health Records" && <HealthRecords petId={pet._id} />}
                 {activeTab === "Medications" && <Medications petId={pet._id} />}
-                {activeTab === "Diet & Activity" && <div>Coming soon...</div>}
+                {/* {activeTab === "Diet & Activity" && <div>Coming soon...</div>} */}
             </div>
         </div>
     );
