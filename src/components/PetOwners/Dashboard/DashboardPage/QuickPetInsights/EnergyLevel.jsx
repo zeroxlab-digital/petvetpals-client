@@ -114,13 +114,14 @@ const EnergyLevel = ({ petId, energyLevel }) => {
           isOpen={showLogModal}
           onClose={() => setShowLogModal(false)}
           title="Log Energy Level"
-          icon={<Zap />}
+          icon={<Zap className="animate-pulse" />}
         >
-          <div className="flex flex-col items-center gap-6 p-4">
-            {/* Circular slider */}
+          <div className="flex flex-col items-center gap-8 p-6 select-none bg-gradient-to-b from-transparent to-gray-50/50 rounded-b-3xl">
+
             <div
               ref={circleRef}
-              className="relative w-[180px] h-[180px]"
+              className="relative flex items-center justify-center touch-none group"
+              style={{ width: radius * 2, height: radius * 2 }}
               onPointerDown={(e) => {
                 handlePointerMove(e);
                 const moveHandler = (ev) => handlePointerMove(ev);
@@ -132,15 +133,26 @@ const EnergyLevel = ({ petId, energyLevel }) => {
                 window.addEventListener('pointerup', upHandler);
               }}
             >
-              <svg height={radius * 2} width={radius * 2}>
+
+              <svg height={radius * 2} width={radius * 2} className="transform -rotate-90 drop-shadow-sm">
+                <defs>
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
+                    <feMerge>
+                      <feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+
                 <circle
-                  stroke="#e5e7eb"
+                  stroke="#f3f4f6"
                   fill="transparent"
                   strokeWidth={stroke}
                   r={normalizedRadius}
                   cx={radius}
                   cy={radius}
                 />
+
                 <motion.circle
                   stroke={getColor(newEnergy)}
                   fill="transparent"
@@ -150,63 +162,79 @@ const EnergyLevel = ({ petId, energyLevel }) => {
                   cx={radius}
                   cy={radius}
                   strokeDasharray={circumference}
-                  strokeDashoffset={strokeDashoffset}
-                  initial={{ strokeDashoffset: circumference }}
                   animate={{ strokeDashoffset }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ type: "spring", stiffness: 50, damping: 20 }}
+                  style={{ filter: "url(#glow)" }}
                 />
               </svg>
 
-              {/* Zap icon with wiggle */}
               <motion.div
                 animate={zapControls}
-                className="absolute -translate-x-1/2 -translate-y-1/2 text-yellow-500"
-                style={{ left: zapX, top: zapY }}
+                className="absolute z-10 flex items-center justify-center bg-white rounded-full shadow-xl border-2 cursor-grab active:cursor-grabbing"
+                style={{
+                  left: zapX,
+                  top: zapY,
+                  x: '-50%',
+                  y: '-50%',
+                  width: 44,
+                  height: 44,
+                  borderColor: getColor(newEnergy)
+                }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
-                <Zap className="h-6 w-6" />
+                <Zap className="h-6 w-6 fill-current" style={{ color: getColor(newEnergy) }} />
               </motion.div>
 
-              {/* Spark effect */}
-              <motion.div
-                className="absolute -translate-x-1/2 -translate-y-1/2"
-                style={{ left: zapX, top: zapY }}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: [0, 1, 0], scale: [0, 1.5, 0] }}
-                transition={{ repeat: Infinity, duration: 1, ease: 'easeInOut' }}
-              >
-                <Star className="h-3 w-3 text-yellow-400" />
-              </motion.div>
-
-              {/* Percentage */}
-              <motion.div
-                className="absolute inset-0 flex items-center justify-center text-3xl font-bold text-gray-800"
-                key={newEnergy}
-                initial={{ scale: 0.7, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-              >
-                {newEnergy}%
-              </motion.div>
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                <motion.div
+                  key={newEnergy}
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="flex flex-col items-center"
+                >
+                  <span className="text-5xl font-black text-gray-800 tracking-tighter">
+                    {newEnergy}<span className="text-xl opacity-30">%</span>
+                  </span>
+                  <span
+                    className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full mt-1 bg-white shadow-sm border"
+                    style={{ color: getColor(newEnergy), borderColor: `${getColor(newEnergy)}44` }}
+                  >
+                    {newEnergy > 80 ? 'Max Power' : 'Syncing'}
+                  </span>
+                </motion.div>
+              </div>
             </div>
 
-            {/* Dynamic pet feedback */}
-            <motion.p
-              key={getEnergyMessage(newEnergy)}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              className="text-center text-lg text-gray-700"
-            >
-              {getEnergyMessage(newEnergy)}
-            </motion.p>
+            <div className="flex flex-col items-center gap-6 w-full max-w-xs text-center">
+              <div className="min-h-[60px] flex items-center">
+                <motion.p
+                  key={getEnergyMessage(newEnergy)}
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  className="text-lg font-medium text-gray-600 leading-tight"
+                >
+                  {getEnergyMessage(newEnergy)}
+                </motion.p>
+              </div>
 
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleSave}
-              className="px-6 py-2 bg-primary text-white rounded-full shadow-md hover:bg-primaryHover transition-all max-sm:w-full"
-            >
-              {isLoading ? 'Loading...' : 'Save'}
-            </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.02, translateY: -2 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleSave}
+                disabled={isLoading}
+                className="w-full py-4 bg-primary text-white rounded-2xl font-bold shadow-lg shadow-gray-200 hover:shadow-xl hover:bg-primaryHover transition-all disabled:opacity-50 disabled:translate-y-0"
+              >
+                {isLoading ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Calibrating...</span>
+                  </div>
+                ) : (
+                  'Save Energy Level'
+                )}
+              </motion.button>
+            </div>
           </div>
         </ModalPopup>
       )}
