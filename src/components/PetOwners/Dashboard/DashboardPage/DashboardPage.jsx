@@ -30,8 +30,26 @@ const DashboardPage = () => {
     useUpdateUserTimezone();
 
     const { data: { pets } = {}, isLoading, error } = useGetPetsQuery();
-    const [selectedPet, setSelectedPet] = useState({});
-    // console.log("Selected pet:", selectedPet);
+
+    const [selectedPetId, setSelectedPetId] = useState(() => {
+        if (typeof window !== "undefined") {
+            return localStorage.getItem("selectedPetId") || null;
+        }
+        return null;
+    });
+
+    const selectedPet = pets?.find(p => p._id === selectedPetId) || {};
+
+    useEffect(() => {
+        if (!selectedPetId && pets?.length > 0) {
+            setSelectedPetId(pets[0]._id);
+        }
+    }, [pets, selectedPetId]);
+
+    useEffect(() => {
+        if (selectedPetId) localStorage.setItem("selectedPetId", selectedPetId);
+    }, [selectedPetId]);
+
 
     const [showPetMenu, setShowPetMenu] = useState(false)
     const petListContainerRef = useRef(null);
@@ -48,12 +66,6 @@ const DashboardPage = () => {
     const router = useRouter();
 
     const [activeTab, setActiveTab] = useState("overview");
-
-    useEffect(() => {
-        if (pets?.length > 0) {
-            setSelectedPet(pets[0])
-        }
-    }, [pets])
 
     const { data: petData, isLoading: petLoading } = useGetPetDataQuery({ id: selectedPet._id }, { skip: !selectedPet._id });
     // console.log("pet data:", petData);
@@ -176,7 +188,7 @@ const DashboardPage = () => {
                                         <button
                                             key={pet._id}
                                             onClick={() => {
-                                                setSelectedPet(pet), setShowPetMenu(false)
+                                                setSelectedPetId(pet._id), setShowPetMenu(false)
                                             }}
                                             className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md transition-colors"
                                         >
@@ -327,8 +339,8 @@ const DashboardPage = () => {
                                                         </td>
                                                         <td className="whitespace-nowrap px-6 py-4">
                                                             <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide ${record.type?.toLowerCase().includes('emergency')
-                                                                    ? 'bg-red-50 text-red-600'
-                                                                    : 'bg-blue-50 text-blue-600'
+                                                                ? 'bg-red-50 text-red-600'
+                                                                : 'bg-blue-50 text-blue-600'
                                                                 }`}>
                                                                 {displayValue(record.type)}
                                                             </span>
