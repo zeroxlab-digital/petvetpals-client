@@ -215,7 +215,7 @@ const DashboardPage = () => {
                     <button
                         onClick={() => router.push("/dashboard/vet-gpt")}
                         className="flex justify-center items-center 
-               w-fit max-sm:w-1/2 px-4 max-sm:px-3 py-[9px] 
+               w-fit max-sm:w-1/2 px-4 max-sm:px-3 py-3 
                rounded-xl sm:font-semibold text-white 
                bg-primary hover:bg-primaryHover
                duration-200 transition-colors"
@@ -227,7 +227,7 @@ const DashboardPage = () => {
                     <button
                         onClick={() => router.push("/vet-appointment")}
                         className="flex justify-center items-center 
-               w-fit max-sm:w-1/2 px-4 max-sm:px-3 py-[9px] 
+               w-fit max-sm:w-1/2 px-4 max-sm:px-3 py-3
                rounded-xl sm:font-semibold text-white 
                bg-secondary hover:bg-secondaryHover
                duration-200 transition-colors"

@@ -1,494 +1,247 @@
 "use client"
 import { useEffect, useState } from "react"
-import { Bell, Camera, CreditCard, Edit, Eye, EyeOff, Key, Lock, Mail, Phone, PlusCircle, Save, Settings, Shield, User, } from "lucide-react"
+import {
+  Bell, Camera, CreditCard, Edit, Eye, EyeOff, Key, Lock, Mail, Phone,
+  PlusCircle, Save, Settings, Shield, User, MapPin, Globe, Hash,
+  LogOut, ChevronRight, CheckCircle2, CreditCard as BillingIcon,
+  Pin
+} from "lucide-react"
 import Image from "next/image"
 import { PetSpinner } from "@/components/Common/Loader/PetSpinner"
 import { toast, ToastContainer } from "react-toastify"
 import { useGetUserDetailsQuery, useLogoutUserMutation, useUpdateUserDetailsMutation } from "@/redux/services/userApi"
 import { HiArrowRightOnRectangle } from "react-icons/hi2"
 import { useRouter } from "next/navigation"
-import { FaMoneyBillTransfer, FaMoneyCheckDollar } from "react-icons/fa6"
+import { FaMoneyBillTransfer } from "react-icons/fa6"
 
 const UserAccount = () => {
   const [userProfile, setUserProfile] = useState(null);
-  const { data, isLoading, isError, error } = useGetUserDetailsQuery();
-  useEffect(() => {
-    setUserProfile(data?.user)
-  }, [data])
-  const [showPassword, setShowPassword] = useState(false)
-  const [activeTab, setActiveTab] = useState("profile")
-  const [editMode, setEditMode] = useState(false)
+  const { data, isLoading } = useGetUserDetailsQuery();
+  const [activeTab, setActiveTab] = useState("profile");
+  const [editMode, setEditMode] = useState(false);
+  const router = useRouter();
 
-  const notify = (message, type) => {
-    toast(message, { type: type, autoClose: 1500 });
-  }
+  useEffect(() => {
+    if (data?.user) setUserProfile(data.user);
+  }, [data]);
 
   const [updateUserDetails] = useUpdateUserDetailsMutation();
+  const [logoutUser] = useLogoutUserMutation();
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     try {
       const res = await updateUserDetails(userProfile);
-      console.log(res);
       if (res.data?.success) {
-        notify("Profile updated successfull!", "success");
+        toast.success("Profile synchronized!", { position: "top-center" });
+        setEditMode(false);
       }
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) { console.error(error); }
   }
 
-  const router = useRouter();
-  const [logoutUser] = useLogoutUserMutation();
   const handleUserLogout = async () => {
     try {
       const res = await logoutUser({});
-      console.log(res);
       if (res.data?.success) {
-        notify("Logout successfull!", "success");
         localStorage.clear();
         router.push("/signin");
       }
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) { console.error(error); }
   }
 
-  if (isLoading) {
-    return <PetSpinner />
-  }
+  if (isLoading) return <PetSpinner />;
+
   return (
     <div className="min-h-screen">
-      <ToastContainer />
-      <div className="max-w-7xl mx-auto ">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Account Settings</h1>
-          <p className="text-sm text-gray-500">Manage your account settings and preferences</p>
-        </div>
+      <ToastContainer hideProgressBar />
 
-        {/* Navigation Tabs */}
-        <div className="mb-8 border-b">
-          <nav className="-mb-px flex space-x-6">
+      <header className="">
+        <div className="max-w-md mx-auto flex justify-between items-center">
+          <div>
+            <h1 className="text-xl font-black text-slate-900 tracking-tight">Settings</h1>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Personal Account</p>
+          </div>
+          <button
+            onClick={() => setEditMode(!editMode)}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${editMode ? "bg-amber-50 text-amber-600" : "bg-primary/10 text-primary"
+              }`}
+          >
+            {editMode ? "Cancel" : "Edit Profile"}
+          </button>
+        </div>
+      </header>
+
+      <main className="max-w-md mx-auto mt-6 space-y-6">
+
+        <section className="bg-white rounded-[2.5rem] p-6 shadow-xl shadow-slate-200/50 border border-white relative">
+          <div className="flex items-center gap-5">
+            <div className="relative group">
+              <div className="w-20 h-20 rounded-[2rem] overflow-hidden ring-4 ring-slate-50 shadow-inner">
+                <Image
+                  src={userProfile?.image || "/images/user-man.png"}
+                  alt="Avatar"
+                  width={80}
+                  height={80}
+                  className="object-cover"
+                />
+              </div>
+              <label className="absolute -bottom-1 -right-1 p-2 bg-slate-900 text-white rounded-xl shadow-lg cursor-pointer active:scale-90 transition-transform">
+                <Camera size={14} />
+                <input type="file" className="hidden" />
+              </label>
+            </div>
+            <div className="flex-1">
+              <h2 className="text-lg font-extrabold text-slate-900 leading-tight">{userProfile?.fullName}</h2>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="bg-emerald-50 text-emerald-600 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase">
+                  {userProfile?.membership_status || "Standard"}
+                </span>
+                <p className="text-[11px] text-slate-400 font-medium">
+                  Since {new Date(userProfile?.createdAt).getFullYear()}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 flex bg-slate-100 p-1.5 rounded-2xl">
             {["profile", "billing", "notifications"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`
-                  py-4 px-1 border-b-2 font-semibold text-base whitespace-nowrap
-                  ${activeTab === tab
-                    ? "border-blue-500 text-blue-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                  }
-                `}
+                className={`flex-1 py-2.5 text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all duration-300 ${activeTab === tab ? "bg-white text-slate-900 shadow-sm scale-100" : "text-slate-500 scale-95"
+                  }`}
               >
-                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                {tab}
               </button>
             ))}
-          </nav>
-        </div>
+          </div>
+        </section>
 
-        {/* Main Content */}
-        <div className="grid gap-6">
-          {/* Profile Section */}
+        <div className="space-y-4">
           {activeTab === "profile" && (
-            <div className="grid gap-6">
-              {/* Profile Header */}
-              <form onSubmit={handleUpdateProfile} className="bg-white rounded-xl border shadow-sm p-6">
-                <div className="sm:flex items-start justify-between mb-6">
-                  <div className="flex items-center gap-4">
-                    <div className="relative">
-                      <Image src={userProfile?.image || "/images/user-man.png"} alt="user-image" width={80} height={80} className="rounded-full" />
-                      {/* <HiUserCircle className="w-16 h-16 text-gray-600" /> */}
-                      <button type="button" className="absolute bottom-0 right-0 p-1 bg-blue-500 rounded-full text-white hover:bg-blue-600 transition-colors">
-                        <Camera className="h-4 w-4" />
-                      </button>
-                    </div>
-                    <div>
-                      <h2 className="text-xl font-semibold">{userProfile?.fullName}</h2>
-                      <p className="text-sm text-gray-500">Member since {new Date(userProfile?.createdAt).toLocaleString("en-US", { month: "long", year: "numeric" })}</p>
-                      <p className="text-sm text-blue-500">{userProfile?.membership_status || "N/A"} plan</p>
-                    </div>
-                  </div>
-                  <div
-                    onClick={() => setEditMode(!editMode)}
-                    className="max-sm:hidden text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    {editMode ?
-                      <button type="button" className="flex items-center gap-1 w-full p-3">
-                        <Save className="h-4 w-4 " />
-                        Save Changes
-                      </button>
-                      :
-                      <button type="submit" className="flex items-center gap-1 w-full p-3">
-                        <Edit className="h-4 w-4" />
-                        Edit Profile
-                      </button>
-                    }
-                  </div>
-                </div>
+            <form onSubmit={handleUpdateProfile} className="space-y-4 animate-in fade-in slide-in-from-bottom-4">
 
-                <div className="grid gap-6 md:grid-cols-2">
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                      <input
-                        type="text"
-                        defaultValue={userProfile?.fullName}
-                        onChange={(e) => setUserProfile({ ...userProfile, fullName: e.target.value })}
-                        disabled={!editMode}
-                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                      <input
-                        type="email"
-                        defaultValue={userProfile?.email}
-                        disabled
-                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                      <input
-                        type="text"
-                        defaultValue={userProfile?.address || ''}
-                        onChange={(e) => setUserProfile({ ...userProfile, address: e.target.value })}
-                        disabled={!editMode}
-                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
-                      <input
-                        type="string"
-                        defaultValue={userProfile?.state || ''}
-                        onChange={(e) => setUserProfile({ ...userProfile, state: e.target.value })}
-                        disabled={!editMode}
-                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
-                      <input
-                        type="text"
-                        defaultValue={userProfile?.city || ''}
-                        onChange={(e) => setUserProfile({ ...userProfile, city: e.target.value })}
-                        disabled={!editMode}
-                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Zip Code</label>
-                      <input
-                        type="text"
-                        defaultValue={userProfile?.zip || ''}
-                        onChange={(e) => setUserProfile({ ...userProfile, zip: e.target.value })}
-                        disabled={!editMode}
-                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                  onClick={() => setEditMode(!editMode)}
-                  className="sm:hidden mt-10 flex justify-center text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  {editMode ?
-                    <button type="button" className="flex items-center justify-center gap-1 w-full p-3">
-                      <Save className="h-4 w-4" />
-                      Save Changes
-                    </button>
-                    :
-                    <button type="submit" className="flex items-center justify-center gap-1 w-full p-3">
-                      <Edit className="h-4 w-4" />
-                      Edit Profile
-                    </button>
-                  }
-                </div>
-              </form>
-              <div>
-                <button onClick={handleUserLogout} className="lg:hidden mt-auto w-full  rounded-md h-12 px-3 text-red-500  font-medium bg-red-500/5 hover:bg-red-500/10 duration-200 flex justify-center items-center gap-2 "><HiArrowRightOnRectangle className='text-xl' /> Log out</button>
+              {/* Personal Info Group */}
+              <div className="bg-white rounded-[2rem] p-6 border border-slate-100 space-y-4">
+                <h3 className="text-sm font-black text-slate-900 px-1 mb-2">Primary Details</h3>
+                <InputField
+                  icon={User} label="Full Name" value={userProfile?.fullName}
+                  disabled={!editMode}
+                  onChange={(v) => setUserProfile({ ...userProfile, fullName: v })}
+                />
+                <InputField icon={Mail} label="Email Address" value={userProfile?.email} disabled={true} />
               </div>
 
-              {/* Security Settings */}
-              {/* <div className="grid gap-6">
-                <div className="bg-white rounded-xl border shadow-sm p-6">
-                  <h3 className="text-lg font-semibold mb-6">Security Settings</h3>
-                  <div className="space-y-6">
-                    <div className="">
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-2">
-                          <Lock className="h-5 w-5 text-gray-500" />
-                          <h4 className="font-medium">Password</h4>
-                        </div>
-                        <button className="text-sm text-blue-500 hover:text-blue-600">Change</button>
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <input
-                          type={showPassword ? "text" : "password"}
-                          value={userProfile?.password || "********"}
-
-                          className="px-3 py-2 border rounded-lg bg-gray-50 text-gray-500"
-                        />
-                        <button
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="p-2 text-gray-500 hover:text-gray-700"
-                        >
-                          {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                        </button>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-2">
-                          <Key className="h-5 w-5 text-gray-500" />
-                          <h4 className="font-medium">Active Sessions</h4>
-                        </div>
-                      </div>
-                      <div className="space-y-3">
-                        <div className="flex items-center justify-between p-3 border rounded-lg">
-                          <div>
-                            <p className="text-sm font-medium">Current Session</p>
-                            <p className="text-xs text-gray-500">Windows • Chrome • New York, USA</p>
-                          </div>
-                          <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">Active Now</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              {/* Location Group */}
+              <div className="bg-white rounded-[2rem] p-6 border border-slate-100 space-y-4">
+                <h3 className="text-sm font-black text-slate-900 px-1 mb-2">Location & Shipping</h3>
+                <InputField
+                  icon={MapPin} label="Address" value={userProfile?.address}
+                  disabled={!editMode}
+                  onChange={(v) => setUserProfile({ ...userProfile, address: v })}
+                />
+                <div className="grid grid-cols-2 gap-4">
+                  <InputField
+                    icon={Globe} label="State" value={userProfile?.state}
+                    disabled={!editMode}
+                    onChange={(v) => setUserProfile({ ...userProfile, state: v })}
+                  />
+                  <InputField
+                    icon={Pin} label="City" value={userProfile?.city}
+                    disabled={!editMode}
+                    onChange={(v) => setUserProfile({ ...userProfile, city: v })}
+                  />
                 </div>
-              </div> */}
-            </div>
-          )}
+                <InputField
+                  icon={Hash} label="Zip Code" value={userProfile?.zip}
+                  disabled={!editMode}
+                  onChange={(v) => setUserProfile({ ...userProfile, zip: v })}
+                />
+              </div>
 
-          {/* Billing Section */}
-          {activeTab === "billing" && (
-            <div className="grid gap-6">
-              {/* <div className="bg-white rounded-xl border shadow-sm p-6">
-                <h3 className="text-lg font-semibold mb-6">Payment Methods</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 border rounded-lg">
-                    <div className="flex items-center gap-4">
-                      <div className="p-2 bg-blue-100 rounded-lg">
-                        <CreditCard className="h-5 w-5 text-blue-600" />
-                      </div>
-                      <div>
-                        <p className="font-medium">Visa ending in 4242</p>
-                        <p className="text-sm text-gray-500">Expires 12/24</p>
-                      </div>
-                    </div>
-                    <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">Default</span>
-                  </div>
-                  <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-                    <PlusCircle className="h-4 w-4" />
-                    Add Payment Method
+              {editMode && (
+                <div className="fixed bottom-6 left-0 right-0 px-6 z-50">
+                  <button type="submit" className="w-full max-w-md mx-auto bg-primary text-white h-16 rounded-[2rem] font-bold shadow-2xl shadow-primary/40 flex items-center justify-center gap-3 active:scale-95 transition-all">
+                    <Save size={20} /> Save Changes
                   </button>
                 </div>
-              </div> */}
+              )}
+            </form>
+          )}
 
-              <div className="bg-white rounded-xl border shadow-sm p-6">
-                <h3 className="text-lg font-semibold mb-6">Billing History</h3>
-                <div className="overflow-x-auto">
-                  <div className="text-center py-10 text-gray-500">
-                    <FaMoneyBillTransfer className="mx-auto h-12 w-12 mb-4 text-gray-400" />
-                    <p className="text-lg font-medium">No Billing History Found!</p>
-                    <p className="text-sm">You have no transaction history</p>
-                  </div>
-                  {/* <table className="w-full">
-                    <thead>
-                      <tr className="text-left text-sm text-gray-500">
-                        <th className="pb-4 pr-4">Date</th>
-                        <th className="pb-4 pr-4">Description</th>
-                        <th className="pb-4 pr-4">Amount</th>
-                        <th className="pb-4">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody className="text-sm">
-                      <tr className="border-t">
-                        <td className="py-4 pr-4">Feb 15, 2024</td>
-                        <td className="py-4 pr-4">Premium Membership</td>
-                        <td className="py-4 pr-4">$29.99</td>
-                        <td className="py-4">
-                          <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">Paid</span>
-                        </td>
-                      </tr>
-                      <tr className="border-t">
-                        <td className="py-4 pr-4">Feb 1, 2024</td>
-                        <td className="py-4 pr-4">Vet Consultation</td>
-                        <td className="py-4 pr-4">$49.99</td>
-                        <td className="py-4">
-                          <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">Paid</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table> */}
+          {activeTab === "billing" && (
+            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4">
+              <div className="bg-white rounded-[2rem] p-8 text-center border border-slate-100 shadow-sm">
+                <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-300">
+                  <FaMoneyBillTransfer size={32} />
                 </div>
+                <h3 className="text-lg font-bold text-slate-900">No History Yet</h3>
+                <p className="text-xs text-slate-400 mt-1 mb-6">Your transaction records will appear here.</p>
+                <button className="w-full bg-slate-900 text-white py-4 rounded-2xl text-xs font-bold uppercase tracking-widest">Upgrade Account</button>
               </div>
             </div>
           )}
 
-          {/* Security Section */}
-          {/* {activeTab === "security" && (
-            <div className="grid gap-6">
-              <div className="bg-white rounded-xl border shadow-sm p-6">
-                <h3 className="text-lg font-semibold mb-6">Security Settings</h3>
-                <div className="space-y-6">
-                  <div className="pb-6 border-b">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2">
-                        <Lock className="h-5 w-5 text-gray-500" />
-                        <h4 className="font-medium">Password</h4>
-                      </div>
-                      <button className="text-sm text-blue-500 hover:text-blue-600">Change</button>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        value={userProfile?.password || "12345678"}
-
-                        className="px-3 py-2 border rounded-lg bg-gray-50 text-gray-500"
-                      />
-                      <button
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="p-2 text-gray-500 hover:text-gray-700"
-                      >
-                        {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="pb-6 border-b">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2">
-                        <Shield className="h-5 w-5 text-gray-500" />
-                        <h4 className="font-medium">Two-Factor Authentication</h4>
-                      </div>
-                      <button className="px-3 py-1.5 text-sm text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors">
-                        Enable
-                      </button>
-                    </div>
-                    <p className="text-sm text-gray-500">Add an extra layer of security to your account</p>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2">
-                        <Key className="h-5 w-5 text-gray-500" />
-                        <h4 className="font-medium">Active Sessions</h4>
-                      </div>
-                    </div>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between p-3 border rounded-lg">
-                        <div>
-                          <p className="text-sm font-medium">Current Session</p>
-                          <p className="text-xs text-gray-500">Windows • Chrome • New York, USA</p>
-                        </div>
-                        <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">Active Now</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )} */}
-
-          {/* Notifications Section */}
           {activeTab === "notifications" && (
-            <div className="grid gap-6">
-              <div className="bg-white rounded-xl border shadow-sm p-6">
-                <h3 className="text-lg font-semibold mb-6">Notification Preferences</h3>
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between pb-4 border-b">
-                    <div className="flex items-center gap-3">
-                      <Bell className="h-5 w-5 text-gray-500" />
-                      <div>
-                        <p className="font-medium">Push Notifications</p>
-                        <p className="text-sm text-gray-500">Receive notifications on your device</p>
-                      </div>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" className="sr-only peer" defaultChecked />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
-                    </label>
-                  </div>
-
-                  <div className="flex items-center justify-between pb-4 border-b">
-                    <div className="flex items-center gap-3">
-                      <Mail className="h-5 w-5 text-gray-500" />
-                      <div>
-                        <p className="font-medium">Email Notifications</p>
-                        <p className="text-sm text-gray-500">Receive email updates about your account</p>
-                      </div>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" className="sr-only peer" defaultChecked />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
-                    </label>
-                  </div>
-
-                  <div className="flex items-center justify-between pb-4 border-b">
-                    <div className="flex items-center gap-3">
-                      <Phone className="h-5 w-5 text-gray-500" />
-                      <div>
-                        <p className="font-medium">SMS Notifications</p>
-                        <p className="text-sm text-gray-500">Receive text messages for important updates</p>
-                      </div>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" className="sr-only peer" />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-xl border shadow-sm p-6">
-                <h3 className="text-lg font-semibold mb-6">Email Preferences</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="checkbox"
-                      className="rounded border-gray-300 text-blue-500 focus:ring-blue-500"
-                      defaultChecked
-                    />
-                    <div>
-                      <p className="font-medium">Appointment Reminders</p>
-                      <p className="text-sm text-gray-500">Get notified about upcoming vet appointments</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="checkbox"
-                      className="rounded border-gray-300 text-blue-500 focus:ring-blue-500"
-                      defaultChecked
-                    />
-                    <div>
-                      <p className="font-medium">Medication Reminders</p>
-                      <p className="text-sm text-gray-500">Receive reminders for pet medications</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="checkbox"
-                      className="rounded border-gray-300 text-blue-500 focus:ring-blue-500"
-                      defaultChecked
-                    />
-                    <div>
-                      <p className="font-medium">Health Reports</p>
-                      <p className="text-sm text-gray-500">Get periodic health reports for your pets</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="bg-white rounded-[2rem] border border-slate-100 overflow-hidden animate-in fade-in slide-in-from-bottom-4">
+              <NotificationItem
+                icon={Bell} title="Push Notifications"
+                desc="Appointment & health alerts" defaultChecked
+              />
+              <NotificationItem
+                icon={Mail} title="Email Reports"
+                desc="Weekly pet health summaries" defaultChecked
+              />
+              <NotificationItem
+                icon={Shield} title="Security Alerts"
+                desc="Sign-in and password notifications" defaultChecked
+              />
             </div>
           )}
         </div>
-      </div>
+
+        <section className="pt-4">
+          <button onClick={handleUserLogout} className="lg:hidden mt-auto w-full  rounded-2xl h-14 px-3 text-red-500  font-semibold bg-red-500/5 hover:bg-red-500/10 duration-200 flex justify-center items-center gap-2 "><HiArrowRightOnRectangle className='text-xl' /> Log out</button>
+        </section>
+      </main>
     </div>
   )
 }
+
+const InputField = ({ icon: Icon, label, value, disabled, onChange }) => (
+  <div className="space-y-1.5">
+    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider ml-1">{label}</label>
+    <div className={`flex items-center gap-3 px-5 py-3.5 rounded-2xl border transition-all duration-300 ${disabled ? 'bg-slate-50/50 border-slate-100 text-slate-500' : 'bg-white border-primary/20 ring-4 ring-primary/5'
+      }`}>
+      <Icon size={16} className={disabled ? "text-slate-300" : "text-primary"} />
+      <input
+        value={value || ''}
+        disabled={disabled}
+        onChange={(e) => onChange(e.target.value)}
+        className="bg-transparent w-full text-sm font-bold placeholder:text-slate-300 focus:outline-none"
+        placeholder={`Enter ${label}`}
+      />
+      {!disabled && <CheckCircle2 size={14} className="text-slate-200" />}
+    </div>
+  </div>
+)
+
+const NotificationItem = ({ icon: Icon, title, desc, defaultChecked }) => (
+  <div className="flex items-center justify-between p-6 border-b border-slate-50 last:border-0 hover:bg-slate-50/50 transition-colors">
+    <div className="flex gap-4">
+      <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-600 shadow-inner">
+        <Icon size={22} strokeWidth={1.5} />
+      </div>
+      <div>
+        <p className="text-sm font-black text-slate-900">{title}</p>
+        <p className="text-[10px] font-medium text-slate-400 tracking-tight">{desc}</p>
+      </div>
+    </div>
+    <label className="relative inline-flex items-center cursor-pointer">
+      <input type="checkbox" className="sr-only peer" defaultChecked={defaultChecked} />
+      <div className="w-12 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary shadow-inner" />
+    </label>
+  </div>
+)
 
 export default UserAccount;

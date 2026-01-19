@@ -129,7 +129,7 @@ const MobileUserOptions = () => {
     return (
         <>
             {/* User Profile Header */}
-            <div className="bg-[#672e5b] p-6 rounded-lg text-white">
+            <div className="bg-slate-900 p-6 rounded-lg text-white">
                 <div className="flex items-center gap-4">
                     <div className="relative">
                         <Image
@@ -143,7 +143,8 @@ const MobileUserOptions = () => {
                     </div>
                     <div className="flex-1">
                         <h2 className="text-xl font-bold">{user.fullName}</h2>
-                        <p className="text-gray-200 text-sm">{user.email}</p>
+                        {/* <p className="text-gray-200 text-sm">{user.email}</p> */}
+                        <p className="text-gray-200 text-sm">{user.membership_status} plan</p>
                         <div className="flex items-center gap-2 mt-1">
                             <FaPaw className="text-sm" />
                             <span className="text-sm text-gray-200">{pets?.pets?.length || 0} {pets?.pets?.length < 2 ? 'pet' : 'pets'}</span>

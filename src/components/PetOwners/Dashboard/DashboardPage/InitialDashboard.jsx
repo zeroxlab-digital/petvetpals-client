@@ -1,128 +1,119 @@
-/* eslint-disable react/no-unescaped-entities */
-import { Activity, Calendar, MessageSquare, PawPrint, Plus, ShoppingBag, Stethoscope } from "lucide-react"
+import { useGetUserDetailsQuery } from "@/redux/services/userApi";
+import { Activity, MessageSquare, PawPrint, Plus, ShoppingBag, Stethoscope, Cpu, ArrowRight, Play } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 const InitialDashboard = () => {
   const router = useRouter();
-  return (
-    <div className="min-h-screen">
-      <main className="max-w-7xl mx-auto">
-        {/* Welcome Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold mb-4">Welcome to PetVetPals</h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Your all-in-one platform for pet healthcare management. Let's get started by adding your first pet to unlock
-            personalized care recommendations and health tracking.
-          </p>
-        </div>
+  const { data: { user } = {}, isLoading } = useGetUserDetailsQuery();
+  const features = [
+    { title: "Health Tracker", icon: Activity, color: "text-emerald-600", bg: "bg-emerald-100" },
+    { title: "AI Health Tools", icon: Cpu, color: "text-pink-600", bg: "bg-pink-100" },
+    { title: "Vet Consultation", icon: Stethoscope, color: "text-blue-600", bg: "bg-blue-100" },
+    { title: "Vet Chat", icon: MessageSquare, color: "text-purple-600", bg: "bg-purple-100" },
+    { title: "AI Shop", icon: ShoppingBag, color: "text-orange-600", bg: "bg-orange-100" },
+  ];
 
-        {/* Add Pet Card */}
-        <div className="max-w-md mx-auto mb-12">
-          <div className="bg-white rounded-xl border shadow-sm p-6 text-center">
-            <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Plus className="h-8 w-8 text-primary" />
+  return (
+    <div className="min-h-screen flex flex-col">
+      <header className="py-4 border-b border-b-slate-100 mb-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+              <PawPrint size={18} className="text-white" />
             </div>
-            <h2 className="text-xl font-semibold mb-2">Add Your First Pet</h2>
-            <p className="text-gray-500 mb-4">
-              Create a profile for your pet to start tracking their health and accessing our services.
-            </p>
-            <button onClick={() => router.push("/dashboard/pets")} className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primaryOutline transition-colors">
-              Add Pet
+            <span className="font-black text-xl tracking-tight text-slate-900">PetVetPals</span>
+          </div>
+          <button className="p-2 bg-slate-100 rounded-full animate-pulse">
+            <Play size={20} className="text-slate-600" />
+          </button>
+        </div>
+      </header>
+
+      <main className="flex-1 space-y-8">
+        <section className="space-y-1">
+          <h1 className="text-2xl font-extrabold text-slate-900">Hello, {user.fullName}!</h1>
+          <p className="text-slate-500 text-sm">Let's get your furry friend started</p>
+        </section>
+
+        <section
+          onClick={() => router.push("/dashboard/pets")}
+          className="relative overflow-hidden bg-slate-900 rounded-[2.5rem] p-8 shadow-2xl shadow-slate-200 active:scale-[0.98] transition-transform cursor-pointer"
+        >
+
+          <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-3xl -mr-10 -mt-10" />
+
+          <div className="relative z-10 flex flex-col items-center text-center space-y-4">
+            <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-lg rotate-3 group-hover:rotate-0 transition-transform">
+              <Plus size={32} className="text-white" strokeWidth={3} />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-white">Add Your First Pet</h2>
+              <p className="text-slate-400 text-xs mt-1 px-4">Unlock tracking, AI health checks, and 24/7 vet support</p>
+            </div>
+            <div className="bg-white/10 text-white text-xs font-bold py-2 px-6 rounded-full border border-white/20 backdrop-blur-md">
+              Tap to Begin
+            </div>
+          </div>
+        </section>
+
+        <section className="space-y-4">
+          <div className="flex items-center justify-between px-1">
+            <h3 className="font-bold text-slate-800 tracking-tight">Explore Features</h3>
+            <button onClick={() => router.push("/dashboard/pets")} className="text-xs font-bold text-primary flex items-center gap-1">
+              See All <ArrowRight size={14} />
             </button>
           </div>
-        </div>
 
-        {/* Features Grid */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-semibold text-center mb-8">Everything Your Pet Needs</h2>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <div className="bg-white rounded-xl border p-6 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <Stethoscope className="h-6 w-6 text-blue-500" />
+          <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar -mx-5 px-5">
+            {features.map((f, i) => (
+              <div
+                key={i}
+                className={`flex-shrink-0 w-32 aspect-square ${f.bg} rounded-[1.7rem] p-4 flex flex-col items-center justify-center text-center`}
+              >
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-2`}>
+                  <f.icon size={25} className={f.color} />
+                </div>
+                <span className="text-[10px] font-bold text-slate-700 leading-tight">{f.title}</span>
               </div>
-              <h3 className="text-lg font-semibold mb-2">Online Vet Consultation</h3>
-              <p className="text-gray-500 text-sm">
-                Connect with licensed veterinarians from the comfort of your home, 24/7.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl border p-6 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                <Activity className="h-6 w-6 text-green-500" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Health Tracking</h3>
-              <p className="text-gray-500 text-sm">
-                Monitor weight, activity, medications, and overall wellness with easy-to-read charts.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl border p-6 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                <MessageSquare className="h-6 w-6 text-purple-500" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Vet Chat</h3>
-              <p className="text-gray-500 text-sm">
-                Quick answers to your pet health questions through our messaging platform.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl border p-6 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
-                <ShoppingBag className="h-6 w-6 text-orange-500" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Pet Pharmacy & Shop</h3>
-              <p className="text-gray-500 text-sm">Order medications, food, and supplies with doorstep delivery.</p>
-            </div>
-
-            <div className="bg-white rounded-xl border p-6 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
-                <PawPrint className="h-6 w-6 text-red-500" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Symptom Checker</h3>
-              <p className="text-gray-500 text-sm">Identify potential health issues and get recommended actions.</p>
-            </div>
-
-            <div className="bg-white rounded-xl border p-6 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
-                <Calendar className="h-6 w-6 text-yellow-500" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Appointment Booking</h3>
-              <p className="text-gray-500 text-sm">Schedule in-person or virtual vet visits with just a few clicks.</p>
-            </div>
+            ))}
           </div>
-        </div>
+        </section>
 
-        {/* Getting Started Steps */}
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-semibold text-center mb-8">Getting Started is Easy</h2>
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
-                <span className="text-3xl font-bold text-primary">1</span>
+        <section className="bg-white rounded-[2rem] p-6 border border-slate-100">
+          <h3 className="text-sm font-bold text-slate-900 mb-5">Getting Started</h3>
+          <div className="space-y-6">
+            {[
+              { title: "Pet Profile", desc: "Basic info and photos", active: true },
+              { title: "Health History", desc: "Log previous records", active: false },
+              { title: "Care Plan", desc: "Personalized AI routine", active: false }
+            ].map((step, i) => (
+              <div key={i} className="flex gap-4">
+                <div className="flex flex-col items-center">
+                  <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${step.active ? 'bg-primary text-white' : 'bg-slate-100 text-slate-400'}`}>
+                    {i + 1}
+                  </div>
+                  {i < 2 && <div className="w-0.5 flex-1 bg-slate-100 my-1" />}
+                </div>
+                <div className="pb-1">
+                  <p className={`text-sm font-bold ${step.active ? 'text-slate-900' : 'text-slate-400'}`}>{step.title}</p>
+                  <p className="text-xs text-slate-500">{step.desc}</p>
+                </div>
               </div>
-              <h3 className="font-medium mb-2">Add Your Pet</h3>
-              <p className="text-sm text-gray-500">Create your pet's profile with basic information</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
-                <span className="text-3xl font-bold text-primary">2</span>
-              </div>
-              <h3 className="font-medium mb-2">Complete Health Profile</h3>
-              <p className="text-sm text-gray-500">Add medical history and current medications</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
-                <span className="text-3xl font-bold text-primary">3</span>
-              </div>
-              <h3 className="font-medium mb-2">Access Services</h3>
-              <p className="text-sm text-gray-500">Start using all our pet care features</p>
-            </div>
+            ))}
           </div>
-        </div>
+        </section>
       </main>
+
+      <footer className="sticky bottom-0 p-4 pb-8 max-md:mt-5">
+        <button
+          onClick={() => router.push("/dashboard/pets")}
+          className="w-full bg-primary text-white h-14 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-xl shadow-primary/20 active:scale-[0.97] transition-all"
+        >
+          <Plus size={20} strokeWidth={3} /> Add Pet to Start
+        </button>
+      </footer>
     </div>
   )
 }
 
-export default InitialDashboard
-
+export default InitialDashboard;
