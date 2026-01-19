@@ -372,7 +372,7 @@ const DashboardPage = () => {
                                     </div>
                                     <h4 className="text-sm font-bold text-slate-800">No Records Found</h4>
                                     <p className="mt-1 text-xs leading-relaxed text-slate-400 max-w-[200px]">
-                                        Medical history and clinical notes will appear here once recorded by the vet.
+                                        Medical history and clinical notes will appear here once recorded by the vet
                                     </p>
                                 </div>
                             )}

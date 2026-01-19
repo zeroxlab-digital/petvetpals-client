@@ -85,16 +85,13 @@ const Upcoming = ({ petData, confirmed_appointment }) => {
                     </div>
                 ) : (
                     /* Empty State */
-                    <div className="flex flex-col items-center justify-center py-14 text-center">
-                        <div className="relative mb-6">
-                            <div className="absolute inset-0 scale-150 blur-3xl opacity-20 bg-primary rounded-full" />
-                            <div className="relative bg-white shadow-2xl shadow-primary/20 rounded-3xl p-6 text-primary">
-                                <PawPrint size={48} strokeWidth={1} className="animate-bounce" />
-                            </div>
+                    <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-100 py-12 px-6 text-center">
+                        <div className="mb-4 rounded-2xl bg-slate-50 p-4 text-slate-300">
+                            <PawPrint size={32} strokeWidth={1.5} />
                         </div>
-                        <h4 className="text-lg font-bold text-slate-900">Your Pet is All Clear!</h4>
-                        <p className="text-sm text-slate-400 max-w-[200px] mt-1 leading-relaxed">
-                            Everything looks great. No upcoming tasks at the moment.
+                        <h4 className="text-sm font-bold text-slate-800">No Upcoming Event</h4>
+                        <p className="mt-1 text-xs leading-relaxed text-slate-400 max-w-[200px]">
+                            Everything looks great. No upcoming tasks at the moment
                         </p>
                     </div>
                 )}

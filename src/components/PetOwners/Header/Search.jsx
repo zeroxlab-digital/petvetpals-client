@@ -32,8 +32,8 @@ const Search = () => {
     };
 
     return (
-        <form action="#" className="">
-            <div className={`flex items-center pl-3 pr-1 border rounded-full border-[#58294ea3] max-2xl:hidden`}>
+        <form action="#" className="max-lg:hidden">
+            <div className={`flex items-center pl-3 pr-1 border rounded-full border-[#58294ea3] max-xl:hidden`}>
                 <label htmlFor="search" className={`cursor-pointer flex items-center justify-center text-primary`}>
                     <HiMagnifyingGlass className="text-lg" />
                 </label>
@@ -63,7 +63,7 @@ const Search = () => {
                     )}
                 </div>
             </div>
-            <div className="2xl:hidden">
+            <div className="xl:hidden">
                 <HiMagnifyingGlass className="text-2xl text-primary" />
             </div>
         </form>

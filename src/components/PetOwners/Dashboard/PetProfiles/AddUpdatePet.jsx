@@ -148,7 +148,7 @@ const AddUpdatePet = ({ popup = () => {}, setPopup = () => {}, setPetDetailsOpti
           <div>
             <Label htmlFor="type">Pet type</Label>
             <SelectOptions
-              options={['Cat', 'Dog', 'Other']}
+              options={['Cat', 'Dog',]}
               name="type"
               placeholder={formState.type}
               value={formState.type}
