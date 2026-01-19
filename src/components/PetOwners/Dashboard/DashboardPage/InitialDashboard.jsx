@@ -15,7 +15,7 @@ const InitialDashboard = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="py-4 border-b border-b-slate-100 mb-4">
+      {/* <header className="py-4 border-b border-b-slate-100 mb-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
@@ -27,7 +27,7 @@ const InitialDashboard = () => {
             <Play size={20} className="text-slate-600" />
           </button>
         </div>
-      </header>
+      </header> */}
 
       <main className="flex-1 space-y-8">
         <section className="space-y-1">
@@ -56,7 +56,7 @@ const InitialDashboard = () => {
           </div>
         </section>
 
-        <section className="space-y-4">
+        <section className="space-y-4 overflow-hidden">
           <div className="flex items-center justify-between px-1">
             <h3 className="font-bold text-slate-800 tracking-tight">Explore Features</h3>
             <button onClick={() => router.push("/dashboard/pets")} className="text-xs font-bold text-primary flex items-center gap-1">
