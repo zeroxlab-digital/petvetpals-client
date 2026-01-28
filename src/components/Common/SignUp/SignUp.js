@@ -34,10 +34,9 @@ const SignUpPage = ({ mode }) => {
         try {
             const mutation = mode === "user" ? registerUser : registerVet;
             const response = await mutation(formData);
-            
             if (response.data) {
                 notify(`${mode === "user" ? "User" : "Vet"} registration successful!`, "success");
-                router.push(mode === "user" ? "/signin" : "/veterinarian/signin");
+                router.push(mode === "user" ? "/dashboard" : "/veterinarian/dashboard");
             }
         } catch (error) {
             console.error(error);
