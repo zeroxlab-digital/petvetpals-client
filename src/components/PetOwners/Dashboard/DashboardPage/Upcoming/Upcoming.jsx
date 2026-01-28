@@ -54,7 +54,7 @@ const Upcoming = ({ petData, confirmed_appointment }) => {
                                             </p>
                                             <p className="text-xs font-medium text-slate-500 mt-1">
                                                 Today at {new Date(petData.next_reminder[0].reminder_datetime).toLocaleString('en-US', {
-                                                    hour: 'numeric', minute: '2-digit', hour12: true
+                                                    hour: 'numeric', minute: '2-digit', timeZone: "UTC"
                                                 })}
                                             </p>
                                         </div>

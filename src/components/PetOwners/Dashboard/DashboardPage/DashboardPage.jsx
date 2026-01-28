@@ -314,7 +314,7 @@ const DashboardPage = () => {
                             {medicalHistoryLoading ? (
                                 <TinySpinner />
                             ) : medicalHistory?.medicalHistory?.length > 0 ? (
-                                <div className="overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm">
+                                <div className="overflow-hidden bg-white rounded-b-xl flex flex-col h-full">
                                     <div className="overflow-x-auto">
                                         <table className="w-full text-left border-separate border-spacing-0">
                                             <thead>
@@ -359,7 +359,7 @@ const DashboardPage = () => {
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div className="bg-slate-50/50 px-6 py-3 border-t border-slate-100">
+                                    <div className="bg-slate-50/50 mt-auto px-6 py-3 border-t border-slate-100">
                                         <button onClick={() => setActiveTab("health")} className="text-[11px] font-bold uppercase tracking-widest text-primary hover:text-primary/70 transition-colors">
                                             View All History ({medicalHistory.medicalHistory.length})
                                         </button>

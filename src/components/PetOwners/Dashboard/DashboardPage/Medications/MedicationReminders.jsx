@@ -143,6 +143,19 @@ const MedicationReminders = ({ petId, ongoingMedications }) => {
         }
     };
 
+    const formatFrequency = (value) => {
+        const map = {
+            once_daily: "Once Daily",
+            twice_daily: "Twice Daily",
+            every_other_day: "Every Other Day",
+            once_weekly: "Once Weekly",
+            twice_weekly: "Bi-Weekly",
+            once_monthly: "Once Monthly"
+        };
+
+        return map[value] || value;
+    };
+
     useEffect(() => {
         const refetchInterval = setInterval(() => {
             refetch(); // from useGetScheduledRemindersQuery
@@ -195,7 +208,7 @@ const MedicationReminders = ({ petId, ongoingMedications }) => {
                                             </h3>
                                             <p className="uppercase text-xs font-semibold tracking-wider text-gray-200 select-none">
                                                 {displayValue(dose?.medication?.dosage)} -{" "}
-                                                {dose.frequency || "Daily"}
+                                                {formatFrequency(dose.frequency)}
                                             </p>
                                         </div>
                                         <span
