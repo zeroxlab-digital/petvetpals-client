@@ -6,14 +6,14 @@ import PawBackground from "@/components/Common/PawBackground/PawBackground";
 const page = () => {
   const features = [
     {
-      title: "AI Symptom Analyst",
+      title: "Symptom Checker",
       description: "Quickly assess unusual behaviors or physical symptoms",
       href: "vet-gpt/symptom-checker",
       icon: <PawPrint className="w-12 h-12 max-sm:w-11 max-sm:h-11 text-blue-600" />,
       bg: "from-blue-300 to-blue-500",
     },
     {
-      title: "AI Pet Nutritionist",
+      title: "Pet Nutritionist",
       description: "Tailored meal plans and dietary advice for your pet's breed",
       href: "vet-gpt/nutrition-planner",
       icon: <Bone className="w-12 h-12 max-sm:w-11 max-sm:h-11 text-green-600" />,

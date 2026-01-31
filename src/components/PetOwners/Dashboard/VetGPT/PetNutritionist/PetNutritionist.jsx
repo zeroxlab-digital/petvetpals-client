@@ -975,7 +975,7 @@ export default function PetNutritionist() {
                   </Card>
 
                   {/* Brand Recommendations */}
-                  <Card>
+                  {/* <Card>
                     <CardHeader gradient>
                       <CardTitle className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -1024,7 +1024,7 @@ export default function PetNutritionist() {
                                   <Badge variant="affiliate" className="text-xs">
                                     Affiliate Link
                                   </Badge>
-                                )} */}
+                                )}
                               </div>
                             </div>
                             <p className="text-gray-600 mb-4">{brand.reason}</p>
@@ -1036,7 +1036,7 @@ export default function PetNutritionist() {
                         ))}
                       </div>
                     </CardContent>
-                  </Card>
+                  </Card> */}
 
                   {/* Action Buttons */}
                   <Card>

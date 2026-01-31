@@ -1061,7 +1061,7 @@ export default function AllergyItchCoach() {
                   </Card>
 
                   {/* Product Recommendations */}
-                  <Card>
+                  {/* <Card>
                     <CardHeader gradient>
                       <CardTitle className="flex items-center justify-between">
                         <div className="flex items-center">
@@ -1097,7 +1097,7 @@ export default function AllergyItchCoach() {
                                   <Badge variant="info" className="text-xs">
                                     Affiliate
                                   </Badge>
-                                )} */}
+                                )}
                               </div>
                             </div>
                             <p className="text-gray-600 mb-3">{product.reason}</p>
@@ -1109,7 +1109,7 @@ export default function AllergyItchCoach() {
                         ))}
                       </div>
                     </CardContent>
-                  </Card>
+                  </Card> */}
 
                   {/* Things to Avoid */}
                   <Card>
