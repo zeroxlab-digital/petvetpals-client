@@ -296,7 +296,7 @@ const DashboardPage = () => {
                     </div>
 
                     {/* Smart Reminder */}
-                    <SmartReminder selectedPet={selectedPet} />
+                    {/* <SmartReminder selectedPet={selectedPet} /> */}
 
                     {/* Smart Shopping */}
                     <SmartShopping selectedPet={selectedPet} />
@@ -366,14 +366,16 @@ const DashboardPage = () => {
                                     </div>
                                 </div>
                             ) : (
-                                <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-100 py-12 px-6 text-center">
-                                    <div className="mb-4 rounded-2xl bg-slate-50 p-4 text-slate-300">
-                                        <PawPrint size={32} strokeWidth={1.5} />
+                                <div className='p-4'>
+                                    <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-100 py-12 px-6 text-center">
+                                        <div className="mb-4 rounded-2xl bg-slate-50 p-4 text-slate-300">
+                                            <PawPrint size={32} strokeWidth={1.5} />
+                                        </div>
+                                        <h4 className="text-sm font-bold text-slate-800">No Records Found</h4>
+                                        <p className="mt-1 text-xs leading-relaxed text-slate-400 max-w-[200px]">
+                                            Medical history and clinical notes will appear here once recorded by the vet
+                                        </p>
                                     </div>
-                                    <h4 className="text-sm font-bold text-slate-800">No Records Found</h4>
-                                    <p className="mt-1 text-xs leading-relaxed text-slate-400 max-w-[200px]">
-                                        Medical history and clinical notes will appear here once recorded by the vet
-                                    </p>
                                 </div>
                             )}
                         </div>
