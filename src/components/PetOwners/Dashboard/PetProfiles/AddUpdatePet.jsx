@@ -6,11 +6,12 @@ import Label from '@/components/Common/Form/Label';
 import WeightInput from '@/components/Common/Form/WeightInput';
 import TinySpinner from '@/components/Common/Loader/TinySpinner';
 import SelectOptions from '@/components/Common/Form/SelectOptions';
-import { useAddPetMutation, useUpdateAPetMutation } from '@/redux/services/petApi';
+import { useAddPetMutation, useDeletePetMutation, useUpdateAPetMutation } from '@/redux/services/petApi';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 
-const AddUpdatePet = ({ popup = () => {}, setPopup = () => {}, setPetDetailsOption = () => {} }) => {
+const AddUpdatePet = ({ popup = () => { }, setPopup = () => { }, setPetDetailsOption = () => { } }) => {
   const weightHistory = popup.pet?.weight;
   const recentWeight = weightHistory?.reduce((latest, current) => {
     return new Date(current.date) > new Date(latest.date) ? current : latest;
@@ -29,6 +30,7 @@ const AddUpdatePet = ({ popup = () => {}, setPopup = () => {}, setPetDetailsOpti
 
   const [addPet, { isLoading: adding }] = useAddPetMutation();
   const [updatePet, { isLoading: updating }] = useUpdateAPetMutation();
+  const [deletePet, { isLoading: deleting }] = useDeletePetMutation();
 
   useEffect(() => {
     if (uploadedFile) {
@@ -128,6 +130,18 @@ const AddUpdatePet = ({ popup = () => {}, setPopup = () => {}, setPetDetailsOpti
     "korat"
   ];
 
+  const handleDeletePet = async() => {
+    if (!popup.pet?._id) notify("Missing Pet ID!", "error");
+    try {
+      await deletePet(popup.pet?._id).unwrap();
+      notify(`${popup.pet?.name} has been removed`);
+      setPopup({ show: false, type: null, pet: null });
+    } catch (err) {
+      console.log(err);
+      notify('Something went wrong', 'error');
+    }
+  }
+
   return (
     <div className="max-h-[80vh] overflow-y-auto space-y-5">
 
@@ -197,20 +211,51 @@ const AddUpdatePet = ({ popup = () => {}, setPopup = () => {}, setPetDetailsOpti
 
         <FileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
 
-        <div className="flex gap-4 pt-2">
-          <button
-            type="button"
-            onClick={() => setPopup({ show: false, type: null, pet: null })}
-            className="bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg font-medium py-3 px-6 transition-colors duration-200 flex-1"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="bg-primary hover:bg-primary/90 text-white rounded-lg font-medium py-3 px-6 transition-colors duration-200 flex-1"
-          >
-            {adding || updating ? <TinySpinner /> : isUpdate ? 'Update Pet' : 'Add Pet'}
-          </button>
+        <div>
+          <div className="flex gap-4 pt-2">
+            <button
+              type="button"
+              onClick={() => setPopup({ show: false, type: null, pet: null })}
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg font-medium py-3 px-6 transition-colors duration-200 flex-1"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="bg-primary hover:bg-primaryHover text-white rounded-lg font-medium py-3 px-6 transition-colors duration-200 flex-1"
+            >
+              {adding || updating ? <TinySpinner /> : isUpdate ? 'Update Pet' : 'Add Pet'}
+            </button>
+          </div>
+          {isUpdate &&
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <button
+                  type="button"
+                  className="mx-auto block mt-7 text-red-500 hover:text-red-600 duration-150 underline text-sm uppercase"
+                >
+                  Remove Pet Profile
+                </button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Remove {formState.name}?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This will permanently delete <span className="font-medium text-foreground">{formState.name}</span>'s profile and all associated data. This action cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={handleDeletePet}
+                    className="bg-red-500 hover:bg-red-600 text-white"
+                  >
+                    {deleting ? <TinySpinner /> : 'Yes, remove pet'}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          }
         </div>
       </form>
     </div>

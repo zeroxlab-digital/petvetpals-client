@@ -17,7 +17,7 @@ import { getPetAge } from '@/utils/getPetAge';
 
 const PetProfiles = () => {
     const { data, isLoading, isError, error } = useGetPetsQuery();
-    console.log(data)
+    // console.log(data)
     const [popup, setPopup] = useState({
         show: false,
         type: null,

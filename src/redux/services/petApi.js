@@ -42,6 +42,13 @@ export const petApi = createApi({
             }),
             invalidatesTags: ["Pet"]
         }),
+        deletePet: build.mutation({
+            query: ( id ) => ({
+                url: `/delete-pet/${id}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["Pet"]
+        }),
         addActivityLevel: build.mutation({
             query: ({ id, activity_level }) => ({
                 url: '/log-activity-level',
@@ -228,4 +235,4 @@ export const petApi = createApi({
     })
 })
 
-export const { useGetPetsQuery, useGetPetDataQuery, useAddPetMutation, useUpdateAPetMutation, useAddActivityLevelMutation, useAddEnergyLevelMutation, useGetMedicationsQuery, useAddMedicationMutation, useUpdateMedicationMutation, useDeleteMedicationMutation, useGetScheduledRemindersQuery, useAddMedScheduleReminderMutation, useUpdateMedScheduleReminderMutation, useDeleteMedScheduledReminderMutation, useMarkGivenMedScheduledReminderMutation, useGetMedicalHistoryQuery, useAddMedicalHistoryMutation, useUpdateMedicalHistoryMutation, useDeleteMedicalHistoryMutation, useGetVaccinationsQuery, useAddVaccinationMutation, useUpdateVaccinationMutation, useDeleteVaccinationMutation, useAddAllergyConditionMutation, useGetAllergiesConditionsQuery, useDeleteAllergyConditionMutation } = petApi;
+export const { useGetPetsQuery, useGetPetDataQuery, useAddPetMutation, useUpdateAPetMutation, useDeletePetMutation, useAddActivityLevelMutation, useAddEnergyLevelMutation, useGetMedicationsQuery, useAddMedicationMutation, useUpdateMedicationMutation, useDeleteMedicationMutation, useGetScheduledRemindersQuery, useAddMedScheduleReminderMutation, useUpdateMedScheduleReminderMutation, useDeleteMedScheduledReminderMutation, useMarkGivenMedScheduledReminderMutation, useGetMedicalHistoryQuery, useAddMedicalHistoryMutation, useUpdateMedicalHistoryMutation, useDeleteMedicalHistoryMutation, useGetVaccinationsQuery, useAddVaccinationMutation, useUpdateVaccinationMutation, useDeleteVaccinationMutation, useAddAllergyConditionMutation, useGetAllergiesConditionsQuery, useDeleteAllergyConditionMutation } = petApi;
