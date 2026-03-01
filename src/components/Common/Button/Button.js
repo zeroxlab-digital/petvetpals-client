@@ -23,7 +23,7 @@ const Button = ({ children, variant, size, classNames, onClick, ...props }) => {
     }
     
     return (
-        <button onClick={onClick} className={`${variantClass()} ${sizeClass()} ${props.uppercase && 'uppercase'} ${classNames} flex justify-center items-center gap-2 duration-200 rounded-xl`}>
+        <button onClick={onClick} className={`${variantClass()} ${sizeClass()} ${props.uppercase && 'uppercase'} ${classNames} flex justify-center items-center gap-2 duration-200 rounded-full`}>
             {children}
         </button>
     );

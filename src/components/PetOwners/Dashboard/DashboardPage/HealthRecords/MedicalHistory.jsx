@@ -142,7 +142,7 @@ const MedicalHistory = ({ petId }) => {
       </div>
 
       {/* DESKTOP/TABLET: Original Table */}
-      <div className="hidden md:block h-screen border rounded-md bg-white overflow-x-auto">
+      <div className="hidden md:block border rounded-md bg-white overflow-x-auto">
         <table className="w-full border-collapse p-5">
           <thead>
             <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">

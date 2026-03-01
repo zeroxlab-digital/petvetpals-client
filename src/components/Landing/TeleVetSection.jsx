@@ -76,9 +76,6 @@ const TeleVetSection = () => {
 
                 {/* Content Side */}
                 <div className="order-1 lg:order-2 space-y-8">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-50 border border-pink-100 text-primary text-xs font-bold uppercase tracking-widest">
-                        Human-in-the-loop AI
-                    </div>
                     
                     <h2 className="text-4xl md:text-6xl font-black text-slate-900 leading-[1.1]">
                         Expert Care, <br />

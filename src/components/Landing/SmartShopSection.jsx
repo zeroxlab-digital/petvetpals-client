@@ -60,17 +60,7 @@ const SmartShopSection = () => {
       <div className="app-container relative z-10">
         {/* Header of the section */}
         <div className="max-w-3xl mb-20">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-3 mb-6"
-          >
-            {/* <span className="h-px w-12 bg-primary" /> */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-bold uppercase tracking-widest">
-              <HiOutlineSparkles className="animate-pulse" />
-              Demographic-Based Recommendations
-            </div>
-          </motion.div>
+          
 
           <h2 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-8">
             Smarter product choices <br />

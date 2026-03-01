@@ -33,7 +33,7 @@ const UserAccount = () => {
     try {
       const res = await updateUserDetails(userProfile);
       if (res.data?.success) {
-        toast.success("Profile synchronized!", { position: "top-center" });
+        toast.success("Profile synchronized!", { autoClose: 1000 });
         setEditMode(false);
       }
     } catch (error) { console.error(error); }

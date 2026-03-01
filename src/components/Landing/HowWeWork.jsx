@@ -19,9 +19,6 @@ const HowWeWorkSection = () => {
                             transition={{ duration: 0.8 }}
                             className='space-y-8'
                         >
-                            <div className='inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-[10px] font-black uppercase tracking-[0.2em]'>
-                                <HiOutlineSparkles className="text-primary" /> Human-Led, AI-Powered
-                            </div>
                             
                             <h3 className='text-5xl md:text-7xl font-black text-slate-900 leading-[0.9] tracking-tighter'>
                                 Care That Puts Your Pet at the <span className='text-primary italic font-light'>Center</span>

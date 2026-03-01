@@ -47,17 +47,6 @@ const page = () => {
                     </button>
                 </Link>
             </div>
-
-            {/* <div className="mt-16 pt-8 border-t border-slate-100 w-full max-w-md">
-                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4">
-                    Quick Links
-                </p>
-                <div className="flex justify-center gap-6">
-                    <Link href="/pharmacy" className="text-xs font-bold text-slate-500 hover:text-primary transition-colors">Pharmacy</Link>
-                    <Link href="/supplies" className="text-xs font-bold text-slate-500 hover:text-primary transition-colors">Pet Supplies</Link>
-                    <Link href="/deals" className="text-xs font-bold text-slate-500 hover:text-primary transition-colors">Daily Deals</Link>
-                </div>
-            </div> */}
         </div>
     );
 };
