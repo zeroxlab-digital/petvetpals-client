@@ -23,7 +23,7 @@ const AddUpdatePet = ({ popup = () => { }, setPopup = () => { }, setPetDetailsOp
     type: isUpdate ? popup.pet?.type || '' : '',
     date_of_birth: isUpdate ? popup.pet?.date_of_birth || '' : '',
     breed: isUpdate ? popup.pet?.breed || '' : '',
-    gender: isUpdate ? popup.pet?.gender || '' : '',
+    gender: isUpdate ? popup.pet?.gender.charAt(0).toUpperCase() + popup.pet?.gender.slice(1) || '' : '',
     weight: isUpdate ? recentWeight.value || '' : '',
     image: isUpdate ? popup.pet?.image || null : null
   });
