@@ -42,9 +42,10 @@ const UserAccount = () => {
   const handleUserLogout = async () => {
     try {
       const res = await logoutUser({});
+      console.log("res:", res);
       if (res.data?.success) {
         localStorage.clear();
-        router.push("/signin");
+        router.replace("/signin");
       }
     } catch (error) { console.error(error); }
   }

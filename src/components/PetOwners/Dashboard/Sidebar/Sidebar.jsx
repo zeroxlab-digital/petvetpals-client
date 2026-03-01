@@ -24,14 +24,14 @@ const Sidebar = ({ links, setResponsiveToggle = () => { } }) => {
                 if (res.data?.success) {
                     notify("Logout successfull!", "success");
                     localStorage.clear();
-                    router.push("/veterinarian/signin");
+                    router.replace("/veterinarian/signin");
                 }
             } else {
                 const res = await logoutUser({});
                 if (res.data?.success) {
                     notify("Logout successfull!", "success");
                     localStorage.clear();
-                    router.push("/signin");
+                    router.replace("/signin");
                 }
             }
         } catch (error) {

@@ -37,7 +37,7 @@ const SignUpPage = ({ mode }) => {
             const response = await mutation(formData);
             if (response.data) {
                 notify(`${mode === "user" ? "User" : "Vet"} registration successful!`, "success");
-                router.push(mode === "user" ? "/dashboard" : "/veterinarian/dashboard");
+                router.replace(mode === "user" ? "/dashboard" : "/veterinarian/dashboard");
             }
         } catch (error) {
             console.error(error);
@@ -191,7 +191,7 @@ const SignUpPage = ({ mode }) => {
                                         } else {
                                             toast.error(data.message);
                                         }
-                                        router.push(mode === "user" ? "/dashboard" : "/veterinarian/dashboard");
+                                        router.replace(mode === "user" ? "/dashboard" : "/veterinarian/dashboard");
                                     } catch (err) {
                                         toast.error("Google sign-in failed.");
                                     }

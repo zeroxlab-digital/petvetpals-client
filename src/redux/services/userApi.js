@@ -1,4 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { petApi } from "./petApi";
+import { appointmentApi } from "./appointmentApi";
+import { reminderApi } from "./reminderApi";
 
 export const userApi = createApi({
     reducerPath: "userApi",
@@ -27,10 +30,15 @@ export const userApi = createApi({
         logoutUser: build.mutation({
             query: () => ({
                 url: '/logout',
-                method: "POST",
-                
+                method: "POST"
             }),
-            invalidatesTags: ["User"]
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
+                await queryFulfilled;
+                dispatch(userApi.util.resetApiState());
+                dispatch(petApi.util.resetApiState());
+                dispatch(appointmentApi.util.resetApiState());
+                dispatch(reminderApi.util.resetApiState());
+            },
         }),
         getUserDetails: build.query({
             query: () => '/user-details',

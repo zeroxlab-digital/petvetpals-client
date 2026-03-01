@@ -18,9 +18,9 @@ const ProtectedPage = (Component, role = "any") => {
         useEffect(() => {
             if (!isLoading && !isAuthenticated) {
                 if (role === "vet") {
-                    router.push("/veterinarian/signin");
+                    router.replace("/veterinarian/signin");
                 } else if (role === "user") {
-                    router.push("/signin");
+                    router.replace("/signin");
                 }
             }
         }, [isAuthenticated, isLoading]);

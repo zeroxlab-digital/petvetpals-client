@@ -51,6 +51,8 @@ const DashboardPage = () => {
         if (selectedPetId) localStorage.setItem("selectedPetId", selectedPetId);
     }, [selectedPetId]);
 
+    console.log("selected pet ", selectedPetId)
+
 
     const [showPetMenu, setShowPetMenu] = useState(false)
     const petListContainerRef = useRef(null);

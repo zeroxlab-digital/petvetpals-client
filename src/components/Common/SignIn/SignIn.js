@@ -35,7 +35,7 @@ const SignInPage = ({ mode }) => {
 
             if (response.data?.success || response.data?.success === "true") {
                 toast.success("Welcome back!", { autoClose: 2000 });
-                router.push(mode === 'user' ? "/dashboard" : "/veterinarian/dashboard");
+                router.replace(mode === 'user' ? "/dashboard" : "/veterinarian/dashboard");
             }
         } catch (error) {
             console.error("Login Error:", error);
@@ -182,7 +182,7 @@ const SignInPage = ({ mode }) => {
                                         } else {
                                             toast.error(data.message);
                                         }
-                                        router.push(mode === "user" ? "/dashboard" : "/veterinarian/dashboard");
+                                        router.replace(mode === "user" ? "/dashboard" : "/veterinarian/dashboard");
                                     } catch (err) {
                                         toast.error("Google sign-in failed.");
                                     }
