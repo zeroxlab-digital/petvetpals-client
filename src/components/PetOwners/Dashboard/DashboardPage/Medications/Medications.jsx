@@ -110,7 +110,7 @@ const Medications = ({ petId }) => {
     return (
         <div className="space-y-5">
             <div className="flex items-center justify-between max-sm:flex-wrap">
-                <h2 className="font-semibold text-lg">Medications & Treatment</h2>
+                <h2 className="font-semibold text-lg">Medications</h2>
                 {activeTab === "medication-reminders" && (
                     <>
                         <div className="flex items-center gap-2 ">
@@ -123,7 +123,7 @@ const Medications = ({ petId }) => {
                             <Button
                                 onClick={() => setOpenPopup(true)}
                                 variant={"primaryOutline"}
-                                classNames={"max-sm:px-3 text-sm font-semibold"}
+                                classNames={"max-sm:px-3 text-sm font-semibold !rounded-full"}
                             >
                                 <HiPlus className="text-lg" /> Schedule Reminder
                             </Button>
@@ -148,7 +148,7 @@ const Medications = ({ petId }) => {
                         <Button
                             onClick={() => setOpenPopup(true)}
                             variant={"primaryOutline"}
-                            classNames={" text-sm font-semibold"}
+                            classNames={" text-sm font-semibold !rounded-full"}
                         >
                             <HiPlus className="text-lg" /> Add Medication
                         </Button>
@@ -322,7 +322,7 @@ const Medications = ({ petId }) => {
 
                         {/* DESKTOP/TABLET TABLE */}
                         {ongoingMedications.length > 0 ?
-                            <div className="hidden md:block h-screen border rounded-md bg-white overflow-x-auto">
+                            <div className="hidden md:block border rounded-md bg-white overflow-x-auto">
                                 <table className="w-full border-collapse p-5">
                                     <thead>
                                         <tr className="text-left text-xs md:text-sm text-gray-500 border-b ">

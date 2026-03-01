@@ -4,9 +4,9 @@ const Button = ({ children, variant, size, classNames, onClick, ...props }) => {
     const variantClass = () => {
         switch (variant) {
             case 'primary':
-                return 'bg-primary hover:bg-primaryHover duration-200 text-white rounded-full'
+                return 'bg-primary hover:bg-primaryHover text-white'
             case 'primaryOutline':
-                return 'bg-transparent hover:bg-primary text-primary border border-[#58294ec7] hover:text-white duration-200  rounded-full'
+                return 'bg-transparent hover:bg-primary text-primary border border-[#58294ec7] hover:text-white'
             default:
                 return ''
         }
@@ -23,7 +23,7 @@ const Button = ({ children, variant, size, classNames, onClick, ...props }) => {
     }
     
     return (
-        <button onClick={onClick} className={`${variantClass()} ${sizeClass()} ${props.uppercase && 'uppercase'} ${classNames} flex justify-center items-center gap-2`}>
+        <button onClick={onClick} className={`${variantClass()} ${sizeClass()} ${props.uppercase && 'uppercase'} ${classNames} flex justify-center items-center gap-2 duration-200 rounded-xl`}>
             {children}
         </button>
     );

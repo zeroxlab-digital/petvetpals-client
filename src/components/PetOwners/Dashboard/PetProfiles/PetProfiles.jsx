@@ -79,7 +79,7 @@ const PetProfiles = () => {
                                         }
                                     }
                                 }>
-                                    <Button variant={"primary"} classNames={"w-full"}>View details</Button>
+                                    <Button variant={"primary"} classNames={"w-full !rounded-full"}>View details</Button>
                                 </Link>
                                 <button onClick={() => handleShowModal("update", pet)} className={"p-2 text-2xl text-primary"}><HiOutlinePencilAlt /></button>
                             </div>

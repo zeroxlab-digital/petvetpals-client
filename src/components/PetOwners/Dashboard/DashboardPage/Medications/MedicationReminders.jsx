@@ -167,7 +167,7 @@ const MedicationReminders = ({ petId, ongoingMedications }) => {
     if (isLoading) return <PetSpinner />;
 
     return (
-        <div className="space-y-5 h-screen">
+        <div className="space-y-5">
             {scheduledMedications.length > 0 ? (
                 <>
                     {/* MOBILE CARDS */}

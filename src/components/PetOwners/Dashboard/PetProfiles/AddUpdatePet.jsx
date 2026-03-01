@@ -145,7 +145,7 @@ const AddUpdatePet = ({ popup = () => { }, setPopup = () => { }, setPetDetailsOp
   return (
     <div className="max-h-[80vh] overflow-y-auto space-y-5">
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <Label htmlFor="petname">Name</Label>
           <Input
@@ -216,13 +216,13 @@ const AddUpdatePet = ({ popup = () => { }, setPopup = () => { }, setPetDetailsOp
             <button
               type="button"
               onClick={() => setPopup({ show: false, type: null, pet: null })}
-              className="bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg font-medium py-3 px-6 transition-colors duration-200 flex-1"
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-xl font-medium py-2.5 px-6 transition-colors duration-200 flex-1"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="bg-primary hover:bg-primaryHover text-white rounded-lg font-medium py-3 px-6 transition-colors duration-200 flex-1"
+              className="bg-primary hover:bg-primaryHover text-white rounded-xl font-medium py-2.5 px-6 transition-colors duration-200 flex-1"
             >
               {adding || updating ? <TinySpinner /> : isUpdate ? 'Update Pet' : 'Add Pet'}
             </button>
