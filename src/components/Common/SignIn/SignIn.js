@@ -12,6 +12,7 @@ import { useLoginVetMutation } from "@/redux/services/vetApi";
 
 import Input from "../Form/Input";
 import TinySpinner from "../Loader/TinySpinner";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 
 const SignInPage = ({ mode }) => {
     const router = useRouter();
@@ -129,7 +130,7 @@ const SignInPage = ({ mode }) => {
                         </div>
 
                         <div className="flex justify-end px-1">
-                            <Link href="/forgot-password" size="sm" className="text-xs font-black text-primary uppercase tracking-widest hover:underline">
+                            <Link href="/forgot-password" size="sm" className="text-xs font-black text-primary uppercase tracking-widest underline">
                                 Forgot Password?
                             </Link>
                         </div>
@@ -145,7 +146,7 @@ const SignInPage = ({ mode }) => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full py-4 bg-primary hover:bg-primaryHover text-white rounded-2xl font-black uppercase tracking-widest text-sm transition-all shadow-xl shadow-slate-200 flex items-center justify-center gap-3 active:scale-[0.98] group"
+                            className="w-full py-3 bg-primary hover:bg-primaryHover text-white rounded-full font-black uppercase tracking-widest text-sm transition-all shadow-xl shadow-slate-200 flex items-center justify-center gap-3 active:scale-[0.98] group"
                         >
                             {isLoading ? <TinySpinner /> : (
                                 <>Sign In <HiOutlineArrowRight className="group-hover:translate-x-1 transition-transform" /></>
@@ -159,13 +160,41 @@ const SignInPage = ({ mode }) => {
                             <span className="absolute bg-white px-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Or Continue With</span>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
-                            <button className="flex items-center justify-center gap-3 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all text-xs font-bold text-slate-700">
-                                <Image src="/images/google.webp" alt="Google" width={16} height={16} /> Google
-                            </button>
-                            <button className="flex items-center justify-center gap-3 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all text-xs font-bold text-slate-700">
-                                <Image src="/images/facebook-icon.png" alt="Facebook" width={16} height={16} /> Facebook
-                            </button>
+                        <div className="">
+                            {/* <button onClick={() => handleGoogleLogin()} className="w-full flex items-center justify-center gap-3 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all text-xs font-bold text-slate-700">
+                                <Image src="/images/google.webp" alt="Google" width={16} height={16} /> Continue with Google
+                            </button> */}
+                            <GoogleLogin
+                                onSuccess={async (credentialResponse) => {
+                                    try {
+                                        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/api/user/google`,
+                                            {
+                                                method: "POST",
+                                                headers: {
+                                                    "Content-Type": "application/json"
+                                                },
+                                                credentials: "include",
+                                                body: JSON.stringify({ credential: credentialResponse.credential })
+                                            });
+                                        const data = await res.json();
+                                        if (data.success) {
+                                            toast.success(`Welcome!`, { autoClose: 2000 });
+                                        } else {
+                                            toast.error(data.message);
+                                        }
+                                        router.push(mode === "user" ? "/dashboard" : "/veterinarian/dashboard");
+                                    } catch (err) {
+                                        toast.error("Google sign-in failed.");
+                                    }
+                                }}
+                                onError={() => toast.error("Google sign-in failed.")}
+                                width="100%"
+                                size="large"
+                                theme="outline"
+                                shape="pill"
+                                text="continue_with"
+                                logo_alignment="center"
+                            />
                         </div>
 
                         <p className="text-center text-slate-500 text-sm mt-10 font-medium">

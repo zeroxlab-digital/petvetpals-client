@@ -12,6 +12,7 @@ import { useRegisterVetMutation } from "@/redux/services/vetApi";
 
 import Input from "../Form/Input";
 import TinySpinner from "../Loader/TinySpinner";
+import { GoogleLogin } from "@react-oauth/google";
 
 const SignUpPage = ({ mode }) => {
     const router = useRouter();
@@ -48,16 +49,16 @@ const SignUpPage = ({ mode }) => {
 
             <div className="hidden lg:flex lg:w-1/2 relative bg-slate-50 items-center justify-center p-12">
                 <div className="absolute inset-0 z-0 opacity-40">
-                    <Image 
-                        src={mode === 'user' ? "/images/dog-white-yellow.jpg" : "/images/cat-vet.jpg"} 
-                        alt="Background" 
-                        fill 
+                    <Image
+                        src={mode === 'user' ? "/images/dog-white-yellow.jpg" : "/images/cat-vet.jpg"}
+                        alt="Background"
+                        fill
                         className="object-cover grayscale-[20%]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-l from-white via-white/20 to-transparent" />
                 </div>
-                
-                <motion.div 
+
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="relative z-10 max-w-md"
@@ -69,8 +70,8 @@ const SignUpPage = ({ mode }) => {
                         Join the future of <span className="text-primary italic font-light">pet wellness.</span>
                     </h1>
                     <p className="text-slate-500 text-lg font-medium leading-relaxed">
-                        {mode === 'user' 
-                            ? "Start tracking symptoms and managing your pet's health with AI-powered insights today." 
+                        {mode === 'user'
+                            ? "Start tracking symptoms and managing your pet's health with AI-powered insights today."
                             : "Provide world-class digital care and stay connected with pet parents effortlessly."}
                     </p>
                 </motion.div>
@@ -82,7 +83,7 @@ const SignUpPage = ({ mode }) => {
                     style={{ backgroundImage: `linear-gradient(#2563eb 1px, transparent 1px), linear-gradient(90deg, #2563eb 1px, transparent 1px)`, backgroundSize: '40px 40px' }}
                 />
 
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     className="w-full max-w-md z-10"
@@ -154,7 +155,7 @@ const SignUpPage = ({ mode }) => {
                         <button
                             type="submit"
                             disabled={userLoading || vetLoading}
-                            className="w-full py-4 bg-primary hover:bg-primaryHover text-white rounded-2xl font-black uppercase tracking-widest text-sm transition-all shadow-lg shadow-pink-100 flex items-center justify-center gap-3 active:scale-[0.98]"
+                            className="w-full py-3 bg-primary hover:bg-primaryHover text-white rounded-full font-black uppercase tracking-widest text-sm transition-all shadow-lg shadow-pink-100 flex items-center justify-center gap-3 active:scale-[0.98]"
                         >
                             {userLoading || vetLoading ? <TinySpinner /> : (
                                 <>Sign Up <HiOutlineArrowRight /></>
@@ -168,13 +169,41 @@ const SignUpPage = ({ mode }) => {
                             <span className="absolute bg-white px-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Or continue with</span>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
-                            <button className="flex items-center justify-center gap-3 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all text-sm font-bold text-slate-700">
+                        <div className="">
+                            {/* <button className="flex items-center justify-center gap-3 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all text-sm font-bold text-slate-700">
                                 <Image src="/images/google.webp" alt="Google" width={18} height={18} /> Google
-                            </button>
-                            <button className="flex items-center justify-center gap-3 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all text-sm font-bold text-slate-700">
-                                <Image src="/images/facebook-icon.png" alt="Facebook" width={18} height={18} /> Facebook
-                            </button>
+                            </button> */}
+                            <GoogleLogin
+                                onSuccess={async (credentialResponse) => {
+                                    try {
+                                        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/api/user/google`,
+                                            {
+                                                method: "POST",
+                                                headers: {
+                                                    "Content-Type": "application/json"
+                                                },
+                                                credentials: "include",
+                                                body: JSON.stringify({ credential: credentialResponse.credential })
+                                            });
+                                        const data = await res.json();
+                                        if (data.success) {
+                                            toast.success(`Welcome!`, { autoClose: 2000 });
+                                        } else {
+                                            toast.error(data.message);
+                                        }
+                                        router.push(mode === "user" ? "/dashboard" : "/veterinarian/dashboard");
+                                    } catch (err) {
+                                        toast.error("Google sign-in failed.");
+                                    }
+                                }}
+                                onError={() => toast.error("Google sign-in failed.")}
+                                width="100%"
+                                size="large"
+                                theme="outline"
+                                shape="pill"
+                                text="continue_with"
+                                logo_alignment="center"
+                            />
                         </div>
 
                         <p className="text-center text-slate-500 text-sm mt-8 font-medium">

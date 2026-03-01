@@ -3,6 +3,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Inter, Baloo_2 } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "./provider";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const inter = Inter({ subsets: ["latin"] });
 const baloo2 = Baloo_2({ subsets: ["latin"], weight: ["400", "600", "700"] });
@@ -22,11 +23,13 @@ const RootLayout = ({ children }) => {
   return (
     <html lang="en">
       <body className={`${inter.className} ${baloo2.className}`}>
-        <StoreProvider>
-          {children}
-          <Analytics />
-          <SpeedInsights />
-        </StoreProvider>
+        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
+          <StoreProvider>
+            {children}
+            <Analytics />
+            <SpeedInsights />
+          </StoreProvider>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );
