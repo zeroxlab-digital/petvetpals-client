@@ -160,7 +160,7 @@ const SignInPage = ({ mode }) => {
                             <span className="absolute bg-white px-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Or Continue With</span>
                         </div>
 
-                        <div className="">
+                        <div className="w-full flex justify-center">
                             {/* <button onClick={() => handleGoogleLogin()} className="w-full flex items-center justify-center gap-3 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all text-xs font-bold text-slate-700">
                                 <Image src="/images/google.webp" alt="Google" width={16} height={16} /> Continue with Google
                             </button> */}

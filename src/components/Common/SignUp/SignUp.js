@@ -169,7 +169,7 @@ const SignUpPage = ({ mode }) => {
                             <span className="absolute bg-white px-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Or continue with</span>
                         </div>
 
-                        <div className="">
+                        <div className="w-full flex justify-center">
                             {/* <button className="flex items-center justify-center gap-3 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all text-sm font-bold text-slate-700">
                                 <Image src="/images/google.webp" alt="Google" width={18} height={18} /> Google
                             </button> */}
