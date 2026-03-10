@@ -37,13 +37,16 @@ The platform combines a beautiful, responsive frontend with a scalable backend (
 
 | Category | Technology |
 |-----------|-------------|
-| **Frontend Framework** | Next.js (App Router) |
-| **Styling & Components** | Tailwind CSS, shadcn/ui, Framer Motion, Lucide Icons |
-| **State Management** | Redux Toolkit / RTK Query |
-| **Language** | JavaScript (ES6+) |
+| **Frontend Framework** | Next.js 14 (App Router), React 18 |
+| **Styling & Components** | Tailwind CSS, Material UI (MUI), Radix UI, Styled Components, DaisyUI |
+| **Animations & Icons** | Framer Motion, Lucide React, React Icons |
+| **State Management** | Redux Toolkit, Redux Persist |
+| **Forms & Validation** | React Hook Form, Zod |
+| **API & Data Fetching** | Axios |
+| **Charts & Visualization** | Recharts |
+| **Authentication** | Google OAuth, JSON Web Tokens (JWT) |
+| **Analytics & Monitoring** | Vercel Analytics, Vercel Speed Insights |
 | **Backend Integration** | Express.js + MongoDB REST APIs |
-| **Authentication** | JSON Web Tokens (JWT) |
-| **AI & Automation** | TogetherAI APIs for intelligent symptom & nutrition insights |
 | **Deployment Ready** | Vercel / Netlify compatible, modular architecture |
 
 ---
