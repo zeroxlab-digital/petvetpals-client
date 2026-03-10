@@ -1,10 +1,21 @@
+<div align="center">
+<h1>PetVetPals</h1>
 
-<h1 align="center">PetVetPals</h1>
+**AI-Powered Pet Health & Wellness Platform**
 
-<p align="center">
-  <strong>AI-Powered Pet Health & Wellness Platform</strong><br>
-  Empowering pet owners with intelligent tools to manage, monitor, and improve their pets’ health — all in one smart dashboard.
-</p>
+[View Live Demo](https://petvetpals.com) · [Report Bug](https://github.com/petvetpals/petvetpals-client/issues) · [Request Feature](https://github.com/petvetpals/petvetpals-client/issues)
+
+![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=nextdotjs)
+![React](https://img.shields.io/badge/React-18-blue?logo=react)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-06B6D4?logo=tailwindcss)
+![Redux Toolkit](https://img.shields.io/badge/Redux_Toolkit-764ABC?logo=redux)
+![MUI](https://img.shields.io/badge/MUI-007FFF?logo=mui)
+![Radix UI](https://img.shields.io/badge/Radix_UI-black)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-purple)
+![Axios](https://img.shields.io/badge/Axios-5A29E4)
+![Zod](https://img.shields.io/badge/Zod-Validation-blue)
+
+</div>
 
 ---
 
@@ -65,6 +76,41 @@ The platform combines a beautiful, responsive frontend with a scalable backend (
 
 ---
 
+## 📸 Screenshots
+
+<details>
+<summary>Click to view screenshots</summary>
+
+### Home Page
+![Landing Hero Section](./public/screenshots/banner.png)
+*Hero section with compelling introduction and CTA*
+
+### Dashboard Page
+![Dashboard](./public/screenshots/dashboard.png)
+*Dynamic and interactive pet health dashboard with real-time data*
+
+### Dashboard Page 2
+![Dashboard 2](./public/screenshots/dashboard2.png)
+
+### Pet Profile
+![Pet Profile](./public/screenshots/pet-profiles.png)
+
+### AI Features
+![AI Features](./public/screenshots/ai-features.png)
+
+### Vet Consultation
+![Vet Consultation](./public/screenshots/vet-consultation.png)
+
+### Vet Consultation 2
+![Vet Consultation 2](./public/screenshots/vet-consultation2.png)
+
+### Chat with Vet
+![Chat with Vet](./public/screenshots/vet-chat.png)
+
+</details>
+
+---
+
 ## ⚙️ Getting Started
 
 ### 1. Clone the Repository
@@ -80,7 +126,16 @@ cd petvetpals-client
 npm install
 ```
 
-### 3. Run the Development Server
+### 3. Set up envvironment variables
+
+```bash
+Create a `.env.local` file in the root directory:
+NEXT_PUBLIC_API_BASE=what2810ever01284it0123is0101
+GOOGLE_CLIENT=whateveritis
+# Add other environment variables as needed
+```
+
+### 4. Run the Development Server
 
 ```bash
 npm run dev
