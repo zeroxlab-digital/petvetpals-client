@@ -145,5 +145,5 @@ The app will be live at **[http://localhost:3000](http://localhost:3000)**
 
 ---
 
-**Developed by ❤️ by [Kazi Solayman](https://github.com/kazisolah114)**
+**Developed by ❤️ by [Kazi Solayman](https://github.com/kazisola)**
 *Focused on creating meaningful, AI-powered digital experiences.*
